@@ -3,7 +3,7 @@
       "nixpacksPlan": {
         "phases": {
           "setup": {
-            "nixPkgs": ["php", "composer"]
+            "nixPkgs": ["php83", "php83Packages.composer"]
           },
           "install": {
             "cmds": ["composer install --no-interaction --prefer-dist --optimize-autoloader"]
