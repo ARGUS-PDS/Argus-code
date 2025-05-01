@@ -1,9 +1,17 @@
 {
     "build": {
-      "builder": "heroku/buildpacks:20"
+      "nixpacksPlan": {
+        "phases": {
+          "setup": {
+            "nixPkgs": ["php", "composer"]
+          },
+          "install": {
+            "cmds": ["composer install --no-interaction --prefer-dist --optimize-autoloader"]
+          }
+        }
+      }
     },
     "start": {
       "cmd": "php artisan serve --host=0.0.0.0 --port=$PORT"
     }
-  }
-  
+  }  
