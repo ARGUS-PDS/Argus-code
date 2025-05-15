@@ -9,7 +9,7 @@ Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/dashboard', function () {
-    return view('dashboard'); 
+    return view('dashboard');
 })->middleware('auth');
 
 Route::get('/admin-dashboard', function () {

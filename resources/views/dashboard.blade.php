@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,52 +8,62 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      background-color: #611919;
+      background-color: #773138;
     }
+
     .sidebar {
-      background-color: #e6d7bf;
+      background-color: #C6A578;
       height: 100vh;
       padding: 1rem;
       color: #202132;
     }
+
     .main-content {
       padding: 2rem;
     }
-    .dropdown-menu {
-      display: none;
-    }
-    .dropdown:hover .dropdown-menu {
-      display: block;
-      margin-top: 0;
-    }
+
     .btn-dashboard {
-      background-color: #e6d7bf;
+      background-color: #C6A578;
       color: #202132;
       border-radius: 15px;
       padding: 1.2rem;
       font-weight: bold;
       width: 100%;
     }
+
+    .btn-dashboard:hover {
+      background-color: #C6A578;
+    }
+
     .panel {
-      background-color: #e6dfd4;
+      background-color: #C6A578;
       color: #202132;
       border-radius: 15px;
       padding: 1rem;
       height: 250px;
       overflow-y: auto;
     }
+
     .panel h5 {
       font-weight: bold;
     }
+
     .dropdown-menu a {
       color: #202132;
-      background-color: #e6dfd4 ;
+      background-color: #C6A578;
     }
+
     .dropdown-menu a:hover {
-      background-color: #e6dfd4;
+      background-color: #000000;
+      color: #FFFFFF;
+    }
+
+    .dropdown-menu {
+      display: none;
     }
   </style>
 </head>
+
 <body>
   <div class="container-fluid">
     <div class="row">
@@ -65,10 +76,10 @@
         <div class="row mb-4">
           <div class="col-md-4">
             <div class="dropdown">
-              <button class="btn btn-dashboard dropdown-toggle w-100">
+              <button class="btn btn-dashboard dropdown-toggle w-100" onclick="show('dropdown-menu-cadastro')">
                 Cadastro
               </button>
-              <ul class="dropdown-menu w-100">
+              <ul class="dropdown-menu w-100" id="dropdown-menu-cadastro">
                 <li><a class="dropdown-item" href="/cadastrar-produto">Cadastro de Produtos</a></li>
                 <li><a class="dropdown-item" href="/cadastrar-produto-ean">Cadastro de Produtos via EAN</a></li>
                 <li><a class="dropdown-item" href="cadastro_fornecedor.html">Cadastro de Fornecedores</a></li>
@@ -78,10 +89,10 @@
           </div>
           <div class="col-md-4">
             <div class="dropdown">
-              <button class="btn btn-dashboard dropdown-toggle w-100">
+              <button class="btn btn-dashboard dropdown-toggle w-100" onclick="show('dropdown-menu-estoque')">
                 Estoque
               </button>
-              <ul class="dropdown-menu w-100">
+              <ul class="dropdown-menu w-100" id="dropdown-menu-estoque">
                 <li><a class="dropdown-item" href="#">Controle</a></li>
                 <li><a class="dropdown-item" href="#">Acompanhamento de Validade</a></li>
                 <li><a class="dropdown-item" href="#">Etiquetas</a></li>
@@ -90,10 +101,10 @@
           </div>
           <div class="col-md-4">
             <div class="dropdown">
-              <button class="btn btn-dashboard dropdown-toggle w-100">
+              <button class="btn btn-dashboard dropdown-toggle w-100" onclick="show('dropdown-menu-pedido')">
                 Pedidos
               </button>
-              <ul class="dropdown-menu w-100">
+              <ul class="dropdown-menu w-100" id="dropdown-menu-pedido">
                 <li><a class="dropdown-item" href="#">Envio de Pedido</a></li>
                 <li><a class="dropdown-item" href="#">Cotação de Fornecedores</a></li>
               </ul>
@@ -139,7 +150,21 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </body>
+
+<script>
+  function show(id) {
+    const menu_hidden = document.getElementById(id);
+    const display = window.getComputedStyle(menu_hidden).display;
+    console.log(display)
+    if (display === "none") {
+      menu_hidden.style.display = "block"
+    } else {
+      menu_hidden.style.display = "none"
+    }
+  }
+</script>
+
 </html>

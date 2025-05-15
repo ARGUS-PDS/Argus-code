@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cadastrar Produto</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-  <div class="bg-white p-8 rounded-2xl shadow-md w-full max-w-3xl">
+
+<style>
+  body {
+    background: #FFFFFF;
+  }
+
+  .bg-beige {
+    background: #C6A578;
+  }
+</style>
+
+<body class="flex items-center justify-center min-h-screen">
+  <div class="bg-beige p-8 rounded-2xl shadow-md w-full max-w-3xl">
     <h2 class="text-2xl font-semibold mb-6">Cadastrar Produto</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div>
-        <div class="w-32 h-32 border-2 border-gray-300 rounded-lg flex items-center justify-center mb-2">
-          <span class="text-gray-400 text-sm">Imagem</span>
-        </div>
+        <input type="file" id="imageInput" accept="image/*" class="hidden" onchange="previewImage(event)">
+        <label for="imageInput" class="w-32 h-32 border-2 border-gray-300 rounded-lg flex items-center justify-center mb-2 cursor-pointer hover:border-blue-400">
+          <img id="preview" class="hidden w-full h-full object-cover rounded-lg" />
+          <span id="placeholder" class="text-gray-400 text-sm">Imagem</span>
+        </label>
       </div>
+
 
       <div>
         <label class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
@@ -58,10 +73,10 @@
 
       <div class="col-span-1 md:col-span-2">
         <label class="block text-sm font-medium text-gray-700 mb-1">Situação</label>
-        <label class="inline-flex items-center cursor-pointer">
+        <label class="inline-flex items-center cursor-pointer" onclick="show()">
           <input type="checkbox" class="sr-only peer">
           <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer dark:bg-gray-700 peer-checked:bg-green-500 transition-all"></div>
-          <span class="ml-3 text-sm text-gray-700 peer-checked:text-green-600">Ativo</span>
+          <span class="ml-3 text-sm text-gray-700 peer-checked:text-green-600" id="active">Inativo</span>
         </label>
       </div>
     </div>
@@ -72,4 +87,35 @@
     </div>
   </div>
 </body>
+<script>
+  function show() {
+    const checkbox = document.querySelector('input[type="checkbox"]');
+    const statusElement = document.getElementById("active");
+
+    if (checkbox.checked) {
+      statusElement.textContent = "Ativo";
+    } else {
+      statusElement.textContent = "Inativo";
+    }
+  }
+
+  function previewImage(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById("preview");
+    const placeholder = document.getElementById("placeholder");
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        preview.src = e.target.result;
+        preview.classList.remove("hidden");
+        placeholder.classList.add("hidden");
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+</script>
+
+
+
 </html>
