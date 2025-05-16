@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-
-use illuminate\Support\Facades\Auth;
-use illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -20,12 +20,13 @@ Route::get('/cadastrar-produto-ean', function () {
     return view('codigo-de-barras');
 });
 
-Route::get('/voltar', function () {
-    return view('dashboard');
-});
-
 Route::get('/cadastrar-produto', function () {
     return view('cadastro-produto');
+});
+Route::post('/cadastrar-produto', [ProductController::class, 'store'])->name('products.store');
+
+Route::get('/voltar', function () {
+    return view('dashboard');
 });
 
 Route::get('/logout', function () {
