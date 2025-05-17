@@ -68,7 +68,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-1 sidebar d-flex flex-column align-items-start">
-        <i class="bi bi-person-circle me-4"></i> Ana Maria
+        <i class="bi bi-person-circle me-2"></i> {{ Auth::user()->name }}
       </div>
 
       <div class="col-md-10 main-content">
@@ -95,6 +95,7 @@
                 <li><a class="dropdown-item" href="#">Controle</a></li>
                 <li><a class="dropdown-item" href="#">Acompanhamento de Validade</a></li>
                 <li><a class="dropdown-item" href="/etiquetas">Etiquetas</a></li>
+                <li><a class="dropdown-item" href="/detalhamento-lote">Detalhamento de Lote</a></li>
               </ul>
             </div>
           </div>

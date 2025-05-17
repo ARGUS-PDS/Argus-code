@@ -5,7 +5,8 @@
   <title>Etiquetas para Gôndola</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet" />
-  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
 <style>
   body {
     font-family: Arial, sans-serif;
@@ -156,14 +157,9 @@
 <body>
 
 <div class="container">
-    <div class="back">
-      <div>
-        <a href="/dashboard" class="d-flex align-center">
-          <img class="image" src="{{ asset('images/left-arrow.png') }}" alt="Logo">
-          <h3 class="font-semibold">DASHBOARD</h3>
-        </a>
-      </div>
-    </div>
+    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary mb-3">
+      <i class="bi bi-arrow-left"></i> Voltar
+    </a>
   <h2 class="mb-4 text-center">Gera Etiquetas</h2>
 
   @if(session('error'))

@@ -46,6 +46,10 @@ Route::get('/cadastrar-funcionario', function () {
     return view('cadastro-funcionario');
 });
 
+Route::get('/detalhamento-lote', function () {
+    return view('lote.detalhamento');
+});
+
 Route::get('/etiquetas', [EtiquetaController::class, 'index']);
 Route::post('/adicionar', [EtiquetaController::class, 'adicionar'])->name('etiquetas.adicionar');
 Route::get('/limpar', [EtiquetaController::class, 'limpar'])->name('etiquetas.limpar');
