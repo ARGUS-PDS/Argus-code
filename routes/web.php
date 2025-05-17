@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EtiquetaController;
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -28,6 +29,22 @@ Route::post('/cadastrar-produto', [ProductController::class, 'store'])->name('pr
 Route::get('/voltar', function () {
     return view('dashboard');
 });
+
+Route::get('/cadastrar-fornecedor', function () {
+    return view('cadastro-fornecedor');
+});
+
+Route::get('/cadastrar-funcionario', function () {
+    return view('cadastro-funcionario');
+});
+
+Route::get('/etiquetas', function () {
+    return view('etiquetas');
+});
+
+Route::get('/etiquetas', [EtiquetaController::class, 'index']);
+Route::post('/adicionar', [EtiquetaController::class, 'adicionar'])->name('etiquetas.adicionar');
+Route::get('/limpar', [EtiquetaController::class, 'limpar'])->name('etiquetas.limpar');
 
 Route::get('/logout', function () {
     Auth::logout();

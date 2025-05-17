@@ -67,7 +67,6 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <!-- Sidebar -->
       <div class="col-md-1 sidebar d-flex flex-column align-items-start">
         <i class="bi bi-person-circle me-4"></i> Ana Maria
       </div>
@@ -82,8 +81,8 @@
               <ul class="dropdown-menu w-100" id="dropdown-menu-cadastro">
                 <li><a class="dropdown-item" href="/cadastrar-produto">Cadastro de Produtos</a></li>
                 <li><a class="dropdown-item" href="/cadastrar-produto-ean">Cadastro de Produtos via EAN</a></li>
-                <li><a class="dropdown-item" href="cadastro_fornecedor.html">Cadastro de Fornecedores</a></li>
-                <li><a class="dropdown-item" href="#">Cadastro de Funcionários</a></li>
+                <li><a class="dropdown-item" href="/cadastrar-fornecedor">Cadastro de Fornecedores</a></li>
+                <li><a class="dropdown-item" href="/cadastrar-funcionario">Cadastro de Funcionários</a></li>
               </ul>
             </div>
           </div>
@@ -95,7 +94,7 @@
               <ul class="dropdown-menu w-100" id="dropdown-menu-estoque">
                 <li><a class="dropdown-item" href="#">Controle</a></li>
                 <li><a class="dropdown-item" href="#">Acompanhamento de Validade</a></li>
-                <li><a class="dropdown-item" href="#">Etiquetas</a></li>
+                <li><a class="dropdown-item" href="/etiquetas">Etiquetas</a></li>
               </ul>
             </div>
           </div>
