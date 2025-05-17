@@ -164,7 +164,7 @@
                     </div>
                     <div class="input mb-3">
                         <label for="cartao_seg" class="form-label center">Final do cartão de segurança</label>
-                        <input type="text" class="form-control" name="cartao_seg" id="cartao_seg" maxlength="2" required pattern="\d{2}" placeholder="Ex: 42">
+                        <input type="text" class="form-control" name="cartao_seg" id="cartao_seg" maxlength="4" required pattern="\d{4}" placeholder="Ex: 0000">
                     </div>
                 </div>
 

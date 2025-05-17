@@ -9,10 +9,13 @@
 <body class="bg-light vh-100 d-flex flex-column justify-content-center align-items-center">
 
     <div class="card shadow p-5 text-center" style="max-width: 500px; width: 100%;">
-        <h2 class="mb-4">Bem-vindo, Administrador!</h2>
-        <p class="mb-4">Você está no painel exclusivo do administrador do sistema Argus.</p>
+        <h2 class="mb-4">Argon</h2>
+        <p class="mb-4">Painel exclusivo da equipe Argon.</p>
 
-        <a href="/logout" class="btn btn-danger">Sair</a>
+        <div class="d-grid gap-3">
+            <a href="{{ route('admin.cartao') }}" class="btn btn-primary">Gerar Cartão de Segurança</a>
+            <a href="/logout" class="btn btn-danger">Sair</a>
+        </div>
     </div>
 
 </body>

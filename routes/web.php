@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\AdminController;
 
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
@@ -16,8 +17,13 @@ Route::get('/dashboard', function () {
 })->middleware('auth');
 
 Route::get('/admin-dashboard', function () {
-    return view('admin-dashboard');
+    return view('admin.admin-dashboard');
 })->middleware('auth');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/gerar-cartao', [AdminController::class, 'formGerarCartao'])->name('admin.cartao');
+    Route::post('/admin/gerar-cartao', [AdminController::class, 'gerarCartao'])->name('admin.gerarCartao');
+});
 
 Route::get('/cadastrar-produto-ean', function () {
     return view('codigo-de-barras');
@@ -38,10 +44,6 @@ Route::get('/cadastrar-fornecedor', function () {
 
 Route::get('/cadastrar-funcionario', function () {
     return view('cadastro-funcionario');
-});
-
-Route::get('/etiquetas', function () {
-    return view('etiquetas');
 });
 
 Route::get('/etiquetas', [EtiquetaController::class, 'index']);
