@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
+
 
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
@@ -43,9 +45,18 @@ Route::get('/voltar', function () {
     return view('dashboard');
 });
 
+Route::resource('suppliers', SupplierController::class);
+Route::resource('address', AddressController::class);
 Route::get('/cadastrar-fornecedor', function () {
     return view('cadastro-fornecedor');
 });
+Route::post('/cadastrar-fornecedor', [SupplierController::class, 'store']);
+// Route::get('/suppliers/{id}', [SupplierController::class, 'show']);
+// Route::put('/suppliers/{id}', [SupplierController::class, 'update']);
+// Route::delete('/suppliers/{id}', [SupplierController::class, 'destroy']);
+Route::post('/cadastrar-fornecedor', [AddressController::class, 'store']);
+// Route::put('/addresses/{id}', [AddressController::class, 'update']);
+// Route::delete('/addresses/{id}', [AddressController::class, 'destroy']);
 
 Route::get('/cadastrar-funcionario', function () {
     return view('cadastro-funcionario');

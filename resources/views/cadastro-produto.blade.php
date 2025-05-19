@@ -158,12 +158,12 @@
 
       <div class="first-info">
 
-         <div style="width: 30%;">
+        <div style="width: 30%;">
           <input type="file" name="image_url" class="w-full border border-gray-300 rounded-md p-2" accept="image/*" required>
           <label for="imageInput" class="w-32 h-32 upload">
             <span id="placeholder" class="">Imagem</span>
           </label>
-        </div> 
+        </div>
         <div style="width: 80%;">
           <label class="block font-medium text-red-mine mb-1 bigger">Código</label>
           <input type="text" name="code" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: esmalte_vermelho_anita" style="margin-bottom: 1.5em;" required>
