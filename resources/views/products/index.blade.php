@@ -80,7 +80,7 @@
     <div class="d-flex align-items-center justify-content-between mb-4">
       <h2 class="fw-bold mb-0">Produtos</h2>
       <div class="d-flex align-items-center gap-3">
-        <form action="{{ route('products.index') }}" method="GET" class="search-bar">
+        <form action="{{ route('pesquisa.index') }}" method="GET" class="search-bar">
           <input type="text" name="q" value="{{ request('q') }}" placeholder="Pesquisar por nome ou código...">
           <button type="submit" style="background: none; border: none;">
             <i class="bi bi-search"></i>
@@ -114,7 +114,7 @@
             <td><input type="checkbox"></td>
             <td>
               @if ($product->image_url)
-              <img src="{{ asset('storage/' . $product->image_url) }}" alt="Imagem do produto" class="img-thumb">
+              <img src="{{ asset($product->image_url) }}" alt="Imagem do produto" class="img-thumb">
               @else
               <span class="text-muted small">Sem imagem</span>
               @endif

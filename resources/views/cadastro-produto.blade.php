@@ -153,16 +153,13 @@
     </div>
     @endif
 
-    <form class="grid grid-cols-1 md:grid-cols-2 gap-6" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-6" action="{{ route('cadastrar-produto.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
 
       <div class="first-info">
 
         <div style="width: 30%;">
           <input type="file" name="image_url" class="w-full border border-gray-300 rounded-md p-2" accept="image/*" required>
-          <label for="imageInput" class="w-32 h-32 upload">
-            <span id="placeholder" class="">Imagem</span>
-          </label>
         </div>
         <div style="width: 80%;">
           <label class="block font-medium text-red-mine mb-1 bigger">Código</label>

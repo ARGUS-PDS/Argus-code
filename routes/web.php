@@ -34,11 +34,15 @@ Route::get('/cadastrar-produto-ean', function () {
 Route::get('/cadastrar-produto', function () {
     return view('cadastro-produto');
 });
-Route::post('/cadastrar-produto', [ProductController::class, 'store'])->name('products.store');
+
+Route::get('/cadastrar-produto', [ProductController::class, 'create'])->name('cadastrar-produto'); 
+Route::post('/cadastrar-produto', [ProductController::class, 'store'])->name('cadastrar-produto.store'); 
 Route::get('/produtos', [ProductController::class, 'index'])->name('products.index');
 Route::get('/lista-produtos', [ProductController::class, 'index']);
-Route::resource('products', ProductController::class);
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::resource('products', ProductController::class);
+Route::get('/pesquisa', [ProductController::class, 'index'])->name('pesquisa.index'); 
 
 
 Route::get('/voltar', function () {

@@ -59,9 +59,12 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image_url')) {
-            $path = $request->file('image_url')->store('products', 'public');
-            $validated['image_url'] = $path;
+            $file = $request->file('image_url');
+            $nomeArquivo = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('products'), $nomeArquivo);
+            $validated['image_url'] = 'products/' . $nomeArquivo;
         }
+
 
         $validated['status'] = $request->has('status') ? true : false;
 
@@ -94,16 +97,17 @@ class ProductController extends Controller
             'image_url' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
-        if ($request->hasFile('image_url')) {
-            $imagePath = $request->file('image_url')->store('products', 'public');
-        }
+        
 
         $validated['status'] = $request->has('status') ? true : false;
 
         if ($request->hasFile('image_url')) {
-            $path = $request->file('image_url')->store('products', 'public');
-            $validated['image_url'] = $path;
+            $file = $request->file('image_url');
+            $nomeArquivo = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('products'), $nomeArquivo);
+            $imagePath = 'products/' . $nomeArquivo;
         }
+
 
          Product::create([
         'image_url' => $imagePath ?? null,
