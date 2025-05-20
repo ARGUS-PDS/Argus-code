@@ -41,14 +41,14 @@ class SupplierController extends Controller
             $supplier = Supplier::create($supplierData);
 
             foreach ($validated['address'] as $address) {
-                $supplier->address()->create($address);
+                $supplier->addresses()->create($address);
             }
 
             DB::commit();
 
             return response()->json([
                 'message' => 'Fornecedor criado com sucesso',
-                'supplier' => $supplier->load('address')
+                'supplier' => $supplier->load('addresses')
             ], 201);
         } catch (\Exception $e) {
             DB::rollBack();

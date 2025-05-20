@@ -8,42 +8,27 @@ use App\Models\Supplier;
 
 class AddressController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request, $supplierId)
     {
-        // Validação dos dados do fornecedor
-        $supplierData = $request->validate([
-            'code' => 'required|unique:suppliers',
-            'type' => 'required|in:Física,Jurídica',
-            'document' => 'required',
-            'name' => 'required',
-            'distributor' => 'required',
-            // Outros campos do fornecedor
-        ]);
+        $supplier = Supplier::findOrFail($supplierId);
 
-        // Cria o fornecedor
-        $supplier = Supplier::create($supplierData);
+        if ($request->has('address') && is_array($request->address)) {
+            foreach ($request->address as $addrData) {
+                $supplier->addresses()->create([
+                    'cep' => $addrData['cep'] ?? null,
+                    'place' => $addrData['place'] ?? null,
+                    'number' => $addrData['number'] ?? null,
+                    'neighborhood' => $addrData['neighborhood'] ?? null,
+                    'city' => $addrData['city'] ?? null,
+                    'state' => $addrData['state'] ?? null,
+                ]);
+            }
+        }
 
-        // Validação dos dados do endereço
-        $addressData = $request->validate([
-            'cep' => 'required|string',
-            'place' => 'required|string',
-            'number' => 'required|integer',
-            'neighborhood' => 'required|string',
-            'city' => 'required|string',
-            'state' => 'required|string|max:2',
-            // Outros campos do endereço
-        ]);
-
-        // Cria o endereço associado ao fornecedor
-        $address = Address::create(array_merge($addressData, ['supplier_id' => $supplier->id]));
-
-        // Retorna uma resposta (você pode ajustar conforme necessário)
-        return response()->json([
-            'message' => 'Fornecedor e endereço criados com sucesso',
-            'supplier' => $supplier,
-            'address' => $address,
-        ], 201);
+        return response()->json(['message' => 'Endereços salvos com sucesso']);
     }
+
+
 
     public function update(Request $request, $id)
     {

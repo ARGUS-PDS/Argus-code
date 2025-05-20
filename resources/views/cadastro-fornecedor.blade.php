@@ -79,8 +79,8 @@
             <label for="type" class="form-label">Tipo da Pessoa</label>
             <select id="type" name="type" class="form-select" required>
               <option selected disabled>Selecione</option>
-              <option value="Física">Física</option>
-              <option value="Jurídica">Jurídica</option>
+              <option value="FISICA">Física</option>
+              <option value="JURIDICA">Jurídica</option>
             </select>
           </div>
 
@@ -109,33 +109,33 @@
         <div class="row mb-3">
           <div class="col-md-4">
             <label for="zip_code" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="zip_code" name="cep">
+            <input type="text" class="form-control" id="zip_code" name="address[0][cep]">
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col-md-8">
-            <label for="address" class="form-label">Logradouro</label>
-            <input type="text" class="form-control" id="address" name="place">
+            <label for="place" class="form-label">Logradouro</label>
+            <input type="text" class="form-control" id="place" name="address[0][place]">
           </div>
           <div class="col-md-4">
             <label for="number" class="form-label">Número</label>
-            <input type="text" class="form-control" id="number" name="number">
+            <input type="text" class="form-control" id="number" name="address[0][number]">
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col-md-4">
             <label for="neighborhood" class="form-label">Bairro</label>
-            <input type="text" class="form-control" id="neighborhood" name="neighborhood">
+            <input type="text" class="form-control" id="neighborhood" name="address[0][neighborhood]">
           </div>
           <div class="col-md-4">
             <label for="city" class="form-label">Cidade</label>
-            <input type="text" class="form-control" id="city" name="city">
+            <input type="text" class="form-control" id="city" name="address[0][city]">
           </div>
           <div class="col-md-4">
             <label for="state" class="form-label">Estado</label>
-            <select id="state" name="state" class="form-select">
+            <select id="state" name="address[0][state]" class="form-select">
               <option selected disabled>Selecione</option>
               <option value="AC">AC</option>
               <option value="AL">AL</option>
@@ -174,12 +174,12 @@
 
         <div class="row mb-3">
           <div class="col-md-4">
-            <label for="phone" class="form-label">Telefone fixo</label>
-            <input type="tel" class="form-control" id="phone" name="fixedphone">
+            <label for="fixedphone" class="form-label">Telefone fixo</label>
+            <input type="tel" class="form-control" id="fixedphone" name="fixedphone">
           </div>
           <div class="col-md-4">
-            <label for="mobile" class="form-label">Celular</label>
-            <input type="tel" class="form-control" id="mobile" name="phone">
+            <label for="phone" class="form-label">Celular</label>
+            <input type="tel" class="form-control" id="phone" name="phone">
           </div>
           <div class="col-md-4">
             <label for="email" class="form-label">E-mail</label>
@@ -189,31 +189,31 @@
 
         <div class="row mb-3">
           <div class="col-md-4">
-            <label for="contact1_phone" class="form-label">Contato 1 Telefone</label>
-            <input type="text" class="form-control" id="contactNumber1" name="contact1_phone">
+            <label for="contactNumber1" class="form-label">Contato 1 Telefone</label>
+            <input type="text" class="form-control" id="contactNumber1" name="contactNumber1">
           </div>
           <div class="col-md-4">
-            <label for="contact1_name" class="form-label">Contato 1 Nome</label>
-            <input type="text" class="form-control" id="contactName1" name="contact1_name">
+            <label for="contactName1" class="form-label">Contato 1 Nome</label>
+            <input type="text" class="form-control" id="contactName1" name="contactName1">
           </div>
           <div class="col-md-4">
-            <label for="contact1_role" class="form-label">Contato 1 Cargo</label>
-            <input type="text" class="form-control" id="contactPosition1" name="contact1_role">
+            <label for="contactPosition1" class="form-label">Contato 1 Cargo</label>
+            <input type="text" class="form-control" id="contactPosition1" name="contactPosition1">
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col-md-4">
-            <label for="contact2_phone" class="form-label">Contato 2 Telefone</label>
-            <input type="text" class="form-control" id="contactNumber2" name="contact2_phone">
+            <label for="contactNumber2" class="form-label">Contato 2 Telefone</label>
+            <input type="text" class="form-control" id="contactNumber2" name="contactNumber2">
           </div>
           <div class="col-md-4">
-            <label for="contact2_name" class="form-label">Contato 2 Nome</label>
-            <input type="text" class="form-control" id="contactName2" name="contact2_name">
+            <label for="contactName2" class="form-label">Contato 2 Nome</label>
+            <input type="text" class="form-control" id="contactName2" name="contactName2">
           </div>
           <div class="col-md-4">
-            <label for="contact2_role" class="form-label">Contato 2 Cargo</label>
-            <input type="text" class="form-control" id="contactPosition2" name="contact2_role">
+            <label for="contactPosition2" class="form-label">Contato 2 Cargo</label>
+            <input type="text" class="form-control" id="contactPosition2" name="contactPosition2">
           </div>
         </div>
       </fieldset>
@@ -322,6 +322,8 @@
         document.getElementById(tab.dataset.tab).classList.add('active');
       });
     });
+
+    alert("Fornecedor criado com sucesso!")
   </script>
 
 </body>

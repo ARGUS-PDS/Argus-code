@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Address;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Supplier extends Model
@@ -23,7 +25,7 @@ class Supplier extends Model
         'contactPosition2'
     ];
 
-    public function address()
+    public function addresses()
     {
         return $this->hasMany(Address::class);
     }
