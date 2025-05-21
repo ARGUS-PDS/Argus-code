@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Supplier;
 
 class ProductController extends Controller
 {
@@ -13,9 +14,9 @@ class ProductController extends Controller
 
         if ($request->has('q') && $request->q) {
             $q = $request->q;
-            $query->where(function($subQuery) use ($q) {
+            $query->where(function ($subQuery) use ($q) {
                 $subQuery->where('description', 'like', "%$q%")
-                        ->orWhere('code', 'like', "%$q%");
+                    ->orWhere('code', 'like', "%$q%");
             });
         }
 
@@ -43,8 +44,8 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
 
         $validated = $request->validate([
-            'code' => 'required|string|max:255|unique:products,code,'.$product->id,
-            'barcode' => 'required|string|max:50|unique:products,barcode,'.$product->id,
+            'code' => 'required|string|max:255|unique:products,code,' . $product->id,
+            'barcode' => 'required|string|max:50|unique:products,barcode,' . $product->id,
             'description' => 'required|string|max:255',
             'expiration_date' => 'required|date',
             'value' => 'required|numeric',
@@ -75,7 +76,8 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('cadastro-produto');
+        $suppliers = Supplier::all();
+        return view('cadastro-produto', compact('suppliers'));
     }
 
 
@@ -97,7 +99,7 @@ class ProductController extends Controller
             'image_url' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
-        
+
 
         $validated['status'] = $request->has('status') ? true : false;
 
@@ -109,20 +111,20 @@ class ProductController extends Controller
         }
 
 
-         Product::create([
-        'image_url' => $imagePath ?? null,
-        'code' => $request->input('code'),
-        'description' => $request->input('description'),
-        'barcode' => $request->input('barcode'),
-        'expiration_date' => $request->input('expiration_date'),
-        'value' => $request->input('value'),
-        'profit' => $request->input('profit'),
-        'supplierId' => $request->input('supplierId'),
-        'brand' => $request->input('brand'),
-        'model' => $request->input('model'),
-        'currentStock' => $request->input('currentStock'),
-        'minimumStock' => $request->input('minimumStock'),
-        'status' => $request->has('status') ? 1 : 0,
+        Product::create([
+            'image_url' => $imagePath ?? null,
+            'code' => $request->input('code'),
+            'description' => $request->input('description'),
+            'barcode' => $request->input('barcode'),
+            'expiration_date' => $request->input('expiration_date'),
+            'value' => $request->input('value'),
+            'profit' => $request->input('profit'),
+            'supplierId' => $request->input('supplierId'),
+            'brand' => $request->input('brand'),
+            'model' => $request->input('model'),
+            'currentStock' => $request->input('currentStock'),
+            'minimumStock' => $request->input('minimumStock'),
+            'status' => $request->has('status') ? 1 : 0,
         ]);
 
         return redirect()->back()->with('success', 'Produto cadastrado com sucesso!');

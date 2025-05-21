@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\DB;
 
 class SupplierController extends Controller
 {
+
+    public function index()
+    {
+        $suppliers = Supplier::all(); // ou com paginação: Supplier::paginate(10);
+        return view('suppliers.index', compact('suppliers'));
+    }
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -60,11 +66,30 @@ class SupplierController extends Controller
         }
     }
 
+    public function create()
+    {
+        return view('cadastro-fornecedor');
+    }
+
     public function show($id)
     {
         $supplier = Supplier::with('address')->findOrFail($id);
 
         return response()->json($supplier);
+    }
+
+    public function edit($id)
+    {
+        $supplier = Supplier::findOrFail($id);
+        return view('suppliers.edit', compact('supplier'));
+    }
+
+    public function destroy($id)
+    {
+        $supplier = Supplier::findOrFail($id);
+        $supplier->delete();
+
+        return response()->json(['message' => 'Fornecedor excluído com sucesso']);
     }
 
     public function update(Request $request, $id)
@@ -90,18 +115,6 @@ class SupplierController extends Controller
 
         $supplier->update($validated);
 
-        return response()->json([
-            'message' => 'Fornecedor atualizado com sucesso',
-            'supplier' => $supplier
-        ]);
-    }
-
-    public function destroy($id)
-    {
-        $supplier = Supplier::findOrFail($id);
-        $supplier->address()->delete();
-        $supplier->delete();
-
-        return response()->json(['message' => 'Fornecedor excluído com sucesso']);
+        return redirect('/lista-fornecedores')->with('success', 'Fornecedor atualizado com sucesso!');
     }
 }

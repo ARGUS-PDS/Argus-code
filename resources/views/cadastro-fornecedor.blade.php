@@ -65,14 +65,14 @@
 
 
 
-    <form id="formFornecedor" method="POST" action="">
+    <form id="formFornecedor" method="POST" action="{{ route('cadastrar-fornecedor.store') }}">
       @csrf
       <fieldset class="mb-4">
         <legend>Dados Iniciais</legend>
         <div class="row mb-3">
           <div class="col-md-4">
             <label for="code" class="form-label">Código</label>
-            <input type="text" class="form-control" id="code" name="code" required>
+            <input type="text" class="form-control" id="code" name="code">
           </div>
 
           <div class="col-md-2">
@@ -98,7 +98,7 @@
 
           <div class="col-md-5">
             <label for="distributor" class="form-label">Distribuidora</label>
-            <input type="text" class="form-control" id="distributor" name="distributor" required>
+            <input type="text" class="form-control" id="distributor" name="distributor">
           </div>
         </div>
       </fieldset>
@@ -229,72 +229,82 @@
   <script>
     document.getElementById('zip_code').addEventListener('blur', function() {
       const cep = this.value.replace(/\D/g, '');
-
+      const url = `https://viacep.com.br/ws/${cep}/json/`;
       if (cep.length === 8) {
-        fetch(`https://viacep.com.br/ws/${cep}/json/`)
-          .then(response => response.json())
+        fetch(url)
+          .then(res => res.json())
           .then(data => {
+            const place = document.getElementById('place');
+            const neighborhood = document.getElementById('neighborhood');
+            const city = document.getElementById('city');
+            const state = document.getElementById('state');
             if (!data.erro) {
-              document.getElementById('address').value = data.logradouro || '';
-              document.getElementById('neighborhood').value = data.bairro || '';
-              document.getElementById('city').value = data.localidade || '';
-              document.getElementById('state').value = data.uf || '';
+              place.value = data.logradouro || '';
+              neighborhood.value = data.bairro || '';
+              city.value = data.localidade || '';
+              number.value = data.complemento || '';
+              state.value = data.uf || '';
             } else {
               alert('CEP não encontrado.');
             }
-          })
-          .catch(error => {
-            console.error('Erro ao buscar o CEP:', error);
-            alert('Erro ao buscar o CEP.');
           });
       } else if (cep.length > 0) {
         alert('CEP inválido. Deve conter 8 dígitos.');
       }
     });
 
+
     document.getElementById('type').addEventListener('change', function() {
       const type = this.value;
       const label = document.getElementById('label-doc');
       const input = document.getElementById('cpf_cnpj');
       input.value = '';
-      if (type === 'Física') {
+      if (type === 'FISICA') {
         label.textContent = 'CPF';
         input.setAttribute('placeholder', 'Digite o CPF');
-      } else if (type === 'Jurídica') {
+        input.maxLength = 11;
+      } else if (type === 'JURIDICA') {
         label.textContent = 'CNPJ';
         input.setAttribute('placeholder', 'Digite o CNPJ');
+        input.maxLength = 14;
       }
     });
 
-    document.getElementById('cpf_cnpj').addEventListener('blur', function() {
+    let isDocumentValid = false;
+
+    document.getElementById('cpf_cnpj').addEventListener('blur', async function() {
       const type = document.getElementById('type').value;
       const value = this.value.replace(/\D/g, '');
 
-      if (type === 'Jurídica') {
+      if (type === 'JURIDICA') {
         if (value.length === 14) {
-          fetch(`https://brasilapi.com.br/api/cnpj/v1/${value}`)
-            .then(res => {
-              if (!res.ok) throw new Error('CNPJ inválido');
-              return res.json();
-            })
-            .then(data => {
-              console.log('CNPJ válido:', data);
-              if (data.nome_fantasia) {
-                document.getElementById('trade_name').value = data.nome_fantasia;
-              }
-            })
-            .catch(() => {
-              alert('CNPJ inválido ou não encontrado');
-            });
+          try {
+            const res = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${value}`);
+            if (!res.ok) throw new Error('CNPJ inválido');
+            const data = await res.json();
+            console.log('CNPJ válido:', data);
+            if (data.nome_fantasia) {
+              document.getElementById('trade_name').value = data.nome_fantasia;
+            }
+            isDocumentValid = true;
+          } catch (error) {
+            alert('CNPJ inválido ou não encontrado');
+            isDocumentValid = false;
+          }
         } else {
           alert('CNPJ deve conter 14 dígitos.');
+          isDocumentValid = false;
         }
-      } else if (type === 'Física') {
-        if (!validarCPF(value)) {
+      } else if (type === 'FISICA') {
+        if (validarCPF(value)) {
+          isDocumentValid = true;
+        } else {
           alert('CPF inválido');
+          isDocumentValid = false;
         }
       }
     });
+
 
     function validarCPF(cpf) {
       cpf = cpf.replace(/[^\d]+/g, '');
@@ -323,7 +333,12 @@
       });
     });
 
-    alert("Fornecedor criado com sucesso!")
+    document.getElementById('formFornecedor').addEventListener('submit', function(e) {
+      if (!isDocumentValid) {
+        e.preventDefault();
+        alert('CPF ou CNPJ inválido. Verifique antes de salvar.');
+      }
+    });
   </script>
 
 </body>
