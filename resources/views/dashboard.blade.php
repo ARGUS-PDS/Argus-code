@@ -81,7 +81,7 @@
               <ul class="dropdown-menu w-100" id="dropdown-menu-cadastro">
                 <li><a class="dropdown-item" href="/lista-produtos">Cadastro de Produtos</a></li>
                 <li><a class="dropdown-item" href="/cadastrar-produto-ean">Cadastro de Produtos via EAN</a></li>
-                <li><a class="dropdown-item" href="/cadastrar-fornecedor">Cadastro de Fornecedores</a></li>
+                <li><a class="dropdown-item" href="/lista-fornecedores">Cadastro de Fornecedores</a></li>
                 <li><a class="dropdown-item" href="/cadastrar-funcionario">Cadastro de Funcionários</a></li>
               </ul>
             </div>

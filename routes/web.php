@@ -37,7 +37,6 @@ Route::get('/cadastrar-produto', function () {
 
 Route::get('/cadastrar-produto', [ProductController::class, 'create'])->name('cadastrar-produto');
 Route::post('/cadastrar-produto', [ProductController::class, 'store'])->name('cadastrar-produto.store');
-Route::get('/produtos', [ProductController::class, 'index'])->name('products.index');
 Route::get('/lista-produtos', [ProductController::class, 'index']);
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
@@ -54,7 +53,11 @@ Route::resource('address', AddressController::class);
 Route::get('/cadastrar-fornecedor', function () {
     return view('cadastro-fornecedor');
 });
-Route::post('/cadastrar-fornecedor', [SupplierController::class, 'store']);
+Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+Route::get('/lista-fornecedores', [SupplierController::class, 'index']);
+Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
+Route::post('/cadastrar-fornecedor', [SupplierController::class, 'store'])->name('cadastrar-fornecedor.store');
+
 // Route::get('/suppliers/{id}', [SupplierController::class, 'show']);
 // Route::put('/suppliers/{id}', [SupplierController::class, 'update']);
 // Route::delete('/suppliers/{id}', [SupplierController::class, 'destroy']);

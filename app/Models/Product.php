@@ -21,4 +21,9 @@ class Product extends Model
         'status',
         'image_url',
     ];
+
+    public function supplier()
+    {
+        return $this->belongsTo(Supplier::class, 'supplierId')->withDefault();
+    }
 }

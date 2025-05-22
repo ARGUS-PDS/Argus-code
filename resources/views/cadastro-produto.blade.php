@@ -159,8 +159,19 @@
       <div class="first-info">
 
         <div style="width: 30%;">
-          <input type="file" name="image_url" class="w-full border border-gray-300 rounded-md p-2" accept="image/*" required>
+          <input
+            type="file"
+            name="image_url"
+            class="w-full border border-gray-300 rounded-md p-2"
+            accept="image/*"
+            onchange="previewImage(event)"
+            required>
+          <div class="mt-2">
+            <img id="preview" src="#" alt="Pré-visualização" class="hidden rounded-md" style="max-height: 150px;">
+            <div id="placeholder" class="text-gray-500">Nenhuma imagem selecionada</div>
+          </div>
         </div>
+
         <div style="width: 80%;">
           <label class="block font-medium text-red-mine mb-1 bigger">Código</label>
           <input type="text" name="code" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: esmalte_vermelho_anita" style="margin-bottom: 1.5em;" required>
@@ -195,7 +206,12 @@
 
       <div>
         <label class="block bigger font-medium text-red-mine mb-1">Fornecedor</label>
-        <input name="supplierId" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="R$" required>
+        <select name="supplierId" class="w-full border border-gray-300 rounded-md p-2" required>
+          <option value="">Selecione um fornecedor</option>
+          @foreach ($suppliers as $supplier)
+          <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+          @endforeach
+        </select>
       </div>
 
 

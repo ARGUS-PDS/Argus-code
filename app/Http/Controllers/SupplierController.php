@@ -89,8 +89,9 @@ class SupplierController extends Controller
         $supplier = Supplier::findOrFail($id);
         $supplier->delete();
 
-        return response()->json(['message' => 'Fornecedor excluído com sucesso']);
+        return redirect()->route('suppliers.index')->with('success', 'Fornecedor deletado com sucesso.');
     }
+
 
     public function update(Request $request, $id)
     {
