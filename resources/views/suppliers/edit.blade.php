@@ -95,13 +95,43 @@
 
         <div class="first-info" style="display: flex; align-items: center; gap: 10px;">
           <div style="width: 100%;">
+            <legend>Dados Iniciais</legend>
+
             <label class="block font-medium text-red-mine mb-1 bigger">Nome Atual</label>
             <input type="text" name="name" class="w-full border border-gray-300 rounded-md p-2" value="{{ old('name', $supplier->name) }}" required>
 
-            <label class="block bigger font-medium text-red-mine mb-1 mt-3">Código</label>
+            <label class="block bigger font-medium text-red-mine mb-1 mt-3">Código Atual</label>
             <input type="text" name="code" class="w-full border border-gray-300 rounded-md p-2" value="{{ old('code', $supplier->code) }}" required>
+            <label class="block bigger font-medium text-red-mine mb-1 mt-3">Distribuidora Atual</label>
+            <input type="text" name="distributor" class="w-full border border-gray-300 rounded-md p-2" value="{{ old('distributor', $supplier->distributor) }}" required>
+
           </div>
         </div>
+        <div class="first-info" style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 100%; display: flex; flex-direction: column">
+            <legend>Endereço</legend>
+
+            <label for="zip_code" class="block bigger font-medium text-red-mine mb-1 mt-3">CEP Atual</label>
+            <input id="zip_code" type="text" name="address[0][cep]" value="{{ old('address.0.cep', optional($supplier->addresses[0] ?? null)->cep) }}">
+
+            <label class="block bigger font-medium text-red-mine mb-1 mt-3">Logradouro Atual</label>
+            <input id="place" type="text" name="address[0][place]" value="{{ old('address.0.place', optional($supplier->addresses[0] ?? null)->place) }}">
+
+            <label class="block bigger font-medium text-red-mine mb-1 mt-3">Número Atual</label>
+            <input id="number" type="text" name="address[0][number]" value="{{ old('address.0.number', optional($supplier->addresses[0] ?? null)->number) }}">
+
+            <label class="block bigger font-medium text-red-mine mb-1 mt-3">Bairro Atual</label>
+            <input id="neighborhood" type="text" name="address[0][neighborhood]" value="{{ old('address.0.neighborhood', optional($supplier->addresses[0] ?? null)->neighborhood) }}">
+
+            <label class="block bigger font-medium text-red-mine mb-1 mt-3">Cidade Atual</label>
+            <input id="city" type="text" name="address[0][city]" value="{{ old('address.0.city', optional($supplier->addresses[0] ?? null)->city) }}">
+
+            <label class="block bigger font-medium text-red-mine mb-1 mt-3">Estado Atual</label>
+            <input type="text" name="address[0][state]" value="{{ old('address.0.state', optional($supplier->addresses[0] ?? null)->state) }}">
+
+          </div>
+        </div>
+
 
 
 
@@ -115,6 +145,35 @@
 
     </div>
   </div>
+
+  <script>
+    document.getElementById('zip_code').addEventListener('blur', function() {
+      const cep = this.value.replace(/\D/g, '');
+      const url = `https://viacep.com.br/ws/${cep}/json/`;
+      if (cep.length === 8) {
+        fetch(url)
+          .then(res => res.json())
+          .then(data => {
+            const place = document.getElementById('place');
+            const neighborhood = document.getElementById('neighborhood');
+            const city = document.getElementById('city');
+            const number = document.getElementById('number');
+            const state = document.getElementById('state');
+            if (!data.erro) {
+              place.value = data.logradouro || '';
+              neighborhood.value = data.bairro || '';
+              city.value = data.localidade || '';
+              number.value = data.complemento || '';
+              state.value = data.uf || '';
+            } else {
+              alert('CEP não encontrado.');
+            }
+          });
+      } else if (cep.length > 0) {
+        alert('CEP inválido. Deve conter 8 dígitos.');
+      }
+    });
+  </script>
 
 </body>
 

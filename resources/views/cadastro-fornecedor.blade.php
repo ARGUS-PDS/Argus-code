@@ -237,6 +237,7 @@
             const place = document.getElementById('place');
             const neighborhood = document.getElementById('neighborhood');
             const city = document.getElementById('city');
+            const number = document.getElementById('number');
             const state = document.getElementById('state');
             if (!data.erro) {
               place.value = data.logradouro || '';

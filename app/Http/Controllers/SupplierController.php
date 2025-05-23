@@ -105,8 +105,9 @@ class SupplierController extends Controller
 
     public function update(Request $request, $id)
     {
-        $supplier = Supplier::findOrFail($id);
+        $supplier = Supplier::with('addresses')->findOrFail($id);
 
+        // Validação dos dados principais
         $validated = $request->validate([
             'name' => 'sometimes|required|string',
             'type' => 'sometimes|required|in:FISICA,JURIDICA',
@@ -121,11 +122,44 @@ class SupplierController extends Controller
             'contactPosition1' => 'nullable|string',
             'contactNumber2' => 'nullable|string',
             'contactName2' => 'nullable|string',
-            'contactPosition2' => 'nullable|string'
+            'contactPosition2' => 'nullable|string',
+
+            // Endereço
+            'address' => 'nullable|array',
+            'address.cep' => 'nullable|string',
+            'address.place' => 'nullable|string',
+            'address.number' => 'nullable|integer',
+            'address.neighborhood' => 'nullable|string',
+            'address.city' => 'nullable|string',
+            'address.state' => 'nullable|string|max:2',
         ]);
 
-        $supplier->update($validated);
+        DB::beginTransaction();
 
-        return redirect('/lista-fornecedores')->with('success', 'Fornecedor atualizado com sucesso!');
+        try {
+            // Atualiza os dados do fornecedor
+            $supplier->update(collect($validated)->except('address')->toArray());
+
+            // Verifica se veio endereço
+            if (isset($validated['address'])) {
+                $addressData = $validated['address'];
+
+                if ($supplier->addresses->isNotEmpty()) {
+                    // Se já tem endereço, atualiza o primeiro (ou adapte para vários)
+                    $supplier->addresses->first()->update($addressData);
+                } else {
+                    // Se não tem, cria um novo
+                    $supplier->addresses()->create($addressData);
+                }
+            }
+
+            DB::commit();
+
+            return redirect()->route('suppliers.index')->with('success', 'Fornecedor atualizado com sucesso!');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return back()->withErrors('Erro ao atualizar fornecedor: ' . $e->getMessage());
+        }
     }
 }
