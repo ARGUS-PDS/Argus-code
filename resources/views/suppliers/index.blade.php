@@ -110,6 +110,7 @@
             <th>CPF/CNPJ</th>
             <th>Distribuidor</th>
             <th>Contato</th>
+            <th>Endereço</th>
             <th></th>
           </tr>
         </thead>
@@ -123,7 +124,30 @@
             <td>{{ $supplier->distributor }}</td>
             <td>
               {{ $supplier->fixedphone }}
-              <i id="toggleIcon{{ $supplier->id }}" onclick="seemore('{{ $supplier->id }}')" class="bi bi-plus-circle-fill" style="cursor: pointer;"></i>
+              <i id="toggleIconC{{ $supplier->id }}" onclick="seemorecontat('{{ $supplier->id }}')" class="bi bi-plus-circle-fill" style="cursor: pointer;"></i>
+            </td>
+            <td style="display: flex;">
+              <p style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                @php
+                $address = $supplier->addresses->first();
+                @endphp
+                {{ $address->place }}, Nº {{ $address->number }}, {{ $address->neighborhood }}
+              </p>
+              <i id="toggleIconA{{ $supplier->id }}" onclick="seemoreaddresses('{{ $supplier->id }}')" class="bi bi-plus-circle-fill" style="cursor: pointer;"></i>
+            </td>
+          <tr id="addresses{{ $supplier->id }}" style="display: none;">
+            <td colspan="7">
+              @php
+              $address = $supplier->addresses->first();
+              @endphp
+
+              @if($address)
+              <strong>Endereço:</strong> {{ $address->place }}, Nº {{ $address->number }}, {{ $address->neighborhood }} <br>
+              <strong>CEP:</strong> {{ $address->cep }} <br>
+              <strong>Cidade:</strong> {{ $address->city }} - {{ $address->state }}
+              @else
+              <strong>Endereço:</strong> Não cadastrado.
+              @endif
             </td>
           </tr>
           <tr id="contacts{{ $supplier->id }}" style="display: none;">
@@ -135,6 +159,8 @@
               <strong>Contato 2:</strong> {{ $supplier->contactName2 }} - {{ $supplier->contactPosition2 }} - {{ $supplier->contactNumber2 }}
             </td>
           </tr>
+          </tr>
+
 
           <td>
             <div class="dropdown">
@@ -168,9 +194,9 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <<script>
-  function seemore(id) {
+  function seemorecontat(id) {
   const contacts = document.getElementById("contacts" + id);
-  const icon = document.getElementById('toggleIcon' + id);
+  const icon = document.getElementById('toggleIconC' + id);
 
   if (contacts.style.display === "none" || contacts.style.display === "") {
   contacts.style.display = "table-row";
@@ -178,6 +204,21 @@
   icon.classList.add('bi-dash-circle-fill');
   } else {
   contacts.style.display = "none";
+  icon.classList.remove('bi-dash-circle-fill');
+  icon.classList.add('bi-plus-circle-fill');
+  }
+  }
+
+  function seemoreaddresses(id) {
+  const addresses = document.getElementById("addresses" + id);
+  const icon = document.getElementById('toggleIconA' + id);
+
+  if (addresses.style.display === "none" || addresses.style.display === "") {
+  addresses.style.display = "table-row";
+  icon.classList.remove('bi-plus-circle-fill');
+  icon.classList.add('bi-dash-circle-fill');
+  } else {
+  addresses.style.display = "none";
   icon.classList.remove('bi-dash-circle-fill');
   icon.classList.add('bi-plus-circle-fill');
   }
