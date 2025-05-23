@@ -57,6 +57,7 @@ Route::get('/suppliers', [SupplierController::class, 'index'])->name('suppliers.
 Route::get('/lista-fornecedores', [SupplierController::class, 'index']);
 Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
 Route::post('/cadastrar-fornecedor', [SupplierController::class, 'store'])->name('cadastrar-fornecedor.store');
+Route::get('/pesquisa', [SupplierController::class, 'index'])->name('pesquisa.index');
 
 // Route::get('/suppliers/{id}', [SupplierController::class, 'show']);
 // Route::put('/suppliers/{id}', [SupplierController::class, 'update']);

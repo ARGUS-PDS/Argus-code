@@ -108,7 +108,7 @@
       <div class="sideS">
         <div class="col-md-1 sidebar d-flex flex-column align-items-start">
           <span><i class="bi bi-person-circle me-2"></i> {{ Auth::user()->name }}</span>
-          <a href="/dashboard" style="margin-top: 10px;><span"><i class="bi bi-house-door-fill me-2"></i>Dashboard</span></a>
+          <a href="/dashboard" style="margin-top: 10px;"><span><i class="bi bi-house-door-fill me-2"></i>Dashboard</span></a>
         </div>
       </div>
 

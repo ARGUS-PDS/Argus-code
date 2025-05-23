@@ -93,7 +93,6 @@
           </button>
         </form>
         <span class="ms-4 text-secondary">Estoque atual: </span>
-        <i class="bi bi-printer fs-4 ms-3" title="Imprimir" style="cursor:pointer;"></i>
         <!-- <i class="bi bi-trash fs-4 ms-2" title="Excluir" style="cursor:pointer;"></i> -->
         <a href="{{ route('suppliers.create') }}" class="btn btn-primary add-btn ms-2" title="Adicionar">
           <i class="bi bi-plus"></i>
@@ -122,24 +121,38 @@
             <td>{{ $supplier->code }}</td>
             <td>{{ $supplier->document }}</td>
             <td>{{ $supplier->distributor }}</td>
-            <td>{{ $supplier->name}}</td>
             <td>
-              <div class="dropdown">
-                <i class="bi bi-three-dots-vertical dropdown-toggle" role="button" id="dropdownMenuButton{{ $supplier->id }}" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer;"></i>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $supplier->id }}">
-                  <li>
-                    <a class="dropdown-item" href="{{ route('suppliers.edit', $supplier->id) }}">Editar</a>
-                  </li>
-                  <li>
-                    <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este fornecedor?');">
-                      @csrf
-                      @method('DELETE')
-                      <button class="dropdown-item text-danger" type="submit">Excluir</button>
-                    </form>
-                  </li>
-                </ul>
-              </div>
+              {{ $supplier->fixedphone }}
+              <i id="toggleIcon{{ $supplier->id }}" onclick="seemore('{{ $supplier->id }}')" class="bi bi-plus-circle-fill" style="cursor: pointer;"></i>
             </td>
+          </tr>
+          <tr id="contacts{{ $supplier->id }}" style="display: none;">
+            <td colspan="7">
+              <strong>Telefone Fixo:</strong> {{ $supplier->fixedphone }} <br>
+              <strong>Celular:</strong> {{ $supplier->phone }} <br>
+              <strong>Email:</strong> {{ $supplier->email }} <br>
+              <strong>Contato 1:</strong> {{ $supplier->contactName1 }} - {{ $supplier->contactPosition1 }} - {{ $supplier->contactNumber1 }} <br>
+              <strong>Contato 2:</strong> {{ $supplier->contactName2 }} - {{ $supplier->contactPosition2 }} - {{ $supplier->contactNumber2 }}
+            </td>
+          </tr>
+
+          <td>
+            <div class="dropdown">
+              <i class="bi bi-three-dots-vertical dropdown-toggle" role="button" id="dropdownMenuButton{{ $supplier->id }}" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer;"></i>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $supplier->id }}">
+                <li>
+                  <a class="dropdown-item" href="{{ route('suppliers.edit', $supplier->id) }}">Editar</a>
+                </li>
+                <li>
+                  <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este fornecedor?');">
+                    @csrf
+                    @method('DELETE')
+                    <button class="dropdown-item text-danger" type="submit">Excluir</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </td>
           </tr>
           @empty
           <tr>
@@ -154,5 +167,22 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<<script>
+  function seemore(id) {
+  const contacts = document.getElementById("contacts" + id);
+  const icon = document.getElementById('toggleIcon' + id);
+
+  if (contacts.style.display === "none" || contacts.style.display === "") {
+  contacts.style.display = "table-row";
+  icon.classList.remove('bi-plus-circle-fill');
+  icon.classList.add('bi-dash-circle-fill');
+  } else {
+  contacts.style.display = "none";
+  icon.classList.remove('bi-dash-circle-fill');
+  icon.classList.add('bi-plus-circle-fill');
+  }
+  }
+  </script>
+
 
 </html>

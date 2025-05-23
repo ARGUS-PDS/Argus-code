@@ -9,11 +9,21 @@ use Illuminate\Support\Facades\DB;
 class SupplierController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $suppliers = Supplier::all(); // ou com paginação: Supplier::paginate(10);
+        $query = Supplier::query();
+
+        if ($request->filled('q')) {
+            $q = $request->input('q');
+            $query->where('name', 'like', '%' . $q . '%')
+                ->orWhere('code', 'like', '%' . $q . '%');
+        }
+
+        $suppliers = $query->get();
+
         return view('suppliers.index', compact('suppliers'));
     }
+
     public function store(Request $request)
     {
         $validated = $request->validate([
