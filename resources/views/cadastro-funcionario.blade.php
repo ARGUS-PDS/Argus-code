@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <title>Cadastrar Funcionário</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Favicon para tema claro -->
+  <link rel="icon" href="{{ asset('images/favicon-light.png') }}" media="(prefers-color-scheme: light)" type="image/png">
+
+  <!-- Favicon para tema escuro -->
+  <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
   <style>
     .tabs-nav {
       border-bottom: 2px solid #000;

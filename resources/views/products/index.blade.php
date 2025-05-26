@@ -6,9 +6,26 @@
   <title>Lista de Produtos</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Favicon para tema claro -->
+  <link rel="icon" href="{{ asset('images/favicon-light.png') }}" media="(prefers-color-scheme: light)" type="image/png">
+
+  <!-- Favicon para tema escuro -->
+  <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
+
   <style>
+
+    * {
+       font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial,sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+    }
+
     .search-bar {
-      background: #46585c;
+      background: #773138;
       border-radius: 20px;
       padding: 6px 16px;
       color: #fff;
@@ -25,8 +42,12 @@
       width: 90%;
     }
 
+    .search-bar:hover {
+      background:rgb(136, 59, 67);
+    }
+
     .search-bar .bi-search {
-      color: #b1b1b1;
+      color: #fff;
       font-size: 1.2rem;
       margin-left: 8px;
     }
@@ -34,12 +55,13 @@
     .table th,
     .table td {
       vertical-align: middle;
-      background: #f9f9f9;
+      background: #773138;
     }
 
     .img-thumb {
       width: 40px;
       height: 40px;
+      margin-left: 20px;
       object-fit: cover;
       border: 2px solid #198754;
       border-radius: 8px;
@@ -47,7 +69,7 @@
     }
 
     .add-btn {
-      border: 2px solid #198754;
+      border: 2px solid #773138;
       border-radius: 50%;
       width: 36px;
       height: 36px;
@@ -55,15 +77,15 @@
       align-items: center;
       justify-content: center;
       font-size: 1.5rem;
-      color: #198754;
+      color: #773138;
       background: none;
       cursor: pointer;
       margin-left: 8px;
-      transition: background 0.2s;
+      transition: background 0.5s;
     }
 
     .add-btn:hover {
-      background: #e7f6ee;
+      background: #773138;
     }
 
     .menu-dot {
@@ -99,6 +121,12 @@
       text-decoration: underline;
       /* Se quiser sublinhar no hover */
     }
+
+    .table-responsive {
+      margin: 0;
+      padding: 0;
+    }
+
   </style>
 </head>
 
