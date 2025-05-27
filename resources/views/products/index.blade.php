@@ -47,7 +47,7 @@
     }
 
     .search-bar .bi-search {
-      color: #fff;
+      color: #ccc;
       font-size: 1.2rem;
       margin-left: 8px;
     }
@@ -119,12 +119,19 @@
     a:hover {
       color: inherit;
       text-decoration: underline;
-      /* Se quiser sublinhar no hover */
     }
 
     .table-responsive {
       margin: 0;
       padding: 0;
+    }
+    .table th,
+    .table td{
+      color: #FFFFFF
+    }
+
+    .search::placeholder{
+      color: #ccc
     }
 
   </style>
@@ -145,7 +152,7 @@
           <h2 class="fw-bold mb-0">Produtos</h2>
           <div class="d-flex align-items-center gap-3">
             <form action="{{ route('pesquisa.index') }}" method="GET" class="search-bar">
-              <input type="text" name="q" value="{{ request('q') }}" placeholder="Pesquisar por nome ou código...">
+              <input class="search" type="text" name="q" value="{{ request('q') }}" placeholder="Pesquisar por nome ou código...">
               <button type="submit" style="background: none; border: none;">
                 <i class="bi bi-search"></i>
               </button>
@@ -163,7 +170,7 @@
           <table class="table align-middle">
             <thead>
               <tr>
-                <th style="width:32px"></th>
+                <th style="width:32px;"></th>
                 <th>Imagem</th>
                 <th>Nome</th>
                 <th>Fornecedor</th>
