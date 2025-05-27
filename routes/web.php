@@ -31,9 +31,7 @@ Route::get('/cadastrar-produto-ean', function () {
     return view('codigo-de-barras');
 });
 
-Route::get('/cadastrar-produto', function () {
-    return view('cadastro-produto');
-});
+
 
 Route::get('/cadastrar-produto', [ProductController::class, 'create'])->name('cadastrar-produto');
 Route::post('/cadastrar-produto', [ProductController::class, 'store'])->name('cadastrar-produto.store');
