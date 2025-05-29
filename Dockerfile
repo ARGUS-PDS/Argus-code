@@ -1,6 +1,5 @@
 FROM php:8.2-fpm
 
-# Instala dependências do sistema
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
@@ -11,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     default-mysql-client \
-    libmysqlclient-dev \
+    default-libmysqlclient-dev \
     && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl xml
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
