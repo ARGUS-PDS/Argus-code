@@ -1,11 +1,24 @@
 services:
   - type: web
     name: argus
-    runtime: php
-    buildCommand: "composer install && php artisan key:generate"
-    startCommand: "php artisan serve --host=0.0.0.0 --port=$PORT"
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        value: false
+        value: true
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        value: switchyard.proxy.rlwy.net
+      - key: DB_PORT
+        value: 43895
+      - key: DB_DATABASE
+        value: railway
+      - key: DB_USERNAME
+        value: root
+      - key: DB_PASSWORD
+        value: ubsoOZmPLqAvbTlzYwpWvpBjYzslVdbP
