@@ -41,30 +41,33 @@ class SupplierController extends Controller
             'contactNumber2' => 'nullable|string',
             'contactName2' => 'nullable|string',
             'contactPosition2' => 'nullable|string',
-            'address' => 'required|array',
-            'address.*.cep' => 'required|string',
-            'address.*.place' => 'required|string',
-            'address.*.number' => 'required|integer',
-            'address.*.neighborhood' => 'required|string',
-            'address.*.city' => 'required|string',
-            'address.*.state' => 'required|string|max:2',
+
+            // Endereço
+            'address.cep' => 'required|string',
+            'address.place' => 'required|string',
+            'address.number' => 'required|integer',
+            'address.neighborhood' => 'required|string',
+            'address.city' => 'required|string',
+            'address.state' => 'required|string|max:2',
         ]);
 
         DB::beginTransaction();
 
         try {
-            $supplierData = collect($validated)->except('address')->toArray();
-            $supplier = Supplier::create($supplierData);
+            // Cria endereço
+            $address = \App\Models\Address::create($validated['address']);
 
-            foreach ($validated['address'] as $address) {
-                $supplier->addresses()->create($address);
-            }
+            // Cria fornecedor com o ID do endereço
+            $supplierData = collect($validated)->except('address')->toArray();
+            $supplierData['address_id'] = $address->id;
+
+            $supplier = Supplier::create($supplierData);
 
             DB::commit();
 
             return response()->json([
                 'message' => 'Fornecedor criado com sucesso',
-                'supplier' => $supplier->load('addresses')
+                'supplier' => $supplier->load('address')
             ], 201);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -76,9 +79,16 @@ class SupplierController extends Controller
         }
     }
 
+
     public function create()
     {
         return view('cadastro-fornecedor');
+    }
+
+    public function create_barcode() // Ou o método que renderiza a view de cadastro
+    {
+        $suppliers = Supplier::all(); // Busca todos os fornecedores do banco de dados
+        return view('codigo-de-barras', compact('suppliers')); // Passa a variável $suppliers para a view
     }
 
     public function show($id)
@@ -88,26 +98,38 @@ class SupplierController extends Controller
         return response()->json($supplier);
     }
 
+    // app/Http/Controllers/SupplierController.php
+
     public function edit($id)
     {
-        $supplier = Supplier::findOrFail($id);
+        // Carrega o fornecedor e seu relacionamento 'address'
+        $supplier = Supplier::with('address')->findOrFail($id);
+
         return view('suppliers.edit', compact('supplier'));
     }
 
     public function destroy($id)
     {
         $supplier = Supplier::findOrFail($id);
+
+        // Opcional: deletar endereço também
+        $address = $supplier->address;
+
         $supplier->delete();
+
+        if ($address) {
+            $address->delete();
+        }
 
         return redirect()->route('suppliers.index')->with('success', 'Fornecedor deletado com sucesso.');
     }
 
 
+
     public function update(Request $request, $id)
     {
-        $supplier = Supplier::with('addresses')->findOrFail($id);
+        $supplier = Supplier::with('address')->findOrFail($id);
 
-        // Validação dos dados principais
         $validated = $request->validate([
             'name' => 'sometimes|required|string',
             'type' => 'sometimes|required|in:FISICA,JURIDICA',
@@ -137,19 +159,19 @@ class SupplierController extends Controller
         DB::beginTransaction();
 
         try {
-            // Atualiza os dados do fornecedor
+            // Atualiza dados do fornecedor
             $supplier->update(collect($validated)->except('address')->toArray());
 
-            // Verifica se veio endereço
+            // Se veio endereço
             if (isset($validated['address'])) {
-                $addressData = $validated['address'];
-
-                if ($supplier->addresses->isNotEmpty()) {
-                    // Se já tem endereço, atualiza o primeiro (ou adapte para vários)
-                    $supplier->addresses->first()->update($addressData);
+                if ($supplier->address) {
+                    // Atualiza o endereço existente
+                    $supplier->address->update($validated['address']);
                 } else {
-                    // Se não tem, cria um novo
-                    $supplier->addresses()->create($addressData);
+                    // Cria novo endereço e associa
+                    $address = \App\Models\Address::create($validated['address']);
+                    $supplier->address_id = $address->id;
+                    $supplier->save();
                 }
             }
 

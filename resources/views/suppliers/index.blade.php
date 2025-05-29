@@ -128,23 +128,22 @@
             </td>
             <td style="display: flex;">
               <p style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                @php
-                $address = $supplier->addresses->first();
-                @endphp
-                {{ $address->place }}, Nº {{ $address->number }}, {{ $address->neighborhood }}
+
+                @if($supplier->address)
+                {{ $supplier->address->place }}, Nº {{ $supplier->address->number }}, {{ $supplier->address->neighborhood }}
+                @else
+                Não informado
+                @endif
               </p>
               <i id="toggleIconA{{ $supplier->id }}" onclick="seemoreaddresses('{{ $supplier->id }}')" class="bi bi-plus-circle-fill" style="cursor: pointer;"></i>
             </td>
           <tr id="addresses{{ $supplier->id }}" style="display: none;">
             <td colspan="7">
-              @php
-              $address = $supplier->addresses->first();
-              @endphp
 
-              @if($address)
-              <strong>Endereço:</strong> {{ $address->place }}, Nº {{ $address->number }}, {{ $address->neighborhood }} <br>
-              <strong>CEP:</strong> {{ $address->cep }} <br>
-              <strong>Cidade:</strong> {{ $address->city }} - {{ $address->state }}
+              @if($supplier->address)
+              <strong>Endereço:</strong> {{ $supplier->address->place  }}, Nº {{ $supplier->address->number  }}, {{ $supplier->address->neighborhood  }} <br>
+              <strong>CEP:</strong> {{ $supplier->address->cep }} <br>
+              <strong>Cidade:</strong> {{ $supplier->address->city }} - {{ $supplier->address->state }}
               @else
               <strong>Endereço:</strong> Não cadastrado.
               @endif

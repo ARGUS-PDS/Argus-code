@@ -112,22 +112,22 @@
             <legend>Endereço</legend>
 
             <label for="zip_code" class="block bigger font-medium text-red-mine mb-1 mt-3">CEP Atual</label>
-            <input id="zip_code" type="text" name="address[0][cep]" value="{{ old('address.0.cep', optional($supplier->addresses[0] ?? null)->cep) }}">
+            <input id="zip_code" type="text" name="address[cep]" value="{{ old('supplier->address->cep', optional($supplier->address ?? null)->cep) }}">
 
             <label class="block bigger font-medium text-red-mine mb-1 mt-3">Logradouro Atual</label>
-            <input id="place" type="text" name="address[0][place]" value="{{ old('address.0.place', optional($supplier->addresses[0] ?? null)->place) }}">
+            <input id="place" type="text" name="address[place]" value="{{ old('address.place', optional($supplier->address ?? null)->place) }}">
 
             <label class="block bigger font-medium text-red-mine mb-1 mt-3">Número Atual</label>
-            <input id="number" type="text" name="address[0][number]" value="{{ old('address.0.number', optional($supplier->addresses[0] ?? null)->number) }}">
+            <input id="number" type="text" name="address[number]" value="{{ old('address.0.number', optional($supplier->address ?? null)->number) }}">
 
             <label class="block bigger font-medium text-red-mine mb-1 mt-3">Bairro Atual</label>
-            <input id="neighborhood" type="text" name="address[0][neighborhood]" value="{{ old('address.0.neighborhood', optional($supplier->addresses[0] ?? null)->neighborhood) }}">
+            <input id="neighborhood" type="text" name="address[neighborhood]" value="{{ old('address.neighborhood', optional($supplier->address ?? null)->neighborhood) }}">
 
             <label class="block bigger font-medium text-red-mine mb-1 mt-3">Cidade Atual</label>
-            <input id="city" type="text" name="address[0][city]" value="{{ old('address.0.city', optional($supplier->addresses[0] ?? null)->city) }}">
+            <input id="city" type="text" name="address[city]" value="{{ old('address.city', optional($supplier->address ?? null)->city) }}">
 
             <label class="block bigger font-medium text-red-mine mb-1 mt-3">Estado Atual</label>
-            <input type="text" name="address[0][state]" value="{{ old('address.0.state', optional($supplier->addresses[0] ?? null)->state) }}">
+            <input type="text" name="address[state]" value="{{ old('address.state', optional($supplier->address ?? null)->state) }}">
 
           </div>
         </div>

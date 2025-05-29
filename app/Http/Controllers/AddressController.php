@@ -14,7 +14,7 @@ class AddressController extends Controller
 
         if ($request->has('address') && is_array($request->address)) {
             foreach ($request->address as $addrData) {
-                $supplier->addresses()->create([
+                $supplier->address()->create([
                     'cep' => $addrData['cep'] ?? null,
                     'place' => $addrData['place'] ?? null,
                     'number' => $addrData['number'] ?? null,

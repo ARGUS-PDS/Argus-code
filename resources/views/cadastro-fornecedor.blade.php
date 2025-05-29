@@ -6,12 +6,12 @@
   <title>Cadastrar Fornecedor</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Favicon para tema claro -->
+  <!-- Favicon para tema claro -->
   <link rel="icon" href="{{ asset('images/favicon-light.png') }}" media="(prefers-color-scheme: light)" type="image/png">
 
   <!-- Favicon para tema escuro -->
   <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
-  
+
   <style>
     .tabs-nav {
       border-bottom: 2px solid #000;
@@ -116,33 +116,33 @@
         <div class="row mb-3">
           <div class="col-md-4">
             <label for="zip_code" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="zip_code" name="address[0][cep]">
+            <input type="text" class="form-control" id="zip_code" name="address[cep]">
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col-md-8">
             <label for="place" class="form-label">Logradouro</label>
-            <input type="text" class="form-control" id="place" name="address[0][place]">
+            <input type="text" class="form-control" id="place" name="address[place]">
           </div>
           <div class="col-md-4">
             <label for="number" class="form-label">Número</label>
-            <input type="text" class="form-control" id="number" name="address[0][number]">
+            <input type="number" class="form-control" id="number" name="address[number]">
           </div>
         </div>
 
         <div class="row mb-3">
           <div class="col-md-4">
             <label for="neighborhood" class="form-label">Bairro</label>
-            <input type="text" class="form-control" id="neighborhood" name="address[0][neighborhood]">
+            <input type="text" class="form-control" id="neighborhood" name="address[neighborhood]">
           </div>
           <div class="col-md-4">
             <label for="city" class="form-label">Cidade</label>
-            <input type="text" class="form-control" id="city" name="address[0][city]">
+            <input type="text" class="form-control" id="city" name="address[city]">
           </div>
           <div class="col-md-4">
             <label for="state" class="form-label">Estado</label>
-            <select id="state" name="address[0][state]" class="form-select">
+            <select id="state" name="address[state]" class="form-select">
               <option selected disabled>Selecione</option>
               <option value="AC">AC</option>
               <option value="AL">AL</option>

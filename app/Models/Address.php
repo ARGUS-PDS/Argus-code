@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     protected $fillable = [
-        'supplier_id',
         'cep',
         'place',
         'number',
@@ -16,8 +15,12 @@ class Address extends Model
         'state'
     ];
 
+    // Um Endereço TEM UM Fornecedor (se for 1:1)
+    // A chave estrangeira 'address_id' está na tabela 'suppliers'
     public function supplier()
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->hasOne(Supplier::class, 'address_id', 'id');
+        // 'address_id' é a chave estrangeira na tabela 'suppliers'
+        // 'id' é a chave local na tabela 'addresses'
     }
 }
