@@ -30,7 +30,7 @@ class EtiquetaController extends Controller
             'preco' => number_format($produto->value, 2, ',', '.')
         ];
 
-        return redirect('/')
+        return redirect('/etiquetas')
             ->withCookie(cookie('etiquetas', json_encode($etiquetas), 60));
     }
 
@@ -40,6 +40,6 @@ class EtiquetaController extends Controller
 
     public function limpar()
     {
-        return redirect('/')->withCookie(cookie('etiquetas', '', -1));
+        return redirect('/etiquetas')->withCookie(cookie('etiquetas', '', -1));
     }
 }

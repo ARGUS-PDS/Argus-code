@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard Estoque</title>
+  <title>Argus</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Favicon para tema claro -->
@@ -15,11 +15,11 @@
   
   <style>
     body {
-      background-color: #773138;
+      background-color: #713200;
     }
 
     .sidebar {
-      background-color: #C6A578;
+      background-color: #d2a87d;
       height: 100vh;
       padding: 1rem;
       color: #202132;
@@ -30,7 +30,7 @@
     }
 
     .btn-dashboard {
-      background-color: #C6A578;
+      background-color: #d2a87d;
       color: #202132;
       border-radius: 15px;
       padding: 1.2rem;
@@ -39,11 +39,11 @@
     }
 
     .btn-dashboard:hover {
-      background-color: #C6A578;
+      background-color: #d2a87d;
     }
 
     .panel {
-      background-color: #C6A578;
+      background-color: #d2a87d;
       color: #202132;
       border-radius: 15px;
       padding: 1rem;
@@ -57,11 +57,11 @@
 
     .dropdown-menu a {
       color: #202132;
-      background-color: #C6A578;
+      background-color: #d2a87d;
     }
 
     .dropdown-menu a:hover {
-      background-color: #000000;
+      background-color: #8d6b48;
       color: #FFFFFF;
     }
 
@@ -89,7 +89,7 @@
                 <li><a class="dropdown-item" href="/lista-produtos">Cadastro de Produtos</a></li>
                 <li><a class="dropdown-item" href="/cadastrar-produto-ean">Cadastro de Produtos via EAN</a></li>
                 <li><a class="dropdown-item" href="/lista-fornecedores">Cadastro de Fornecedores</a></li>
-                <li><a class="dropdown-item" href="/cadastrar-funcionario">Cadastro de Funcionários</a></li>
+                <!--<li><a class="dropdown-item" href="/cadastrar-funcionario">Cadastro de Funcionários</a></li>-->
               </ul>
             </div>
           </div>
@@ -102,7 +102,7 @@
                 <li><a class="dropdown-item" href="#">Controle</a></li>
                 <li><a class="dropdown-item" href="#">Acompanhamento de Validade</a></li>
                 <li><a class="dropdown-item" href="/etiquetas">Etiquetas</a></li>
-                <li><a class="dropdown-item" href="/detalhamento-lote">Detalhamento de Lote</a></li>
+                <!--<li><a class="dropdown-item" href="/detalhamento-lote">Detalhamento de Lote</a></li>-->
               </ul>
             </div>
           </div>
