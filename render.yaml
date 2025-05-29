@@ -9,7 +9,7 @@ services:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
-        value: true
+        value: false
       - key: DB_CONNECTION
         value: mysql
       - key: DB_HOST
