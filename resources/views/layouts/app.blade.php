@@ -26,6 +26,7 @@
             color: #202132;
             overflow-y: auto;
             transition: all 0.3s ease;
+            z-index: 1000;
         }
 
         .sidebar.collapsed {
@@ -77,14 +78,11 @@
         }
 
         .menu-item {
+            display: block;
+            padding: 0.5rem 1rem;
             color: #202132;
             text-decoration: none;
-            display: block;
-            padding: 0.4rem 0.8rem;
-            margin: 0.2rem 0;
-            border-radius: 5px;
             transition: all 0.3s ease;
-            font-size: 0.95rem;
         }
 
         .menu-item:hover {
@@ -98,7 +96,8 @@
         }
 
         .submenu {
-            padding-left: 1rem;
+            position: relative;
+            z-index: 1001;
         }
 
         .toggle-btn {
