@@ -237,6 +237,6 @@
           $('#cpf-status').text(status ? '' : 'CPF inválido');
         });
       </script>
-
 </body>
 </html>
+
