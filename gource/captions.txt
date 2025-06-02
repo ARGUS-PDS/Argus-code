@@ -1,0 +1,12 @@
+2025-05-01|Início do projeto Argus com Laravel
+2025-05-01|Estrutura inicial e rota de teste criada
+2025-05-12|Conexão com banco de dados configurada
+2025-05-13|Tela de login implementada
+2025-05-15|Tela inicial e cadastro via EAN criados
+2025-05-16|Cadastro de fornecedor e funcionário adicionado
+2025-05-17|Listagem e edição de produtos implementadas
+2025-05-18|Modelagem de fornecedores e endereços iniciada
+2025-05-20|Cadastro completo de fornecedores finalizado
+2025-05-23|Listagem e edição de fornecedores concluídas
+2025-05-27|Busca de produtos por EAN iniciada
+2025-05-29|Tela de entrada e saída de produtos adicionada

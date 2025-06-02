@@ -1,0 +1,5 @@
+felipewitkowsky1@gmail.com=Felipe|gource/imagens/felipe.jpeg
+glunamaia@gmail.com=Gabriel|gource/imagens/gabriel.jpeg
+gustavoemiliano2014@gmail.com=Gustavo|gource/imagens/gustavo.jpeg
+jotec@jotec-OptiPlex-755=Ana Maria|gource/imagens/ana.jpeg
+maria.costa1@aluno.ifsp.edu.br=Ana Maria|gource/imagens/ana.jpeg
