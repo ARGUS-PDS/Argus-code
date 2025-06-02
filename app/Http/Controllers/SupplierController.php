@@ -65,10 +65,7 @@ class SupplierController extends Controller
 
             DB::commit();
 
-            return response()->json([
-                'message' => 'Fornecedor criado com sucesso',
-                'supplier' => $supplier->load('address')
-            ], 201);
+            return redirect('/lista-fornecedores')->with('success', 'Fornecedor cadastrado com sucesso!');
         } catch (\Exception $e) {
             DB::rollBack();
 

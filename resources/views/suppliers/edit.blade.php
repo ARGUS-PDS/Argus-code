@@ -132,6 +132,40 @@
           </div>
         </div>
 
+        <div class="first-info" style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 100%; display: flex; flex-direction: column">
+            <legend>Contato</legend>
+
+            <label for="zip_code" class="block bigger font-medium text-red-mine mb-1 mt-3">Telefone Fixo Atual</label>
+            <input id="fixedphone" type="text" name="fixedphone" value="{{ old('fixedphone', $supplier->fixedphone) }}">
+
+            <label class=" block bigger font-medium text-red-mine mb-1 mt-3">Celular Atual</label>
+            <input id="phone" type="text" name="phone" value="{{ old('phone', $supplier->phone) }}">
+
+            <label class=" block bigger font-medium text-red-mine mb-1 mt-3">E-mail Atual</label>
+            <input id="email" type="text" name="email" value="{{ old('email', $supplier->email) }}">
+
+            <label class=" block bigger font-medium text-red-mine mb-1 mt-3">Contato 1 Telefone Atual</label>
+            <input id="contactNumber1" type="text" name="contactNumber1" value="{{ old('contactNumber1', $supplier->contactNumber1) }}">
+
+            <label class=" block bigger font-medium text-red-mine mb-1 mt-3">Contato 1 Nome Atual</label>
+            <input id="contactName1" type="text" name="contactName1" value="{{ old('contactName1', $supplier->contactName1) }}">
+
+            <label class=" block bigger font-medium text-red-mine mb-1 mt-3">Contato 1 Cargo Atual</label>
+            <input id="contactPosition1" type="text" name="contactPosition1" value="{{ old('contactPosition1', $supplier->contactPosition1) }}">
+
+            <label class=" block bigger font-medium text-red-mine mb-1 mt-3">Contato 2 Telefone Atual</label>
+            <input id="contactNumber2" type="text" name="contactNumber2" value="{{ old('contactNumber2', $supplier->contactNumber2) }}">
+
+            <label class=" block bigger font-medium text-red-mine mb-1 mt-3">Contato 2 Nome Atual</label>
+            <input id="contactName2" type="text" name="contactName2" value="{{ old('contactName2', $supplier->contactName2) }}">
+
+            <label class=" block bigger font-medium text-red-mine mb-1 mt-3">Contato 2 Cargo Atual</label>
+            <input id="contactPosition2" type="text" name="contactPosition2" value="{{ old('contactPosition2', $supplier->contactPosition2) }}">
+
+          </div>
+        </div>
+
 
 
 
