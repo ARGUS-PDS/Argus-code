@@ -4,8 +4,8 @@
 
 @section('content')
 <div class="row justify-content-center g-2" id="dashboard-row">
-  <div class="col-md-4" draggable=true>
-     <div class="panel">
+  <div class="col-md-4">
+     <div class="panel" draggable=true>
        <h5>Produto / Validade</h5>
        <ul class="mt-2">
          <li>Produto A - Vence em 3 dias</li>
@@ -15,8 +15,8 @@
      </div>
   </div>
 
-  <div class="col-md-4" draggable=true>
-     <div class="panel">
+  <div class="col-md-4">
+     <div class="panel" draggable=true>
        <h5>Entrada / Saída</h5>
        <ul class="mt-2">
          <li>Entrada - Produto D</li>
@@ -26,8 +26,8 @@
      </div>
   </div>
 
-  <div class="col-md-4" draggable=true>
-     <div class="panel">
+  <div class="col-md-4">
+     <div class="panel" draggable=true>
        <h5>Alertas</h5>
        <ul class="mt-2">
          <li>Produto C venceu</li>
@@ -70,43 +70,48 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const row = document.getElementById('dashboard-row');
-    let dragged = null;
+  const row = document.getElementById('dashboard-row');
+  let draggedCol = null;
 
-    row.addEventListener('dragstart', function (e) {
-        if (e.target.classList.contains('col-md-4')) {
-            dragged = e.target;
-            e.dataTransfer.effectAllowed = 'move';
+  document.querySelectorAll('.panel').forEach(panel => {
+    panel.addEventListener('dragstart', function (e) {
+      draggedCol = panel.closest('.col-md-4');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+  });
+
+  document.querySelectorAll('.col-md-4').forEach(col => {
+    col.addEventListener('dragover', function (e) {
+      e.preventDefault();
+      col.style.border = '2px dashed #773138';
+    });
+
+    col.addEventListener('dragleave', function () {
+      col.style.border = '';
+    });
+
+    col.addEventListener('drop', function (e) {
+      e.preventDefault();
+      col.style.border = '';
+      if (draggedCol && draggedCol !== col) {
+        const allCols = Array.from(row.children);
+        const draggedIndex = allCols.indexOf(draggedCol);
+        const targetIndex = allCols.indexOf(col);
+
+        if (draggedIndex < targetIndex) {
+          row.insertBefore(draggedCol, col.nextSibling);
+        } else {
+          row.insertBefore(draggedCol, col);
         }
+      }
     });
 
-    row.addEventListener('dragover', function (e) {
-        e.preventDefault();
-        const target = e.target.closest('.col-md-4');
-        if (target && target !== dragged) {
-            target.style.border = '2px dashed #773138';
-        }
+    col.addEventListener('dragend', function () {
+      col.style.border = '';
     });
-
-    row.addEventListener('dragleave', function (e) {
-        const target = e.target.closest('.col-md-4');
-        if (target) {
-            target.style.border = '';
-        }
-    });
-
-    row.addEventListener('drop', function (e) {
-        e.preventDefault();
-        document.querySelectorAll('.col-md-4').forEach(card => card.style.border = '');
-        const target = e.target.closest('.col-md-4');
-        if (target && target !== dragged) {
-            row.insertBefore(dragged, target);
-        }
-    });
-
-    row.addEventListener('dragend', function () {
-        document.querySelectorAll('.col-md-4').forEach(card => card.style.border = '');
-    });
+  });
 });
 </script>
+
+
 @endsection
