@@ -5,6 +5,8 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+  
+@include('layouts.css-variables')
 
 <head>
   <meta charset="UTF-8" />
@@ -22,15 +24,15 @@
 
 <style>
   body {
-    background: #FFFFFF;
+    background: var(--color-white);
   }
 
   .bg-beige {
-    background: #C6A578;
+    background:var(--color-bege-claro);
   }
 
   .upload {
-    border: 5px solid #919191;
+    border: 5px solid var(--color-gray);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,11 +78,11 @@
   }
 
   .text-red-mine {
-    color: #773138;
+    color: var(--color-vinho);
   }
 
   .border-mine {
-    border: 2px solid #773138;
+    border: 2px solid var(--color-vinho);
     border-radius: 8px;
   }
 
@@ -110,24 +112,24 @@
   }
 
   .btn-send {
-    background: #000000;
+    background: var(--color-black);
     border: none;
-    color: #FFFFFF;
+    color: var(--color-white);
   }
 
   .btn-cancel {
     background: transparent;
-    border: 2px solid #000000;
+    border: 2px solid var(--color-black);
   }
 
   .btn-cancel:hover {
     transition: .8s;
-    background: #876c48;
+    background: var(--color-bege-escuro);
   }
 
   .btn-send:hover {
     transition: .8s;
-    background: #727272;
+    background: var(--color-gray);
   }
 
   .logo {

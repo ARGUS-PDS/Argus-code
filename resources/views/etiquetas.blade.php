@@ -13,11 +13,13 @@
   <!-- Favicon para tema escuro -->
   <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
 
+  @include('layouts.css-variables')
+  
 <style>
   body {
     font-family: Arial, sans-serif;
     padding: 20px;
-    background-color: #f8f9fa;
+    background-color: var(--color-bege-claro);
   }
 
   .etiquetas {
@@ -30,7 +32,7 @@
   .etiqueta {
     width: 90mm;
     height: 30mm;
-    border: 3px solid #212529;
+    border: 3px solid var(--color-gray-escuro);
     padding: 10px;
     box-sizing: border-box;
     font-size: 14px;
@@ -53,7 +55,7 @@
     font-size: 16px;
     white-space: normal;
     word-wrap: break-word;
-    color: #212529;
+    color: var(--color-gray-escuro);
   }
 
   .preco-barcode {
@@ -67,7 +69,7 @@
     font-size: 26px;
     font-weight: 700;
     white-space: nowrap;
-    color: #198754; 
+    color: var(--color-green); 
   }
 
   .barcode {

@@ -5,6 +5,7 @@
   --color-bege-escuro: #8d6b48;
   
   --color-vinho: #773138;
+  --color-vinho-claro: #490006;
   --color-vinho-fundo:rgba(119, 49, 56, 0.5);
 
   --color-white: #FFFFFF;

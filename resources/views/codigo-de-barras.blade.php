@@ -13,6 +13,8 @@
   <!-- Favicon para tema escuro -->
   <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
 
+  @include('layouts.css-variables')
+  
 </head>
 
 <body class="bg-light">

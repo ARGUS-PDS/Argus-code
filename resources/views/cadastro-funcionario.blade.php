@@ -10,6 +10,9 @@
 
   <!-- Favicon para tema escuro -->
   <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
+
+  @include('layouts.css-variables')
+  
   <style>
     .tabs-nav {
       border-bottom: 2px solid #000;
@@ -22,7 +25,7 @@
       font-weight: 500;
     }
     .tab-item.active {
-      color: #0d6efd;
+      color: var(--color-blue);
     }
     .tab-item.active::after {
       content: '';
@@ -31,7 +34,7 @@
       left: 0;
       width: 100%;
       height: 4px;
-      background-color: #0d6efd;
+      background-color: var(--color-blue);
     }
     .tab-section {
       display: none;

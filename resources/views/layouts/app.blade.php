@@ -14,16 +14,36 @@
     <style>
         body {
             background-color: var(--color-bege-claro);
+            overflow-x: hidden;
         }
 
         .navbar {
-            background-color: var(--color-bege-claro) !important;
-            padding: 0.5rem 2rem;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.07);
+            background-color: var(--color-bege-claro);
+            padding: 0.5rem 0 0.5rem 2rem;
+            box-shadow: 0 3px 8px rgba(119, 49, 56, 0.5);
+            transform: translateY(-10px);
+            border-radius: 15px;
+        }
+
+        .navbar-brand {
+            margin-right: 0 !important;
         }
 
         .navbar-brand img {
             height: 40px;
+            margin-left: 10px;
+        }
+        
+        .navbar-collapse {
+            background-color: var(--color-bege-claro);
+            padding: 0.5rem 2rem;
+            height: 57px;
+            margin-left: 50px;
+            margin-right: -10px;
+            margin-bottom: -8px;
+            box-shadow: 0 8px 8px rgba(0,0,0,0.1);
+            flex-grow: 1;
+            border-radius: 15px 15px 15px 15px;
         }
 
         .navbar-nav .nav-link {
@@ -113,7 +133,7 @@
         }
         
         .user-info .bi-person-circle {
-             font-size: 1.8rem;
+            font-size: 1.8rem;
         }
 
         .main-content {

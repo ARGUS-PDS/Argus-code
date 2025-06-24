@@ -12,6 +12,8 @@
     <!-- Favicon para tema escuro -->
     <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
     
+    @include('layouts.css-variables')
+
 </head>
 <style>
     html {
@@ -24,7 +26,7 @@
     }
 
     body {
-        background: #C6A578;
+        background: var(--color-bege-claro);
         height: 98%;
     }
 
@@ -52,7 +54,7 @@
     }
 
     .card {
-        background: #773138;
+        background:var(--color-vinho);
         border-radius: 8px;
     }
 
@@ -62,7 +64,7 @@
 
     .title {
         font-size: 25px;
-        color: #FFFFFF;
+        color: var(--color-white);
     }
 
     .mb-3 {
@@ -85,7 +87,7 @@
     .form-label {
         margin: 5px;
         width: 85%;
-        color: #FFFFFF;
+        color:var(--color-white);
     }
 
     .image {
@@ -105,9 +107,9 @@
 
     .btn-send {
         padding: 10px 50px;
-        background: #000000;
+        background: var(--color-black);
         border: none;
-        color: #FFFFFF;
+        color: var(--color-white);
         font-size: 18px;
         font-weight: 600;
         border-radius: 8px;
@@ -116,9 +118,9 @@
 
     .btn-send:hover {
         transition: .8s;
-        background: #490006;
+        background: var(--color-vinho-claro);
         transform: scale(1.08, 1.08);
-        border: 1px solid red;
+        /*border: 1px solid red;*/
         letter-spacing: 2px;
     }
 
