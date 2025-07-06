@@ -167,6 +167,7 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Estoque</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Controle de Estoque</a></li>
+                            <li><a class="dropdown-item" href="/entrada-saida">Entrada e saída</a></li>
                             <li><a class="dropdown-item" href="#">Acompanhamento de Validade</a></li>
                             <li><a class="dropdown-item" href="/etiquetas">Etiquetas</a></li>
                             <li><a class="dropdown-item" href="/detalhamento-lote">Detalhamento de Lote</a></li>

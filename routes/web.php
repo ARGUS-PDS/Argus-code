@@ -40,6 +40,7 @@ Route::get('/products/create', [ProductController::class, 'create'])->name('prod
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::resource('products', ProductController::class);
 Route::get('/pesquisa', [ProductController::class, 'index'])->name('pesquisa.index');
+Route::get('/produtos/busca', [App\Http\Controllers\ProductController::class, 'buscaJson'])->name('produtos.buscaJson');
 
 
 Route::get('/voltar', function () {
@@ -70,6 +71,10 @@ Route::get('/cadastrar-funcionario', function () {
 
 Route::get('/detalhamento-lote', function () {
     return view('lote.detalhamento');
+});
+
+Route::get('/entrada-saida', function () {
+    return view('entrada-saida');
 });
 
 Route::get('/etiquetas', [EtiquetaController::class, 'index']);
