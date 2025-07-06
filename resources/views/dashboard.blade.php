@@ -3,7 +3,7 @@
 @include('layouts.css-variables')
 
 @section('content')
-<div class="row justify-content-center g-2" id="dashboard-row">
+<div class="row justify-content-center g-2 dashboard-group" id="dashboard-row" draggable="true">
   <div class="col-md-4">
      <div class="panel" draggable=true>
        <h5>Produto / Validade</h5>
@@ -38,15 +38,16 @@
 </div>
 
 <!-- Gráfico de vendas por tempo -->
-<div class="row justify-content-center g-2 mt-3">
+<div class="row justify-content-center g-2 dashboard-group" id="dashboard-chart-row" draggable="true">
   <div class="col-12" style="position: relative;">
     <div class="grafico p-4 mb-0" style="height: 250px; display: flex; flex-direction: column; justify-content: flex-start; position: relative;">
       <div class="grafico-toolbar">
+      <button class="grafico-btn" data-periodo="ano">Ano</button>
         <button class="grafico-btn active" data-periodo="mes">Mês</button>
         <button class="grafico-btn" data-periodo="semana">Semana</button>
         <button class="grafico-btn" data-periodo="dia">Dia</button>
       </div>
-      <h5>Vendas por Tempo</h5>
+      <h5>Vendas</h5>
       <div style="flex:1; min-height: 0;">
         <canvas id="vendasTempoChart" style="width:100%; height:180px;"></canvas>
       </div>
@@ -55,21 +56,21 @@
 </div>
 
 <style>
+  .dashboard-group {
+    margin-bottom: 1.5rem;
+  }
+  
   .panel, .grafico {
     background-color: var(--color-bege-claro);
     color: var(--color-gray-escuro);
     border-radius: 15px;
+    cursor: grab;
     padding: 1rem;
     height: 250px;
     box-shadow: 0 2px 10px var(--color-vinho-fundo);
     transition: box-shadow 0.2s ease, outline 0.2s ease;
     min-height: 100%;
     min-width: 100%;
-
-  }
-
-  .panel{
-    cursor: grab;
   }
 
   .panel h5, .grafico h5 {
@@ -130,7 +131,7 @@
     z-index: 2;
   }
 
-  .grafico-toolbar .grafico-btn {
+  .grafico-btn {
     background: transparent !important;
     color: var(--color-vinho) !important;
     border: none !important;
@@ -158,44 +159,72 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  const row = document.getElementById('dashboard-row');
-  let draggedCol = null;
+  let draggedGroup = null;
+  const dashboardRow = document.getElementById('dashboard-row');
+  const chartRow = document.getElementById('dashboard-chart-row');
+  const dashboardGroups = document.querySelectorAll('.dashboard-group');
 
-  document.querySelectorAll('.panel').forEach(panel => {
-    panel.addEventListener('dragstart', function (e) {
-      draggedCol = panel.closest('.col-md-4');
+  dashboardGroups.forEach(group => {
+    group.addEventListener('dragstart', function (e) {
+      draggedGroup = group;
       e.dataTransfer.effectAllowed = 'move';
     });
-  });
-
-  document.querySelectorAll('.col-md-4').forEach(col => {
-    col.addEventListener('dragover', function (e) {
+    group.addEventListener('dragover', function (e) {
       e.preventDefault();
-      col.classList.add('drag-over');
+      group.classList.add('drag-over');
     });
-
-    col.addEventListener('dragleave', function () {
-      col.classList.remove('drag-over');
+    group.addEventListener('dragleave', function () {
+      group.classList.remove('drag-over');
     });
-
-    col.addEventListener('drop', function (e) {
+    group.addEventListener('drop', function (e) {
       e.preventDefault();
-      col.classList.remove('drag-over');
-      if (draggedCol && draggedCol !== col) {
-        const allCols = Array.from(row.children);
-        const draggedIndex = allCols.indexOf(draggedCol);
-        const targetIndex = allCols.indexOf(col);
-
-        if (draggedIndex < targetIndex) {
-          row.insertBefore(draggedCol, col.nextSibling);
+      group.classList.remove('drag-over');
+      if (draggedGroup && draggedGroup !== group) {
+        if (group.nextSibling === draggedGroup) {
+          group.parentNode.insertBefore(draggedGroup, group);
         } else {
-          row.insertBefore(draggedCol, col);
+          group.parentNode.insertBefore(draggedGroup, group.nextSibling);
         }
       }
     });
+    group.addEventListener('dragend', function () {
+      group.classList.remove('drag-over');
+    });
+  });
 
-    col.addEventListener('dragend', function () {
-      col.classList.remove('drag-over');
+
+  let draggedCard = null;
+  const cards = document.querySelectorAll('#dashboard-row .col-md-4');
+  cards.forEach(card => {
+    card.setAttribute('draggable', 'true');
+    card.addEventListener('dragstart', function (e) {
+      draggedCard = card;
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    card.addEventListener('dragover', function (e) {
+      e.preventDefault();
+      card.classList.add('drag-over');
+    });
+    card.addEventListener('dragleave', function () {
+      card.classList.remove('drag-over');
+    });
+    card.addEventListener('drop', function (e) {
+      e.preventDefault();
+      card.classList.remove('drag-over');
+      if (draggedCard && draggedCard !== card) {
+        const parent = card.parentNode;
+        const cardsArr = Array.from(parent.children).filter(c => c.classList.contains('col-md-4'));
+        const draggedIndex = cardsArr.indexOf(draggedCard);
+        const targetIndex = cardsArr.indexOf(card);
+        if (draggedIndex < targetIndex) {
+          parent.insertBefore(draggedCard, card.nextSibling);
+        } else {
+          parent.insertBefore(draggedCard, card);
+        }
+      }
+    });
+    card.addEventListener('dragend', function () {
+      card.classList.remove('drag-over');
     });
   });
 
@@ -203,17 +232,16 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.addEventListener('click', function() {
       document.querySelectorAll('.grafico-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      // Aqui você pode atualizar os dados do gráfico conforme o período selecionado
-      // Exemplo: atualizarGrafico(btn.dataset.periodo);
     });
   });
 
-  // Pega as variáveis CSS
+  //variáveis CSS
   const rootStyles = getComputedStyle(document.documentElement);
   const vinho = rootStyles.getPropertyValue('--color-vinho').trim();
   const vinhoFundo = rootStyles.getPropertyValue('--color-vinho-fundo').trim();
   const begeClaro = rootStyles.getPropertyValue('--color-bege-claro').trim();
   const branco = rootStyles.getPropertyValue('--color-white').trim();;
+
 
   const ctxTempo = document.getElementById('vendasTempoChart').getContext('2d');
   const vendasTempoChart = new Chart(ctxTempo, {
@@ -223,12 +251,12 @@ document.addEventListener('DOMContentLoaded', function () {
       datasets: [{
         label: 'Vendas',
         data: [2, 5, 8, 6, 10, 7, 12, 9, 4, 6],
-        borderColor: vinho,
-        backgroundColor: vinho + '22',
+        borderColor: 'rgba(119,49,56,1)',
+        backgroundColor: 'rgba(119,49,56,0.1)',
         tension: 0.4,
         fill: true,
-        pointBackgroundColor: vinho,
-        pointBorderColor: begeClaro,
+        pointBackgroundColor: 'rgba(119,49,56,1)',
+        pointBorderColor: 'rgba(119,49,56,0.1)',
         pointRadius: 5,
       }]
     },
@@ -241,18 +269,18 @@ document.addEventListener('DOMContentLoaded', function () {
       scales: {
         y: {
           beginAtZero: true,
-          ticks: { color: vinho },
-          grid: { color: vinho + '22' }
+          ticks: { color: 'rgba(119,49,56,1)' },
+          grid: { color: 'rgba(119,49,56,0.1)' }
         },
         x: {
-          ticks: { color: vinho },
-          grid: { color: vinho + '22' }
+          ticks: { color: 'rgba(119,49,56,1)' },
+          grid: { color: 'rgba(119,49,56,0.1)' }
         }
       }
     }
   });
 
-  // Hover dinâmico no painel do gráfico
+  
   const graficoPanel = document.querySelector('.grafico');
   graficoPanel.addEventListener('mouseenter', () => {
     vendasTempoChart.data.datasets[0].borderColor = begeClaro;
