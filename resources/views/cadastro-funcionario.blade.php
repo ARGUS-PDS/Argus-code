@@ -18,6 +18,7 @@
       border-bottom: 2px solid #000;
       margin-bottom: 20px;
     }
+    
     .tab-item {
       position: relative;
       cursor: pointer;

@@ -3,10 +3,12 @@
 @include('layouts.css-variables')
 
 @section('content')
+
+
 <div class="row justify-content-center g-2 dashboard-group" id="dashboard-row" draggable="true">
   <div class="col-md-4">
      <div class="panel" draggable=true>
-       <h5>Produto / Validade</h5>
+      <h5>{{ __('dashboard.prod_valid_title') }}</h5>
        <ul class="mt-2">
          <li>Produto A - Vence em 3 dias</li>
          <li>Produto B - Vence amanhã</li>
@@ -17,7 +19,7 @@
 
   <div class="col-md-4">
      <div class="panel" draggable=true>
-       <h5>Entrada / Saída</h5>
+      <h5>{{ __('dashboard.movement_title') }}</h5>
        <ul class="mt-2">
          <li>Entrada - Produto D</li>
          <li>Saída - Produto A</li>
@@ -28,8 +30,8 @@
 
   <div class="col-md-4">
      <div class="panel" draggable=true>
-       <h5>Alertas</h5>
-       <ul class="mt-2">
+     <h5>{{ __('dashboard.alerts_title') }}</h5>
+     <ul class="mt-2">
          <li>Produto C venceu</li>
          <li>Produto F parado há 90 dias</li>
        </ul>
@@ -37,15 +39,15 @@
   </div>
 </div>
 
-<!-- Gráfico de vendas por tempo -->
+
 <div class="row justify-content-center g-2 dashboard-group" id="dashboard-chart-row" draggable="true">
   <div class="col-12" style="position: relative;">
     <div class="grafico p-4 mb-0" style="height: 250px; display: flex; flex-direction: column; justify-content: flex-start; position: relative;">
       <div class="grafico-toolbar">
-      <button class="grafico-btn" data-periodo="ano">Ano</button>
-        <button class="grafico-btn active" data-periodo="mes">Mês</button>
-        <button class="grafico-btn" data-periodo="semana">Semana</button>
-        <button class="grafico-btn" data-periodo="dia">Dia</button>
+      <button class="grafico-btn" data-periodo="ano">{{ __('dashboard.year') }}</button>
+        <button class="grafico-btn active" data-periodo="mes">{{ __('dashboard.month') }}</button>
+        <button class="grafico-btn" data-periodo="semana">{{ __('dashboard.week') }}</button>
+        <button class="grafico-btn" data-periodo="dia">{{ __('dashboard.day') }}</button>
       </div>
       <h5>Vendas</h5>
       <div style="flex:1; min-height: 0;">

@@ -85,3 +85,11 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect('/login');
 });
+
+Route::get('lang/{locale}', function (string $locale) {
+    if (in_array($locale, ['pt_BR', 'en'])) {
+        session()->put('locale', $locale); 
+        app()->setLocale($locale);         
+    }
+    return back();
+})->name('lang.switch');

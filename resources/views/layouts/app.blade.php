@@ -23,6 +23,8 @@
             box-shadow: 0 3px 8px rgba(119, 49, 56, 0.5);
             transform: translateY(-10px);
             border-radius: 15px;
+            position: relative;
+            z-index: 1100;     
         }
 
         .navbar-brand {
@@ -60,6 +62,10 @@
             background-color: var(--color-vinho-fundo);
             color: var(--color-vinho);
         }
+
+
+        
+
 
         .dropdown-menu {
             background-color: var(--color-bege-claro);
@@ -139,6 +145,68 @@
         .main-content {
             padding: 2rem;
         }
+
+        .lang-btn{
+            background:transparent;
+            border:none;
+            display:inline-flex;
+            align-items:center;
+            gap:.17rem;
+            padding:0;                    
+            cursor:pointer;
+        }
+
+        .lang-btn .bi{    
+            font-size:.75rem;
+            transition:transform .3s;
+        }
+
+        .lang-label{
+            max-width:0; 
+            opacity:0;
+            overflow:hidden;
+            white-space:nowrap;
+            transition:max-width .3s ease, opacity .3s ease;
+        }
+
+        .lang-flag{
+            transition:transform .3s ease;
+        }
+
+
+        .lang-btn:hover  .lang-label,
+        .lang-btn:focus  .lang-label{
+            max-width:5.5rem;
+            opacity:1;
+        }
+
+        .lang-btn:hover  .lang-flag,
+        .lang-btn:focus  .lang-flag{
+            transform:translateX(-4px);
+        }
+
+        .lang-btn:hover  .bi,
+        .lang-btn:focus  .bi{
+            transform:rotate(180deg);
+        }
+        
+
+        .lang-btn.dropdown-toggle::after{
+            display:none;
+}
+
+        .lang-btn .bi{
+            margin-left:0.25rem;
+            transition:transform .3s;
+}
+
+
+        .lang-btn:hover  .bi,
+        .lang-btn:focus  .bi{
+            transform:rotate(180deg);
+}
+
+
     </style>
 </head>
 <body>
@@ -155,30 +223,30 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Cadastros</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ __('menu.cadastros') }}</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/lista-produtos">Produtos</a></li>
-                            <li><a class="dropdown-item" href="/cadastrar-produto-ean">Produtos via EAN</a></li>
-                            <li><a class="dropdown-item" href="/lista-fornecedores">Fornecedores</a></li>
-                            <li><a class="dropdown-item" href="/cadastrar-funcionario">Funcionários</a></li>
+                            <li><a class="dropdown-item" href="/lista-produtos">{{__('menu.produtos')}}</a></li>
+                            <li><a class="dropdown-item" href="/cadastrar-produto-ean">{{__('menu.ean')}}</a></li>
+                            <li><a class="dropdown-item" href="/lista-fornecedores">{{__('menu.fornecedores')}}</a></li>
+                            <li><a class="dropdown-item" href="/cadastrar-funcionario">{{__('menu.funcionarios')}}</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Estoque</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ __('menu.estoque') }}</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Controle de Estoque</a></li>
-                            <li><a class="dropdown-item" href="/entrada-saida">Entrada e saída</a></li>
-                            <li><a class="dropdown-item" href="#">Acompanhamento de Validade</a></li>
-                            <li><a class="dropdown-item" href="/etiquetas">Etiquetas</a></li>
-                            <li><a class="dropdown-item" href="/detalhamento-lote">Detalhamento de Lote</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('menu.controle_estoque') }}</a></li>
+                            <li><a class="dropdown-item" href="/entrada-saida">{{ __('menu.entrada_saida') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('menu.acompanhamento_validade') }}</a></li>
+                            <li><a class="dropdown-item" href="/etiquetas">{{ __('menu.etiquetas') }}</a></li>
+                            <li><a class="dropdown-item" href="/detalhamento-lote">{{ __('menu.detalhamento_lote') }}</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Pedidos</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ __('menu.pedidos') }}</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Envio de Pedido</a></li>
-                            <li><a class="dropdown-item" href="#">Cotação de Fornecedores</a></li>
-                            <li><a class="dropdown-item" href="#">Histórico de Pedidos</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('menu.envio_pedido') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('menu.cotacao_fornecedores') }}</a></li>
+                            <li><a class="dropdown-item" href="#">{{ __('menu.historico_pedidos') }}</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -189,6 +257,40 @@
                     <div class="user-info">
                         <i class="bi bi-person-circle"></i>
                         <span>{{ Auth::user()->name }}</span>
+                    </div>
+                    <div class="d-flex gap-2">
+@php  $current = app()->getLocale();  @endphp
+
+<div class="dropdown lang-switch">
+    <button class="btn lang-btn dropdown-toggle" type="button"
+        data-bs-toggle="dropdown" aria-expanded="false">
+    <img class="lang-flag"
+         src="{{ asset($current == 'pt_BR' ? 'images/brazil.png' : 'images/us.png') }}"
+         width="20" alt="flag">
+
+    <span class="lang-label">
+        {{ $current == 'pt_BR' ? 'Português' : 'English' }}
+    </span>
+
+    <i class="bi bi-caret-down-fill"></i>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <a class="dropdown-item d-flex align-items-center gap-2"
+               href="{{ route('lang.switch', 'pt_BR') }}">
+                <img src="{{ asset('images/brazil.png') }}" width="20" alt="pt"> Português
+            </a>
+        </li>
+        <li>
+            <a class="dropdown-item d-flex align-items-center gap-2"
+               href="{{ route('lang.switch', 'en') }}">
+                <img src="{{ asset('images/us.png') }}" width="20" alt="en"> English
+            </a>
+        </li>
+    </ul>
+</div>
+
                     </div>
                 </div>
             </div>
