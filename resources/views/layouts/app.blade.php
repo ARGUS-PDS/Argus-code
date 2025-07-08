@@ -195,20 +195,62 @@
 
         .lang-btn.dropdown-toggle::after{
             display:none;
-}
+        }
 
         .lang-btn .bi{
             margin-left:0.25rem;
             transition:transform .3s;
-}
+        }
 
 
         .lang-btn:hover  .bi,
         .lang-btn:focus  .bi{
             transform:rotate(180deg);
-}
+        }
 
+        .btn-user-menu {
+            border: none;
+            padding: 2px 6px;
+            transition: background 0.08s, border-radius 0.08s;
+        }
 
+        .btn-user-menu:hover{
+            background: var(--color-vinho-fundo);
+            border-radius: 16px;
+            outline: none;
+        }
+
+        .btn-user-menu:focus {
+            border-radius: 16px;
+            outline: none;
+        }
+
+        .user-menu-panel {
+            display: none;
+            position: absolute;
+            top: 45px;
+            right: 0;
+            min-width: 320px;
+            min-height: 220px;
+            background: var(--color-vinho);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            padding: 20px 18px 14px 18px;
+            z-index: 2000;
+        }
+
+        .profile-pic-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 100%;
+            background: var(--color-bege-claro);
+            color: var(--color-black);
+            object-fit: cover;
+
+            .bi-person-circle{
+                font-size: 72px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -255,10 +297,37 @@
                 
                 <div class="navbar-right-items">
                     <a href="#"><i class="bi bi-info-circle-fill nav-icon"></i></a>
-                    <a href="#"><i class="bi bi-gear-fill nav-icon"></i></a>
-                    <div class="user-info">
-                        <i class="bi bi-person-circle"></i>
-                        <span>{{ Auth::user()->name }}</span>
+                    <div class="user-info position-relative">
+                        <button title="Meu perfil" id="userMenuBtn" class="btn btn-user-menu d-flex align-items-center" type="button">
+                            @if(Auth::user() && Auth::user()->profile_photo_url)
+                                <img src="{{ Auth::user()->profile_photo_url }}"
+                                     alt="Foto de perfil"
+                                     class="profile-pic-avatar"
+                                     style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;">
+                            @else
+                                <i class="bi bi-person-circle"></i>
+                            @endif
+                            <span class="ms-2">{{ Auth::user() ? Auth::user()->name : 'Usuário' }}</span>
+                        </button>
+                        <div id="userMenuPanel" class="user-menu-panel shadow text-center">
+                            <form id="profilePicForm" enctype="multipart/form-data">
+                                <input type="file" id="profilePicInput" accept="image/*" style="display:none">
+                                <label for="profilePicInput" style="cursor:pointer; display:inline-block; margin-top: 12px;">
+                                    @if(Auth::user() && Auth::user()->profile_photo_url)
+                                        <img id="profilePicImg"
+                                             src="{{ Auth::user()->profile_photo_url }}"
+                                             alt="Foto de perfil"
+                                             class="profile-pic-avatar">
+                                    @else
+                                        <span id="profilePicImg" class="profile-pic-avatar d-flex align-items-center justify-content-center">
+                                            <i class="bi bi-person-circle"></i>
+                                        </span>
+                                    @endif
+                                </label>
+                            </form>
+                            <div class="mt-3 fw-bold" style="font-size: 20px; color: var(--color-bege-claro);">Olá, {{ Auth::user() ? Auth::user()->name : 'Usuário' }}</div>
+                        </div>
+                    <!--da pra colocar aqui a engrenagem e o negocio de ajuda-->
                     </div>
                     <div class="d-flex gap-2">
 @php  $current = app()->getLocale();  @endphp
@@ -304,5 +373,48 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    const btn = document.getElementById('userMenuBtn');
+    const panel = document.getElementById('userMenuPanel');
+    const profilePicInput = document.getElementById('profilePicInput');
+    let profilePicImg = document.getElementById('profilePicImg');
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (panel.style.display === 'block') {
+            panel.style.display = 'none';
+            btn.blur();
+        } else {
+            panel.style.display = 'block';
+        }
+    });
+    document.addEventListener('click', function(e) {
+        if (!panel.contains(e.target) && e.target !== btn) {
+            panel.style.display = 'none';
+            btn.blur();
+        }
+    });
+    if(profilePicInput && profilePicImg) {
+        profilePicInput.addEventListener('change', function(e) {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Troca para <img> se for span
+                    if(profilePicImg.tagName.toLowerCase() === 'span') {
+                        const newImg = document.createElement('img');
+                        newImg.id = 'profilePicImg';
+                        newImg.className = 'profile-pic-avatar';
+                        newImg.alt = 'Foto de perfil';
+                        newImg.src = e.target.result;
+                        profilePicImg.parentNode.replaceChild(newImg, profilePicImg);
+                        profilePicImg = newImg;
+                    } else {
+                        profilePicImg.src = e.target.result;
+                    }
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    }
+    </script>
 </body>
 </html> 
