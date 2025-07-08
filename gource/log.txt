@@ -1,0 +1,200 @@
+﻿1746117504|Ana Maria|A|README.md
+1746117735|Ana Maria|A|.editorconfig
+1746117735|Ana Maria|A|.env.example
+1746117735|Ana Maria|A|.gitattributes
+1746117735|Ana Maria|A|.gitignore
+1746117735|Ana Maria|A|app/Http/Controllers/Controller.php
+1746117735|Ana Maria|A|app/Models/User.php
+1746117735|Ana Maria|A|app/Providers/AppServiceProvider.php
+1746117735|Ana Maria|A|artisan
+1746117735|Ana Maria|A|bootstrap/app.php
+1746117735|Ana Maria|A|bootstrap/cache/.gitignore
+1746117735|Ana Maria|A|bootstrap/providers.php
+1746117735|Ana Maria|A|composer.json
+1746117735|Ana Maria|A|composer.lock
+1746117735|Ana Maria|A|config/app.php
+1746117735|Ana Maria|A|config/auth.php
+1746117735|Ana Maria|A|config/cache.php
+1746117735|Ana Maria|A|config/database.php
+1746117735|Ana Maria|A|config/filesystems.php
+1746117735|Ana Maria|A|config/logging.php
+1746117735|Ana Maria|A|config/mail.php
+1746117735|Ana Maria|A|config/queue.php
+1746117735|Ana Maria|A|config/services.php
+1746117735|Ana Maria|A|config/session.php
+1746117735|Ana Maria|A|database/.gitignore
+1746117735|Ana Maria|A|database/factories/UserFactory.php
+1746117735|Ana Maria|A|database/migrations/0001_01_01_000000_create_users_table.php
+1746117735|Ana Maria|A|database/migrations/0001_01_01_000001_create_cache_table.php
+1746117735|Ana Maria|A|database/migrations/0001_01_01_000002_create_jobs_table.php
+1746117735|Ana Maria|A|database/seeders/DatabaseSeeder.php
+1746117735|Ana Maria|A|package.json
+1746117735|Ana Maria|A|phpunit.xml
+1746117735|Ana Maria|A|public/.htaccess
+1746117735|Ana Maria|A|public/favicon.ico
+1746117735|Ana Maria|A|public/index.php
+1746117735|Ana Maria|A|public/robots.txt
+1746117735|Ana Maria|A|resources/css/app.css
+1746117735|Ana Maria|A|resources/js/app.js
+1746117735|Ana Maria|A|resources/js/bootstrap.js
+1746117735|Ana Maria|A|resources/views/welcome.blade.php
+1746117735|Ana Maria|A|routes/console.php
+1746117735|Ana Maria|A|routes/web.php
+1746117735|Ana Maria|A|storage/app/.gitignore
+1746117735|Ana Maria|A|storage/app/private/.gitignore
+1746117735|Ana Maria|A|storage/app/public/.gitignore
+1746117735|Ana Maria|A|storage/framework/.gitignore
+1746117735|Ana Maria|A|storage/framework/cache/.gitignore
+1746117735|Ana Maria|A|storage/framework/cache/data/.gitignore
+1746117735|Ana Maria|A|storage/framework/sessions/.gitignore
+1746117735|Ana Maria|A|storage/framework/testing/.gitignore
+1746117735|Ana Maria|A|storage/framework/views/.gitignore
+1746117735|Ana Maria|A|storage/logs/.gitignore
+1746117735|Ana Maria|A|tests/Feature/ExampleTest.php
+1746117735|Ana Maria|A|tests/TestCase.php
+1746117735|Ana Maria|A|tests/Unit/ExampleTest.php
+1746117735|Ana Maria|A|vite.config.js
+1746120552|Ana Maria|M|routes/web.php
+1746121111|Ana Maria|A|railway.json
+1746121231|Ana Maria|M|railway.json
+1746121364|Ana Maria|M|railway.json
+1746121553|Ana Maria|M|railway.json
+1746121703|Ana Maria|M|railway.json
+1747085517|Ana Maria|A|.gource/users/user1.jpg
+1747085517|Ana Maria|A|gource.users.txt
+1747181513|Ana Maria|A|app/Http/Controllers/AuthController.php
+1747181513|Ana Maria|M|app/Models/User.php
+1747181513|Ana Maria|M|gource.users.txt
+1747181513|Ana Maria|A|resources/views/admin-dashboard.blade.php
+1747181513|Ana Maria|A|resources/views/login.blade.php
+1747181513|Ana Maria|M|routes/web.php
+1747321046|Ana Maria|M|resources/views/cadastro-produto.blade.php
+1747321046|Ana Maria|M|resources/views/codigo-de-barras.blade.php
+1747321046|Ana Maria|M|resources/views/dashboard.blade.php
+1747321046|Ana Maria|M|routes/web.php
+1747335267|Gabriel|M|resources/views/cadastro-produto.blade.php
+1747335267|Gabriel|M|resources/views/dashboard.blade.php
+1747335267|Gabriel|M|resources/views/login.blade.php
+1747335267|Gabriel|M|routes/web.php
+1747434609|Gabriel|A|app/Http/Controllers/ProductController.php
+1747434609|Gabriel|A|app/Models/Product.php
+1747434609|Gabriel|A|database/migrations/2025_05_16_135152_create_produtos_table.php
+1747434609|Gabriel|A|database/migrations/2025_05_16_155235_update_produtos_add_imagem_and_change_situacao.php
+1747434609|Gabriel|M|resources/views/cadastro-produto.blade.php
+1747434609|Gabriel|M|routes/web.php
+1747445348|Ana Maria|A|app/Http/Controllers/EtiquetaController.php
+1747445348|Ana Maria|M|composer.json
+1747445348|Ana Maria|M|composer.lock
+1747445348|Ana Maria|A|resources/views/cadastro-fornecedor.blade.php
+1747445348|Ana Maria|A|resources/views/cadastro-funcionario.blade.php
+1747445348|Ana Maria|M|resources/views/dashboard.blade.php
+1747445348|Ana Maria|A|resources/views/etiquetas.blade.php
+1747445348|Ana Maria|M|routes/web.php
+1747490534|Ana Maria|M|resources/views/cadastro-fornecedor.blade.php
+1747490534|Ana Maria|M|routes/web.php
+1747493177|Ana Maria|A|app/Http/Controllers/AdminController.php
+1747493177|Ana Maria|A|database/migrations/2025_05_17_141601_rename_cartao_seg_to_cartao_seguro_in_users_table.php
+1747493177|Ana Maria|A|database/migrations/2025_05_17_141832_rename_cartao_seguro_to_cartao_seg_in_users_table.php
+1747493177|Ana Maria|A|resources/views/admin/admin-dashboard.blade.php
+1747493177|Ana Maria|A|resources/views/admin/gerar-cartao.blade.php
+1747493177|Ana Maria|M|resources/views/login.blade.php
+1747493177|Ana Maria|M|routes/web.php
+1747525151|Ana Maria|M|resources/views/dashboard.blade.php
+1747525151|Ana Maria|M|resources/views/etiquetas.blade.php
+1747525151|Ana Maria|M|resources/views/lote/detalhamento.blade.php
+1747525151|Ana Maria|M|routes/web.php
+1747530676|Ana Maria|M|app/Http/Controllers/ProductController.php
+1747530676|Ana Maria|M|resources/views/cadastro-produto.blade.php
+1747530676|Ana Maria|M|resources/views/dashboard.blade.php
+1747530676|Ana Maria|A|resources/views/products/edit.blade.php
+1747530676|Ana Maria|A|resources/views/products/index.blade.php
+1747530676|Ana Maria|M|routes/web.php
+1747618314|Gabriel|A|app/Http/Controllers/AddressController.php
+1747618314|Gabriel|A|app/Http/Controllers/SupplierController.php
+1747618314|Gabriel|A|app/Models/Address.php
+1747618314|Gabriel|A|app/Models/Supplier.php
+1747618443|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
+1747618443|Gabriel|M|resources/views/cadastro-produto.blade.php
+1747618443|Gabriel|M|resources/views/products/index.blade.php
+1747618443|Gabriel|M|routes/web.php
+1747689504|Ana Maria|M|app/Http/Controllers/ProductController.php
+1747689504|Ana Maria|M|resources/views/cadastro-produto.blade.php
+1747689504|Ana Maria|M|resources/views/products/index.blade.php
+1747689504|Ana Maria|M|routes/web.php
+1747766072|Gabriel|M|app/Http/Controllers/AddressController.php
+1747766072|Gabriel|M|app/Http/Controllers/SupplierController.php
+1747766072|Gabriel|M|app/Models/Supplier.php
+1747766072|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
+1747766072|Gabriel|M|routes/web.php
+1747869818|Gabriel|M|app/Http/Controllers/ProductController.php
+1747869818|Gabriel|M|app/Http/Controllers/SupplierController.php
+1747869818|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
+1747874815|Gabriel|M|app/Http/Controllers/ProductController.php
+1747874815|Gabriel|M|app/Http/Controllers/SupplierController.php
+1747874815|Gabriel|M|app/Models/Product.php
+1747874815|Gabriel|M|resources/views/cadastro-produto.blade.php
+1747874815|Gabriel|M|resources/views/dashboard.blade.php
+1747874815|Gabriel|M|routes/web.php
+1747874864|Gabriel|A|public/products/682e5d65264d9.png
+1747874864|Gabriel|M|resources/views/products/edit.blade.php
+1747874864|Gabriel|M|resources/views/products/index.blade.php
+1747874864|Gabriel|A|resources/views/suppliers/edit.blade.php
+1747874864|Gabriel|A|resources/views/suppliers/index.blade.php
+1748007318|Gabriel|M|app/Http/Controllers/SupplierController.php
+1748007318|Gabriel|M|resources/views/products/index.blade.php
+1748007318|Gabriel|M|resources/views/suppliers/index.blade.php
+1748007318|Gabriel|M|routes/web.php
+1748025824|Gabriel|M|resources/views/suppliers/index.blade.php
+1748025904|Gabriel|M|app/Http/Controllers/SupplierController.php
+1748025904|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
+1748025904|Gabriel|M|resources/views/suppliers/edit.blade.php
+1748286091|Gustavo|M|resources/views/admin/admin-dashboard.blade.php
+1748286091|Gustavo|M|resources/views/admin/gerar-cartao.blade.php
+1748286091|Gustavo|M|resources/views/cadastro-fornecedor.blade.php
+1748286091|Gustavo|M|resources/views/cadastro-funcionario.blade.php
+1748286091|Gustavo|M|resources/views/cadastro-produto.blade.php
+1748286091|Gustavo|M|resources/views/codigo-de-barras.blade.php
+1748286091|Gustavo|M|resources/views/dashboard.blade.php
+1748286091|Gustavo|M|resources/views/etiquetas.blade.php
+1748286091|Gustavo|M|resources/views/login.blade.php
+1748286091|Gustavo|M|resources/views/products/edit.blade.php
+1748286091|Gustavo|M|resources/views/products/index.blade.php
+1748372841|Gabriel|M|resources/views/codigo-de-barras.blade.php
+1748372841|Gabriel|M|routes/web.php
+1748375692|Gustavo|M|resources/views/products/index.blade.php
+1748540696|Gabriel|M|app/Http/Controllers/AddressController.php
+1748540696|Gabriel|M|app/Http/Controllers/SupplierController.php
+1748540696|Gabriel|M|app/Models/Address.php
+1748540696|Gabriel|M|app/Models/Supplier.php
+1748540696|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
+1748540696|Gabriel|M|resources/views/suppliers/edit.blade.php
+1748540696|Gabriel|M|resources/views/suppliers/index.blade.php
+1748558659|Ana Maria|M|app/Http/Controllers/EtiquetaController.php
+1748558659|Ana Maria|M|render.yaml
+1748558659|Ana Maria|M|resources/views/dashboard.blade.php
+1748558659|Ana Maria|A|resources/views/inputs/input.blade.php
+1748561406|Ana Maria|M|Dockerfile
+1748561406|Ana Maria|M|render.yaml
+1748561858|Ana Maria|M|Dockerfile
+1748562012|Ana Maria|M|Dockerfile
+1748562388|Ana Maria|M|composer.json
+1748562673|Ana Maria|M|Dockerfile
+1748562673|Ana Maria|M|render.yaml
+1748563013|Felipe|A|resources/views/entrada-saida.blade.php
+1748799869|Felipe|M|package-lock.json
+1748799869|Felipe|M|resources/views/cadastro-funcionario.blade.php
+1748799869|Felipe|M|resources/views/dashboard.blade.php
+1748799869|Felipe|M|resources/views/layouts/app.blade.php
+1748809166|Felipe|M|resources/views/layouts/app.blade.php
+1748878963|Ana Maria|M|gource/captions.txt
+1748878963|Ana Maria|M|gource/imagens/Ana Maria.jpeg
+1748878963|Ana Maria|M|gource/imagens/Felipe.jpeg
+1748878963|Ana Maria|M|gource/imagens/Gabriel.jpeg
+1748878963|Ana Maria|M|gource/imagens/Gustavo.jpeg
+1748878963|Ana Maria|M|gource/log_formatado.txt
+1748878963|Ana Maria|M|gource/users.txt
+1748891489|Gabriel|M|app/Http/Controllers/SupplierController.php
+1748891489|Gabriel|M|resources/views/suppliers/edit.blade.php
+1750559048|Felipe|M|resources/views/dashboard.blade.php
+1750559048|Felipe|M|resources/views/layouts/app.blade.php
+1750559048|Felipe|A|resources/views/layouts/css-variables.blade.php
