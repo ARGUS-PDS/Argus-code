@@ -11,6 +11,8 @@
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('images/favicon-light.png') }}" type="image/png">
     
+    @yield('styles')
+
     <style>
         body {
             background-color: var(--color-bege-claro);
