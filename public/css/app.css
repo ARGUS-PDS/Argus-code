@@ -90,6 +90,22 @@ body {
     background-color: var(--color-vinho-fundo);
 }
 
+    .logout-container .lang-label {
+        opacity: 0;
+        width: 0;
+        overflow: hidden;
+        transition: opacity 0.3s, width 0.3s;
+        color: var(--color-vinho);
+    }
+    
+    .logout-container:hover .lang-label,
+    .logout-container:hover .nav-icon {
+        opacity: 1;
+        width: auto;
+        color: var(--color-vinho);
+    }
+
+
 @media (min-width: 992px) {
     .navbar-nav .dropdown:hover .dropdown-menu {
         display: block;
@@ -227,4 +243,22 @@ body {
 
 .profile-pic-avatar .bi-person-circle {
     font-size: 72px;
+}
+
+.btn.lang-btn {
+    color: var(--color-gray-escuro);
+    transition: all 0.3s ease;
+}
+
+.btn.lang-btn:hover {
+    color: var(--color-vinho);
+    background-color: transparent;
+}
+
+.bi-box-arrow-right {
+    transition: transform 0.3s ease;
+}
+
+.btn.lang-btn:hover .bi-box-arrow-right {
+    transform: translateX(2px);
 }

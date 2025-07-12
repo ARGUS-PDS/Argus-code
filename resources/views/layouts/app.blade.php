@@ -12,8 +12,8 @@
     
     @include('layouts.css-variables')
     @yield('styles')
-
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
@@ -52,7 +52,6 @@
                             <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.envio_pedido') }}</a></li>
                             <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.cotacao_fornecedores') }}</a></li>
                             <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.historico_pedidos') }}</a></li>
->>>>>>> 89889fd831e6a9b390b4165126e7a96c4a1f0a5f
                         </ul>
                     </li>
                 </ul>
@@ -63,9 +62,9 @@
                         <button title="Meu perfil" id="userMenuBtn" class="btn btn-user-menu d-flex align-items-center" type="button">
                             @if(Auth::user() && Auth::user()->profile_photo_url)
                                 <img src="{{ Auth::user()->profile_photo_url }}"
-                                     alt="Foto de perfil"
-                                     class="profile-pic-avatar"
-                                     style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;">
+                                    alt="Foto de perfil"
+                                    class="profile-pic-avatar"
+                                    style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;">
                             @else
                                 <i class="bi bi-person-circle"></i>
                             @endif
@@ -77,9 +76,9 @@
                                 <label for="profilePicInput" style="cursor:pointer; display:inline-block; margin-top: 12px;">
                                     @if(Auth::user() && Auth::user()->profile_photo_url)
                                         <img id="profilePicImg"
-                                             src="{{ Auth::user()->profile_photo_url }}"
-                                             alt="Foto de perfil"
-                                             class="profile-pic-avatar">
+                                            src="{{ Auth::user()->profile_photo_url }}"
+                                            alt="Foto de perfil"
+                                            class="profile-pic-avatar">
                                     @else
                                         <span id="profilePicImg" class="profile-pic-avatar d-flex align-items-center justify-content-center">
                                             <i class="bi bi-person-circle"></i>
@@ -90,15 +89,15 @@
                             <div class="mt-3 fw-bold" style="font-size: 20px; color: var(--color-bege-claro);">Olá, {{ Auth::user() ? Auth::user()->name : 'Usuário' }}</div>
                         </div>
                     </div>
-                    <div class="d-flex gap-2">
+                    <div class="d-flex gap-2 align-items-center">
                         @php $current = app()->getLocale(); @endphp
 
                         <div class="dropdown lang-switch">
                             <button class="btn lang-btn dropdown-toggle" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <img class="lang-flag"
-                                     src="{{ asset($current == 'pt_BR' ? 'images/brazil.png' : 'images/us.png') }}"
-                                     width="20" alt="flag">
+                                    src="{{ asset($current == 'pt_BR' ? 'images/brazil.png' : 'images/us.png') }}"
+                                    width="20" alt="flag">
 
                                 <span class="lang-label">
                                     {{ $current == 'pt_BR' ? 'Português' : 'English' }}
@@ -110,18 +109,30 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center gap-2"
-                                       href="{{ route('lang.switch', 'pt_BR') }}">
+                                    href="{{ route('lang.switch', 'pt_BR') }}">
                                         <img src="{{ asset('images/brazil.png') }}" width="20" alt="pt"> Português
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item d-flex align-items-center gap-2"
-                                       href="{{ route('lang.switch', 'en') }}">
+                                    href="{{ route('lang.switch', 'en') }}">
                                         <img src="{{ asset('images/us.png') }}" width="20" alt="en"> English
                                     </a>
                                 </li>
                             </ul>
                         </div>
+                        
+                        <a href="{{ route('logout') }}" 
+                            class="logout-container btn btn-link text-decoration-none" 
+                            title="Sair"
+                            onclick="event.preventDefault(); mostrarTelaCarregando(); document.getElementById('logout-form').submit();">
+                            <i class="bi bi-box-arrow-right nav-icon" style="font-size: 1.5rem;"></i>
+                            <span class="lang-label ms-1">{{ __('Sair') }}</span>
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
                     </div>
                 </div>
             </div>

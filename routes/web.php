@@ -86,10 +86,8 @@ Route::get('/alerta-estoque', [ProductController::class, 'produtosEsgotando'])->
 Route::post('/enviar-pedido', [ProductController::class, 'enviarPedido'])->name('pedido.enviar');
 
 
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect('/login');
-});
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 Route::get('lang/{locale}', function (string $locale) {
     if (in_array($locale, ['pt_BR', 'en'])) {
