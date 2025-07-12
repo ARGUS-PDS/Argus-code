@@ -81,6 +81,11 @@ Route::get('/etiquetas', [EtiquetaController::class, 'index']);
 Route::post('/adicionar', [EtiquetaController::class, 'adicionar'])->name('etiquetas.adicionar');
 Route::get('/limpar', [EtiquetaController::class, 'limpar'])->name('etiquetas.limpar');
 
+
+Route::get('/alerta-estoque', [ProductController::class, 'produtosEsgotando'])->name('produtos.esgotando');
+Route::post('/enviar-pedido', [ProductController::class, 'enviarPedido'])->name('pedido.enviar');
+
+
 Route::get('/logout', function () {
     Auth::logout();
     return redirect('/login');
