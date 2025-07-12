@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="imagens/imagem.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-    <link rel="stylesheet" href="{{ asset('css/Login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="icon" href="{{ asset('images/favicon-light.png') }}" media="(prefers-color-scheme: light)" type="image/png">
     <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
 </head>
@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/Login.js') }}"></script>
+    <script src="{{ asset('js/login.js') }}"></script>
     @include('layouts.carregamento')
 </body>
 </html>
