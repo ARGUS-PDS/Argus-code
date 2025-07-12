@@ -112,7 +112,6 @@ body {
     color: #333;
 }
 
-/* Efeito de focus */
 .formulario-container input:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(73, 0, 6, 0.2);
