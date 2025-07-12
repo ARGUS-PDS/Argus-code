@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>Produtos com Estoque Baixo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
 <div class="container my-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Produtos com Estoque Baixo</h2>
-        <a href="{{ route('pedido.enviados') }}" class="btn btn-info">
+        <a href="{{ route('orders.index') }}" class="btn btn-info">
             Ver Pedidos Enviados
         </a>
     </div>
@@ -49,12 +50,18 @@
                             <input type="text" name="prazo" id="prazo{{ $produto->id }}" class="form-control">
                         </div>
                         <div class="mb-3">
-                            <label for="canal_envio{{ $produto->id }}" class="form-label">Enviar via:</label>
-                            <select name="canal_envio" id="canal_envio{{ $produto->id }}" class="form-select" required>
-                                <option value="email">E-mail</option>
-                                <option value="whatsapp">WhatsApp</option>
-                            </select>
+                        <label class="form-label">Enviar via:</label>
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-outline-danger" onclick="setCanalEnvio('{{ $produto->id }}', 'email')">
+                                <i class="fas fa-envelope"></i> E-mail
+                            </button>
+                            <button type="button" class="btn btn-outline-success" onclick="setCanalEnvio('{{ $produto->id }}', 'whatsapp')">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </button>
                         </div>
+                        <input type="hidden" name="canal_envio" id="canal_envio_input_{{ $produto->id }}" required>
+                    </div>
+
                         <button type="submit" class="btn btn-primary me-2">Enviar Pedido</button>
                         <button type="button" class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#formPedido{{ $produto->id }}">Cancelar</button>
                     </form>
@@ -66,5 +73,17 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+@if(session('whatsapp_url'))
+    <script>
+        window.open("{{ session('whatsapp_url') }}", "_blank");
+    </script>
+@endif
+
+<script>
+    function setCanalEnvio(produtoId, canal) {
+        document.getElementById(`canal_envio_input_${produtoId}`).value = canal;
+    }
+</script>
+
 </body>
 </html>

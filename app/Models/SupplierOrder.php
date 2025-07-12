@@ -14,4 +14,14 @@ class SupplierOrder extends Model
         'canal_envio',
         'mensagem_enviada',
     ];
+
+    public function produto()
+    {
+        return $this->belongsTo(\App\Models\Product::class, 'product_id');
+    }
+
+    public function fornecedor()
+    {
+        return $this->belongsTo(\App\Models\Supplier::class, 'supplier_id');
+    }
 }

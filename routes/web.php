@@ -8,6 +8,7 @@ use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SupplierOrderController;
 
 
 
@@ -84,6 +85,7 @@ Route::get('/limpar', [EtiquetaController::class, 'limpar'])->name('etiquetas.li
 
 Route::get('/alerta-estoque', [ProductController::class, 'produtosEsgotando'])->name('produtos.esgotando');
 Route::post('/enviar-pedido', [ProductController::class, 'enviarPedido'])->name('pedido.enviar');
+Route::get('/pedidos-enviados', [SupplierOrderController::class, 'index'])->name('orders.index');
 
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

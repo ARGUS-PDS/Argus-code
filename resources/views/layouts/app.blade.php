@@ -49,7 +49,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ __('menu.pedidos') }}</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.envio_pedido') }}</a></li>
+                            <li><a class="dropdown-item" href="/alerta-estoque" onclick="mostrarTelaCarregando()">{{ __('menu.envio_pedido') }}</a></li>
                             <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.cotacao_fornecedores') }}</a></li>
                             <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.historico_pedidos') }}</a></li>
                         </ul>
