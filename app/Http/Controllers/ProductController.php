@@ -23,7 +23,7 @@ class ProductController extends Controller
             });
         }
 
-        $products = $query->get();
+        $products = $query->paginate(20);
 
         return view('products.index', compact('products'));
     }
@@ -87,8 +87,8 @@ class ProductController extends Controller
     public function produtosEsgotando()
 {
     $produtos = Product::with('supplier')
-        ->whereColumn('currentStock', '<=', 'minimumStock')
-        ->get();
+    ->whereColumn('currentStock', '<=', 'minimumStock')
+    ->paginate(20);
 
     return view('products.estoque-baixo', compact('produtos'));
 }
