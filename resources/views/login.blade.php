@@ -15,7 +15,7 @@
 <body>
     <div class="container" id="container">
         <div class="formulario-container logar">
-            <form method="POST" action="/login">
+            <form method="POST" action="/login" onsubmit="mostrarTelaCarregando()">
                 @csrf
                 <h1>Entrar</h1>
                 <input type="email" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus />
@@ -76,5 +76,6 @@
     </div>
 
     <script src="{{ asset('js/Login.js') }}"></script>
+    @include('layouts.carregamento')
 </body>
 </html>
