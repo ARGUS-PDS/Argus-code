@@ -10,7 +10,7 @@
 <div class="container my-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Produtos com Estoque Baixo</h2>
-        <a href="{{ route('pedido.enviados') }}" class="btn btn-info">
+        <a href="{{ route('orders.index') }}" class="btn btn-info">
             Ver Pedidos Enviados
         </a>
     </div>
