@@ -10,6 +10,7 @@ btnEntrar.addEventListener('click', () => {
   container.classList.remove('active');
 });
 
+
 document.getElementById('whatsapp').addEventListener('input', function (e) {
   let value = e.target.value.replace(/\D/g, '');
   if (value.length > 2) {
