@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\SupplierOrder;
+use App\Mail\PedidoReposicaoMail;
 use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
@@ -105,16 +106,20 @@ public function enviarPedido(Request $request)
     $fornecedor = $produto->supplier;
 
     $mensagem = "Olá, {$fornecedor->name}. Gostaria de solicitar {$request->quantidade} unidades do produto '{$produto->description}'. Prazo de entrega: {$request->prazo}.
-
-    Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
+Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
 
 
     // Envio por e-mail
     if ($request->canal_envio === 'email') {
-        Mail::raw($mensagem, function ($mail) use ($fornecedor, $produto) {
-            $mail->to($fornecedor->email)
-                ->subject("Pedido de Reposição - {$produto->description}");
-        });
+        Mail::to($fornecedor->email)->send(
+            new PedidoReposicaoMail(
+                $fornecedor,
+                $produto,
+                $request->quantidade,
+                $request->prazo,
+                auth()->user()->email
+            )
+        );
     }
 
     // Registro de pedido
@@ -130,11 +135,14 @@ public function enviarPedido(Request $request)
     // Envio via WhatsApp
     if ($request->canal_envio === 'whatsapp') {
         $telefone = preg_replace('/[^0-9]/', '', $fornecedor->phone ?? $fornecedor->contactNumber1);
-        $mensagemURL = urlencode($mensagem);
+        $responsavel = auth()->user()->name ?? 'Responsável pelo pedido';
+        $mensagemWhats = "Olá, {$fornecedor->name}! Gostaria de solicitar {$request->quantidade} unidades do produto '{$produto->description}'. Prazo de entrega: {$request->prazo}. Em caso de dúvidas, entre em contato com {$responsavel}.";
+        $mensagemURL = urlencode($mensagemWhats);
         $url = "https://wa.me/55{$telefone}?text={$mensagemURL}";
-        return redirect()->away($url);
-    }
 
+        // Em vez de redirect, envie a URL para a view para abrir em nova aba
+        return back()->with('whatsapp_url', $url)->with('success', 'Clique no link para enviar o pedido via WhatsApp.');
+    }
     return redirect()->route('produtos.esgotando')->with('success', 'Pedido enviado com sucesso!');
 }
 
