@@ -76,7 +76,6 @@
     </div>
 
     <script src="{{ asset('js/Login.js') }}"></script>
-            @include('layouts.carregamento')
-
+    @include('layouts.carregamento')
 </body>
 </html>

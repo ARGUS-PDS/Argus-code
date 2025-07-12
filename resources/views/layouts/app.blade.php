@@ -256,7 +256,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/dashboard">
+            <a class="navbar-brand" href="/dashboard" onclick="mostrarTelaCarregando()">
                 <img src="{{ asset('images/logo.png') }}" alt="Argus">
             </a>
             
@@ -269,28 +269,28 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ __('menu.cadastros') }}</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/lista-produtos">{{__('menu.produtos')}}</a></li>
-                            <li><a class="dropdown-item" href="/cadastrar-produto-ean">{{__('menu.ean')}}</a></li>
-                            <li><a class="dropdown-item" href="/lista-fornecedores">{{__('menu.fornecedores')}}</a></li>
-                            <li><a class="dropdown-item" href="/cadastrar-funcionario">{{__('menu.funcionarios')}}</a></li>
+                            <li><a class="dropdown-item"   href="/lista-produtos" onclick="mostrarTelaCarregando()">{{__('menu.produtos')}}</a></li>
+                            <li><a class="dropdown-item" href="/cadastrar-produto-ean" onclick="mostrarTelaCarregando()">{{__('menu.ean')}}</a></li>
+                            <li><a class="dropdown-item" href="/lista-fornecedores" onclick="mostrarTelaCarregando()">{{__('menu.fornecedores')}}</a></li>
+                            <li><a class="dropdown-item" href="/cadastrar-funcionario" onclick="mostrarTelaCarregando()">{{__('menu.funcionarios')}}</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ __('menu.estoque') }}</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">{{ __('menu.controle_estoque') }}</a></li>
-                            <li><a class="dropdown-item" href="/entrada-saida">{{ __('menu.entrada_saida') }}</a></li>
-                            <li><a class="dropdown-item" href="#">{{ __('menu.acompanhamento_validade') }}</a></li>
-                            <li><a class="dropdown-item" href="/etiquetas">{{ __('menu.etiquetas') }}</a></li>
-                            <li><a class="dropdown-item" href="/detalhamento-lote">{{ __('menu.detalhamento_lote') }}</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.controle_estoque') }}</a></li>
+                            <li><a class="dropdown-item" href="/entrada-saida" onclick="mostrarTelaCarregando()">{{ __('menu.entrada_saida') }}</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.acompanhamento_validade') }}</a></li>
+                            <li><a class="dropdown-item" href="/etiquetas"onclick="mostrarTelaCarregando()">{{ __('menu.etiquetas') }}</a></li>
+                            <li><a class="dropdown-item" href="/detalhamento-lote" onclick="mostrarTelaCarregando()">{{ __('menu.detalhamento_lote') }}</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ __('menu.pedidos') }}</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">{{ __('menu.envio_pedido') }}</a></li>
-                            <li><a class="dropdown-item" href="#">{{ __('menu.cotacao_fornecedores') }}</a></li>
-                            <li><a class="dropdown-item" href="#">{{ __('menu.historico_pedidos') }}</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.envio_pedido') }}</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.cotacao_fornecedores') }}</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.historico_pedidos') }}</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -416,5 +416,7 @@
         });
     }
     </script>
+                @include('layouts.carregamento')
+
 </body>
 </html> 
