@@ -8,6 +8,7 @@ use App\Http\Controllers\EtiquetaController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SupplierOrderController;
 
 
 
@@ -81,10 +82,14 @@ Route::get('/etiquetas', [EtiquetaController::class, 'index']);
 Route::post('/adicionar', [EtiquetaController::class, 'adicionar'])->name('etiquetas.adicionar');
 Route::get('/limpar', [EtiquetaController::class, 'limpar'])->name('etiquetas.limpar');
 
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect('/login');
-});
+
+Route::get('/alerta-estoque', [ProductController::class, 'produtosEsgotando'])->name('produtos.esgotando');
+Route::post('/enviar-pedido', [ProductController::class, 'enviarPedido'])->name('pedido.enviar');
+Route::get('/pedidos-enviados', [SupplierOrderController::class, 'index'])->name('orders.index');
+
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 Route::get('lang/{locale}', function (string $locale) {
     if (in_array($locale, ['pt_BR', 'en'])) {

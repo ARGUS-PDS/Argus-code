@@ -1,0 +1,67 @@
+/* Estes estilos parecem ser específicos para abas, se não houver abas aqui, podem ser removidos */
+.tabs-nav {
+    border-bottom: 2px solid #000;
+    margin-bottom: 20px;
+}
+.tab-item {
+    position: relative;
+    cursor: pointer;
+    margin-right: 20px;
+    font-weight: 500;
+}
+.tab-item.active {
+    color: var(--color-blue); /* Se 'color-blue' não for do seu tema, ajuste */
+}
+.tab-item.active::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(
+        --color-blue
+    ); /* Se 'color-blue' não for do seu tema, ajuste */
+}
+.tab-section {
+    display: none;
+}
+.tab-section.active {
+    display: block;
+}
+
+/* Estilos para os fieldsets (cartões) - para ficarem com o fundo branco e sombra como seus cards da dashboard */
+fieldset {
+    background-color: #fff; /* Fundo branco para o fieldset */
+    border: 1px solid #e0e0e0; /* Borda suave */
+    border-radius: 8px; /* Cantos arredondados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Leve sombra */
+    padding: 1.5rem; /* Ajusta o padding interno */
+}
+
+legend {
+    font-size: 1.25rem; /* Tamanho da fonte da legenda */
+    font-weight: bold; /* Negrito */
+    color: var(--color-vinho); /* Cor da legenda no tom vinho */
+    padding: 0 0.5rem; /* Padding horizontal para a legenda */
+    width: auto; /* A largura da legenda se ajusta ao texto */
+    border-bottom: none; /* Remove a borda inferior padrão da legenda */
+}
+
+/* Estilo para o botão Salvar */
+.btn-primary {
+    background-color: var(
+        --color-vinho
+    ); /* Usa a variável de cor vinho para o botão */
+    border-color: var(--color-vinho); /* Borda com a mesma cor */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: rgb(
+        136,
+        59,
+        67
+    ); /* Um tom um pouco mais claro de vinho no hover */
+    border-color: rgb(136, 59, 67);
+}

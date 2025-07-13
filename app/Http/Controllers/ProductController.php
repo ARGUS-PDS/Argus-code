@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\SupplierOrder;
+use App\Mail\PedidoReposicaoMail;
+use Illuminate\Support\Facades\Mail;
 
 class ProductController extends Controller
 {
@@ -20,7 +23,7 @@ class ProductController extends Controller
             });
         }
 
-        $products = $query->get();
+        $products = $query->paginate(20);
 
         return view('products.index', compact('products'));
     }
@@ -80,6 +83,69 @@ class ProductController extends Controller
         $suppliers = Supplier::all();
         return view('cadastro-produto', compact('suppliers'));
     }
+
+    public function produtosEsgotando()
+{
+    $produtos = Product::with('supplier')
+    ->whereColumn('currentStock', '<=', 'minimumStock')
+    ->paginate(20);
+
+    return view('products.estoque-baixo', compact('produtos'));
+}
+
+public function enviarPedido(Request $request)
+{
+    $request->validate([
+        'produto_id' => 'required|exists:products,id',
+        'quantidade' => 'required|integer|min:1',
+        'prazo' => 'nullable|string|max:100',
+        'canal_envio' => 'required|in:email,whatsapp',
+    ]);
+
+    $produto = Product::with('supplier')->findOrFail($request->produto_id);
+    $fornecedor = $produto->supplier;
+
+    $mensagem = "Olá, {$fornecedor->name}. Gostaria de solicitar {$request->quantidade} unidades do produto '{$produto->description}'. Prazo de entrega: {$request->prazo}.
+Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
+
+
+    // Envio por e-mail
+    if ($request->canal_envio === 'email') {
+        Mail::to($fornecedor->email)->send(
+            new PedidoReposicaoMail(
+                $fornecedor,
+                $produto,
+                $request->quantidade,
+                $request->prazo,
+                auth()->user()->email
+            )
+        );
+    }
+
+    // Registro de pedido
+    SupplierOrder::create([
+        'product_id' => $produto->id,
+        'supplier_id' => $fornecedor->id,
+        'quantidade' => $request->quantidade,
+        'prazo_entrega' => $request->prazo,
+        'canal_envio' => $request->canal_envio,
+        'mensagem_enviada' => $mensagem,
+    ]);
+
+    // Envio via WhatsApp
+    if ($request->canal_envio === 'whatsapp') {
+        $telefone = preg_replace('/[^0-9]/', '', $fornecedor->phone ?? $fornecedor->contactNumber1);
+        $responsavel = auth()->user()->name ?? 'Responsável pelo pedido';
+        $mensagemWhats = "Olá, {$fornecedor->name}! Gostaria de solicitar {$request->quantidade} unidades do produto '{$produto->description}'. Prazo de entrega: {$request->prazo}. Em caso de dúvidas, entre em contato com {$responsavel}.";
+        $mensagemURL = urlencode($mensagemWhats);
+        $url = "https://wa.me/55{$telefone}?text={$mensagemURL}";
+
+        // Em vez de redirect, envie a URL para a view para abrir em nova aba
+        return back()->with('whatsapp_url', $url)->with('success', 'Clique no link para enviar o pedido via WhatsApp.');
+    }
+    return redirect()->route('produtos.esgotando')->with('success', 'Pedido enviado com sucesso!');
+}
+
 
 
     public function store(Request $request)

@@ -1,209 +1,81 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>Login - Argus</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-      <!-- Favicon para tema claro -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login & Registro</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="imagens/imagem.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <link rel="icon" href="{{ asset('images/favicon-light.png') }}" media="(prefers-color-scheme: light)" type="image/png">
-
-    <!-- Favicon para tema escuro -->
     <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
-    
-    @include('layouts.css-variables')
-
 </head>
-<style>
-    html {
-        height: 100%;
-        width: 100%;
-    }
 
-    * {
-        font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
-    }
-
-    body {
-        background: var(--color-bege-claro);
-        height: 98%;
-    }
-
-    .d-flex {
-        display: flex;
-    }
-
-    .column {
-        flex-direction: column;
-    }
-
-    .d-column {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .align-items-center {
-        justify-content: center;
-        align-items: center;
-    }
-
-    .p-4 {
-        padding: 1.5rem;
-    }
-
-    .card {
-        background:var(--color-vinho);
-        border-radius: 8px;
-    }
-
-    .text-center {
-        text-align: center;
-    }
-
-    .title {
-        font-size: 25px;
-        color: var(--color-white);
-    }
-
-    .mb-3 {
-        margin-bottom: 15px;
-    }
-
-    .input {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .form-control {
-        height: 30px;
-        width: 85%;
-        border-radius: 5px;
-        border: none;
-    }
-
-    .form-label {
-        margin: 5px;
-        width: 85%;
-        color:var(--color-white);
-    }
-
-    .image {
-        aspect-ratio: 10/5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    input:focus {
-        outline: none;
-    }
-
-    .gap {
-        gap: 25px;
-    }
-
-    .btn-send {
-        padding: 10px 50px;
-        background: var(--color-black);
-        border: none;
-        color: var(--color-white);
-        font-size: 18px;
-        font-weight: 600;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-
-    .btn-send:hover {
-        transition: .8s;
-        background: var(--color-vinho-claro);
-        transform: scale(1.08, 1.08);
-        /*border: 1px solid red;*/
-        letter-spacing: 2px;
-    }
-
-    .eyes {
-        max-height: 20px;
-        margin-left: -35px;
-    }
-
-    .input-eyes {
-        display: flex;
-        align-items: center;
-        width: 85%;
-    }
-
-    #password {
-        width: 100%;
-        margin-left: -2px;
-    }
-</style>
-
-<body class="d-flex column align-items-center justify-content-center gap">
-
-    <div class="image">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo">
-    </div>
-    <div class="card p-4" style="width: 100%; max-width: 400px;">
-        <div>
-            <h4 class="title text-center" style="margin: 0 0 20px 0;">Faça Login no Argus!</h4>
-
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                {{ $errors->first() }}
-            </div>
-            @endif
-
-            <form method="POST" action="/login">
+<body>
+    <div class="container" id="container">
+        <div class="formulario-container logar">
+            <form method="POST" action="/login" onsubmit="mostrarTelaCarregando()">
                 @csrf
-                <div class="d-column">
-                    <div class="input mb-3">
-                        <label for="email" class="form-label center">E-mail</label>
-                        <input type="email" class="form-control" name="email" id="email" value="{{ old('email') }}" required autofocus>
-                    </div>
-
-                    <div class="input mb-3">
-                        <label for="password" class="form-label center">Senha</label>
-                        <div class="input-eyes">
-                            <input type="password" class="form-control" name="password" id="password" required>
-                            <img onclick="togglePassword()" class="eyes" src="{{ asset('images/openeye.png') }}" alt="eye" style="cursor: pointer;">
-                        </div>
-                    </div>
-                    <div class="input mb-3">
-                        <label for="cartao_seg" class="form-label center">Final do cartão de segurança</label>
-                        <input type="text" class="form-control" name="cartao_seg" id="cartao_seg" maxlength="4" required pattern="\d{4}" placeholder="Ex: 0000">
-                    </div>
+                <h1>Entrar</h1>
+                <input type="email" id="email" name="email" placeholder="Email" value="{{ old('email') }}" required autofocus />
+                
+                <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Senha" required minlength="8" />
+                    <i class="toggle-password fas fa-eye" onclick="togglePassword('password', this)"></i>
                 </div>
 
-                <div class="d-flex align-items-center">
-                    <button type="submit" class="btn-send">Entrar</button>
+                <div class="password-container">
+                    <input type="password" name="cartao_seg" id="cartao_seg" placeholder="Final do cartão de segurança" required pattern="\d{4}" />
+                    <i class="toggle-password fas fa-eye" onclick="togglePassword('cartao_seg', this)"></i>
                 </div>
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+                
+                <a href="#">Sua senha venceu?</a>
+                <button class="botao-input">Entrar</button>
             </form>
+        </div>
+
+        <div class="formulario-container registro">
+            <form>
+                <h1>Entre em contato</h1>
+                <input type="text" placeholder="Nome" required />
+                <input type="email" placeholder="Email" required />
+                <input 
+                    type="tel" 
+                    id="whatsapp" 
+                    name="whatsapp" 
+                    placeholder="(00) 00000-0000" 
+                    pattern="^\(\d{2}\) \d{5}-\d{4}$" 
+                    required 
+                    title="Digite um número de WhatsApp válido. Ex: (99) 99999-9999"
+                >
+                <button class="botao-input">Enviar</button>
+            </form>
+        </div>
+
+        <div class="container-alternativo">
+            <div class="alternativo">
+                <div class="painel-alternativo painel-esquerdo">
+                    <h1>Bem-vindo de volta!</h1>
+                    <p>Para se manter conectado, faça login com suas informações pessoais.</p>
+                    <button class="botao-input hidden" id="entrar">Entrar</button>
+                </div>
+                <div class="painel-alternativo painel-direito">
+                    <h1>Olá, Amigo!</h1>
+                    <p>Cadastre-se agora e simplifique sua gestão de estoque de maneira inteligente!</p>
+                    <button class="botao-input hidden" id="registrar">Registrar</button>
+                </div>
+            </div>
         </div>
     </div>
 
-
-    <script>
-        function togglePassword() {
-            const passwordInput = document.getElementById("password");
-            const eyeIcon = passwordInput.nextElementSibling;
-
-            const openEye = "{{ asset('images/openeye.png') }}";
-            const closedEye = "{{ asset('images/closedeye.png') }}";
-
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-                eyeIcon.src = closedEye;
-            } else {
-                passwordInput.type = "password";
-                eyeIcon.src = openEye;
-            }
-        }
-    </script>
-
-
+    <script src="{{ asset('js/login.js') }}"></script>
+    @include('layouts.carregamento')
 </body>
-
 </html>

@@ -1,0 +1,97 @@
+  .dashboard-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .panel, .grafico {
+    background-color: var(--color-bege-claro);
+    color: var(--color-gray-escuro);
+    border-radius: 15px;
+    cursor: grab;
+    padding: 1rem;
+    height: 250px;
+    box-shadow: 0 2px 10px var(--color-vinho-fundo);
+    transition: box-shadow 0.2s ease, outline 0.2s ease;
+    min-height: 100%;
+    min-width: 100%;
+  }
+
+  .panel h5, .grafico h5 {
+    font-weight: bold;
+    color: var(--color-vinho);
+  }
+
+  .col-md-4 {
+    transition: outline 0.2s ease;
+    min-width: 300px;
+    min-height: 1px;
+  }
+  .col-md-4.drag-over {
+    outline: 3px dashed var(--color-vinho) !important;
+    border-radius: 15px;
+    box-shadow: none !important;
+    background: none !important;
+  }
+
+  .panel:hover {
+    background-color: var(--color-vinho);
+    color: var(--color-bege-claro);
+
+    h5{
+      color: var(--color-bege-claro);
+    }
+  }
+
+  .grafico:hover{
+    background-color: var(--color-vinho);
+    color: var(--color-bege-claro);
+
+    h5{
+      color: var(--color-bege-claro);
+    }
+
+    .grafico-btn{
+      color: var(--color-bege-claro) !important;
+    }
+
+    .grafico-btn.active{
+      color: var(--color-vinho) !important;
+      background: var(--color-bege-claro) !important;
+    }
+  }
+
+  .panel:active {
+    box-shadow: 0 2px 10px var(--color-vinho-fundo);
+    outline: none;
+  }
+
+  .grafico-toolbar {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 2;
+  }
+
+  .grafico-btn {
+    background: transparent !important;
+    color: var(--color-vinho) !important;
+    border: none !important;
+    font-weight: 600;
+    padding: 0.3em 1.2em;
+    border-radius: 999px;
+    transition: background 0.2s, color 0.2s, border 0.2s;
+    cursor: pointer;
+    outline: none;
+    font-size: 1rem;
+  }
+
+  .grafico-toolbar .grafico-btn.active {
+    background: var(--color-vinho) !important;
+    color: var(--color-bege-claro) !important;
+  }
+
+  .grafico-toolbar .grafico-btn {
+    color: var(--color-vinho) !important;
+    background: transparent !important;
+  }

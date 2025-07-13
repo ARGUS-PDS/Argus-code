@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -12,27 +14,44 @@ class AuthController extends Controller
     }
 
     public function login(Request $request)
-{
-    $credentials = $request->only('email', 'password');
-    $cartao_seg = trim($request->input('cartao_seg'));
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+            'cartao_seg' => 'required'
+        ]);
 
-    if (Auth::attempt($credentials)) {
-        $user = Auth::user();
+        $cartao_seg = trim($request->input('cartao_seg'));
 
-        if (trim($user->cartao_seg) === $cartao_seg) {  
-            $request->session()->regenerate();
+        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
+            $user = Auth::user();
 
-            if ($user->email === 'argus@adm.com.br') {
-                return redirect('/admin-dashboard'); 
+            if (trim($user->cartao_seg) !== $cartao_seg) {
+                Auth::logout();
+                throw ValidationException::withMessages([
+                    'cartao_seg' => 'Cartão de segurança inválido.'
+                ]);
             }
 
-            return redirect()->intended('/dashboard');
+            $request->session()->regenerate();
+
+            return $user->email === 'argus@adm.com.br' 
+                ? redirect('/admin-dashboard')
+                : redirect()->intended('/dashboard');
         }
 
-        Auth::logout();
-        return back()->withErrors(['cartao_seg' => 'Cartão de segurança inválido.'])->withInput();
+        throw ValidationException::withMessages([
+            'email' => 'Credenciais inválidas.'
+        ]);
     }
 
-    return back()->withErrors(['email' => 'Credenciais inválidas.'])->withInput();
-}
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
 }

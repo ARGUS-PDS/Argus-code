@@ -1,67 +1,8 @@
 @extends('layouts.app') 
 
 @section('styles')
-<style>
-    /* Estes estilos parecem ser específicos para abas, se não houver abas aqui, podem ser removidos */
-    .tabs-nav {
-        border-bottom: 2px solid #000;
-        margin-bottom: 20px;
-    }
-    .tab-item {
-        position: relative;
-        cursor: pointer;
-        margin-right: 20px;
-        font-weight: 500;
-    }
-    .tab-item.active {
-        color: var(--color-blue); /* Se 'color-blue' não for do seu tema, ajuste */
-    }
-    .tab-item.active::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 100%;
-        height: 4px;
-        background-color: var(--color-blue); /* Se 'color-blue' não for do seu tema, ajuste */
-    }
-    .tab-section {
-        display: none;
-    }
-    .tab-section.active {
-        display: block;
-    }
+    <link rel="stylesheet" href="{{ asset('css/cadastro-funcionario.css') }}">
 
-    /* Estilos para os fieldsets (cartões) - para ficarem com o fundo branco e sombra como seus cards da dashboard */
-    fieldset {
-        background-color: #fff; /* Fundo branco para o fieldset */
-        border: 1px solid #e0e0e0; /* Borda suave */
-        border-radius: 8px; /* Cantos arredondados */
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Leve sombra */
-        padding: 1.5rem; /* Ajusta o padding interno */
-    }
-
-    legend {
-        font-size: 1.25rem; /* Tamanho da fonte da legenda */
-        font-weight: bold; /* Negrito */
-        color: var(--color-vinho); /* Cor da legenda no tom vinho */
-        padding: 0 0.5rem; /* Padding horizontal para a legenda */
-        width: auto; /* A largura da legenda se ajusta ao texto */
-        border-bottom: none; /* Remove a borda inferior padrão da legenda */
-    }
-
-    /* Estilo para o botão Salvar */
-    .btn-primary {
-        background-color: var(--color-vinho); /* Usa a variável de cor vinho para o botão */
-        border-color: var(--color-vinho); /* Borda com a mesma cor */
-        transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .btn-primary:hover {
-        background-color: rgb(136, 59, 67); /* Um tom um pouco mais claro de vinho no hover */
-        border-color: rgb(136, 59, 67);
-    }
-</style>
 @endsection
 
 {{-- Conteúdo principal da página --}}
@@ -216,60 +157,4 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> {{-- Certifique-se que o jQuery está sendo carregado, seu script usa $ --}}
-<script>
-    document.getElementById('cep').addEventListener('blur', function () {
-        const cep = this.value.replace(/\D/g, '');
-        if (cep.length === 8) {
-            fetch(`https://viacep.com.br/ws/${cep}/json/`)
-            .then(response => response.json())
-            .then(data => {
-                if (!data.erro) {
-                    document.getElementById('logradouro').value = data.logradouro || '';
-                    document.getElementById('bairro').value = data.bairro || '';
-                    document.getElementById('cidade').value = data.localidade || '';
-                    document.getElementById('estado').value = data.uf || '';
-                } else {
-                    alert('CEP não encontrado.');
-                }
-            })
-            .catch(() => {
-                alert('Erro ao buscar o CEP.');
-            });
-        }
-    });
-
-    function validarCPF(cpf) {
-        cpf = cpf.replace(/[^\d]+/g, '');
-        if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
-
-        let soma = 0;
-        for (let i = 0; i < 9; i++) soma += parseInt(cpf.charAt(i)) * (10 - i);
-        let resto = (soma * 10) % 11;
-        if (resto === 10 || resto === 11) resto = 0;
-        if (resto !== parseInt(cpf.charAt(9))) return false;
-
-        soma = 0;
-        for (let i = 0; i < 10; i++) soma += parseInt(cpf.charAt(i)) * (11 - i);
-        resto = (soma * 10) % 11;
-        if (resto === 10 || resto === 11) resto = 0;
-
-        return resto === parseInt(cpf.charAt(10));
-    }
-
-    // Usando jQuery para o evento blur do CPF
-    // Verifique se o jQuery está realmente carregado antes de usar $
-    if (typeof jQuery != 'undefined') {
-        $('#cpf').on('blur', function () {
-            const cpf = $(this).val();
-            const status = validarCPF(cpf);
-            $('#cpf-status').text(status ? '' : 'CPF inválido');
-        });
-    } else {
-        // Fallback para JavaScript puro se jQuery não estiver disponível
-        document.getElementById('cpf').addEventListener('blur', function() {
-            const cpf = this.value;
-            const status = validarCPF(cpf);
-            document.getElementById('cpf-status').textContent = status ? '' : 'CPF inválido';
-        });
-    }
-</script>
+    <script src="{{ asset('js/cadastro-funcionario.js') }}"></script>

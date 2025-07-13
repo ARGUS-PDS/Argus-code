@@ -13,129 +13,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cadastrar Produto</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Favicon para tema claro -->
   <link rel="icon" href="{{ asset('images/favicon-light.png') }}" media="(prefers-color-scheme: light)" type="image/png">
-
-  <!-- Favicon para tema escuro -->
   <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
   
 </head>
 
-<style>
-  body {
-    background: var(--color-white);
-  }
+    <link rel="stylesheet" href="{{ asset('css/cadastro-produto.css') }}">
 
-  .bg-beige {
-    background:var(--color-bege-claro);
-  }
-
-  .upload {
-    border: 5px solid var(--color-gray);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-  }
-
-  .first-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .back {
-    width: 100%;
-    padding-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .p-mine {
-    padding: 20px 50px;
-    height: 100vh;
-  }
-
-  .d-flex {
-    display: flex;
-  }
-
-  .align-center {
-    align-items: center;
-  }
-
-  .justify-around {
-    justify-content: space-around;
-  }
-
-  .justify-between {
-    justify-content: space-between;
-  }
-
-  .image {
-    max-height: 20px;
-  }
-
-  .text-red-mine {
-    color: var(--color-vinho);
-  }
-
-  .border-mine {
-    border: 2px solid var(--color-vinho);
-    border-radius: 8px;
-  }
-
-  .d-column {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .bigger {
-    font-size: 17px;
-  }
-
-  .p-stock {
-    padding: 15px;
-  }
-
-  .bold {
-    font-weight: 600;
-  }
-
-  .btn {
-    padding: 10px 50px;
-    font-size: 18px;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-
-  .btn-send {
-    background: var(--color-black);
-    border: none;
-    color: var(--color-white);
-  }
-
-  .btn-cancel {
-    background: transparent;
-    border: 2px solid var(--color-black);
-  }
-
-  .btn-cancel:hover {
-    transition: .8s;
-    background: var(--color-bege-escuro);
-  }
-
-  .btn-send:hover {
-    transition: .8s;
-    background: var(--color-gray);
-  }
-
-  .logo {
-    max-height: 50px;
-  }
-</style>
 
 <body class="flex items-center justify-center min-h-screen bg-beige">
   <div class="bg-beige w-full p-mine">
@@ -271,35 +155,5 @@
     </form>
   </div>
 </body>
-<script>
-  function show() {
-    const checkbox = document.querySelector('input[type="checkbox"]');
-    const statusElement = document.getElementById("active");
-
-    if (checkbox.checked) {
-      statusElement.textContent = "Ativo";
-    } else {
-      statusElement.textContent = "Inativo";
-    }
-  }
-
-  function previewImage(event) {
-    const file = event.target.files[0];
-    const preview = document.getElementById("preview");
-    const placeholder = document.getElementById("placeholder");
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        preview.src = e.target.result;
-        preview.classList.remove("hidden");
-        placeholder.classList.add("hidden");
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-</script>
-
-
-
+    <script src="{{ asset('js/cadastro-produto.js') }}"></script>
 </html>
