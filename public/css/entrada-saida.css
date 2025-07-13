@@ -46,25 +46,35 @@
 }
 
 .table {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 1px 1px 2px var(--color-vinho-fundo);
+  border-radius: 0 !important;
+  overflow: visible !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border: none !important;
 }
 
-
-.table thead {
-  color: var(--color-vinho);
-  font-weight: bold;
+.table thead th {
+    background: transparent !important;
+    color: var(--color-vinho-fundo) !important;
+    font-weight: bold;
 }
 
 .table tbody tr {
-  color: var(--color-vinho);
-  transition: background 0.2s;
+  background: transparent !important;
+  color: var(--color-vinho) !important;
 }
 
 .table tbody tr:hover {
   background: var(--color-vinho-fundo);
   color: var(--color-bege-claro);
+}
+
+.table thead,
+.table thead th,
+.table tbody tr,
+.table td {
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .btn-primary {
@@ -138,3 +148,21 @@
   background: var(--color-vinho);
   color: var(--color-bege-claro);
 }
+
+.text-wine {
+  color: var(--color-vinho) !important;
+  font-weight: 600;
+}
+
+.delete-movimentacao {
+  border-radius: 8px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+.delete-movimentacao:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+

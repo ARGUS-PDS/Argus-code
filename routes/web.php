@@ -93,6 +93,9 @@ Route::get('/pedidos-enviados', [SupplierOrderController::class, 'index'])->name
 
 Route::get('/entrada-saida', [MovementController::class, 'index'])->name('movimentacao.index');
 Route::post('/movimentacoes', [MovementController::class, 'store'])->name('movimentacao.store');
+Route::get('/movimentacoes/{id}/edit', [MovementController::class, 'edit'])->name('movimentacao.edit');
+Route::put('/movimentacoes/{id}', [MovementController::class, 'update'])->name('movimentacao.update');
+Route::delete('/movimentacoes/{id}', [MovementController::class, 'destroy'])->name('movimentacao.destroy');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
