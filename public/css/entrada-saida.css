@@ -51,14 +51,13 @@
   box-shadow: 1px 1px 2px var(--color-vinho-fundo);
 }
 
+
 .table thead {
-  background: var(--color-bege-claro);
   color: var(--color-vinho);
   font-weight: bold;
 }
 
 .table tbody tr {
-  background: var(--color-bege-claro);
   color: var(--color-vinho);
   transition: background 0.2s;
 }
@@ -69,7 +68,7 @@
 }
 
 .btn-primary {
-  background: var(--color-vinho-fundo);
+  background: var(--color-vinho);
   color: var(--color-bege-claro);
   border: 2px solid var(--color-vinho);
   border-radius: 12px;

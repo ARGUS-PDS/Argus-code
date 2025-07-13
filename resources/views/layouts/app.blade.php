@@ -87,6 +87,17 @@
                                 </label>
                             </form>
                             <div class="mt-3 fw-bold" style="font-size: 20px; color: var(--color-bege-claro);">Olá, {{ Auth::user() ? Auth::user()->name : 'Usuário' }}</div>
+                            <a href="{{ route('logout') }}"
+                                class="logout-container d-inline-flex align-items-center gap-2 mt-3"
+                                style="color: var(--color-bege-claro); font-weight: bold; font-size: 1.1rem; text-decoration: none; background: none; border: none; cursor: pointer;"
+                                title="Sair"
+                                onclick="event.preventDefault(); mostrarTelaCarregando(); document.getElementById('logout-form').submit();">
+                                <i class="bi bi-box-arrow-right nav-icon" style="font-size: 1.5rem; color: var(--color-bege-claro);"></i>
+                                <span style="color: var(--color-bege-claro);">Sair</span>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </div>
                     </div>
                     <div class="d-flex gap-2 align-items-center">
@@ -121,18 +132,6 @@
                                 </li>
                             </ul>
                         </div>
-                        
-                        <a href="{{ route('logout') }}" 
-                            class="logout-container btn btn-link text-decoration-none" 
-                            title="Sair"
-                            onclick="event.preventDefault(); mostrarTelaCarregando(); document.getElementById('logout-form').submit();">
-                            <i class="bi bi-box-arrow-right nav-icon" style="font-size: 1.5rem;"></i>
-                            <span class="lang-label ms-1">{{ __('Sair') }}</span>
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
                     </div>
                 </div>
             </div>
