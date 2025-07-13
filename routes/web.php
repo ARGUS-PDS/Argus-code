@@ -90,6 +90,7 @@ Route::get('/pedidos-enviados', [SupplierOrderController::class, 'index'])->name
 
 Route::get('/entrada-saida', [MovementController::class, 'index'])->name('movimentacao.index');
 Route::post('/movimentacoes', [MovementController::class, 'store'])->name('movimentacao.store');
+Route::resource('movimentacao', MovementController::class);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
