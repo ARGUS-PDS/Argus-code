@@ -9,11 +9,8 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SupplierOrderController;
-<<<<<<< HEAD
 use App\Http\Controllers\MovementController;
-=======
 use App\Http\Controllers\CompanyController;
->>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
 
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
