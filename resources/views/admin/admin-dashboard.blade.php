@@ -125,6 +125,8 @@
 
         <div class="d-grid gap-3">
             <a href="{{ route('admin.cartao') }}" class="btn btn-primary">Gerar Cartão de Segurança</a>
+            <a href="{{ route('companies.create') }}" class="btn btn-primary">Cadastrar Empresa</a>
+             <a href="{{ route('companies.index') }}" class="btn btn-primary">Lista de Empresas</a>
             <a href="/logout" class="btn btn-danger">Sair</a>
         </div>
     </div>

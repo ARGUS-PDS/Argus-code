@@ -9,7 +9,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SupplierOrderController;
-
+use App\Http\Controllers\CompanyController;
 
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
@@ -21,7 +21,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/admin-dashboard', function () {
     return view('admin.admin-dashboard');
-})->middleware('auth');
+})->middleware('auth')->name('admin.dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/gerar-cartao', [AdminController::class, 'formGerarCartao'])->name('admin.cartao');
@@ -90,6 +90,12 @@ Route::get('/pedidos-enviados', [SupplierOrderController::class, 'index'])->name
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
+    Route::get('/companies/create', [CompanyController::class, 'create'])->name('companies.create');
+    Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
+});
 
 Route::get('lang/{locale}', function (string $locale) {
     if (in_array($locale, ['pt_BR', 'en'])) {
