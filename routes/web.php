@@ -91,6 +91,11 @@ Route::get('/alerta-estoque', [ProductController::class, 'produtosEsgotando'])->
 Route::post('/enviar-pedido', [ProductController::class, 'enviarPedido'])->name('pedido.enviar');
 Route::get('/pedidos-enviados', [SupplierOrderController::class, 'index'])->name('orders.index');
 
+Route::get('/entrada-saida', [MovementController::class, 'index'])->name('movimentacao.index');
+Route::post('/movimentacoes', [MovementController::class, 'store'])->name('movimentacao.store');
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 

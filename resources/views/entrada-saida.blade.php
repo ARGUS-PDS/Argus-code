@@ -158,16 +158,16 @@
     <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#modalLancamento" onclick="abrirModalNovo()">+ Novo lançamento</button>
   </div>
 
-  <div class="mb-4 entrada-saida-pesquisa" style="max-width: 350px;">
+  <form action="{{ route('movimentacao.index') }}" method="GET" class="mb-4 entrada-saida-pesquisa" style="max-width: 350px;">
     <div class="input-group shadow-sm">
-      <input type="text" class="form-control rounded-start" placeholder="Pesquisa..." aria-label="Pesquisar produto">
-      <button class="btn btn-secondary rounded-end" type="button">
+      <input type="text" name="produto" class="form-control rounded-start" placeholder="Pesquisa..." value="{{ request('produto') }}">
+      <button class="btn btn-secondary rounded-end" type="submit">
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </div>
+  </form>
 
-  <h5 class="mb-3" style="color: var(--color-vinho); font-weight: bold;">Produto x</h5>
+
 
   <div class="row">
     <div class="col-lg-9 mb-4" style="position: relative;">
@@ -180,17 +180,41 @@
       <div id="titulosTabela"></div>
       
       <table class="table text-center align-middle" id="tabelaMovimentacoes">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Movimentação</th>
+            <th>Valor</th>
+            <th>Tipo</th>
+            <th>Observação</th>
+            <th></th>
+          </tr>
+        </thead>
         <tbody></tbody>
       </table>
     </div>
 
     <div class="col-lg-3">
       <div class="painel-resumo text-center">
-        <p class="mb-2"><strong>Entradas:</strong> 0 <span class="text-muted">(R$0,00)</span></p>
-        <p class="mb-2"><strong>Estoque atual:</strong> 0 <span class="text-muted">(R$0,00)</span></p>
-        <p class="mb-0"><strong>Saída:</strong> 0 <span class="text-muted">(R$0,00)</span></p>
+        <p class="mb-2">
+          <strong>Entradas:</strong> {{ number_format($entradas, 2, ',', '.') }}
+          <span class="text-muted">(R${{ number_format($entradas, 2, ',', '.') }})</span>
+        </p>
+
+        <p class="mb-2">
+          <strong>Saída:</strong> {{ number_format($saidas, 2, ',', '.') }}
+          <span class="text-muted">(R${{ number_format($saidas, 2, ',', '.') }})</span>
+        </p>
+
+        <p class="mb-0">
+          <strong>Lucro:</strong>
+          <span style="color: {{ $lucro < 0 ? 'red' : 'green' }}">
+            R${{ number_format($lucro, 2, ',', '.') }}
+          </span>
+        </p>
       </div>
     </div>
+
   </div>
 </div>
 
