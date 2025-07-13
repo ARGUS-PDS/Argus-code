@@ -88,12 +88,10 @@ Route::get('/alerta-estoque', [ProductController::class, 'produtosEsgotando'])->
 Route::post('/enviar-pedido', [ProductController::class, 'enviarPedido'])->name('pedido.enviar');
 Route::get('/pedidos-enviados', [SupplierOrderController::class, 'index'])->name('orders.index');
 
-<<<<<<< HEAD
 Route::get('/entrada-saida', [MovementController::class, 'index'])->name('movimentacao.index');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-=======
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -103,7 +101,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/companies/create', [CompanyController::class, 'create'])->name('companies.create');
     Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
 });
->>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
 
 Route::get('lang/{locale}', function (string $locale) {
     if (in_array($locale, ['pt_BR', 'en'])) {
