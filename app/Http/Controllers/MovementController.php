@@ -21,7 +21,10 @@ class MovementController extends Controller
             }
         }
 
-        return view('entrada-saida', compact('movimentacoes', 'produto'));
+        $products = Product::orderBy('description')->get();
+
+
+        return view('entrada-saida', compact('movimentacoes', 'produto', 'products'));
     }
 
     public function store(Request $request)
@@ -36,12 +39,17 @@ class MovementController extends Controller
         ]);
 
         Movement::create($request->only([
-            'product_id', 'type', 'date', 'quantity', 'cost', 'note'
+            'product_id',
+            'type',
+            'date',
+            'quantity',
+            'cost',
+            'note'
         ]));
 
-        return redirect()->route('movimentacao.index', ['produto' => $request->input('product_name')])
-                        ->with('success', 'Stock movement registered successfully!');
+        return redirect()->route('movimentacao.index')->with('success', 'Movimentação registrada com sucesso!');
     }
+
 
 
     public function pesquisarProduto(Request $request)
@@ -50,14 +58,13 @@ class MovementController extends Controller
     }
 
     public function searchProducts(Request $request)
-{
-    $term = $request->get('term');
+    {
+        $term = $request->get('term');
 
-    $results = Product::where('description', 'like', '%' . $term . '%')
-                ->limit(10)
-                ->get(['id', 'description']);
+        $results = Product::where('description', 'like', '%' . $term . '%')
+            ->limit(10)
+            ->get(['id', 'description']);
 
-    return response()->json($results);
-}
-
+        return response()->json($results);
+    }
 }

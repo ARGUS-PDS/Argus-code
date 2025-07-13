@@ -1,13 +1,62 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
 @section('styles')
 <style>
-    /* Estilos da barra de pesquisa */
+    :root {
+        --color-vinho: #773138;
+        --color-bege-claro: #f8f0e5;
+        --color-bege-card-interno: #fcf5ee;
+        --color-gray-claro: #ddd;
+        --color-gray-escuro: #555;
+        --color-green: #28a745;
+        --color-table-header-bg: #773138;
+        --color-table-header-text: #fff;
+        --color-table-row-bg: #fdfaf7;
+        --color-border: #e0e0e0;
+
+        --bs-primary: var(--color-vinho);
+        --bs-secondary: var(--color-gray-escuro);
+
+        --bs-btn-bg: var(--bs-primary);
+        --bs-btn-border-color: var(--bs-primary);
+        --bs-btn-hover-bg: #5f282e;
+        --bs-btn-hover-border-color: #5f282e;
+        --bs-btn-active-bg: #471e23;
+        --bs-btn-active-border-color: #471e23;
+        --bs-btn-color: #fff;
+
+        --bs-danger: #dc3545;
+        --bs-btn-danger-bg: var(--bs-danger);
+        --bs-btn-danger-border-color: var(--bs-danger);
+        --bs-btn-danger-hover-bg: #c82333;
+        --bs-btn-danger-hover-border-color: #bd2130;
+
+        --bs-alert-bg-success: #d4edda;
+        --bs-alert-border-success: #c3e6cb;
+        --bs-alert-color-success: #155724;
+
+        --bs-alert-bg-danger: #f8d7da;
+        --bs-alert-border-danger: #f5c6cb;
+        --bs-alert-color-danger: #721c24;
+
+        --gradient-start: #eecac0; 
+        --gradient-end: #773138;   
+    }
+
+    body {
+        background-color: var(--color-bege-claro);
+        padding: 0;
+        margin: 0;
+    }
+
     .search-bar {
-        background: var(--color-vinho); /* Usando sua variável de cor vinho */
+        background: var(--color-vinho);
+<<<<<<< HEAD
+        /* Usando sua variável de cor vinho */
+=======
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
         border-radius: 20px;
         padding: 6px 16px;
-        color: #fff;
         width: 300px;
         display: flex;
         align-items: center;
@@ -21,35 +70,76 @@
         width: 90%;
     }
 
-    .search-bar:hover { /* Adicionado hover para o search-bar */
-        background: rgb(136, 59, 67); /* Um tom um pouco mais claro de vinho no hover */
+<<<<<<< HEAD
+    .search-bar:hover {
+        /* Adicionado hover para o search-bar */
+        background: rgb(136, 59, 67);
+        /* Um tom um pouco mais claro de vinho no hover */
     }
 
     .search-bar .bi-search {
-        color: #ccc; /* Alterado para uma cor mais clara para o ícone */
+        color: #ccc;
+        /* Alterado para uma cor mais clara para o ícone */
+=======
+    .search-bar input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .search-bar:hover {
+        background: rgb(136, 59, 67);
+    }
+
+    .search-bar .bi-search {
+        color: #fff;
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
         font-size: 1.2rem;
         margin-left: 8px;
+    }
+
+<<<<<<< HEAD
+    .search::placeholder {
+        color: #FFFFFF
     }
 
     /* Estilos da tabela */
     /* O background das células do <tbody> ficará branco por padrão do navegador/bootstrap */
     .table thead th {
-        background: var(--color-vinho); /* Cabeçalho da tabela com a cor principal (vinho) */
-        color: var(--color-bege-claro); /* Texto do cabeçalho com a cor clara (bege) */
-        border-bottom: none; /* Remove a borda inferior padrão */
+        background: var(--color-vinho);
+        /* Cabeçalho da tabela com a cor principal (vinho) */
+        color: var(--color-bege-claro);
+        /* Texto do cabeçalho com a cor clara (bege) */
+        border-bottom: none;
+        /* Remove a borda inferior padrão */
+=======
+    .table thead th {
+        background: var(--color-vinho);
+        color: var(--color-bege-claro);
+        border-bottom: none;
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
     }
 
     .table tbody tr:hover {
-        background-color: rgba(119, 49, 56, 0.1); /* Um leve efeito de hover nas linhas (vinho com transparência) */
+        background-color: rgba(119, 49, 56, 0.1);
+<<<<<<< HEAD
+        /* Um leve efeito de hover nas linhas (vinho com transparência) */
+=======
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
     }
 
-    /* Borda arredondada para a tabela */
     .table-responsive {
         border-radius: 15px;
-        overflow: hidden; /* Garante que as bordas arredondadas sejam visíveis */
+        overflow: hidden;
+<<<<<<< HEAD
+        /* Garante que as bordas arredondadas sejam visíveis */
     }
 
-    .img-thumb { /* Este estilo parece não ser usado em fornecedores, mas mantido se houver imagens futuras */
+    .img-thumb {
+        /* Este estilo parece não ser usado em fornecedores, mas mantido se houver imagens futuras */
+=======
+    }
+
+    .img-thumb {
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
         width: 40px;
         height: 40px;
         object-fit: cover;
@@ -58,9 +148,12 @@
         background: #fff;
     }
 
-    /* Botão Adicionar */
     .add-btn {
-        border: 2px solid var(--color-vinho); /* Borda com cor vinho */
+        border: 2px solid var(--color-vinho);
+<<<<<<< HEAD
+        /* Borda com cor vinho */
+=======
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
         border-radius: 50%;
         width: 36px;
         height: 36px;
@@ -68,41 +161,66 @@
         align-items: center;
         justify-content: center;
         font-size: 1.5rem;
-        color: var(--color-vinho); /* Ícone com cor vinho */
+        color: var(--color-vinho);
+<<<<<<< HEAD
+        /* Ícone com cor vinho */
+=======
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
         background: none;
         cursor: pointer;
         margin-left: 8px;
-        transition: background 0.5s, color 0.5s; /* Adicionado transition para cor */
+        transition: background 0.5s, color 0.5s;
+<<<<<<< HEAD
+        /* Adicionado transition para cor */
+=======
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
     }
 
     .add-btn:hover {
-        background: var(--color-vinho); /* Fundo vinho no hover */
-        color: var(--color-bege-claro); /* Ícone bege claro no hover */
+        background: var(--color-vinho);
+<<<<<<< HEAD
+        /* Fundo vinho no hover */
+        color: var(--color-bege-claro);
+        /* Ícone bege claro no hover */
+=======
+        color: var(--color-bege-claro);
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
     }
 
     .menu-dot {
         font-size: 1.5rem;
-        color: var(--color-gray-escuro); /* Usando variável de cor */
+        color: var(--color-gray-escuro);
+<<<<<<< HEAD
+        /* Usando variável de cor */
+=======
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
         cursor: pointer;
         text-align: center;
     }
 
-    /* Estilos para os ícones de expandir/recolher informações de contato e endereço */
     .bi-plus-circle-fill,
     .bi-dash-circle-fill {
-        color: var(--color-vinho); /* Usando a cor vinho para os ícones de ação */
-        margin-left: 5px; /* Pequena margem para separar do texto */
+        color: var(--color-vinho);
+<<<<<<< HEAD
+        /* Usando a cor vinho para os ícones de ação */
+        margin-left: 5px;
+        /* Pequena margem para separar do texto */
+=======
+        margin-left: 5px;
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
     }
 
-    /* Estilo para o parágrafo de endereço truncado */
     td p {
-        margin-bottom: 0; /* Remove a margem inferior padrão de parágrafos dentro de células da tabela */
+        margin-bottom: 0;
+<<<<<<< HEAD
+        /* Remove a margem inferior padrão de parágrafos dentro de células da tabela */
+=======
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
     }
 </style>
 @endsection
 
 @section('content')
-{{-- Alerta de sucesso (mantido, pois é parte do conteúdo da página) --}}
 @if(session('success'))
 <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
     {{ session('success') }}
@@ -110,18 +228,17 @@
 </div>
 @endif
 
-<div class="container-fluid py-3"> {{-- Usando container-fluid para largura total e padding --}}
+<div class="container-fluid py-3">
     <div class="d-flex align-items-center justify-content-between mb-4">
         <h2 class="fw-bold mb-0">Fornecedores</h2>
         <div class="d-flex align-items-center gap-3">
             <form action="{{ route('pesquisa.index') }}" method="GET" class="search-bar">
-                <input type="text" name="q" value="{{ request('q') }}" placeholder="Pesquisar por nome ou código...">
+                <input class="search" type="text" name="q" value="{{ request('q') }}" placeholder="Pesquisar por nome ou código...">
                 <button type="submit" style="background: none; border: none; color: #fff;">
                     <i class="bi bi-search"></i>
                 </button>
             </form>
-            <span class="ms-4 text-secondary">Estoque atual: </span> {{-- Você pode querer remover ou ajustar "Estoque atual" aqui --}}
-            {{-- <i class="bi bi-trash fs-4 ms-2" title="Excluir" style="cursor:pointer;"></i> --}} {{-- Ícone de lixeira comentado --}}
+            <span class="ms-4 text-secondary">Estoque atual: </span>
             <a href="{{ route('suppliers.create') }}" class="btn btn-primary add-btn ms-2" title="Adicionar">
                 <i class="bi bi-plus"></i>
             </a>
@@ -154,7 +271,7 @@
                         {{ $supplier->fixedphone }}
                         <i id="toggleIconC{{ $supplier->id }}" onclick="seemorecontat('{{ $supplier->id }}')" class="bi bi-plus-circle-fill" style="cursor: pointer;"></i>
                     </td>
-                    <td style="display: flex; align-items: center;"> {{-- Adicionado align-items: center para alinhar o texto e o ícone --}}
+                    <td style="display: flex; align-items: center;">
                         <p style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                             @if($supplier->address)
                             {{ $supplier->address->place }}, Nº {{ $supplier->address->number }}, {{ $supplier->address->neighborhood }}
@@ -166,7 +283,7 @@
                     </td>
                     <td>
                         <div class="dropdown">
-                            <i class="bi bi-three-dots-vertical dropdown-toggle" role="button" id="dropdownMenuButton{{ $supplier->id }}" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer; color: var(--color-gray-escuro);"></i> {{-- Usando variável de cor --}}
+                            <i class="bi bi-three-dots-vertical dropdown-toggle" role="button" id="dropdownMenuButton{{ $supplier->id }}" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer; color: var(--color-gray-escuro);"></i>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $supplier->id }}">
                                 <li>
                                     <a class="dropdown-item" href="{{ route('suppliers.edit', $supplier->id) }}">Editar</a>
@@ -182,9 +299,8 @@
                         </div>
                     </td>
                 </tr>
-                {{-- Linhas expandidas para detalhes de endereço e contato --}}
                 <tr id="addresses{{ $supplier->id }}" style="display: none;">
-                    <td colspan="8"> {{-- Colspan ajustado para cobrir todas as colunas --}}
+                    <td colspan="8">
                         @if($supplier->address)
                         <strong>Endereço:</strong> {{ $supplier->address->place }}, Nº {{ $supplier->address->number }}, {{ $supplier->address->neighborhood }} <br>
                         <strong>CEP:</strong> {{ $supplier->address->cep }} <br>
@@ -195,7 +311,7 @@
                     </td>
                 </tr>
                 <tr id="contacts{{ $supplier->id }}" style="display: none;">
-                    <td colspan="8"> {{-- Colspan ajustado para cobrir todas as colunas --}}
+                    <td colspan="8">
                         <strong>Telefone Fixo:</strong> {{ $supplier->fixedphone }} <br>
                         <strong>Celular:</strong> {{ $supplier->phone }} <br>
                         <strong>Email:</strong> {{ $supplier->email }} <br>
@@ -205,7 +321,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" class="text-center text-muted py-4">Nenhum fornecedor cadastrado.</td> {{-- Colspan ajustado --}}
+                    <td colspan="8" class="text-center text-muted py-4">Nenhum fornecedor cadastrado.</td>
                 </tr>
                 @endforelse
             </tbody>

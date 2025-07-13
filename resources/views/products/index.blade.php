@@ -5,58 +5,93 @@
 <style>
     /* Estilos da barra de pesquisa */
     .search-bar {
-        background: #773138;
+        background: transparent;
         border-radius: 20px;
         padding: 6px 16px;
-        color: #fff;
+        color: var(--color-vinho);
         width: 300px;
         display: flex;
         align-items: center;
+        border: 2px solid var(--color-vinho);
     }
 
     .search-bar input {
         background: transparent;
         border: none;
-        color: #fff;
         outline: none;
         width: 90%;
     }
 
     .search-bar:hover {
-        background:rgb(136, 59, 67);
+        background: var(--color-vinho);
+        color: var(--color-bege);
+    }
+
+    .search-bar:hover .bi-search{
+        color: var(--color-bege-claro);
     }
 
     .search-bar .bi-search {
-        color: #ccc;
+        color: var(--color-vinho);
         font-size: 1.2rem;
         margin-left: 8px;
+        border: none
     }
 
-    .search::placeholder{
-        color: #ccc
+    .search::placeholder {
+        color:var(--color-vinho);
+    }
+
+    .search-bar:hover input.search::placeholder {
+        color: var(--color-bege-claro) !important;
+        opacity: 1 !important;
     }
 
     /* Estilos da tabela */
-    .table th,
+    .table th {
+        vertical-align: middle;
+        background: var(--color-vinho);
+        color: var(--color-bege-claro);
+        border-bottom: none;
+    }
+
     .table td {
         vertical-align: middle;
-        /* As cores de fundo da tabela e texto devem vir das variáveis do app.blade.php ou serem ajustadas */
-        background: #773138; /* Se você quer manter essa cor específica para a tabela de produtos */
-        color: #FFFFFF;
+        background: transparent;
+        color: var(--color-vinho);
     }
 
     /* Ajustes específicos para o cabeçalho e corpo da tabela, para usar suas cores */
     .table {
-        --bs-table-bg: var(--color-vinho-fundo); /* Usando variável de cor definida em css-variables */
-        --bs-table-color: var(--color-gray-escuro); /* Usando variável de cor definida em css-variables */
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px var(--color-vinho-fundo);
+        background: var(--color-bege-claro);
+        margin: 16px 0;
     }
-    .table thead th {
-        background: var(--color-vinho); /* Cabeçalho da tabela com a cor principal */
-        color: var(--color-bege-claro); /* Texto do cabeçalho com a cor clara */
-        border-bottom: none; /* Remover borda inferior do cabeçalho se desejar */
+
+    .table thead th:first-child {
+        border-top-left-radius: 12px;
     }
+
+    .table thead th:last-child {
+        border-top-right-radius: 12px;
+    }
+
+    .table tbody tr:last-child td:first-child {
+        border-bottom-left-radius: 12px;
+    }
+
+    .table tbody tr:last-child td:last-child {
+        border-bottom-right-radius: 12px;
+    }
+    
     .table tbody tr:hover {
-        background-color: rgba(119, 49, 56, 0.1); /* Um leve hover nas linhas, ajustado à sua paleta */
+        background-color: rgba(119, 49, 56, 0.1);
+    }
+
+    .table tbody tr:last-child td {
+        border-bottom: none !important;
     }
 
 
@@ -71,7 +106,7 @@
     }
 
     .add-btn {
-        border: 2px solid #773138;
+        border: 2px solid  var(--color-vinho);
         border-radius: 50%;
         width: 36px;
         height: 36px;
@@ -79,7 +114,7 @@
         align-items: center;
         justify-content: center;
         font-size: 1.5rem;
-        color: #773138;
+        color: var(--color-vinho);
         background: none;
         cursor: pointer;
         margin-left: 8px;
@@ -87,8 +122,9 @@
     }
 
     .add-btn:hover {
-        background: #773138;
-        color: #fff; /* O texto fica branco quando o fundo do botão fica escuro no hover */
+        background: var(--color-vinho);
+        color: #fff;
+        /* O texto fica branco quando o fundo do botão fica escuro no hover */
     }
 
     .menu-dot {
@@ -101,27 +137,40 @@
     .table-responsive {
         margin: 0;
         padding: 0;
+        overflow-x: auto;
+        /* Remover overflow-y e overflow: visible daqui */
+    }
+
+    .table-responsive,
+    .table,
+    .container-fluid,
+    body {
+        overflow: visible !important;
     }
 
     /* Removido todos os estilos relacionados a .sidebar, .sideS, .sideL */
-
 </style>
 @endsection
 
 @section('content')
 <div class="container-fluid py-3"> {{-- Usando container-fluid para largura total e padding --}}
     <div class="d-flex align-items-center justify-content-between mb-4">
-        <h2 class="fw-bold mb-0">Produtos</h2>
-        <div class="d-flex align-items-center gap-3">
+        <h2 class="fw-bold mb-0" style="color: var(--color-vinho);">Produtos</h2>
+        <div class="d-flex align-items-center" style="gap: 16px;">
             <form action="{{ route('pesquisa.index') }}" method="GET" class="search-bar">
-                <input class="search" type="text" name="q" value="{{ request('q') }}" placeholder="Pesquisar por nome ou código...">
+                <input class="search" type="text" name="q" value="{{ request('q') }}" placeholder="Pesquisar...">
                 <button type="submit" style="background: none; border: none; color: #fff;">
                     <i class="bi bi-search"></i>
                 </button>
             </form>
-            <span class="ms-4 text-secondary">Estoque atual: {{ $products->sum('currentStock') }}</span>
-            <i class="bi bi-printer fs-4 ms-3" title="Imprimir" style="cursor:pointer; color: var(--color-gray-escuro);"></i> {{-- Use var() para consistência --}}
-            <a href="{{ route('products.create') }}" class="btn btn-primary add-btn ms-2" title="Adicionar">
+            <span class="ms-4" style="color: var(--color-vinho-fundo);">Estoque atual: {{ $products->sum('currentStock') }}</span>
+            <button type="button" class="btn p-0" title="Imprimir" style="background:none; border:none; color: var(--color-vinho);">
+                <i class="bi bi-printer fs-4"></i>
+            </button>
+            <button type="button" class="btn p-0" title="Excluir" style="background:none; border:none; color: var(--color-vinho);">
+                <i class="bi bi-trash fs-4"></i>
+            </button>
+            <a href="{{ route('products.create') }}" class="btn add-btn d-flex align-items-center justify-content-center p-0" title="Adicionar" style="width: 36px; height: 36px;">
                 <i class="bi bi-plus"></i>
             </a>
         </div>
@@ -160,9 +209,12 @@
                     <td>
                         <div class="dropdown">
                             <i class="bi bi-three-dots-vertical dropdown-toggle" role="button" id="dropdownMenuButton{{ $product->id }}" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer; color: var(--color-gray-escuro);"></i> {{-- Use var() para consistência --}}
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $product->id }}">
+                            <ul class="dropdown-menu" data-bs-boundary="viewport" aria-labelledby="dropdownMenuButton{{ $product->id }}">
                                 <li>
                                     <a class="dropdown-item" href="{{ route('products.edit', $product->id) }}">Editar</a>
+                                </li>
+                                 <li>
+                                    <a class="dropdown-item" href="{{ route('products.edit', $product->id) }}">Imprimir</a>
                                 </li>
                                 <li>
                                     <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este produto?');">
