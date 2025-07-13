@@ -47,9 +47,9 @@ class MovementController extends Controller
             'note'
         ]));
 
-        return redirect()->route('movimentacao.index', ['produto' => $request->input('product_name')])
-            ->with('success', 'Stock movement registered successfully!');
+        return redirect()->route('movimentacao.index')->with('success', 'Movimentação registrada com sucesso!');
     }
+
 
 
     public function pesquisarProduto(Request $request)
