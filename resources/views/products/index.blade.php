@@ -23,7 +23,7 @@
     }
 
     .search-bar:hover {
-        background:rgb(136, 59, 67);
+        background: rgb(136, 59, 67);
     }
 
     .search-bar .bi-search {
@@ -32,8 +32,8 @@
         margin-left: 8px;
     }
 
-    .search::placeholder{
-        color: #ccc
+    .search::placeholder {
+        color: #FFFFFF
     }
 
     /* Estilos da tabela */
@@ -41,22 +41,31 @@
     .table td {
         vertical-align: middle;
         /* As cores de fundo da tabela e texto devem vir das variáveis do app.blade.php ou serem ajustadas */
-        background: #773138; /* Se você quer manter essa cor específica para a tabela de produtos */
+        background: #773138;
+        /* Se você quer manter essa cor específica para a tabela de produtos */
         color: #FFFFFF;
     }
 
     /* Ajustes específicos para o cabeçalho e corpo da tabela, para usar suas cores */
     .table {
-        --bs-table-bg: var(--color-vinho-fundo); /* Usando variável de cor definida em css-variables */
-        --bs-table-color: var(--color-gray-escuro); /* Usando variável de cor definida em css-variables */
+        --bs-table-bg: var(--color-vinho-fundo);
+        /* Usando variável de cor definida em css-variables */
+        --bs-table-color: var(--color-gray-escuro);
+        /* Usando variável de cor definida em css-variables */
     }
+
     .table thead th {
-        background: var(--color-vinho); /* Cabeçalho da tabela com a cor principal */
-        color: var(--color-bege-claro); /* Texto do cabeçalho com a cor clara */
-        border-bottom: none; /* Remover borda inferior do cabeçalho se desejar */
+        background: var(--color-vinho);
+        /* Cabeçalho da tabela com a cor principal */
+        color: var(--color-bege-claro);
+        /* Texto do cabeçalho com a cor clara */
+        border-bottom: none;
+        /* Remover borda inferior do cabeçalho se desejar */
     }
+
     .table tbody tr:hover {
-        background-color: rgba(119, 49, 56, 0.1); /* Um leve hover nas linhas, ajustado à sua paleta */
+        background-color: rgba(119, 49, 56, 0.1);
+        /* Um leve hover nas linhas, ajustado à sua paleta */
     }
 
 
@@ -88,7 +97,8 @@
 
     .add-btn:hover {
         background: #773138;
-        color: #fff; /* O texto fica branco quando o fundo do botão fica escuro no hover */
+        color: #fff;
+        /* O texto fica branco quando o fundo do botão fica escuro no hover */
     }
 
     .menu-dot {
@@ -104,7 +114,6 @@
     }
 
     /* Removido todos os estilos relacionados a .sidebar, .sideS, .sideL */
-
 </style>
 @endsection
 

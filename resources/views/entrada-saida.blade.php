@@ -5,148 +5,149 @@
 @section('content')
 
 <style>
-.entrada-saida-titulo {
-  color: var(--color-vinho);
-  font-weight: bold;
-  font-size: 2.2rem;
-  margin-bottom: 0.5rem;
-}
+  .entrada-saida-titulo {
+    color: var(--color-vinho);
+    font-weight: bold;
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+  }
 
-.entrada-saida-pesquisa .input-group {
-  box-shadow: 0 2px 10px var(--color-vinho-fundo);
-  border-radius: 12px;
-}
+  .entrada-saida-pesquisa .input-group {
+    box-shadow: 0 2px 10px var(--color-vinho-fundo);
+    border-radius: 12px;
+  }
 
-.entrada-saida-pesquisa input {
-  border-radius: 12px 0 0 12px !important;
-  border: 1.5px solid var(--color-vinho-fundo);
-  font-size: 1.1rem;
-}
+  .entrada-saida-pesquisa input {
+    border-radius: 12px 0 0 12px !important;
+    border: 1.5px solid var(--color-vinho-fundo);
+    font-size: 1.1rem;
+  }
 
-.entrada-saida-pesquisa button {
-  border-radius: 0 12px 12px 0 !important;
-  background: var(--color-vinho);
-  color: var(--color-bege-claro);
-  border: none;
-}
+  .entrada-saida-pesquisa button {
+    border-radius: 0 12px 12px 0 !important;
+    background: var(--color-vinho);
+    color: var(--color-bege-claro);
+    border: none;
+  }
 
-.entrada-saida-pesquisa button:hover {
-  background: var(--color-vinho-fundo);
-}
+  .entrada-saida-pesquisa button:hover {
+    background: var(--color-vinho-fundo);
+  }
 
-.painel-resumo {
-  background: var(--color-vinho);
-  color: var(--color-bege-claro);
-  border: none;
-  min-height: unset;
-  padding: 1.2rem 1rem;
-  border-radius: 15px;
-}
+  .painel-resumo {
+    background: var(--color-vinho);
+    color: var(--color-bege-claro);
+    border: none;
+    min-height: unset;
+    padding: 1.2rem 1rem;
+    border-radius: 15px;
+  }
 
-.painel-resumo strong {
-  color: var(--color-bege-claro);
-}
+  .painel-resumo strong {
+    color: var(--color-bege-claro);
+  }
 
-.painel-resumo .text-muted {
-  color: var(--color-bege-claro) !important;
-  opacity: 0.7;
-}
+  .painel-resumo .text-muted {
+    color: var(--color-bege-claro) !important;
+    opacity: 0.7;
+  }
 
-.table {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 1px 1px 2px var(--color-vinho-fundo);
-}
+  .table {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 1px 1px 2px var(--color-vinho-fundo);
+  }
 
-.table thead {
-  background: var(--color-bege-claro);
-  color: var(--color-vinho);
-  font-weight: bold;
-}
+  .table thead {
+    background: var(--color-bege-claro);
+    color: var(--color-vinho);
+    font-weight: bold;
+  }
 
-.table tbody tr {
-  background: var(--color-bege-claro);
-  color: var(--color-vinho);
-  transition: background 0.2s;
-}
+  .table tbody tr {
+    background: var(--color-bege-claro);
+    color: var(--color-vinho);
+    transition: background 0.2s;
+  }
 
-.table tbody tr:hover {
-  background: var(--color-vinho-fundo);
-  color: var(--color-bege-claro);
-}
+  .table tbody tr:hover {
+    background: var(--color-vinho-fundo);
+    color: var(--color-bege-claro);
+  }
 
-.btn-primary {
-  background: var(--color-vinho-fundo);
-  color: var(--color-bege-claro);
-  border: 2px solid var(--color-vinho);
-  border-radius: 12px;
-  font-weight: 600;
-  transition: background 0.2s, color 0.2s;
-}
+  .btn-primary {
+    background: var(--color-vinho-fundo);
+    color: var(--color-bege-claro);
+    border: 2px solid var(--color-vinho);
+    border-radius: 12px;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+  }
 
-.btn-primary:hover {
-  background: var(--color-bege-claro);
-  color: var(--color-vinho);
-  border: 2px solid var(--color-vinho);
-}
+  .btn-primary:hover {
+    background: var(--color-bege-claro);
+    color: var(--color-vinho);
+    border: 2px solid var(--color-vinho);
+  }
 
-.btn-outline-danger {
-  border-radius: 8px;
-}
+  .btn-outline-danger {
+    border-radius: 8px;
+  }
 
 
-/* modal */
-.modal-content {
-  background: var(--color-bege-claro);
-  border-radius: 18px;
-  border: none;
-  box-shadow: 0 2px 16px var(--color-vinho-fundo);
-}
+  /* modal */
+  .modal-content {
+    background: var(--color-bege-claro);
+    border-radius: 18px;
+    border: none;
+    box-shadow: 0 2px 16px var(--color-vinho-fundo);
+    margin: 100px 0;
+  }
 
-.modal-header {
-  border-bottom: none;
-  background: var(--color-bege-claro);
-}
+  .modal-header {
+    border-bottom: none;
+    background: var(--color-bege-claro);
+  }
 
-.modal-title {
-  color: var(--color-vinho);
-  font-weight: bold;
-}
+  .modal-title {
+    color: var(--color-vinho);
+    font-weight: bold;
+  }
 
-.btn-close {
-  filter: invert(40%) sepia(20%) saturate(400%) hue-rotate(320deg);
-}
+  .btn-close {
+    filter: invert(40%) sepia(20%) saturate(400%) hue-rotate(320deg);
+  }
 
-.modal-body label,
-.modal-body .form-label {
-  color: var(--color-vinho);
-  font-weight: 500;
-}
+  .modal-body label,
+  .modal-body .form-label {
+    color: var(--color-vinho);
+    font-weight: 500;
+  }
 
-.modal-body .form-control,
-.modal-body .form-select {
-  border-radius: 10px;
-  border: 1.5px solid var(--color-vinho-fundo);
-  font-size: 1.05rem;
-}
+  .modal-body .form-control,
+  .modal-body .form-select {
+    border-radius: 10px;
+    border: 1.5px solid var(--color-vinho-fundo);
+    font-size: 1.05rem;
+  }
 
-.modal-footer, .modal-body .d-flex {
-  border-top: none;
-}
+  .modal-footer,
+  .modal-body .d-flex {
+    border-top: none;
+  }
 
-.btn-outline-primary {
-  border-radius: 10px;
-  color: var(--color-vinho);
-  border: 1.5px solid var(--color-vinho);
-  background: transparent;
-  font-weight: 600;
-}
+  .btn-outline-primary {
+    border-radius: 10px;
+    color: var(--color-vinho);
+    border: 1.5px solid var(--color-vinho);
+    background: transparent;
+    font-weight: 600;
+  }
 
-.btn-outline-primary:hover {
-  background: var(--color-vinho);
-  color: var(--color-bege-claro);
-}
-
+  .btn-outline-primary:hover {
+    background: var(--color-vinho);
+    color: var(--color-bege-claro);
+  }
 </style>
 
 <div class="container py-4">
@@ -203,6 +204,7 @@
       </div>
       <div class="modal-body">
         <form id="formLancamento">
+          @csrf
           <input type="hidden" id="editIndex">
 
           <div class="row mb-3">
@@ -235,6 +237,15 @@
           <div class="mb-4">
             <label for="observacao" class="form-label">Observação</label>
             <input type="text" class="form-control" id="observacao">
+          </div>
+
+          <div class="mb-4">
+            <select name="productId" class="w-full border border-gray-300 rounded-md p-2" required>
+              <option value="">Selecione um produto</option>
+              @foreach ($products as $product)
+              <option value="{{ $product->id }}">{{ $product->name }}</option>
+              @endforeach
+            </select>
           </div>
 
           <div class="d-flex justify-content-end">
@@ -306,9 +317,12 @@
     const tbody = document.querySelector('#tabelaMovimentacoes tbody');
     tbody.innerHTML = '';
 
-    let entradaQtd = 0, entradaValor = 0;
-    let saidaQtd = 0, saidaValor = 0;
-    let estoqueAtual = 0, estoqueValor = 0;
+    let entradaQtd = 0,
+      entradaValor = 0;
+    let saidaQtd = 0,
+      saidaValor = 0;
+    let estoqueAtual = 0,
+      estoqueValor = 0;
 
     movimentacoes.forEach((mov, index) => {
       let cor = '';
