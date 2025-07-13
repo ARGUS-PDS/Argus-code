@@ -9,7 +9,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SupplierOrderController;
-
+use App\Http\Controllers\MovementController;
 
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
@@ -87,14 +87,15 @@ Route::get('/alerta-estoque', [ProductController::class, 'produtosEsgotando'])->
 Route::post('/enviar-pedido', [ProductController::class, 'enviarPedido'])->name('pedido.enviar');
 Route::get('/pedidos-enviados', [SupplierOrderController::class, 'index'])->name('orders.index');
 
+Route::get('/entrada-saida', [MovementController::class, 'index'])->name('movimentacao.index');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::get('lang/{locale}', function (string $locale) {
     if (in_array($locale, ['pt_BR', 'en'])) {
-        session()->put('locale', $locale); 
-        app()->setLocale($locale);         
+        session()->put('locale', $locale);
+        app()->setLocale($locale);
     }
     return back();
 })->name('lang.switch');

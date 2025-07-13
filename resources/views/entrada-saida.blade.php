@@ -4,7 +4,6 @@
 
 @section('content')
 
-<<<<<<< HEAD
 <style>
   .entrada-saida-titulo {
     color: var(--color-vinho);
@@ -150,10 +149,6 @@
     color: var(--color-bege-claro);
   }
 </style>
-=======
-    <link rel="stylesheet" href="{{ asset('css/entrada-saida.css') }}">
-
->>>>>>> dc73aff4907be4dba1d0426bb7025e3839d095ab
 
 <div class="container py-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
@@ -248,7 +243,7 @@
             <select name="productId" class="w-full border border-gray-300 rounded-md p-2" required>
               <option value="">Selecione um produto</option>
               @foreach ($products as $product)
-              <option value="{{ $product->id }}">{{ $product->name }}</option>
+              <option value="{{ $product->id }}">{{ $product->description }}</option>
               @endforeach
             </select>
           </div>
@@ -262,9 +257,8 @@
     </div>
   </div>
 </div>
-    <script src="{{ asset('js/entrada-saida.js') }}"></script>
+<script src="{{ asset('js/entrada-saida.js') }}"></script>
 
-<<<<<<< HEAD
 <script>
   const movimentacoes = [];
   const form = document.getElementById('formLancamento');
@@ -403,7 +397,5 @@
     return texto.charAt(0).toUpperCase() + texto.slice(1);
   }
 </script>
-=======
->>>>>>> dc73aff4907be4dba1d0426bb7025e3839d095ab
 
 @endsection

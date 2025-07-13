@@ -21,7 +21,7 @@ class MovementController extends Controller
             }
         }
 
-        $products = Product::orderBy('name')->get();
+        $products = Product::orderBy('description')->get();
 
 
         return view('entrada-saida', compact('movimentacoes', 'produto', 'products'));
