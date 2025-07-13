@@ -149,6 +149,8 @@
     color: var(--color-bege-claro);
   }
 </style>
+<link rel="stylesheet" href="{{ asset('css/entrada-saida.css') }}">
+
 
 <div class="container py-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
@@ -397,5 +399,7 @@
     return texto.charAt(0).toUpperCase() + texto.slice(1);
   }
 </script>
+<script src="{{ asset('js/entrada-saida.js') }}"></script>
+
 
 @endsection

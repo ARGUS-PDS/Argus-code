@@ -9,7 +9,11 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SupplierOrderController;
+<<<<<<< HEAD
 use App\Http\Controllers\MovementController;
+=======
+use App\Http\Controllers\CompanyController;
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
 
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
@@ -21,7 +25,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/admin-dashboard', function () {
     return view('admin.admin-dashboard');
-})->middleware('auth');
+})->middleware('auth')->name('admin.dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/admin/gerar-cartao', [AdminController::class, 'formGerarCartao'])->name('admin.cartao');
@@ -87,10 +91,22 @@ Route::get('/alerta-estoque', [ProductController::class, 'produtosEsgotando'])->
 Route::post('/enviar-pedido', [ProductController::class, 'enviarPedido'])->name('pedido.enviar');
 Route::get('/pedidos-enviados', [SupplierOrderController::class, 'index'])->name('orders.index');
 
+<<<<<<< HEAD
 Route::get('/entrada-saida', [MovementController::class, 'index'])->name('movimentacao.index');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+=======
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
+    Route::get('/companies/create', [CompanyController::class, 'create'])->name('companies.create');
+    Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
+});
+>>>>>>> 80e56744ad0d873dd3a4e2e90639a462fdd0b202
 
 Route::get('lang/{locale}', function (string $locale) {
     if (in_array($locale, ['pt_BR', 'en'])) {
