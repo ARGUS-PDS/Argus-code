@@ -2,15 +2,14 @@
 
 @section('styles')
 <style>
-    /* Definição das variáveis de cor para garantir consistência.
-       Se já estiverem em layouts.app, este bloco pode ser removido. */
+ 
     :root {
         --color-vinho: #773138; /* Vinho principal para títulos e botões primários */
         --color-bege-claro: #f8f0e5; /* Bege claro para o fundo da página e elementos secundários */
         --color-gray-claro: #ddd; /* Cinza claro para bordas e elementos sutis */
         --color-gray-escuro: #555; /* Cinza escuro para textos e bordas mais fortes */
         --color-green: #28a745; /* Verde geral para sucesso (mantido para outros usos como WhatsApp) */
-        /* Cores adicionais baseadas nas suas imagens */
+        
         --color-table-header: #773138; /* Cor do cabeçalho da tabela de Fornecedores */
         --color-table-row-bg: #f8f0e5; /* Cor de fundo das linhas da tabela */
         --color-input-bg: #fff; /* Fundo dos inputs */
@@ -19,20 +18,19 @@
     body {
         padding: 0;
         margin: 0;
-        background-color: var(--color-bege-claro); /* Fundo da página com o bege que você gostou */
+        background-color: var(--color-bege-claro); 
     }
 
     /* Estilo para o título principal da página */
     h2 {
-        color: var(--color-vinho); /* Cor principal do título */
+        color: var(--color-vinho); 
         font-weight: bold;
         margin-bottom: 1.5rem;
         text-align: left;
     }
 
-    /* Estilo do botão "Ver Pedidos Enviados"
-       Agora usando o padrão de botão primário (vinho) */
-    .btn-primary-header-action { /* Nova classe para ações primárias no cabeçalho */
+    /* Estilo do botão "Ver Pedidos Enviados"*/
+    .btn-primary-header-action { 
         background-color: var(--color-vinho);
         border-color: var(--color-vinho);
         color: #fff;
@@ -42,35 +40,35 @@
         font-size: 0.9rem;
     }
     .btn-primary-header-action:hover {
-        background-color: rgb(136, 59, 67); /* Tom mais escuro no hover */
+        background-color: rgb(136, 59, 67); 
         border-color: rgb(136, 59, 67);
         color: #fff;
     }
 
-    /* Estilos para os cards de produto (substituindo list-group-item) */
+    /* Estilos para os cards de produto */
     .product-card {
         background-color: #fff;
         border: 1px solid #e0e0e0;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         padding: 1.5rem;
-        margin-bottom: 1rem; /* Espaçamento entre os cards */
+        margin-bottom: 1rem; 
         transition: all 0.2s ease-in-out;
     }
 
     .product-card:hover {
-        transform: translateY(-3px); /* Efeito sutil ao passar o mouse */
+        transform: translateY(-3px); 
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
 
     .product-card h5 {
-        color: var(--color-vinho); /* Título do produto */
+        color: var(--color-vinho); 
         font-weight: bold;
         margin-bottom: 0.5rem;
     }
 
     .product-card small {
-        color: var(--color-gray-escuro); /* Texto menor */
+        color: var(--color-gray-escuro); 
     }
 
     /* Estilo para o botão "Fazer Pedido" */
@@ -96,7 +94,7 @@
     .form-control {
         border-radius: 8px;
         border: 1px solid var(--color-gray-claro);
-        background-color: var(--color-input-bg); /* Garante fundo branco */
+        background-color: var(--color-input-bg); 
         color: var(--color-gray-escuro);
     }
 
@@ -136,8 +134,8 @@
     /* Estilo para o card do formulário de pedido (quando expandido) */
     .card-body-custom {
         padding: 1.5rem;
-        background-color: var(--color-bege-claro); /* Fundo do collapse para diferenciar */
-        border-radius: 0 0 8px 8px; /* Arredondar só embaixo */
+        background-color: var(--color-bege-claro); 
+        border-radius: 0 0 8px 8px; 
         border-top: 1px solid #e0e0e0;
     }
     .card-body-custom h6 {
