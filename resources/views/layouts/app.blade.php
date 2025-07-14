@@ -52,7 +52,7 @@
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/alerta-estoque" onclick="mostrarTelaCarregando()">{{ __('menu.envio_pedido') }}</a></li>
                             <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.cotacao_fornecedores') }}</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.historico_pedidos') }}</a></li>
+                            <li><a class="dropdown-item" href="/pedidos-enviados" onclick="mostrarTelaCarregando()">{{ __('menu.historico_pedidos') }}</a></li>
                         </ul>
                     </li>
                 </ul>
