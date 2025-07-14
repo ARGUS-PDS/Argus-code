@@ -32,7 +32,7 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $suppliers = Supplier::all();
-        return view('products.edit', compact('product', 'suppliers'));
+        return view('cadastro-produto', compact('product', 'suppliers'));
     }
 
     public function destroy($id)
@@ -40,42 +40,58 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return redirect()->route('products.index')->with('success', 'Produto excluído com sucesso!');
+        return redirect('/lista-produtos')->with('success', 'Produto excluído com sucesso!');
     }
 
     public function update(Request $request, $id)
     {
-        $product = Product::findOrFail($id);
+        try {
+            \Log::info('Dados recebidos para update:', $request->all());
+            
+            $product = Product::findOrFail($id);
+            \Log::info('Produto encontrado:', $product->toArray());
 
-        $validated = $request->validate([
-            'code' => 'required|string|max:255|unique:products,code,' . $product->id,
-            'barcode' => 'required|string|max:50|unique:products,barcode,' . $product->id,
-            'description' => 'required|string|max:255',
-            'expiration_date' => 'required|date',
-            'value' => 'required|numeric',
-            'profit' => 'required|numeric',
-            'supplierId' => 'required|exists:suppliers,id',
-            'brand' => 'nullable|string|max:100',
-            'model' => 'nullable|string|max:100',
-            'currentStock' => 'required|integer',
-            'minimumStock' => 'required|integer',
-            'status' => 'boolean',
-            'image_url' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-        ]);
+            $validated = $request->validate([
+                'code' => 'required|string|max:255|unique:products,code,' . $product->id,
+                'barcode' => 'required|string|max:50|unique:products,barcode,' . $product->id,
+                'description' => 'required|string|max:255',
+                'expiration_date' => 'required|date',
+                'value' => 'required|numeric',
+                'profit' => 'required|numeric',
+                'supplierId' => 'required|exists:suppliers,id',
+                'brand' => 'nullable|string|max:100',
+                'model' => 'nullable|string|max:100',
+                'currentStock' => 'required|integer',
+                'minimumStock' => 'required|integer',
+                'status' => 'boolean',
+                'image_url' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            ]);
 
-        if ($request->hasFile('image_url')) {
-            $file = $request->file('image_url');
-            $nomeArquivo = uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('products'), $nomeArquivo);
-            $validated['image_url'] = 'products/' . $nomeArquivo;
+            \Log::info('Dados validados:', $validated);
+
+            if ($request->hasFile('image_url')) {
+                $file = $request->file('image_url');
+                $nomeArquivo = uniqid() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('products'), $nomeArquivo);
+                $validated['image_url'] = 'products/' . $nomeArquivo;
+                \Log::info('Nova imagem salva:', $validated['image_url']);
+            }
+
+            $validated['status'] = $request->has('status') ? true : false;
+            \Log::info('Status definido:', ['status' => $validated['status']]);
+
+            $product->update($validated);
+            \Log::info('Produto atualizado com sucesso');
+
+            return redirect('/lista-produtos')->with('success', 'Produto atualizado com sucesso!');
+        } catch (\Exception $e) {
+            \Log::error('Erro ao atualizar produto:', [
+                'message' => $e->getMessage(),
+                'data' => $request->all()
+            ]);
+            
+            return back()->withInput()->withErrors(['error' => 'Erro ao atualizar: ' . $e->getMessage()]);
         }
-
-
-        $validated['status'] = $request->has('status') ? true : false;
-
-        $product->update($validated);
-
-        return redirect()->route('products.index')->with('success', 'Produto atualizado com sucesso!');
     }
 
     public function create()
@@ -194,6 +210,6 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
             'status' => $request->has('status') ? 1 : 0,
         ]);
 
-        return redirect()->back()->with('success', 'Produto cadastrado com sucesso!');
+        return redirect('/lista-produtos')->with('success', 'Produto cadastrado com sucesso!');
     }
 }

@@ -32,7 +32,13 @@
       </div>
       <img class="logo" src="{{ asset('images/logo.png') }}" alt="Logo">
     </div>
-    <h1 class="text-2xl font-semibold mb-2 text-red-mine">Cadastrar Produto</h1>
+    <h1 class="text-2xl font-semibold mb-2 text-red-mine">
+      @if(isset($product))
+        {{ $product->description }}
+      @else
+        Cadastrar Produto
+      @endif
+    </h1>
 
 
 
@@ -46,8 +52,17 @@
     </div>
     @endif
 
-    <form class="grid grid-cols-1 md:grid-cols-2 gap-6" action="{{ route('cadastrar-produto.store') }}" method="POST" enctype="multipart/form-data">
+    @if (session('error'))
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+      {{ session('error') }}
+    </div>
+    @endif
+
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-6" action="{{ isset($product) ? route('products.update', $product->id) : route('cadastrar-produto.store') }}" method="POST" enctype="multipart/form-data">
       @csrf
+      @if(isset($product))
+        @method('PUT')
+      @endif
 
       <div class="first-info">
 
@@ -58,34 +73,39 @@
             class="w-full border border-gray-300 rounded-md p-2"
             accept="image/*"
             onchange="previewImage(event)"
-            required>
+            {{ isset($product) ? '' : 'required' }}>
           <div class="mt-2">
-            <img id="preview" src="#" alt="Pré-visualização" class="hidden rounded-md" style="max-height: 150px;">
-            <div id="placeholder" class="text-gray-500">Nenhuma imagem selecionada</div>
+            @if(isset($product) && $product->image_url)
+              <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="rounded-md" style="max-height: 150px;">
+              <div id="placeholder" class="text-gray-500">Imagem atual</div>
+            @else
+              <img id="preview" src="#" alt="Pré-visualização" class="hidden rounded-md" style="max-height: 150px;">
+              <div id="placeholder" class="text-gray-500">Nenhuma imagem selecionada</div>
+            @endif
           </div>
         </div>
 
         <div style="width: 80%;">
-          <label class="block font-medium text-red-mine mb-1 bigger">Código</label>
-          <input type="text" name="code" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: esmalte_vermelho_anita" style="margin-bottom: 1.5em;" required>
+          <label class="block bigger font-medium text-red-mine mb-1">Nome</label>
+          <input type="text" name="description" class="w-full border border-gray-300 rounded-md p-2" placeholder="Esmalte vermelho da marca Anita 8ml" value="{{ isset($product) ? $product->description : '' }}" style="margin-bottom: 1.5em;" required>
 
-          <label class="block bigger font-medium text-red-mine mb-1">Descrição</label>
-          <input type="text" name="description" class="w-full border border-gray-300 rounded-md p-2" placeholder="Esmalte vermelho da marca Anita 8ml" required>
+          <label class="block font-medium text-red-mine mb-1 bigger">Descrição</label>
+          <input type="text" name="code" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: esmalte_vermelho_anita" value="{{ isset($product) ? $product->code : '' }}" required>
         </div>
       </div>
 
 
       <div class="gap-6">
         <label class="block bigger font-medium text-red-mine mb-1">Código de barra</label>
-        <input name="barcode" type="text" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: 00608473184014" style="margin-bottom: 1.5em;" required>
+        <input name="barcode" type="text" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: 00608473184014" value="{{ isset($product) ? $product->barcode : '' }}" style="margin-bottom: 1.5em;" required>
         <label class="block bigger font-medium text-red-mine mb-1">Data de validade</label>
-        <input name="expiration_date" type="date" class="w-full border border-gray-300 rounded-md p-2" required>
+        <input name="expiration_date" type="date" class="w-full border border-gray-300 rounded-md p-2" value="{{ isset($product) ? $product->expiration_date : '' }}" required>
       </div>
 
       <div class="d-flex" style="gap: 15px">
         <div>
           <label class="block bigger font-medium text-red-mine mb-1">Valor</label>
-          <input name="value" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="R$">
+          <input name="value" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="R$" value="{{ isset($product) ? $product->value : '' }}">
         </div>
         <!-- <div>
           <label class="block bigger font-medium text-red-mine mb-1">Valor de compra</label>
@@ -93,7 +113,7 @@
         </div> -->
         <div>
           <label class="block bigger font-medium text-red-mine mb-1">Lucro</label>
-          <input name="profit" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="R$" required>
+          <input name="profit" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="R$" value="{{ isset($product) ? $product->profit : '' }}" required>
         </div>
       </div>
 
@@ -102,7 +122,7 @@
         <select name="supplierId" class="w-full border border-gray-300 rounded-md p-2" required>
           <option value="">Selecione um fornecedor</option>
           @foreach ($suppliers as $supplier)
-          <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+          <option value="{{ $supplier->id }}" {{ isset($product) && $product->supplierId == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
           @endforeach
         </select>
       </div>
@@ -113,11 +133,11 @@
         <div class="d-flex justify-around" style="gap: 15px; margin-bottom: 15px">
           <div>
             <label class="block text-sm font-medium text-red-mine mb-1">Marca</label>
-            <input name="brand" type="text" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: Anita">
+            <input name="brand" type="text" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: Anita" value="{{ isset($product) ? $product->brand : '' }}">
           </div>
           <div>
             <label class="block text-sm font-medium text-red-mine mb-1">Modelo</label>
-            <input name="model" type="text" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: Carnaval">
+            <input name="model" type="text" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: Carnaval" value="{{ isset($product) ? $product->model : '' }}">
           </div>
         </div>
       </div>
@@ -127,11 +147,11 @@
         <div class="d-flex justify-around" style="gap: 15px">
           <div>
             <label class="block text-sm font-medium text-red-mine mb-1">Estoque Atual</label>
-            <input name="currentStock" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: 40" required>
+            <input name="currentStock" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: 40" value="{{ isset($product) ? $product->currentStock : '' }}" required>
           </div>
           <div>
             <label class="block text-sm font-medium text-red-mine mb-1">Estoque Mínimo</label>
-            <input name="minimumStock" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: 150" required>
+            <input name="minimumStock" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: 150" value="{{ isset($product) ? $product->minimumStock : '' }}" required>
           </div>
         </div>
       </div>
@@ -142,14 +162,14 @@
         <div class="col-span-1 md:col-span-2">
           <label class="block text-sm font-medium text-red-mine mb-1">Situação</label>
           <label class="inline-flex items-center cursor-pointer" onclick="show()">
-            <input type="checkbox" class="sr-only peer" name="status" value="1" checked>
+            <input type="checkbox" class="sr-only peer" name="status" value="1" {{ isset($product) ? ($product->status ? 'checked' : '') : 'checked' }}>
             <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-black-500 rounded-full peer dark:bg-red-700 peer-checked:bg-green-700 transition-all"></div>
             <span class="ml-3 text-sm text-red-700 peer-checked:text-green-700 bold" id="active">Ativo</span>
           </label>
         </div>
         <div class="d-flex" style="gap: 15px">
-          <button class="btn btn-cancel">Cancelar</button>
-          <button class="btn btn-send ">Salvar</button>
+          <a href="{{ isset($product) ? route('products.index') : '/dashboard' }}" class="btn btn-cancel">Cancelar</a>
+          <button class="btn btn-send ">{{ isset($product) ? 'Atualizar' : 'Salvar' }}</button>
         </div>
       </div>
     </form>
