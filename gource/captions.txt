@@ -1,12 +1,15 @@
-2025-05-01|Início do projeto Argus com Laravel
-2025-05-01|Estrutura inicial e rota de teste criada
-2025-05-12|Conexão com banco de dados configurada
-2025-05-13|Tela de login implementada
-2025-05-15|Tela inicial e cadastro via EAN criados
-2025-05-16|Cadastro de fornecedor e funcionário adicionado
-2025-05-17|Listagem e edição de produtos implementadas
-2025-05-18|Modelagem de fornecedores e endereços iniciada
-2025-05-20|Cadastro completo de fornecedores finalizado
-2025-05-23|Listagem e edição de fornecedores concluídas
-2025-05-27|Busca de produtos por EAN iniciada
-2025-05-29|Tela de entrada e saída de produtos adicionada
+1750734228|Cards agora tem drag and drop e hover
+1750774864|Problema de nao conseguir arrastar os cards da direita pra esquerda arrumado
+1751760969|Grafico mockado no dashboard e inicio do design da entrada-saida
+1751767154|Drag and drop de linhas
+1751913434|Internacionalização do menu e do dashboard
+1751934662|Alterações para o video do gource do primeiro bimestre
+1751985879|Reestrutura e ajusta estilos das telas de Produtos, Fornecedores e Cadastro de Funcionários
+1751986894|Integra e estiliza tela de Detalhamento de Lote ao padrão visual da aplicação
+1751989250|Otimiza layout da Geração de Etiquetas de Produto
+1752005756|Modal ao clicar na foto de perfil
+1752323957|Reestruturação da tela de login e adição de formulário de contato
+1752324221|Aplicação de novo estilo e animações à tela de Login.
+1752324538|Implementação da alternância entre painéis de login e entre em contato.
+1752325383|Correção da mensagem do commit anterior - feat: implementação da formatação automática para campo WhatsApp.
+1752325495|Implementação toggle de visibilidade para a senha na tela de Login.

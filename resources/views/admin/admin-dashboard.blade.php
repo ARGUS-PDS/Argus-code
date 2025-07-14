@@ -127,7 +127,12 @@
             <a href="{{ route('admin.cartao') }}" class="btn btn-primary">Gerar Cartão de Segurança</a>
             <a href="{{ route('companies.create') }}" class="btn btn-primary">Cadastrar Empresa</a>
              <a href="{{ route('companies.index') }}" class="btn btn-primary">Lista de Empresas</a>
-            <a href="/logout" class="btn btn-danger">Sair</a>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger w-100">Sair</button>
+            </form>
+
+
         </div>
     </div>
 
