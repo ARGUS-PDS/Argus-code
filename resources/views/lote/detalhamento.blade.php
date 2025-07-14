@@ -2,91 +2,190 @@
 
 @section('styles')
 <style>
-    /* Estilo para o botão "Voltar" */
-    .btn-outline-secondary {
-        color: var(--color-vinho);
-        border-color: var(--color-vinho);
-        transition: all 0.3s ease;
+    :root {
+        --color-vinho: #773138;
+        --color-bege-claro: #f8f0e5;
+        --color-bege-card-interno: #fcf5ee;
+        --color-gray-claro: #ddd;
+        --color-gray-medio: #aaa;
+        --color-gray-escuro: #555;
+        --color-vinho-fundo-transparente: rgba(119, 49, 56, 0.25);
     }
 
-    .btn-outline-secondary:hover {
-        background-color: var(--color-vinho);
-        color: var(--color-bege-claro);
-    }
-
-    /* Estilo para o título H2 */
-    h2 {
-        color: var(--color-vinho);
-        font-weight: bold;
-    }
-
-    /* Estilos para os fieldsets (cartões) */
-    fieldset {
-        background-color: #fff; /* Fundo branco para o fieldset */
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-
-    legend {
-        font-size: 1.25rem;
-        font-weight: bold;
-        color: var(--color-vinho);
-        padding: 0 0.5rem;
-        width: auto;
-        border-bottom: none;
-        margin-left: -0.5rem;
-    }
-
-    /* Estilo para os inputs */
-    .form-control, .input-group-text {
-        border-radius: 8px;
-        border: 1px solid var(--color-gray-claro);
-        background-color: #fff; /* Fundo branco padrão para inputs editáveis */
+    body {
+        padding: 0;
+        background-color: var(--color-bege-claro);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         color: var(--color-gray-escuro);
     }
 
-    .form-control:focus {
-        border-color: var(--color-vinho);
-        box-shadow: 0 0 0 0.25rem rgba(119, 49, 56, 0.25);
-        background-color: #fff;
+    .container-card {
+        background-color: var(--color-bege-card-interno);
+        border-radius: 18px;
+        padding: 35px 40px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        margin: 0 auto;
+        max-width: 960px;
+        border: 1px solid var(--color-gray-claro);
     }
 
-    /* --- ALTERAÇÃO AQUI: Estilo para campos desabilitados --- */
+    .header-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--color-gray-claro);
+        flex-wrap: wrap;
+    }
+
+    .header-section h2 {
+        color: var(--color-vinho);
+        font-weight: bold;
+        font-size: 2.2rem;
+        margin-bottom: 0;
+        line-height: 1.2;
+    }
+
+    .btn-voltar {
+        background-color: var(--color-vinho);
+        color: var(--color-bege-claro);
+        border: none;
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-voltar:hover {
+        background-color: #5f282e;
+        transform: translateY(-2px);
+        color: var(--color-bege-claro);
+    }
+
+    .section-card {
+        background-color: #fff;
+        border: 1px solid var(--color-gray-claro);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        padding: 25px;
+        margin-bottom: 25px;
+    }
+
+    .section-card .card-title {
+        color: var(--color-vinho);
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--color-gray-claro);
+    }
+
+    .form-label {
+        display: block;
+        color: var(--color-vinho);
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+    }
+
+    .form-control, .form-select {
+        width: 100%;
+        padding: 12px 18px;
+        border: 1px solid var(--color-gray-medio);
+        border-radius: 10px;
+        font-size: 1rem;
+        color: var(--color-gray-escuro);
+        background-color: #fff;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: var(--color-vinho);
+        box-shadow: 0 0 0 0.25rem var(--color-vinho-fundo-transparente);
+        outline: none;
+    }
+
     .form-control:disabled, .form-control[readonly] {
-        background-color: #e9ecef; /* Cinza claro suave, padrão Bootstrap */
-        opacity: 1; /* Garante opacidade total */
-        color: var(--color-gray-escuro); /* Cor do texto normal para leitura */
-        border-color: #ced4da; /* Borda um pouco mais escura para contraste */
+        background-color: #f0f0f0;
+        opacity: 1;
+        color: var(--color-gray-escuro);
+        border-color: var(--color-gray-claro);
+        cursor: not-allowed;
     }
 
     .input-group-text {
-        background-color: var(--color-bege-claro); /* Fundo bege claro para o ícone de busca */
+        background-color: #f0f0f0;
         color: var(--color-vinho);
+        border: 1px solid var(--color-gray-medio);
         border-left: none;
+        border-radius: 0 10px 10px 0;
+        padding: 0 15px;
+        display: flex;
+        align-items: center;
     }
 
-    /* Ajuste para o campo de data, que pode ter uma aparência diferente */
+    .input-group .form-control {
+        border-right: none;
+        border-radius: 10px 0 0 10px;
+    }
+
     input[type="date"].form-control {
         appearance: none;
         -webkit-appearance: none;
+    }
+
+    @media (max-width: 768px) {
+        .container-card {
+            margin: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .header-section {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .header-section h2 {
+            font-size: 1.8rem;
+        }
+        .section-card {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .section-card .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        .form-label {
+            font-size: 0.9rem;
+        }
+        .form-control, .form-select {
+            padding: 10px 15px;
+        }
     }
 </style>
 @endsection
 
 @section('content')
-<div class="container mt-4">
-    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary mb-3">
-        <i class="bi bi-arrow-left"></i> Voltar
-    </a>
-    <h2 class="mb-4">Detalhamento de Lote</h2>
+<div class="container-card">
+    <div class="header-section">
+        <h2>Detalhamento de Lote</h2>
+        <a href="{{ url()->previous() }}" class="btn-voltar">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+    </div>
 
-    <fieldset class="border p-3">
-        <legend class="w-auto px-2">Informações do Lote</legend>
+    <div class="section-card">
+        <h3 class="card-title">Informações do Lote</h3>
 
-        <div class="row mb-3">
+        <div class="row g-4">
             <div class="col-md-6">
                 <label for="lote" class="form-label">Lote</label>
                 <div class="input-group">
@@ -101,9 +200,7 @@
                 <label for="produto" class="form-label">Produto</label>
                 <input type="text" name="produto" id="produto" class="form-control" placeholder="Nome do produto" disabled>
             </div>
-        </div>
 
-        <div class="row mb-3">
             <div class="col-md-6">
                 <label for="data_validade" class="form-label">Data de Validade</label>
                 <input type="date" name="data_validade" id="data_validade" class="form-control" disabled>
@@ -114,7 +211,9 @@
                 <input type="date" name="data_entrada" id="data_entrada" class="form-control" disabled>
             </div>
         </div>
-    </fieldset>
+    </div>
 </div>
 @endsection
 
+@section('scripts')
+@endsection
