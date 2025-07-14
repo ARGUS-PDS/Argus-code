@@ -9,32 +9,54 @@
   <div class="col-md-4">
      <div class="panel" draggable=true>
       <h5>{{ __('dashboard.prod_valid_title') }}</h5>
-       <ul class="mt-2">
-         <li>Produto A - Vence em 3 dias</li>
-         <li>Produto B - Vence amanhã</li>
-         <li>Produto C - Vence hoje</li>
-       </ul>
+      @if($produtos_validade->count())
+        <ul class="mt-2">
+          @foreach($produtos_validade as $produto)
+            <li>{{ $produto->description }} - Vence em {{ \Carbon\Carbon::parse($produto->expiration_date)->diffInDays(now()) }} dias ({{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})</li>
+          @endforeach
+        </ul>
+      @else
+        <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
+          <i class="bi bi-calendar-x" style="font-size: 2.5rem; color: var(--color-vinho);"></i>
+          <span class="fw-bold text-center mt-2" style="color: var(--color-vinho);">Nenhuma novidade por aqui</span>
+        </div>
+      @endif
      </div>
   </div>
 
   <div class="col-md-4">
      <div class="panel" draggable=true>
       <h5>{{ __('dashboard.movement_title') }}</h5>
-       <ul class="mt-2">
-         <li>Entrada - Produto D</li>
-         <li>Saída - Produto A</li>
-         <li>Entrada - Produto E</li>
-       </ul>
+      @if($movimentacoes->count())
+        <ul class="mt-2">
+          @foreach($movimentacoes as $mov)
+            <li>{{ ucfirst($mov->type) }} ({{ $mov->quantity }}) - {{ $mov->product->description ?? '-' }}</li>
+          @endforeach
+        </ul>
+      @else
+        <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
+          <i class="bi bi-arrow-left-right" style="font-size: 2.5rem; color: var(--color-vinho);"></i>
+          <span class="fw-bold text-center mt-2" style="color: var(--color-vinho);">Nenhuma novidade por aqui</span>
+        </div>
+      @endif
      </div>
   </div>
 
   <div class="col-md-4">
      <div class="panel" draggable=true>
      <h5>{{ __('dashboard.alerts_title') }}</h5>
-     <ul class="mt-2">
-         <li>Produto C venceu</li>
-         <li>Produto F parado há 90 dias</li>
+     @if($produtos_vencidos->count())
+       <ul class="mt-2">
+         @foreach($produtos_vencidos as $produto)
+           <li>{{ $produto->description }} venceu em {{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }}</li>
+         @endforeach
        </ul>
+     @else
+       <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
+         <i class="bi bi-exclamation-triangle" style="font-size: 2.5rem; color: var(--color-vinho);"></i>
+         <span class="fw-bold text-center mt-2" style="color: var(--color-vinho);">Nenhuma novidade por aqui</span>
+       </div>
+     @endif
      </div>
   </div>
 </div>

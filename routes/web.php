@@ -22,9 +22,7 @@ Route::get('/admin-dashboard', function () {
 })->middleware('auth');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
     Route::get('/admin-dashboard', function () {
         return view('admin.admin-dashboard');
     });

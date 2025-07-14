@@ -28,4 +28,26 @@ class AdminController extends Controller
             ->with('cartao', $cartaoCompleto)
             ->with('user_id', $user->id);
     }
+
+    public function dashboard()
+    {
+        $produtos_validade = \App\Models\Product::whereNotNull('expiration_date')
+            ->whereDate('expiration_date', '>=', now())
+            ->whereDate('expiration_date', '<=', now()->addDays(7))
+            ->orderBy('expiration_date')
+            ->get();
+
+        // Últimas 10 movimentações
+        $movimentacoes = \App\Models\Movement::with('product')
+            ->orderBy('date', 'desc')
+            ->limit(10)
+            ->get();
+
+        $produtos_vencidos = \App\Models\Product::whereNotNull('expiration_date')
+            ->whereDate('expiration_date', '<', now())
+            ->orderBy('expiration_date')
+            ->get();
+
+        return view('dashboard', compact('produtos_validade', 'movimentacoes', 'produtos_vencidos'));
+    }
 }

@@ -39,6 +39,14 @@
     h5{
       color: var(--color-bege-claro);
     }
+
+    i{
+      color: var(--color-bege-claro) !important;
+    }
+
+    span{
+      color: var(--color-bege-claro) !important;
+    }
   }
 
   .grafico:hover{
