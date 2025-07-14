@@ -1,179 +1,529 @@
-<?php
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
-  
-@include('layouts.css-variables')
+@include('layouts.css-variables') {{-- Garante que suas variáveis CSS globais sejam carregadas --}}
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cadastrar Produto</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="icon" href="{{ asset('images/favicon-light.png') }}" media="(prefers-color-scheme: light)" type="image/png">
-  <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
-  
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ isset($product) ? 'Editar Produto' : 'Cadastrar Produto' }}</title>
+    <link rel="icon" href="{{ asset('images/favicon-light.png') }}" media="(prefers-color-scheme: light)" type="image/png">
+    <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        /* Variáveis de Cores (se não estiverem em layout.css-variables, inclua aqui) */
+        :root {
+            --color-vinho: #773138;
+            --color-bege-claro: #f8f0e5;
+            --color-bege-card-interno: #fcf5ee;
+            --color-gray-claro: #ddd;
+            --color-gray-medio: #aaa; /* Nova variável para bordas mais suaves */
+            --color-gray-escuro: #555;
+            --color-green: #28a745;
+            --color-vinho-fundo-transparente: rgba(119, 49, 56, 0.1);
+        }
+
+        body {
+            background-color: var(--color-bege-claro);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
+            color: var(--color-gray-escuro);
+        }
+
+        .container-card {
+            background-color: var(--color-bege-card-interno);
+            border-radius: 18px; /* Mais arredondado */
+            padding: 35px 40px; /* Mais padding */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada e suave */
+            margin: 40px auto;
+            max-width: 960px; /* Um pouco mais largo */
+            border: 1px solid var(--color-gray-claro); /* Borda sutil para definir o card */
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px; /* Mais espaçamento */
+            padding-bottom: 15px; /* Espaço antes da linha divisória */
+            border-bottom: 1px solid var(--color-gray-claro); /* Linha divisória suave */
+            flex-wrap: wrap;
+        }
+
+        .header-section h2 { /* h2 para o título principal */
+            color: var(--color-vinho);
+            font-weight: bold;
+            font-size: 2.2rem; /* Tamanho ajustado para h2 */
+            margin-bottom: 0;
+            line-height: 1.2;
+        }
+
+        .btn-voltar {
+            background-color: var(--color-vinho);
+            color: var(--color-bege-claro);
+            border: none;
+            border-radius: 10px; /* Mais arredondado */
+            padding: 10px 18px; /* Mais padding */
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 7px; /* Mais espaço no ícone */
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-voltar:hover {
+            background-color: #5f282e;
+            transform: translateY(-2px); /* Efeito de levitar */
+        }
+
+        .section-title {
+            color: var(--color-vinho);
+            font-weight: bold;
+            font-size: 1.6rem; /* Títulos de seção um pouco maiores */
+            margin-bottom: 25px; /* Mais espaçamento */
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--color-vinho);
+        }
+
+        .form-group {
+            margin-bottom: 25px; /* Mais espaçamento entre os grupos */
+        }
+
+        .form-label {
+            display: block;
+            color: var(--color-vinho);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-control, .form-select {
+            width: 100%;
+            padding: 12px 18px; /* Mais padding */
+            border: 1px solid var(--color-gray-claro);
+            border-radius: 10px; /* Mais arredondado */
+            font-size: 1rem;
+            color: var(--color-gray-escuro);
+            background-color: #fff;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--color-vinho);
+            box-shadow: 0 0 0 0.25rem var(--color-vinho-fundo-transparente); /* Sombra mais espessa */
+            outline: none;
+        }
+
+        /* Estilos específicos para o upload de imagem */
+        .image-upload-container {
+            border: 2px dashed var(--color-gray-medio); /* Borda tracejada mais visível */
+            border-radius: 12px;
+            padding: 20px; /* Mais padding */
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px; /* Altura mínima para o container de imagem */
+            text-align: center;
+            transition: border-color 0.3s ease;
+        }
+
+        .image-upload-container:hover {
+            border-color: var(--color-vinho); /* Destaca no hover */
+        }
+
+        .image-upload-container .form-label {
+            font-weight: bold;
+            color: var(--color-vinho);
+        }
+
+        .image-preview-area {
+            margin-top: 15px;
+        }
+
+        .image-preview {
+            max-width: 120px; /* Imagem um pouco maior */
+            max-height: 120px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 3px solid var(--color-vinho); /* Borda mais espessa */
+            padding: 3px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-placeholder-text {
+            color: var(--color-gray-escuro);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .additional-info-card, .stock-card {
+            background-color: #fff; /* Fundo branco dentro dos cards */
+            border: 1px solid var(--color-gray-claro);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra mais leve */
+            margin-top: 25px; /* Espaçamento entre os cards */
+        }
+
+        .additional-info-card .section-title, .stock-card .section-title {
+            font-size: 1.3rem; /* Títulos menores dentro dos cards */
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--color-gray-claro);
+            padding-bottom: 8px;
+        }
+
+        .additional-info-card .form-label, .stock-card .form-label {
+             font-size: 0.9rem;
+             font-weight: 500;
+        }
+
+        /* Estilo para o toggle de Situação */
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        .toggle-switch input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-switch .slider {
+            width: 50px; /* Slider maior */
+            height: 26px; /* Slider maior */
+            background-color: var(--color-gray-medio);
+            border-radius: 26px;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-switch .slider:before {
+            content: "";
+            position: absolute;
+            width: 22px; /* Thumb maior */
+            height: 22px; /* Thumb maior */
+            border-radius: 50%;
+            background-color: #fff;
+            top: 2px;
+            left: 2px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch input:checked + .slider {
+            background-color: var(--color-green);
+        }
+
+        .toggle-switch input:checked + .slider:before {
+            transform: translateX(24px); /* Posição do thumb maior */
+        }
+
+        .toggle-switch .status-text {
+            font-weight: bold;
+            color: var(--color-vinho);
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+
+        .toggle-switch input:checked ~ .status-text {
+            color: var(--color-green);
+        }
+
+        /* Botões de ação */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px; /* Mais espaço entre os botões */
+            margin-top: 40px; /* Mais espaçamento */
+            padding-top: 25px;
+            border-top: 1px solid var(--color-gray-claro);
+        }
+
+        .btn-cancel {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 25px; /* Mais padding */
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-cancel:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .btn-send {
+            background-color: var(--color-vinho);
+            color: var(--color-bege-claro);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 25px;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-send:hover {
+            background-color: #5f282e;
+            transform: translateY(-2px);
+        }
+
+        /* Alertas de validação (Bootstrap) */
+        .alert {
+            border-radius: 10px;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container-card {
+                margin: 20px;
+                padding: 25px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+            .header-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+            .header-section h2 {
+                font-size: 1.8rem;
+            }
+            .section-title {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+            }
+            .form-group {
+                margin-bottom: 20px;
+            }
+            .image-upload-container {
+                min-height: 150px;
+                padding: 15px;
+            }
+            .image-preview {
+                max-width: 100px;
+                max-height: 100px;
+            }
+            .toggle-switch .slider {
+                width: 40px;
+                height: 20px;
+            }
+            .toggle-switch .slider:before {
+                width: 16px;
+                height: 16px;
+                transform: translateX(20px);
+            }
+            .form-actions {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+                margin-top: 30px;
+            }
+            .btn-cancel, .btn-send {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
-    <link rel="stylesheet" href="{{ asset('css/cadastro-produto.css') }}">
+<body>
+    <div class="container-card">
+        <div class="header-section">
+            <h2 class="text-2xl"> {{-- Alterado de h1 para h2 --}}
+                {{ isset($product) ? 'Editar Produto' : 'Cadastrar Produto' }}
+            </h2>
+            <a href="/lista-produtos" class="btn-voltar">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+        </div>
 
+        @if ($errors->any())
+        <div class="alert alert-danger" role="alert">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 
-<body class="flex items-center justify-center min-h-screen bg-beige">
-  <div class="bg-beige w-full p-mine">
-    <div class="back">
-      <div>
-        <a href="/dashboard" class="d-flex align-center">
-          <img class="image" src="{{ asset('images/left-arrow.png') }}" alt="Logo">
-          <h3 class="font-semibold">DASHBOARD</h3>
-        </a>
-      </div>
-      <img class="logo" src="{{ asset('images/logo.png') }}" alt="Logo">
-    </div>
-    <h1 class="text-2xl font-semibold mb-2 text-red-mine">
-      @if(isset($product))
-        {{ $product->description }}
-      @else
-        Cadastrar Produto
-      @endif
-    </h1>
+        @if (session('error'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('error') }}
+        </div>
+        @endif
 
-
-
-    @if ($errors->any())
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
-      <ul class="list-disc ml-5">
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-      </ul>
-    </div>
-    @endif
-
-    @if (session('error'))
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
-      {{ session('error') }}
-    </div>
-    @endif
-
-    <form class="grid grid-cols-1 md:grid-cols-2 gap-6" action="{{ isset($product) ? route('products.update', $product->id) : route('cadastrar-produto.store') }}" method="POST" enctype="multipart/form-data">
-      @csrf
-      @if(isset($product))
-        @method('PUT')
-      @endif
-
-      <div class="first-info">
-
-        <div style="width: 30%;">
-          <input
-            type="file"
-            name="image_url"
-            class="w-full border border-gray-300 rounded-md p-2"
-            accept="image/*"
-            onchange="previewImage(event)"
-            {{ isset($product) ? '' : 'required' }}>
-          <div class="mt-2">
-            @if(isset($product) && $product->image_url)
-              <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="rounded-md" style="max-height: 150px;">
-              <div id="placeholder" class="text-gray-500">Imagem atual</div>
-            @else
-              <img id="preview" src="#" alt="Pré-visualização" class="hidden rounded-md" style="max-height: 150px;">
-              <div id="placeholder" class="text-gray-500">Nenhuma imagem selecionada</div>
+        <form class="row g-4" action="{{ isset($product) ? route('products.update', $product->id) : route('cadastrar-produto.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @if(isset($product))
+                @method('PUT')
             @endif
-          </div>
-        </div>
 
-        <div style="width: 80%;">
-          <label class="block bigger font-medium text-red-mine mb-1">Nome</label>
-          <input type="text" name="description" class="w-full border border-gray-300 rounded-md p-2" placeholder="Esmalte vermelho da marca Anita 8ml" value="{{ isset($product) ? $product->description : '' }}" style="margin-bottom: 1.5em;" required>
+            <div class="col-12">
+                <h3 class="section-title">Dados do Produto</h3>
+            </div>
 
-          <label class="block font-medium text-red-mine mb-1 bigger">Descrição</label>
-          <input type="text" name="code" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: esmalte_vermelho_anita" value="{{ isset($product) ? $product->code : '' }}" required>
-        </div>
-      </div>
+            <div class="col-md-3">
+                <div class="image-upload-container">
+                    <label for="image_url" class="form-label mb-2">Imagem do Produto</label>
+                    <input type="file" name="image_url" id="image_url" class="form-control" accept="image/*" onchange="previewImage(event)" {{ isset($product) ? '' : 'required' }}>
+                    <div class="image-preview-area">
+                        @if(isset($product) && $product->image_url)
+                            <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="image-preview">
+                            <div id="placeholder" class="image-placeholder-text">Imagem atual</div>
+                        @else
+                            <img id="preview" src="#" alt="Pré-visualização" class="image-preview d-none">
+                            <div id="placeholder" class="image-placeholder-text">Nenhuma imagem selecionada</div>
+                        @endif
+                    </div>
+                </div>
+            </div>
 
+            <div class="col-md-9">
+                <div class="row g-4">
+                    <div class="col-md-6 form-group">
+                        <label for="description" class="form-label">Nome</label>
+                        <input type="text" name="description" id="description" class="form-control" placeholder="Esmalte vermelho da marca Anita 8ml" value="{{ isset($product) ? $product->description : '' }}" required>
+                    </div>
 
-      <div class="gap-6">
-        <label class="block bigger font-medium text-red-mine mb-1">Código de barra</label>
-        <input name="barcode" type="text" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: 00608473184014" value="{{ isset($product) ? $product->barcode : '' }}" style="margin-bottom: 1.5em;" required>
-        <label class="block bigger font-medium text-red-mine mb-1">Data de validade</label>
-        <input name="expiration_date" type="date" class="w-full border border-gray-300 rounded-md p-2" value="{{ isset($product) ? $product->expiration_date : '' }}" required>
-      </div>
+                    <div class="col-md-6 form-group">
+                        <label for="barcode" class="form-label">Código de barra</label>
+                        <input name="barcode" type="text" id="barcode" class="form-control" placeholder="Ex: 00608473184014" value="{{ isset($product) ? $product->barcode : '' }}" required>
+                    </div>
 
-      <div class="d-flex" style="gap: 15px">
-        <div>
-          <label class="block bigger font-medium text-red-mine mb-1">Valor</label>
-          <input name="value" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="R$" value="{{ isset($product) ? $product->value : '' }}">
-        </div>
-        <!-- <div>
-          <label class="block bigger font-medium text-red-mine mb-1">Valor de compra</label>
-          <input name="value" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="R$">
-        </div> -->
-        <div>
-          <label class="block bigger font-medium text-red-mine mb-1">Lucro</label>
-          <input name="profit" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="R$" value="{{ isset($product) ? $product->profit : '' }}" required>
-        </div>
-      </div>
+                    <div class="col-md-6 form-group">
+                        <label for="code" class="form-label">Descrição (Código Interno)</label>
+                        <input type="text" name="code" id="code" class="form-control" placeholder="Ex: esmalte_vermelho_anita" value="{{ isset($product) ? $product->code : '' }}" required>
+                    </div>
 
-      <div>
-        <label class="block bigger font-medium text-red-mine mb-1">Fornecedor</label>
-        <select name="supplierId" class="w-full border border-gray-300 rounded-md p-2" required>
-          <option value="">Selecione um fornecedor</option>
-          @foreach ($suppliers as $supplier)
-          <option value="{{ $supplier->id }}" {{ isset($product) && $product->supplierId == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
-          @endforeach
-        </select>
-      </div>
+                    <div class="col-md-6 form-group">
+                        <label for="expiration_date" class="form-label">Data de validade</label>
+                        <input name="expiration_date" type="date" id="expiration_date" class="form-control" value="{{ isset($product) ? $product->expiration_date : '' }}" required>
+                    </div>
+                </div>
+            </div>
 
+            <div class="col-md-4 form-group">
+                <label for="value" class="form-label">Valor (R$)</label>
+                <input name="value" type="number" step="0.01" class="form-control" placeholder="R$" value="{{ isset($product) ? $product->value : '' }}">
+            </div>
 
-      <div class="border-mine p-stock">
-        <label class="block bigger font-medium text-red-mine mb-1">Informações Adicionais</label>
-        <div class="d-flex justify-around" style="gap: 15px; margin-bottom: 15px">
-          <div>
-            <label class="block text-sm font-medium text-red-mine mb-1">Marca</label>
-            <input name="brand" type="text" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: Anita" value="{{ isset($product) ? $product->brand : '' }}">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-red-mine mb-1">Modelo</label>
-            <input name="model" type="text" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: Carnaval" value="{{ isset($product) ? $product->model : '' }}">
-          </div>
-        </div>
-      </div>
+            <div class="col-md-4 form-group">
+                <label for="profit" class="form-label">Lucro (R$)</label>
+                <input name="profit" type="number" step="0.01" class="form-control" placeholder="R$" value="{{ isset($product) ? $product->profit : '' }}" required>
+            </div>
 
-      <div class="border-mine p-stock">
-        <label class="block bigger font-medium text-red-mine mb-1">Estoque</label>
-        <div class="d-flex justify-around" style="gap: 15px">
-          <div>
-            <label class="block text-sm font-medium text-red-mine mb-1">Estoque Atual</label>
-            <input name="currentStock" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: 40" value="{{ isset($product) ? $product->currentStock : '' }}" required>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-red-mine mb-1">Estoque Mínimo</label>
-            <input name="minimumStock" type="number" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: 150" value="{{ isset($product) ? $product->minimumStock : '' }}" required>
-          </div>
-        </div>
-      </div>
-      <div>
+            <div class="col-md-4 form-group">
+                <label for="supplierId" class="form-label">Fornecedor</label>
+                <select name="supplierId" id="supplierId" class="form-select" required>
+                    <option value="">Selecione um fornecedor</option>
+                    @foreach ($suppliers as $supplier)
+                    <option value="{{ $supplier->id }}" {{ isset($product) && $product->supplierId == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-      </div>
-      <div class="flex justify-between align-center" style="padding: 0 60px;">
-        <div class="col-span-1 md:col-span-2">
-          <label class="block text-sm font-medium text-red-mine mb-1">Situação</label>
-          <label class="inline-flex items-center cursor-pointer" onclick="show()">
-            <input type="checkbox" class="sr-only peer" name="status" value="1" {{ isset($product) ? ($product->status ? 'checked' : '') : 'checked' }}>
-            <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-black-500 rounded-full peer dark:bg-red-700 peer-checked:bg-green-700 transition-all"></div>
-            <span class="ml-3 text-sm text-red-700 peer-checked:text-green-700 bold" id="active">Ativo</span>
-          </label>
-        </div>
-        <div class="d-flex" style="gap: 15px">
-          <a href="/lista-produtos" class="btn btn-cancel">Cancelar</a>
-          <button class="btn btn-send ">{{ isset($product) ? 'Atualizar' : 'Salvar' }}</button>
-        </div>
-      </div>
-    </form>
-  </div>
+            <div class="col-md-6">
+                <div class="additional-info-card">
+                    <h4 class="section-title" style="margin-top: 0;">Informações Adicionais</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6 form-group">
+                            <label for="brand" class="form-label">Marca</label>
+                            <input name="brand" type="text" id="brand" class="form-control" placeholder="Ex: Anita" value="{{ isset($product) ? $product->brand : '' }}">
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="model" class="form-label">Modelo</label>
+                            <input name="model" type="text" id="model" class="form-control" placeholder="Ex: Carnaval" value="{{ isset($product) ? $product->model : '' }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="stock-card">
+                    <h4 class="section-title" style="margin-top: 0;">Estoque</h4>
+                    <div class="row g-3">
+                        <div class="col-md-6 form-group">
+                            <label for="currentStock" class="form-label">Estoque Atual</label>
+                            <input name="currentStock" type="number" id="currentStock" class="form-control" placeholder="Ex: 40" value="{{ isset($product) ? $product->currentStock : '' }}" required>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="minimumStock" class="form-label">Estoque Mínimo</label>
+                            <input name="minimumStock" type="number" id="minimumStock" class="form-control" placeholder="Ex: 150" value="{{ isset($product) ? $product->minimumStock : '' }}" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 d-flex justify-content-between align-items-center mt-4">
+                <div class="form-group mb-0"> {{-- Removido margin-bottom do form-group para alinhamento --}}
+                    <label class="form-label">Situação</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" name="status" value="1" {{ isset($product) ? ($product->status ? 'checked' : '') : 'checked' }} onchange="updateStatusText(this)">
+                        <span class="slider"></span>
+                        <span class="status-text" id="statusText">{{ isset($product) ? ($product->status ? 'Ativo' : 'Inativo') : 'Ativo' }}</span>
+                    </label>
+                </div>
+                <div class="form-actions">
+                    <a href="/lista-produtos" class="btn btn-cancel">Cancelar</a>
+                    <button type="submit" class="btn btn-send">{{ isset($product) ? 'Atualizar' : 'Salvar' }}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function previewImage(event) {
+            const preview = document.getElementById('preview');
+            const placeholder = document.getElementById('placeholder');
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('d-none');
+                    placeholder.classList.add('d-none');
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            } else {
+                preview.src = '#';
+                preview.classList.add('d-none');
+                placeholder.classList.remove('d-none');
+            }
+        }
+
+        function updateStatusText(checkbox) {
+            const statusText = document.getElementById('statusText');
+            if (checkbox.checked) {
+                statusText.textContent = 'Ativo';
+            } else {
+                statusText.textContent = 'Inativo';
+            }
+        }
+
+        // Garante que o texto de status inicial esteja correto ao carregar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusCheckbox = document.querySelector('.toggle-switch input[name="status"]');
+            if (statusCheckbox) {
+                updateStatusText(statusCheckbox);
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
-    <script src="{{ asset('js/cadastro-produto.js') }}"></script>
 </html>
