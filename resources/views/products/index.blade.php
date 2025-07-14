@@ -157,8 +157,14 @@
     <div class="d-flex align-items-center justify-content-between mb-4">
         <h2 class="fw-bold mb-0" style="color: var(--color-vinho);">Produtos</h2>
         <div class="d-flex align-items-center" style="gap: 16px;">
-            <form action="{{ route('pesquisa.index') }}" method="GET" class="search-bar">
-                <input class="search" type="text" name="q" value="{{ request('q') }}" placeholder="Pesquisar...">
+            <form action="{{ url()->current() }}" method="GET" class="search-bar" autocomplete="off">
+                <input class="search" type="text" name="q" value="{{ request('q') }}" placeholder="Pesquisar por nome ou código de barras..." list="produtos-list">
+                <datalist id="produtos-list">
+                    @foreach($products as $produto)
+                        <option value="{{ $produto->description }}">{{ $produto->barcode }}</option>
+                        <option value="{{ $produto->barcode }}">{{ $produto->description }}</option>
+                    @endforeach
+                </datalist>
                 <button type="submit" style="background: none; border: none; color: #fff;">
                     <i class="bi bi-search"></i>
                 </button>

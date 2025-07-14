@@ -15,7 +15,9 @@ class MovementController extends Controller
         $products = Product::orderBy('description')->get();
 
         if ($request->filled('produto')) {
-            $produtoSelecionado = Product::where('description', 'like', '%' . $request->produto . '%')->first();
+            $produtoSelecionado = Product::where('description', 'like', '%' . $request->produto . '%')
+                ->orWhere('barcode', 'like', '%' . $request->produto . '%')
+                ->first();
 
             if ($produtoSelecionado) {
                 $movimentacoes = Movement::where('product_id', $produtoSelecionado->id)

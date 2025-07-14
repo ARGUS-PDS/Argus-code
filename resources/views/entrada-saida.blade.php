@@ -15,10 +15,11 @@
   {{-- Pesquisa de produto --}}
   <form method="GET" class="mb-4 entrada-saida-pesquisa" style="max-width: 350px;">
     <div class="input-group">
-      <input type="text" name="produto" class="form-control" placeholder="Pesquisar produto..." value="{{ request('produto') }}" list="produtos-list">
+      <input type="text" name="produto" class="form-control" placeholder="Pesquisar produto por nome ou código de barras..." value="{{ request('produto') }}" list="produtos-list">
       <datalist id="produtos-list">
         @foreach($products as $produto)
-          <option value="{{ $produto->description }}">
+          <option value="{{ $produto->description }}">{{ $produto->barcode }}</option>
+          <option value="{{ $produto->barcode }}">{{ $produto->description }}</option>
         @endforeach
       </datalist>
       <button class="btn btn-secondary" type="submit">

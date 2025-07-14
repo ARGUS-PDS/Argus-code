@@ -168,7 +168,7 @@
           </label>
         </div>
         <div class="d-flex" style="gap: 15px">
-          <a href="{{ isset($product) ? route('products.index') : '/dashboard' }}" class="btn btn-cancel">Cancelar</a>
+          <a href="/lista-produtos" class="btn btn-cancel">Cancelar</a>
           <button class="btn btn-send ">{{ isset($product) ? 'Atualizar' : 'Salvar' }}</button>
         </div>
       </div>
