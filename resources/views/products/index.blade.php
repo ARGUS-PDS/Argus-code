@@ -2,37 +2,7 @@
 
 @section('styles')
 <style>
-    :root {
-        --color-vinho: #773138;
-        --color-bege-claro: #f8f0e5;
-        --color-bege-card-interno: #fcf5ee; /* Voltou para o bege para cards internos */
-        --color-gray-claro: #ddd;
-        --color-gray-escuro: #555;
-        --color-green: #28a745;
-        --color-vinho-fundo: rgba(119, 49, 56, 0.1);
-
-        --bs-primary: var(--color-vinho);
-        --bs-secondary: #6c757d;
-        --bs-success: var(--color-green);
-        --bs-danger: #dc3545;
-
-        --bs-btn-bg: var(--bs-primary);
-        --bs-btn-border-color: var(--bs-primary);
-        --bs-btn-hover-bg: #5f282e;
-        --bs-btn-hover-border-color: #5f282e;
-        --bs-btn-active-bg: #471e23;
-        --bs-btn-active-border-color: #471e23;
-        --bs-btn-color: #fff;
-
-        --bs-alert-bg-success: #d4edda;
-        --bs-alert-border-success: #c3e6cb;
-        --bs-alert-color-success: #155724;
-
-        --bs-alert-bg-danger: #f8d7da;
-        --bs-alert-border-danger: #f5c6cb;
-        --bs-alert-color-danger: #721c24;
-    }
-
+    
     body {
         background-color: var(--color-bege-claro);
         padding: 0;
@@ -237,7 +207,7 @@
     }
 
     .dropdown-item.text-danger:hover {
-        background-color: var(--bs-danger);
+        background-color: var(--color-red);
         color: #fff;
     }
 
@@ -298,41 +268,41 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table align-middle">
+        <table class="table align-middle products-table">
             <thead>
     <tr>
-        <th style="width:32px;"></th>
-        <th>{{ __('products.image') }}</th>
+        <th class="text-center" style="width:32px;"></th>
+        <th class="text-center">{{ __('products.image') }}</th>
         <th>{{ __('products.name') }}</th>
         <th>{{ __('products.code') }}</th>
-        <th>{{ __('products.supplier') }}</th>
-        <th>{{ __('products.stock') }}</th>
-        <th>{{ __('products.price') }}</th>
-        <th></th>
+        <th class="text-center">{{ __('products.supplier') }}</th>
+        <th class="text-center">{{ __('products.stock') }}</th>
+        <th class="text-center">{{ __('products.price') }}</th>
+        <th class="text-center"></th>
     </tr>
 </thead>
 <tbody>
     @forelse ($products as $product)
     <tr onclick="window.location='{{ route('products.edit', $product->id) }}'" style="cursor:pointer;">
-        <td><input type="checkbox"></td>
-                    <td>
+        <td class="text-center"><input type="checkbox"></td>
+                    <td class="text-center">
                         @if ($product->image_url)
                         <img src="{{ asset($product->image_url) }}" alt="{{ __('products.image_alt') }}" class="img-thumb">
                         @else
-                        <span class="text-muted small">{{ __('products.no_image') }}</span>
+                            <i class="bi bi-image img-thumb" style="font-size: 2rem; padding-top: 15px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; color: var(--color-vinho-fundo);"></i>
                         @endif
                     </td>
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->barcode }}</td>
-                    <td>{{ $product->supplier ? $product->supplier->name : __('products.no_supplier') }}</td>
-                    <td>{{ $product->currentStock }}</td>
-                    <td>R$ {{ number_format($product->value, 2, ',', '.') }}</td>
-                    <td>
+                    <td class="text-center">{{ $product->supplier ? $product->supplier->name : __('products.no_supplier') }}</td>
+                    <td class="text-center">{{ $product->currentStock }}</td>
+                    <td class="text-center">R$ {{ number_format($product->value, 2, ',', '.') }}</td>
+                    <td class="text-center">
                         <div class="dropdown">
                             <i class="bi bi-three-dots-vertical" role="button" id="dropdownMenuButton{{ $product->id }}" data-bs-toggle="dropdown" aria-expanded="false" onclick="event.stopPropagation();"></i>
                             <ul class="dropdown-menu" data-bs-boundary="viewport" aria-labelledby="dropdownMenuButton{{ $product->id }}" onclick="event.stopPropagation();">
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('products.edit', $product->id) }}">{{ __('products.print') }}</a>
+                                <a class="dropdown-item" href="">{{ __('products.print') }}</a>
                                 </li>
                                 <li>
                                     <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('{{ __('products.confirm_delete') }}');">

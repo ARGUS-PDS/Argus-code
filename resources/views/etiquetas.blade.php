@@ -4,15 +4,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet" />
 
 <style>
-    :root {
-        --color-vinho: #773138;
-        --color-bege-claro: #f8f0e5;
-        --color-bege-card-interno: #fcf5ee;
-        --color-gray-claro: #ddd;
-        --color-gray-medio: #aaa;
-        --color-gray-escuro: #555;
-        --color-vinho-fundo-transparente: rgba(119, 49, 56, 0.25);
-    }
 
     .container-card {
         background-color: var(--color-bege-card-interno);
@@ -62,13 +53,13 @@
     }
 
     .btn-voltar:hover {
-        background-color: #5f282e;
+        background-color: var(--bs-btn-hover-bg);
         transform: translateY(-2px);
         color: var(--color-bege-claro);
     }
 
     .form-add-card {
-        background-color: #fff;
+        background-color: var(--color-white);
         border: 1px solid var(--color-gray-claro);
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -97,8 +88,8 @@
     }
 
     .form-add-card .btn-primary:hover {
-        background-color: #5f282e;
-        border-color: #5f282e;
+        background-color: var(--bs-btn-hover-bg);
+        border-color: var(--bs-btn-hover-bg);
         transform: translateY(-2px);
     }
 
@@ -117,9 +108,9 @@
     }
 
     .alert-danger {
-        background-color: #f8d7da;
-        color: #721c24;
-        border-color: #f5c6cb;
+        background-color: var(--color-bege-card-interno);
+        color: var(--color-vinho-claro);
+        border-color: var(--color-bege-claro);
     }
 
     .action-buttons {
@@ -131,22 +122,22 @@
     }
 
     .action-buttons .btn-outline-danger {
-        color: #dc3545;
-        border-color: #dc3545;
+        color: var(--color-red);
+        border-color: var(--color-red);
         border-radius: 10px;
         transition: all 0.3s ease;
     }
 
     .action-buttons .btn-outline-danger:hover {
-        background-color: #dc3545;
-        color: #fff;
+        background-color: var(--color-red);
+        color: var(--color-white);
     }
 
     .action-buttons .btn-success {
-        background-color: #28a745;
-        border-color: #28a745;
+        background-color: var(--color-green);
+        border-color: var(--color-green);
         border-radius: 10px;
-        color: #fff;
+        color: var(--color-white);
         transition: all 0.3s ease;
     }
 
@@ -164,7 +155,7 @@
     }
 
     .etiqueta {
-        background-color: #fff;
+        background-color: var(--color-white);
         border: 1px solid var(--color-gray-claro);
         border-radius: 8px;
         padding: 15px;
@@ -233,7 +224,7 @@
 
     @media print {
         body {
-            background-color: #fff !important;
+            background-color: var(--color-white) !important;
             color: #000 !important;
         }
         .container-card, .header-section, .form-add-card, .action-buttons, .alert {

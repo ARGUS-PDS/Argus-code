@@ -78,8 +78,8 @@ body {
 .dropdown-item:hover,
 .dropdown-item:focus,
 .dropdown-item.active {
-    background-color: var(--color-vinho-fundo);
-    color: var(--color-vinho);
+    background-color: var(--color-vinho-fundo) !important;
+    color: var(--color-vinho) !important;
 }
 
 .dropdown-item.special-link {
@@ -261,4 +261,12 @@ body {
 
 .btn.lang-btn:hover .bi-box-arrow-right {
     transform: translateX(2px);
+}
+
+.products-table tbody tr,
+.products-table tbody td {
+    height: 100px;
+    max-height:100px;
+    min-height: 100px;
+    vertical-align: middle !important;
 }

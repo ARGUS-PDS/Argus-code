@@ -2,40 +2,6 @@
 
 @section('styles')
 <style>
-    /*
-     * As variáveis CSS devem estar definidas em um local global (ex: layouts/app.blade.php ou um CSS base global)
-     * para serem reutilizadas por todas as páginas que usam layouts.app.
-     * Se você não as tem definidas globalmente, considere adicioná-las aqui ou no arquivo CSS principal.
-     */
-    :root {
-        --color-vinho: #773138;
-        --color-bege-claro: #f8f0e5;
-        --color-bege-card-interno: #fcf5ee;
-        --color-gray-claro: #ddd;
-        --color-gray-escuro: #555;
-        --color-green: #28a745;
-
-        --bs-primary: var(--color-vinho);
-        --bs-secondary: #6c757d;
-        --bs-success: var(--color-green);
-        --bs-danger: #dc3545;
-
-        --bs-btn-bg: var(--bs-primary);
-        --bs-btn-border-color: var(--bs-primary);
-        --bs-btn-hover-bg: #5f282e; /* Vinho mais escuro para hover */
-        --bs-btn-hover-border-color: #5f282e;
-        --bs-btn-active-bg: #471e23;
-        --bs-btn-active-border-color: #471e23;
-        --bs-btn-color: #fff;
-
-        --bs-alert-bg-success: #d4edda;
-        --bs-alert-border-success: #c3e6cb;
-        --bs-alert-color-success: #155724;
-
-        --bs-alert-bg-danger: #f8d7da;
-        --bs-alert-border-danger: #f5c6cb;
-        --bs-alert-color-danger: #721c24;
-    }
 
     body {
         background-color: var(--color-bege-claro);
@@ -99,9 +65,9 @@
 
     /* Estilo para o botão "Salvar" (btn-primary) */
     .btn-primary {
-        background-color: var(--bs-primary);
-        border-color: var(--bs-primary);
-        color: var(--bs-btn-color);
+        background-color: var(--color-vinho);
+        border-color: var(--color-vinho);
+        color: var(--color-white);
         padding: 0.75rem 1.5rem;
         border-radius: 8px;
         font-weight: bold;
@@ -115,9 +81,9 @@
 
     /* Estilo para o botão "Cancelar" (btn-secondary) */
     .btn-secondary {
-        background-color: var(--bs-secondary);
-        border-color: var(--bs-secondary);
-        color: #fff;
+        background-color: var(--color-gray);
+        border-color: var(--color-gray);
+        color: var(--color-white);
         padding: 0.75rem 1.5rem;
         border-radius: 8px;
         font-weight: bold;
@@ -125,8 +91,8 @@
     }
 
     .btn-secondary:hover {
-        background-color: #5a6268; /* Cinza mais escuro para hover */
-        border-color: #545b62;
+        background-color: var(--color-gray-2); /* Cinza mais escuro para hover */
+        border-color: var(--color-gray-3);
     }
 
     /* Estilos para radio buttons e checkboxes */

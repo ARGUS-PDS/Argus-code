@@ -2,43 +2,6 @@
 
 @section('styles')
 <style>
-    :root {
-        --color-vinho: #773138;
-        --color-bege-claro: #f8f0e5;
-        --color-bege-card-interno: #fcf5ee;
-        --color-gray-claro: #ddd;
-        --color-gray-escuro: #555;
-        --color-green: #28a745;
-        --color-table-header-bg: #773138;
-        --color-table-header-text: #fff;
-        --color-table-row-bg: #fdfaf7;
-        --color-border: #e0e0e0;
-
-        --bs-primary: var(--color-vinho);
-        --bs-secondary: var(--color-gray-escuro);
-
-        --bs-btn-bg: var(--bs-primary);
-        --bs-btn-border-color: var(--bs-primary);
-        --bs-btn-hover-bg: #5f282e;
-        --bs-btn-hover-border-color: #5f282e;
-        --bs-btn-active-bg: #471e23;
-        --bs-btn-active-border-color: #471e23;
-        --bs-btn-color: #fff;
-
-        --bs-danger: #dc3545;
-        --bs-btn-danger-bg: var(--bs-danger);
-        --bs-btn-danger-border-color: var(--bs-danger);
-        --bs-btn-danger-hover-bg: #c82333;
-        --bs-btn-danger-hover-border-color: #bd2130;
-
-        --bs-alert-bg-success: #d4edda;
-        --bs-alert-border-success: #c3e6cb;
-        --bs-alert-color-success: #155724;
-
-        --bs-alert-bg-danger: #f8d7da;
-        --bs-alert-border-danger: #f5c6cb;
-        --bs-alert-color-danger: #721c24;
-    }
 
     body {
         background-color: var(--color-bege-claro);
@@ -91,9 +54,9 @@
     }
 
     .btn-primary {
-        background-color: var(--bs-primary);
-        border-color: var(--bs-primary);
-        color: var(--bs-btn-color);
+        background-color: var(--color-vinho);
+        border-color: var(--color-vinho);
+        color: var(--color-white);
         padding: 0.75rem 1.5rem;
         border-radius: 8px;
         font-weight: bold;
@@ -106,8 +69,8 @@
     }
 
     .btn-secondary {
-        background-color: #6c757d;
-        border-color: #6c757d;
+        background-color: var(--color-gray);
+        border-color: var(--color-gray);
         color: #fff;
         padding: 0.75rem 1.5rem;
         border-radius: 8px;
@@ -116,8 +79,8 @@
     }
 
     .btn-secondary:hover {
-        background-color: #5a6268;
-        border-color: #545b62;
+        background-color: var(--color-gray-2);
+        border-color:var(--color-gray);
     }
 
     .alert {

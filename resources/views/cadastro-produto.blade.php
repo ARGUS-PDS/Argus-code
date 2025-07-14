@@ -12,19 +12,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <style>
-        /* Variáveis de Cores (se não estiverem em layout.css-variables, inclua aqui) */
-        :root {
-            --color-vinho: #773138;
-            --color-bege-claro: #f8f0e5;
-            --color-bege-card-interno: #fcf5ee;
-            --color-gray-claro: #ddd;
-            --color-gray-medio: #aaa;
-            /* Nova variável para bordas mais suaves */
-            --color-gray-escuro: #555;
-            --color-green: #28a745;
-            --color-vinho-fundo-transparente: rgba(119, 49, 56, 0.1);
-        }
-
         body {
             background-color: var(--color-bege-claro);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -89,7 +76,7 @@
         }
 
         .btn-voltar:hover {
-            background-color: #5f282e;
+            background-color: var(--bs-btn-hover-bg);
             transform: translateY(-2px);
             /* Efeito de levitar */
         }
@@ -128,7 +115,7 @@
             /* Mais arredondado */
             font-size: 1rem;
             color: var(--color-gray-escuro);
-            background-color: #fff;
+            background-color: var(--color-white);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -147,7 +134,7 @@
             border-radius: 12px;
             padding: 20px;
             /* Mais padding */
-            background-color: #fff;
+            background-color: var(--color-white);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -192,7 +179,7 @@
 
         .additional-info-card,
         .stock-card {
-            background-color: #fff;
+            background-color: var(--color-white);
             /* Fundo branco dentro dos cards */
             border: 1px solid var(--color-gray-claro);
             border-radius: 12px;
@@ -253,7 +240,7 @@
             height: 22px;
             /* Thumb maior */
             border-radius: 50%;
-            background-color: #fff;
+            background-color: var(--color-white);
             top: 2px;
             left: 2px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -293,8 +280,8 @@
         }
 
         .btn-cancel {
-            background-color: #dc3545;
-            color: #fff;
+            background-color:var(--color-red);
+            color: var(--color-white);
             border: none;
             border-radius: 10px;
             padding: 12px 25px;
@@ -323,7 +310,7 @@
         }
 
         .btn-send:hover {
-            background-color: #5f282e;
+            background-color: var(--bs-btn-hover-bg);
             transform: translateY(-2px);
         }
 
@@ -438,7 +425,7 @@
             <div class="col-md-3">
                 <div class="image-upload-container">
                     <label for="image_url" class="form-label mb-2">Imagem do Produto</label>
-                    <input type="file" name="image_url" id="image_url" class="form-control" accept="image/*" onchange="previewImage(event)" {{ isset($product) ? '' : 'required' }}>
+                    <input type="file" name="image_url" id="image_url" class="form-control" accept="image/*" onchange="previewImage(event)">
                     <div class="image-preview-area">
                         @if(isset($product) && $product->image_url)
                         <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="image-preview">
