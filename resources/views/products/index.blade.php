@@ -300,21 +300,21 @@
     <div class="table-responsive">
         <table class="table align-middle">
             <thead>
-                <tr>
-                    <th style="width:32px;"></th>
-                    <th>Imagem</th>
-                    <th>Nome</th>
-                    <th>Código de barras</th>
-                    <th>Fornecedor</th>
-                    <th>Estoque</th>
-                    <th>Valor</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($products as $product)
-                <tr onclick="window.location='{{ route('products.edit', $product->id) }}'" style="cursor:pointer;">
-                    <td><input type="checkbox"></td>
+    <tr>
+        <th style="width:32px;"></th>
+        <th>{{ __('products.image') }}</th>
+        <th>{{ __('products.name') }}</th>
+        <th>{{ __('products.code') }}</th>
+        <th>{{ __('products.supplier') }}</th>
+        <th>{{ __('products.stock') }}</th>
+        <th>{{ __('products.price') }}</th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+    @forelse ($products as $product)
+    <tr onclick="window.location='{{ route('products.edit', $product->id) }}'" style="cursor:pointer;">
+        <td><input type="checkbox"></td>
                     <td>
                         @if ($product->image_url)
                         <img src="{{ asset($product->image_url) }}" alt="{{ __('products.image_alt') }}" class="img-thumb">
