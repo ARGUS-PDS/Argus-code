@@ -254,7 +254,7 @@
                     <i class="bi bi-search"></i>
                 </button>
             </form>
-            <span class="ms-4 fw-bold" style="color: var(--color-vinho);">{{ __('products.current_stock') }}: {{ $products->sum('currentStock') }}</span>
+            <span class="ms-4 fw-bold" style="color: var(--color-vinho);">{{ __('products.current_stock') }}: {{ $products->count() }}</span>
             <button type="button" class="btn p-0" title="{{ __('products.print') }}">
                 <i class="bi bi-printer fs-4"></i>
             </button>
