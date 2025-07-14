@@ -6,57 +6,63 @@
 
 <div class="row justify-content-center g-2 dashboard-group" id="dashboard-row" draggable="true">
   <div class="col-md-4">
-     <div class="panel" draggable=true>
+    <div class="panel" draggable=true>
       <h5>{{ __('dashboard.prod_valid_title') }}</h5>
       @if($produtos_validade->count())
-        <ul class="mt-2">
-          @foreach($produtos_validade as $produto)
-            <li>{{ $produto->description }} - {{ __('dashboard.expires_in') }} {{ intval(max(0, now()->diffInDays(\Carbon\Carbon::parse($produto->expiration_date), false))) }} {{ __('dashboard.days') }} ({{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})</li>
-          @endforeach
-        </ul>
+      <ul class="mt-2">
+        @foreach($produtos_validade as $produto)
+        <li>{{ $produto->description }} - {{ __('dashboard.expires_in') }} {{ intval(max(0, now()->diffInDays(\Carbon\Carbon::parse($produto->expiration_date), false))) }} {{ __('dashboard.days') }} ({{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})</li>
+        @endforeach
+      </ul>
       @else
-        <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
-          <i class="bi bi-calendar-x" style="font-size: 2.5rem; color: var(--color-vinho);"></i>
-          <span class="fw-bold text-center mt-2" style="color: var(--color-vinho);">{{ __('dashboard.no_news') }}</span>
-        </div>
+      <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
+        <i class="bi bi-calendar-x" style="font-size: 2.5rem; color: var(--color-vinho);"></i>
+        <span class="fw-bold text-center mt-2" style="color: var(--color-vinho);">{{ __('dashboard.no_news') }}</span>
+      </div>
       @endif
-     </div>
+    </div>
   </div>
 
   <div class="col-md-4">
-     <div class="panel" draggable=true>
+    <div class="panel" draggable=true>
       <h5>{{ __('dashboard.movement_title') }}</h5>
       @if($movimentacoes->count())
-        <ul class="mt-2">
-          @foreach($movimentacoes as $mov)
-            <li>{{ ucfirst($mov->type) }} ({{ $mov->quantity }}) - {{ $mov->product->description ?? '-' }}</li>
-          @endforeach
-        </ul>
+      <ul class="mt-2">
+        @foreach($movimentacoes as $mov)
+        <li>
+          @if($mov->type === 'inward')
+          <i class="bi bi-arrow-up-circle-fill text-success me-1"></i>
+          @else
+          <i class="bi bi-arrow-down-circle-fill text-danger me-1"></i>
+          @endif
+          ({{ $mov->quantity }}) - {{ $mov->product->description ?? '-' }}
+        </li> @endforeach
+      </ul>
       @else
-        <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
-          <i class="bi bi-arrow-left-right" style="font-size: 2.5rem; color: var(--color-vinho);"></i>
-          <span class="fw-bold text-center mt-2" style="color: var(--color-vinho);">{{ __('dashboard.no_news') }}</span>
-        </div>
+      <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
+        <i class="bi bi-arrow-left-right" style="font-size: 2.5rem; color: var(--color-vinho);"></i>
+        <span class="fw-bold text-center mt-2" style="color: var(--color-vinho);">{{ __('dashboard.no_news') }}</span>
+      </div>
       @endif
-     </div>
+    </div>
   </div>
 
   <div class="col-md-4">
-     <div class="panel" draggable=true>
-     <h5>{{ __('dashboard.alerts_title') }}</h5>
-     @if($produtos_vencidos->count())
-       <ul class="mt-2">
-         @foreach($produtos_vencidos as $produto)
-           <li>{{ $produto->description }} {{ __('dashboard.expired_on') }} {{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }}</li>
-         @endforeach
-       </ul>
-     @else
-       <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
-         <i class="bi bi-exclamation-triangle" style="font-size: 2.5rem; color: var(--color-vinho);"></i>
-         <span class="fw-bold text-center mt-2" style="color: var(--color-vinho);">{{ __('dashboard.no_news') }}</span>
-       </div>
-     @endif
-     </div>
+    <div class="panel" draggable=true>
+      <h5>{{ __('dashboard.alerts_title') }}</h5>
+      @if($produtos_vencidos->count())
+      <ul class="mt-2">
+        @foreach($produtos_vencidos as $produto)
+        <li>{{ $produto->description }} {{ __('dashboard.expired_on') }} {{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }}</li>
+        @endforeach
+      </ul>
+      @else
+      <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
+        <i class="bi bi-exclamation-triangle" style="font-size: 2.5rem; color: var(--color-vinho);"></i>
+        <span class="fw-bold text-center mt-2" style="color: var(--color-vinho);">{{ __('dashboard.no_news') }}</span>
+      </div>
+      @endif
+    </div>
   </div>
 </div>
 
