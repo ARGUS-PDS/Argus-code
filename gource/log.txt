@@ -1,200 +1,296 @@
 ﻿1746117504|Ana Maria|A|README.md
-1746117735|Ana Maria|A|.editorconfig
-1746117735|Ana Maria|A|.env.example
-1746117735|Ana Maria|A|.gitattributes
-1746117735|Ana Maria|A|.gitignore
-1746117735|Ana Maria|A|app/Http/Controllers/Controller.php
-1746117735|Ana Maria|A|app/Models/User.php
-1746117735|Ana Maria|A|app/Providers/AppServiceProvider.php
-1746117735|Ana Maria|A|artisan
-1746117735|Ana Maria|A|bootstrap/app.php
-1746117735|Ana Maria|A|bootstrap/cache/.gitignore
-1746117735|Ana Maria|A|bootstrap/providers.php
-1746117735|Ana Maria|A|composer.json
-1746117735|Ana Maria|A|composer.lock
-1746117735|Ana Maria|A|config/app.php
-1746117735|Ana Maria|A|config/auth.php
-1746117735|Ana Maria|A|config/cache.php
-1746117735|Ana Maria|A|config/database.php
-1746117735|Ana Maria|A|config/filesystems.php
-1746117735|Ana Maria|A|config/logging.php
-1746117735|Ana Maria|A|config/mail.php
-1746117735|Ana Maria|A|config/queue.php
-1746117735|Ana Maria|A|config/services.php
-1746117735|Ana Maria|A|config/session.php
-1746117735|Ana Maria|A|database/.gitignore
-1746117735|Ana Maria|A|database/factories/UserFactory.php
-1746117735|Ana Maria|A|database/migrations/0001_01_01_000000_create_users_table.php
-1746117735|Ana Maria|A|database/migrations/0001_01_01_000001_create_cache_table.php
-1746117735|Ana Maria|A|database/migrations/0001_01_01_000002_create_jobs_table.php
-1746117735|Ana Maria|A|database/seeders/DatabaseSeeder.php
-1746117735|Ana Maria|A|package.json
-1746117735|Ana Maria|A|phpunit.xml
-1746117735|Ana Maria|A|public/.htaccess
-1746117735|Ana Maria|A|public/favicon.ico
-1746117735|Ana Maria|A|public/index.php
-1746117735|Ana Maria|A|public/robots.txt
-1746117735|Ana Maria|A|resources/css/app.css
-1746117735|Ana Maria|A|resources/js/app.js
-1746117735|Ana Maria|A|resources/js/bootstrap.js
-1746117735|Ana Maria|A|resources/views/welcome.blade.php
-1746117735|Ana Maria|A|routes/console.php
-1746117735|Ana Maria|A|routes/web.php
-1746117735|Ana Maria|A|storage/app/.gitignore
-1746117735|Ana Maria|A|storage/app/private/.gitignore
-1746117735|Ana Maria|A|storage/app/public/.gitignore
-1746117735|Ana Maria|A|storage/framework/.gitignore
-1746117735|Ana Maria|A|storage/framework/cache/.gitignore
-1746117735|Ana Maria|A|storage/framework/cache/data/.gitignore
-1746117735|Ana Maria|A|storage/framework/sessions/.gitignore
-1746117735|Ana Maria|A|storage/framework/testing/.gitignore
-1746117735|Ana Maria|A|storage/framework/views/.gitignore
-1746117735|Ana Maria|A|storage/logs/.gitignore
-1746117735|Ana Maria|A|tests/Feature/ExampleTest.php
-1746117735|Ana Maria|A|tests/TestCase.php
-1746117735|Ana Maria|A|tests/Unit/ExampleTest.php
-1746117735|Ana Maria|A|vite.config.js
-1746120552|Ana Maria|M|routes/web.php
-1746121111|Ana Maria|A|railway.json
-1746121231|Ana Maria|M|railway.json
-1746121364|Ana Maria|M|railway.json
-1746121553|Ana Maria|M|railway.json
-1746121703|Ana Maria|M|railway.json
-1747085517|Ana Maria|A|.gource/users/user1.jpg
-1747085517|Ana Maria|A|gource.users.txt
-1747181513|Ana Maria|A|app/Http/Controllers/AuthController.php
-1747181513|Ana Maria|M|app/Models/User.php
-1747181513|Ana Maria|M|gource.users.txt
-1747181513|Ana Maria|A|resources/views/admin-dashboard.blade.php
-1747181513|Ana Maria|A|resources/views/login.blade.php
-1747181513|Ana Maria|M|routes/web.php
-1747321046|Ana Maria|M|resources/views/cadastro-produto.blade.php
-1747321046|Ana Maria|M|resources/views/codigo-de-barras.blade.php
-1747321046|Ana Maria|M|resources/views/dashboard.blade.php
-1747321046|Ana Maria|M|routes/web.php
-1747335267|Gabriel|M|resources/views/cadastro-produto.blade.php
-1747335267|Gabriel|M|resources/views/dashboard.blade.php
-1747335267|Gabriel|M|resources/views/login.blade.php
-1747335267|Gabriel|M|routes/web.php
-1747434609|Gabriel|A|app/Http/Controllers/ProductController.php
-1747434609|Gabriel|A|app/Models/Product.php
-1747434609|Gabriel|A|database/migrations/2025_05_16_135152_create_produtos_table.php
-1747434609|Gabriel|A|database/migrations/2025_05_16_155235_update_produtos_add_imagem_and_change_situacao.php
-1747434609|Gabriel|M|resources/views/cadastro-produto.blade.php
-1747434609|Gabriel|M|routes/web.php
-1747445348|Ana Maria|A|app/Http/Controllers/EtiquetaController.php
-1747445348|Ana Maria|M|composer.json
-1747445348|Ana Maria|M|composer.lock
-1747445348|Ana Maria|A|resources/views/cadastro-fornecedor.blade.php
-1747445348|Ana Maria|A|resources/views/cadastro-funcionario.blade.php
-1747445348|Ana Maria|M|resources/views/dashboard.blade.php
-1747445348|Ana Maria|A|resources/views/etiquetas.blade.php
-1747445348|Ana Maria|M|routes/web.php
-1747490534|Ana Maria|M|resources/views/cadastro-fornecedor.blade.php
-1747490534|Ana Maria|M|routes/web.php
-1747493177|Ana Maria|A|app/Http/Controllers/AdminController.php
-1747493177|Ana Maria|A|database/migrations/2025_05_17_141601_rename_cartao_seg_to_cartao_seguro_in_users_table.php
-1747493177|Ana Maria|A|database/migrations/2025_05_17_141832_rename_cartao_seguro_to_cartao_seg_in_users_table.php
-1747493177|Ana Maria|A|resources/views/admin/admin-dashboard.blade.php
-1747493177|Ana Maria|A|resources/views/admin/gerar-cartao.blade.php
-1747493177|Ana Maria|M|resources/views/login.blade.php
-1747493177|Ana Maria|M|routes/web.php
-1747525151|Ana Maria|M|resources/views/dashboard.blade.php
-1747525151|Ana Maria|M|resources/views/etiquetas.blade.php
-1747525151|Ana Maria|M|resources/views/lote/detalhamento.blade.php
-1747525151|Ana Maria|M|routes/web.php
-1747530676|Ana Maria|M|app/Http/Controllers/ProductController.php
-1747530676|Ana Maria|M|resources/views/cadastro-produto.blade.php
-1747530676|Ana Maria|M|resources/views/dashboard.blade.php
-1747530676|Ana Maria|A|resources/views/products/edit.blade.php
-1747530676|Ana Maria|A|resources/views/products/index.blade.php
-1747530676|Ana Maria|M|routes/web.php
-1747618314|Gabriel|A|app/Http/Controllers/AddressController.php
-1747618314|Gabriel|A|app/Http/Controllers/SupplierController.php
-1747618314|Gabriel|A|app/Models/Address.php
-1747618314|Gabriel|A|app/Models/Supplier.php
-1747618443|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
-1747618443|Gabriel|M|resources/views/cadastro-produto.blade.php
-1747618443|Gabriel|M|resources/views/products/index.blade.php
-1747618443|Gabriel|M|routes/web.php
-1747689504|Ana Maria|M|app/Http/Controllers/ProductController.php
-1747689504|Ana Maria|M|resources/views/cadastro-produto.blade.php
-1747689504|Ana Maria|M|resources/views/products/index.blade.php
-1747689504|Ana Maria|M|routes/web.php
-1747766072|Gabriel|M|app/Http/Controllers/AddressController.php
-1747766072|Gabriel|M|app/Http/Controllers/SupplierController.php
-1747766072|Gabriel|M|app/Models/Supplier.php
-1747766072|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
-1747766072|Gabriel|M|routes/web.php
-1747869818|Gabriel|M|app/Http/Controllers/ProductController.php
-1747869818|Gabriel|M|app/Http/Controllers/SupplierController.php
-1747869818|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
-1747874815|Gabriel|M|app/Http/Controllers/ProductController.php
-1747874815|Gabriel|M|app/Http/Controllers/SupplierController.php
-1747874815|Gabriel|M|app/Models/Product.php
-1747874815|Gabriel|M|resources/views/cadastro-produto.blade.php
-1747874815|Gabriel|M|resources/views/dashboard.blade.php
-1747874815|Gabriel|M|routes/web.php
-1747874864|Gabriel|A|public/products/682e5d65264d9.png
-1747874864|Gabriel|M|resources/views/products/edit.blade.php
-1747874864|Gabriel|M|resources/views/products/index.blade.php
-1747874864|Gabriel|A|resources/views/suppliers/edit.blade.php
-1747874864|Gabriel|A|resources/views/suppliers/index.blade.php
-1748007318|Gabriel|M|app/Http/Controllers/SupplierController.php
-1748007318|Gabriel|M|resources/views/products/index.blade.php
-1748007318|Gabriel|M|resources/views/suppliers/index.blade.php
-1748007318|Gabriel|M|routes/web.php
-1748025824|Gabriel|M|resources/views/suppliers/index.blade.php
-1748025904|Gabriel|M|app/Http/Controllers/SupplierController.php
-1748025904|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
-1748025904|Gabriel|M|resources/views/suppliers/edit.blade.php
-1748286091|Gustavo|M|resources/views/admin/admin-dashboard.blade.php
-1748286091|Gustavo|M|resources/views/admin/gerar-cartao.blade.php
-1748286091|Gustavo|M|resources/views/cadastro-fornecedor.blade.php
-1748286091|Gustavo|M|resources/views/cadastro-funcionario.blade.php
-1748286091|Gustavo|M|resources/views/cadastro-produto.blade.php
-1748286091|Gustavo|M|resources/views/codigo-de-barras.blade.php
-1748286091|Gustavo|M|resources/views/dashboard.blade.php
-1748286091|Gustavo|M|resources/views/etiquetas.blade.php
-1748286091|Gustavo|M|resources/views/login.blade.php
-1748286091|Gustavo|M|resources/views/products/edit.blade.php
-1748286091|Gustavo|M|resources/views/products/index.blade.php
-1748372841|Gabriel|M|resources/views/codigo-de-barras.blade.php
-1748372841|Gabriel|M|routes/web.php
-1748375692|Gustavo|M|resources/views/products/index.blade.php
-1748540696|Gabriel|M|app/Http/Controllers/AddressController.php
-1748540696|Gabriel|M|app/Http/Controllers/SupplierController.php
-1748540696|Gabriel|M|app/Models/Address.php
-1748540696|Gabriel|M|app/Models/Supplier.php
-1748540696|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
-1748540696|Gabriel|M|resources/views/suppliers/edit.blade.php
-1748540696|Gabriel|M|resources/views/suppliers/index.blade.php
-1748558659|Ana Maria|M|app/Http/Controllers/EtiquetaController.php
-1748558659|Ana Maria|M|render.yaml
-1748558659|Ana Maria|M|resources/views/dashboard.blade.php
-1748558659|Ana Maria|A|resources/views/inputs/input.blade.php
-1748561406|Ana Maria|M|Dockerfile
-1748561406|Ana Maria|M|render.yaml
-1748561858|Ana Maria|M|Dockerfile
-1748562012|Ana Maria|M|Dockerfile
-1748562388|Ana Maria|M|composer.json
-1748562673|Ana Maria|M|Dockerfile
-1748562673|Ana Maria|M|render.yaml
-1748563013|Felipe|A|resources/views/entrada-saida.blade.php
-1748799869|Felipe|M|package-lock.json
-1748799869|Felipe|M|resources/views/cadastro-funcionario.blade.php
-1748799869|Felipe|M|resources/views/dashboard.blade.php
-1748799869|Felipe|M|resources/views/layouts/app.blade.php
-1748809166|Felipe|M|resources/views/layouts/app.blade.php
-1748878963|Ana Maria|M|gource/captions.txt
-1748878963|Ana Maria|M|gource/imagens/Ana Maria.jpeg
-1748878963|Ana Maria|M|gource/imagens/Felipe.jpeg
-1748878963|Ana Maria|M|gource/imagens/Gabriel.jpeg
-1748878963|Ana Maria|M|gource/imagens/Gustavo.jpeg
-1748878963|Ana Maria|M|gource/log_formatado.txt
-1748878963|Ana Maria|M|gource/users.txt
-1748891489|Gabriel|M|app/Http/Controllers/SupplierController.php
-1748891489|Gabriel|M|resources/views/suppliers/edit.blade.php
-1750559048|Felipe|M|resources/views/dashboard.blade.php
-1750559048|Felipe|M|resources/views/layouts/app.blade.php
-1750559048|Felipe|A|resources/views/layouts/css-variables.blade.php
+
+
+
+1752457065|Brenda|style: Padroniza o layout da listagem de produtos
+M       resources/views/products/index.blade.php
+
+1752456441|AnaWk|feat: adicionada a funcionalidade de enviar um email de contato na tela de registro
+A       app/Http/Controllers/ContatoController.php
+M       resources/views/login.blade.php
+M       routes/web.php
+
+1752455780|brendagiron|feat: Padroniza layout da tela de edição de fornecedores
+M       resources/views/suppliers/edit.blade.php
+
+1752455361|brendagiron|feat: Padroniza layout de cadastro de funcionário e corrige layout/conflito em fornecedores
+M       resources/views/cadastro-funcionario.blade.php
+M       resources/views/suppliers/index.blade.php
+
+1752454251|Isabela Crestane|feat: internacionalizacao produtos e entradas/saidas
+A       resources/lang/en/products.php
+A       resources/lang/en/stock_movement.php
+A       resources/lang/pt_BR/products.php
+A       resources/lang/pt_BR/stock_movement.php
+M       resources/views/entrada-saida.blade.php
+M       resources/views/products/index.blade.php
+
+1752452965|Felipe Witkowsky|refactor: pesquisa e botoes de cancelar, atualizar e salvar funcionando
+M       app/Http/Controllers/MovementController.php
+M       app/Http/Controllers/ProductController.php
+A       public/products/68744ee7930ff.jpg
+M       resources/views/cadastro-produto.blade.php
+M       resources/views/entrada-saida.blade.php
+D       resources/views/products/edit.blade.php
+:
+M       resources/views/products/index.blade.php
+
+1752456441|AnaWk|feat: adicionada a funcionalidade de enviar um email de contato na tela de registro
+A       app/Http/Controllers/ContatoController.php
+M       resources/views/login.blade.php
+M       routes/web.php
+
+1752455780|brendagiron|feat: Padroniza layout da tela de edição de fornecedores
+M       resources/views/suppliers/edit.blade.php
+
+1752455361|brendagiron|feat: Padroniza layout de cadastro de funcionário e corrige layout/conflito em fornecedores
+M       resources/views/cadastro-funcionario.blade.php
+M       resources/views/suppliers/index.blade.php
+
+1752454251|Isabela Crestane|feat: internacionalizacao produtos e entradas/saidas
+A       resources/lang/en/products.php
+A       resources/lang/en/stock_movement.php
+A       resources/lang/pt_BR/products.php
+A       resources/lang/pt_BR/stock_movement.php
+M       resources/views/entrada-saida.blade.php
+M       resources/views/products/index.blade.php
+
+1752452965|Felipe Witkowsky|refactor: pesquisa e botoes de cancelar, atualizar e salvar funcionando
+M       app/Http/Controllers/MovementController.php
+M       app/Http/Controllers/ProductController.php
+A       public/products/68744ee7930ff.jpg
+M       resources/views/cadastro-produto.blade.php
+M       resources/views/entrada-saida.blade.php
+D       resources/views/products/edit.blade.php
+M       resources/views/products/index.blade.php
+
+1752451687|AnaWk|feat: adicionando lista de pedidos enviados ao menu
+M       resources/views/layouts/app.blade.php
+
+1752451558|Felipe Witkowsky|refactor: edicao de produtos funcionando
+M       app/Http/Controllers/ProductController.php
+A       public/products/6874410f96fcc.jpg
+A       public/products/687442f597c7c.jpg
+M       resources/views/cadastro-produto.blade.php
+
+1752448080|Felipe Witkowsky|refactor: forma de dar entrada e saida no produto
+M       app/Http/Controllers/MovementController.php
+M       public/css/entrada-saida.css
+M       resources/views/entrada-saida.blade.php
+M       resources/views/layouts/app.blade.php
+M       routes/web.php
+
+1752443441|Felipe Witkowsky|refactor: tela de listagem de produto
+1752443283|Felipe Witkowsky|refactor: tela de listagem de produto
+1752442904|Gabriellluna|feat: Listagem de movimentacoes e insercao de dados na tabela movements concluidos
+M       app/Http/Controllers/MovementController.php
+M       resources/views/entrada-saida.blade.php
+M       routes/web.php
+
+1752437895|Gabriellluna|minhas alteracoes
+1752437812|Gabriellluna|Minhas alterações antes do pull
+M       app/Http/Controllers/MovementController.php
+M       resources/views/entrada-saida.blade.php
+M       routes/web.php
+
+1752436374|brendagiron|feat: Estilização completa da página de cadastro de fornecedor
+M       resources/views/cadastro-fornecedor.blade.php
+
+1752435614|Gabriellluna|Minhas alterações depois do pull
+M       routes/web.php
+
+1752435545|Gabriellluna|Minhas alterações depois do pull
+M       routes/web.php
+
+1752435517|Gabriellluna|Minhas alterações depois do pull
+1752435450|Gabriellluna|Minhas alterações antes do pull
+M       app/Http/Controllers/MovementController.php
+A       public/products/687409747bc21.png
+M       resources/views/entrada-saida.blade.php
+M       routes/web.php
+
+1752435044|AnaWk|Merge branch 'main' of https://github.com/ARGUS-PDS/Argus-code
+1752435026|AnaWk|feat: adicionando criação da empresa e do usuário master no menu dos donos do sistema
+A       app/Http/Controllers/CompanyController.php
+A       app/Models/Company.php
+A       public/js/empresa.js
+M       resources/views/admin/admin-dashboard.blade.php
+A       resources/views/companies/create.blade.php
+A       resources/views/companies/index.blade.php
+M       routes/web.php
+
+1752434181|brendagiron|style: Ajusta fundo da tela de fornecedores e visibilidade da barra de pesquisa
+M       resources/views/suppliers/index.blade.php
+
+1752433645|Gabriellluna|refactor: correcao de cores de placeholder e manutencao da tabela movements
+M       .gitignore
+M       app/Http/Controllers/AuthController.php
+M       app/Http/Controllers/ProductController.php
+A       app/Http/Controllers/SupplierOrderController.php
+A       app/Mail/PedidoReposicaoMail.php
+A       app/Models/SupplierOrder.php
+M       composer.lock
+D       database/migrations/2025_05_31_172950_create_movements_table.php
+A       database/migrations/2025_05_31_172950_create_movements_table.php.bkp
+A       database/migrations/2025_07_12_153708_create_supplier_orders_table.php
+M       package-lock.json
+A       public/css/Login.css
+A       public/css/app.css
+A       public/css/cadastro-fornecedor.css
+A       public/css/cadastro-funcionario.css
+A       public/css/cadastro-produto.css
+A       public/css/dashboard.css
+A       public/css/entrada-saida.css
+A       public/css/etiquetas.css
+A       public/js/Login.js
+A       public/js/app.js
+A       public/js/cadastro-fornecedor.js
+A       public/js/cadastro-funcionario.js
+A       public/js/cadastro-produto.js
+A       public/js/codigo-de-barras.js
+A       public/js/dashboard.js
+A       public/js/entrada-saida.js
+M       resources/views/admin/admin-dashboard.blade.php
+M       resources/views/admin/gerar-cartao.blade.php
+M       resources/views/cadastro-fornecedor.blade.php
+M       resources/views/cadastro-funcionario.blade.php
+M       resources/views/cadastro-produto.blade.php
+M       resources/views/codigo-de-barras.blade.php
+M       resources/views/dashboard.blade.php
+A       resources/views/emails/pedido-reposicao.blade.php
+M       resources/views/entrada-saida.blade.php
+M       resources/views/etiquetas.blade.php
+M       resources/views/layouts/app.blade.php
+A       resources/views/layouts/carregamento.blade.php
+M       resources/views/login.blade.php
+A       resources/views/orders/index.blade.php
+A       resources/views/products/estoque-baixo.blade.php
+M       routes/web.php
+
+1752433450|Gabriellluna|refactor: correcao de cores de placeholder e manutencao da tabela movements
+M       app/Http/Controllers/MovementController.php
+M       resources/views/entrada-saida.blade.php
+M       resources/views/products/index.blade.php
+M       resources/views/suppliers/index.blade.php
+
+1752429690|brendagiron|feat: Estilização da tela 'Gerar Cartão de Segurança'
+M       resources/views/admin/gerar-cartao.blade.php
+
+1752429626|Felipe Witkowsky|Merge branch 'main' of https://github.com/ARGUS-PDS/Argus-code
+1752429244|Felipe Witkowsky|refactor: tabela de entrada e saida melhorada
+M       public/css/entrada-saida.css
+M       resources/views/entrada-saida.blade.php
+M       resources/views/layouts/app.blade.php
+M       routes/web.php
+
+1752429036|brendagiron|feat: Estilização completa da tela do Painel do Administrador (Admin Dashboard)
+M       resources/views/admin/admin-dashboard.blade.php
+
+1752427272|brendagiron|Estilização da página 'Pedidos Enviados' para alinhamento com o padrão visual da aplicação.
+M       resources/views/orders/index.blade.php
+M       resources/views/products/estoque-baixo.blade.php
+
+1752424015|brendagiron|refactor: Padroniza estilo visual da tela de estoque baixo
+M       resources/views/products/estoque-baixo.blade.php
+
+1752350517|AnaWk|perf: melhorando o carregamento da tela de produtos e login
+M       app/Http/Controllers/ProductController.php
+M       app/Http/Controllers/SupplierOrderController.php
+
+1752348759|GustavoEmiliano|Merge branch 'main' of https://github.com/ARGUS-PDS/Argus-code
+1752348730|GustavoEmiliano|feat: implementação de logout
+M       app/Http/Controllers/AuthController.php
+M       public/css/app.css
+M       resources/views/layouts/app.blade.php
+M       routes/web.php
+
+1752346646|AnaWk|refactor: ajustes no envio de pedidos via whatsapp
+M       app/Http/Controllers/ProductController.php
+A       app/Mail/PedidoReposicaoMail.php
+A       resources/views/emails/pedido-reposicao.blade.php
+M       resources/views/layouts/app.blade.php
+M       resources/views/products/estoque-baixo.blade.php
+
+1752343655|AnaWk|feat: adicionando tela de lista de pedidos enviados
+A       app/Http/Controllers/SupplierOrderController.php
+M       app/Models/SupplierOrder.php
+A       resources/views/orders/index.blade.php
+M       resources/views/products/estoque-baixo.blade.php
+M       routes/web.php
+
+1752341437|GustavoEmiliano|Merge branch 'main' of https://github.com/ARGUS-PDS/Argus-code
+1752341326|GustavoEmiliano|feat: modularizando o front-end com arquivos CSS/JS dedicados
+A       public/css/app.css
+A       public/css/cadastro-fornecedor.css
+A       public/css/cadastro-funcionario.css
+A       public/css/cadastro-produto.css
+A       public/css/dashboard.css
+A       public/css/entrada-saida.css
+A       public/css/etiquetas.css
+A       public/js/app.js
+A       public/js/cadastro-fornecedor.js
+A       public/js/cadastro-funcionario.js
+A       public/js/cadastro-produto.js
+A       public/js/codigo-de-barras.js
+A       public/js/dashboard.js
+A       public/js/entrada-saida.js
+M       resources/views/cadastro-fornecedor.blade.php
+M       resources/views/cadastro-funcionario.blade.php
+M       resources/views/cadastro-produto.blade.php
+M       resources/views/codigo-de-barras.blade.php
+M       resources/views/dashboard.blade.php
+M       resources/views/entrada-saida.blade.php
+M       resources/views/etiquetas.blade.php
+M       resources/views/layouts/app.blade.php
+M       resources/views/login.blade.php
+
+1752340666|AnaWk|refactor: ajuste do app.blade
+1752340482|AnaWk|feat: adicionando funcionalidade de enviar pedido ao fornecedor via email e whatsapp
+M       app/Http/Controllers/ProductController.php
+A       app/Models/SupplierOrder.php
+D       database/migrations/2025_05_31_172950_create_movements_table.php
+A       database/migrations/2025_05_31_172950_create_movements_table.php.bkp
+A       database/migrations/2025_07_12_153708_create_supplier_orders_table.php
+M       resources/views/layouts/app.blade.php
+A       resources/views/products/estoque-baixo.blade.php
+M       routes/web.php
+
+1752334661|GustavoEmiliano|feat: aplicando animação de loading na dashboard.
+M       resources/views/layouts/app.blade.php
+M       resources/views/login.blade.php
+
+1752333130|GustavoEmiliano|feat: implementação de loyaut de carregamento e aplicando no formulário de login
+M       .gitignore
+M       composer.lock
+M       public/css/Login.css
+A       resources/views/layouts/carregamento.blade.php
+M       resources/views/login.blade.php
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

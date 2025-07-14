@@ -103,6 +103,7 @@
   border-radius: 18px;
   border: none;
   box-shadow: 0 2px 16px var(--color-vinho-fundo);
+  margin-top: 80px;
 }
 
 .modal-header {

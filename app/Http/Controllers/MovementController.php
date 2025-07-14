@@ -35,7 +35,7 @@ class MovementController extends Controller
             $entradas_qtd   = $movimentacoes->whereIn('type', ['entrada', 'inward', 'Inward'])->sum('quantity');
             $saidas_valor   = $movimentacoes->whereIn('type', ['saida', 'outward', 'Outward'])->sum('cost');
             $saidas_qtd     = $movimentacoes->whereIn('type', ['saida', 'outward', 'Outward'])->sum('quantity');
-            $lucro = $entradas_valor - $saidas_valor;
+            $lucro = $saidas_valor - $entradas_valor;
             $estoque_atual = $entradas_qtd - $saidas_qtd;
         }
 
@@ -46,19 +46,23 @@ class MovementController extends Controller
     {
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'type' => 'required|in:entrada,saida,balanco',
+            'type' => 'required|in:inward,outward',
             'date' => 'required|date',
-            'quantity' => 'required|integer|min:0',
-            'cost' => 'required|numeric|min:0',
-            'note' => 'nullable|string|max:255',
+            'quantity' => 'required|integer|min:1',
+            'cost' => 'required|numeric',
+            'note' => 'nullable|string',
         ]);
 
-        Movement::create($request->all());
+        Movement::create($request->only([
+            'product_id',
+            'type',
+            'date',
+            'quantity',
+            'cost',
+            'note'
+        ]));
 
-        $produto = Product::find($request->product_id);
-
-        return redirect()->route('movimentacao.index', ['produto' => $produto->description])
-            ->with('success', 'Movimentação cadastrada com sucesso!');
+        return redirect()->route('movimentacao.index')->with('success', 'Movimentação registrada com sucesso!');
     }
 
     public function edit($id)
