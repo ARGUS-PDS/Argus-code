@@ -26,4 +26,16 @@ class Product extends Model
     {
         return $this->belongsTo(Supplier::class, 'supplierId')->withDefault();
     }
+    public function movements()
+    {
+        return $this->hasMany(\App\Models\Movement::class, 'product_id');
+    }
+
+    public function getCurrentStockAttribute()
+    {
+        $entradas = $this->movements()->where('type', 'inward')->sum('quantity');
+        $saidas = $this->movements()->where('type', 'outward')->sum('quantity');
+
+        return $entradas - $saidas;
+    }
 }

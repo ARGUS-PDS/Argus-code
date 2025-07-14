@@ -18,7 +18,8 @@
             --color-bege-claro: #f8f0e5;
             --color-bege-card-interno: #fcf5ee;
             --color-gray-claro: #ddd;
-            --color-gray-medio: #aaa; /* Nova variável para bordas mais suaves */
+            --color-gray-medio: #aaa;
+            /* Nova variável para bordas mais suaves */
             --color-gray-escuro: #555;
             --color-green: #28a745;
             --color-vinho-fundo-transparente: rgba(119, 49, 56, 0.1);
@@ -26,34 +27,45 @@
 
         body {
             background-color: var(--color-bege-claro);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Fonte mais moderna */
             color: var(--color-gray-escuro);
         }
 
         .container-card {
             background-color: var(--color-bege-card-interno);
-            border-radius: 18px; /* Mais arredondado */
-            padding: 35px 40px; /* Mais padding */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Sombra mais pronunciada e suave */
+            border-radius: 18px;
+            /* Mais arredondado */
+            padding: 35px 40px;
+            /* Mais padding */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            /* Sombra mais pronunciada e suave */
             margin: 40px auto;
-            max-width: 960px; /* Um pouco mais largo */
-            border: 1px solid var(--color-gray-claro); /* Borda sutil para definir o card */
+            max-width: 960px;
+            /* Um pouco mais largo */
+            border: 1px solid var(--color-gray-claro);
+            /* Borda sutil para definir o card */
         }
 
         .header-section {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px; /* Mais espaçamento */
-            padding-bottom: 15px; /* Espaço antes da linha divisória */
-            border-bottom: 1px solid var(--color-gray-claro); /* Linha divisória suave */
+            margin-bottom: 30px;
+            /* Mais espaçamento */
+            padding-bottom: 15px;
+            /* Espaço antes da linha divisória */
+            border-bottom: 1px solid var(--color-gray-claro);
+            /* Linha divisória suave */
             flex-wrap: wrap;
         }
 
-        .header-section h2 { /* h2 para o título principal */
+        .header-section h2 {
+            /* h2 para o título principal */
             color: var(--color-vinho);
             font-weight: bold;
-            font-size: 2.2rem; /* Tamanho ajustado para h2 */
+            font-size: 2.2rem;
+            /* Tamanho ajustado para h2 */
             margin-bottom: 0;
             line-height: 1.2;
         }
@@ -62,12 +74,15 @@
             background-color: var(--color-vinho);
             color: var(--color-bege-claro);
             border: none;
-            border-radius: 10px; /* Mais arredondado */
-            padding: 10px 18px; /* Mais padding */
+            border-radius: 10px;
+            /* Mais arredondado */
+            padding: 10px 18px;
+            /* Mais padding */
             font-size: 0.95rem;
             display: flex;
             align-items: center;
-            gap: 7px; /* Mais espaço no ícone */
+            gap: 7px;
+            /* Mais espaço no ícone */
             text-decoration: none;
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -75,20 +90,24 @@
 
         .btn-voltar:hover {
             background-color: #5f282e;
-            transform: translateY(-2px); /* Efeito de levitar */
+            transform: translateY(-2px);
+            /* Efeito de levitar */
         }
 
         .section-title {
             color: var(--color-vinho);
             font-weight: bold;
-            font-size: 1.6rem; /* Títulos de seção um pouco maiores */
-            margin-bottom: 25px; /* Mais espaçamento */
+            font-size: 1.6rem;
+            /* Títulos de seção um pouco maiores */
+            margin-bottom: 25px;
+            /* Mais espaçamento */
             padding-bottom: 8px;
             border-bottom: 2px solid var(--color-vinho);
         }
 
         .form-group {
-            margin-bottom: 25px; /* Mais espaçamento entre os grupos */
+            margin-bottom: 25px;
+            /* Mais espaçamento entre os grupos */
         }
 
         .form-label {
@@ -99,40 +118,49 @@
             font-size: 0.95rem;
         }
 
-        .form-control, .form-select {
+        .form-control,
+        .form-select {
             width: 100%;
-            padding: 12px 18px; /* Mais padding */
+            padding: 12px 18px;
+            /* Mais padding */
             border: 1px solid var(--color-gray-claro);
-            border-radius: 10px; /* Mais arredondado */
+            border-radius: 10px;
+            /* Mais arredondado */
             font-size: 1rem;
             color: var(--color-gray-escuro);
             background-color: #fff;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .form-control:focus, .form-select:focus {
+        .form-control:focus,
+        .form-select:focus {
             border-color: var(--color-vinho);
-            box-shadow: 0 0 0 0.25rem var(--color-vinho-fundo-transparente); /* Sombra mais espessa */
+            box-shadow: 0 0 0 0.25rem var(--color-vinho-fundo-transparente);
+            /* Sombra mais espessa */
             outline: none;
         }
 
         /* Estilos específicos para o upload de imagem */
         .image-upload-container {
-            border: 2px dashed var(--color-gray-medio); /* Borda tracejada mais visível */
+            border: 2px dashed var(--color-gray-medio);
+            /* Borda tracejada mais visível */
             border-radius: 12px;
-            padding: 20px; /* Mais padding */
+            padding: 20px;
+            /* Mais padding */
             background-color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 180px; /* Altura mínima para o container de imagem */
+            min-height: 180px;
+            /* Altura mínima para o container de imagem */
             text-align: center;
             transition: border-color 0.3s ease;
         }
 
         .image-upload-container:hover {
-            border-color: var(--color-vinho); /* Destaca no hover */
+            border-color: var(--color-vinho);
+            /* Destaca no hover */
         }
 
         .image-upload-container .form-label {
@@ -145,11 +173,13 @@
         }
 
         .image-preview {
-            max-width: 120px; /* Imagem um pouco maior */
+            max-width: 120px;
+            /* Imagem um pouco maior */
             max-height: 120px;
             border-radius: 12px;
             object-fit: cover;
-            border: 3px solid var(--color-vinho); /* Borda mais espessa */
+            border: 3px solid var(--color-vinho);
+            /* Borda mais espessa */
             padding: 3px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
@@ -160,25 +190,32 @@
             margin-top: 10px;
         }
 
-        .additional-info-card, .stock-card {
-            background-color: #fff; /* Fundo branco dentro dos cards */
+        .additional-info-card,
+        .stock-card {
+            background-color: #fff;
+            /* Fundo branco dentro dos cards */
             border: 1px solid var(--color-gray-claro);
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra mais leve */
-            margin-top: 25px; /* Espaçamento entre os cards */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            /* Sombra mais leve */
+            margin-top: 25px;
+            /* Espaçamento entre os cards */
         }
 
-        .additional-info-card .section-title, .stock-card .section-title {
-            font-size: 1.3rem; /* Títulos menores dentro dos cards */
+        .additional-info-card .section-title,
+        .stock-card .section-title {
+            font-size: 1.3rem;
+            /* Títulos menores dentro dos cards */
             margin-bottom: 15px;
             border-bottom: 1px solid var(--color-gray-claro);
             padding-bottom: 8px;
         }
 
-        .additional-info-card .form-label, .stock-card .form-label {
-             font-size: 0.9rem;
-             font-weight: 500;
+        .additional-info-card .form-label,
+        .stock-card .form-label {
+            font-size: 0.9rem;
+            font-weight: 500;
         }
 
         /* Estilo para o toggle de Situação */
@@ -198,8 +235,10 @@
         }
 
         .toggle-switch .slider {
-            width: 50px; /* Slider maior */
-            height: 26px; /* Slider maior */
+            width: 50px;
+            /* Slider maior */
+            height: 26px;
+            /* Slider maior */
             background-color: var(--color-gray-medio);
             border-radius: 26px;
             position: relative;
@@ -209,8 +248,10 @@
         .toggle-switch .slider:before {
             content: "";
             position: absolute;
-            width: 22px; /* Thumb maior */
-            height: 22px; /* Thumb maior */
+            width: 22px;
+            /* Thumb maior */
+            height: 22px;
+            /* Thumb maior */
             border-radius: 50%;
             background-color: #fff;
             top: 2px;
@@ -219,12 +260,13 @@
             transition: transform 0.3s;
         }
 
-        .toggle-switch input:checked + .slider {
+        .toggle-switch input:checked+.slider {
             background-color: var(--color-green);
         }
 
-        .toggle-switch input:checked + .slider:before {
-            transform: translateX(24px); /* Posição do thumb maior */
+        .toggle-switch input:checked+.slider:before {
+            transform: translateX(24px);
+            /* Posição do thumb maior */
         }
 
         .toggle-switch .status-text {
@@ -234,7 +276,7 @@
             font-size: 1rem;
         }
 
-        .toggle-switch input:checked ~ .status-text {
+        .toggle-switch input:checked~.status-text {
             color: var(--color-green);
         }
 
@@ -242,8 +284,10 @@
         .form-actions {
             display: flex;
             justify-content: flex-end;
-            gap: 20px; /* Mais espaço entre os botões */
-            margin-top: 40px; /* Mais espaçamento */
+            gap: 20px;
+            /* Mais espaço entre os botões */
+            margin-top: 40px;
+            /* Mais espaçamento */
             padding-top: 25px;
             border-top: 1px solid var(--color-gray-claro);
         }
@@ -253,7 +297,8 @@
             color: #fff;
             border: none;
             border-radius: 10px;
-            padding: 12px 25px; /* Mais padding */
+            padding: 12px 25px;
+            /* Mais padding */
             font-size: 1.05rem;
             text-decoration: none;
             transition: background-color 0.3s ease, transform 0.2s ease;
@@ -296,46 +341,57 @@
                 padding: 25px;
                 box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             }
+
             .header-section {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 15px;
                 margin-bottom: 20px;
             }
+
             .header-section h2 {
                 font-size: 1.8rem;
             }
+
             .section-title {
                 font-size: 1.4rem;
                 margin-bottom: 20px;
             }
+
             .form-group {
                 margin-bottom: 20px;
             }
+
             .image-upload-container {
                 min-height: 150px;
                 padding: 15px;
             }
+
             .image-preview {
                 max-width: 100px;
                 max-height: 100px;
             }
+
             .toggle-switch .slider {
                 width: 40px;
                 height: 20px;
             }
+
             .toggle-switch .slider:before {
                 width: 16px;
                 height: 16px;
                 transform: translateX(20px);
             }
+
             .form-actions {
                 flex-direction: column;
                 align-items: stretch;
                 gap: 15px;
                 margin-top: 30px;
             }
-            .btn-cancel, .btn-send {
+
+            .btn-cancel,
+            .btn-send {
                 width: 100%;
             }
         }
@@ -345,7 +401,7 @@
 <body>
     <div class="container-card">
         <div class="header-section">
-            <h2 class="text-2xl"> {{-- Alterado de h1 para h2 --}}
+            <h2 class="text-2xl">
                 {{ isset($product) ? 'Editar Produto' : 'Cadastrar Produto' }}
             </h2>
             <a href="/lista-produtos" class="btn-voltar">
@@ -372,7 +428,7 @@
         <form class="row g-4" action="{{ isset($product) ? route('products.update', $product->id) : route('cadastrar-produto.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @if(isset($product))
-                @method('PUT')
+            @method('PUT')
             @endif
 
             <div class="col-12">
@@ -385,11 +441,11 @@
                     <input type="file" name="image_url" id="image_url" class="form-control" accept="image/*" onchange="previewImage(event)" {{ isset($product) ? '' : 'required' }}>
                     <div class="image-preview-area">
                         @if(isset($product) && $product->image_url)
-                            <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="image-preview">
-                            <div id="placeholder" class="image-placeholder-text">Imagem atual</div>
+                        <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="image-preview">
+                        <div id="placeholder" class="image-placeholder-text">Imagem atual</div>
                         @else
-                            <img id="preview" src="#" alt="Pré-visualização" class="image-preview d-none">
-                            <div id="placeholder" class="image-placeholder-text">Nenhuma imagem selecionada</div>
+                        <img id="preview" src="#" alt="Pré-visualização" class="image-preview d-none">
+                        <div id="placeholder" class="image-placeholder-text">Nenhuma imagem selecionada</div>
                         @endif
                     </div>
                 </div>
@@ -528,4 +584,5 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+
 </html>
