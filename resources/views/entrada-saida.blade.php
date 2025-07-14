@@ -8,92 +8,96 @@
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="entrada-saida-titulo mb-0">{{ __('stock_movement.title') }}</h2>
     @if($produtoSelecionado)
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLancamento">+ {{ __('stock_movement.new_entry') }}</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLancamento">+ {{ __('stock_movement.new_entry') }}</button>
     @endif
   </div>
 
   {{-- Pesquisa de produto --}}
   <form method="GET" class="mb-4 entrada-saida-pesquisa" style="max-width: 350px;">
-  <div class="input-group">
-    <input type="text" name="produto" class="form-control" placeholder="{{ __('stock_movement.search_placeholder') }}" value="{{ request('produto') }}" list="produtos-list">
-    <datalist id="produtos-list">
-      @foreach($products as $produto)
+    <div class="input-group">
+      <input type="text" name="produto" class="form-control" placeholder="{{ __('stock_movement.search_placeholder') }}" value="{{ request('produto') }}" list="produtos-list">
+      <datalist id="produtos-list">
+        @foreach($products as $produto)
         <option value="{{ $produto->description }}">{{ $produto->barcode }}</option>
-        <option value="{{ $produto->barcode }}">{{ $produto->description }}</option>
-      @endforeach
-    </datalist>
-    <button class="btn btn-secondary" type="submit">
-      <i class="bi bi-search"></i>
-    </button>
-  </div>
-</form>
+        @endforeach
+      </datalist>
+      <button class="btn btn-secondary" type="submit">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </form>
 
   @if($produtoSelecionado)
-    <div class="mb-3">
-      <h4 class="text-wine mb-0">{{ $produtoSelecionado->description }}</h4>
-    </div>
+  <div class="mb-3">
+    <h4 class="text-wine mb-0">{{ $produtoSelecionado->description }}</h4>
+  </div>
   @endif
 
   @if($produtoSelecionado)
-    <div class="row">
-      <div class="col-lg-9 mb-4">
-        @if(count($movimentacoes))
-          <table class="table text-center align-middle" id="tabelaMovimentacoes">
-            <thead>
-              <tr>
-                <th>{{ __('stock_movement.date') }}</th>
-                <th>{{ __('stock_movement.quantity') }}</th>
-                <th>{{ __('stock_movement.value') }}</th>
-                <th>{{ __('stock_movement.type') }}</th>
-                <th>{{ __('stock_movement.note') }}</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($movimentacoes as $mov)
-              <tr>
-                <td>{{ \Carbon\Carbon::parse($mov->date)->format('d/m/Y') }}</td>
-                <td>{{ $mov->quantity }}</td>
-                <td>R${{ number_format($mov->cost, 2, ',', '.') }}</td>
-                <td>{{ ucfirst($mov->type) }}</td>
-                <td>{{ $mov->note ?? '-' }}</td>
-                <td>
-                  <button class="btn btn-sm btn-outline-danger delete-movimentacao" data-id="{{ $mov->id }}" title="{{ __('stock_movement.delete') }}">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-        @else
-          <div class="alert alert-warning">{{ __('stock_movement.no_records') }}</div>
-        @endif
-      </div>
-      <div class="col-lg-3">
-        <div class="painel-resumo text-center">
-          <p class="mb-2">
-            <strong>{{ __('stock_movement.inward') }}:</strong> {{ $entradas_qtd }} (R$ {{ number_format($entradas_valor, 2, ',', '.') }})
-          </p>
-          <p class="mb-2">
-            <strong>{{ __('stock_movement.outward') }}:</strong> {{ $saidas_qtd }} (R$ {{ number_format($saidas_valor, 2, ',', '.') }})
-          </p>
-          <p class="mb-2">
-            <strong>{{ __('stock_movement.current_stock') }}:</strong> {{ $estoque_atual }}
-          </p>
-          <p class="mb-0">
-            <strong>{{ __('stock_movement.profit') }}:</strong>
-            <span style="color: {{ $lucro < 0 ? 'red' : 'green' }}">
-              R$ {{ number_format($lucro, 2, ',', '.') }}
-            </span>
-          </p>
-        </div>
+  <div class="row">
+    <div class="col-lg-9 mb-4">
+      @if(count($movimentacoes))
+      <table class="table text-center align-middle" id="tabelaMovimentacoes">
+        <thead>
+          <tr>
+            <th>{{ __('stock_movement.date') }}</th>
+            <th>{{ __('stock_movement.quantity') }}</th>
+            <th>{{ __('stock_movement.value') }}</th>
+            <th>{{ __('stock_movement.type') }}</th>
+            <th>{{ __('stock_movement.note') }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($movimentacoes as $mov)
+          <tr>
+            <td>{{ \Carbon\Carbon::parse($mov->date)->format('d/m/Y') }}</td>
+            <td>{{ $mov->quantity }}</td>
+            <td>R${{ number_format($mov->cost, 2, ',', '.') }}</td>
+            <td style="color: {{ $mov->type == "inward" ? 'red' : 'green' }}">{{ $mov->type == "inward" ? 'Entrada' : 'Saída' }}</td>
+            <td>{{ $mov->note ?? '-' }}</td>
+            <td>
+              <form action="{{ route('movimentacao.destroy', $mov->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta movimentação?');">
+                @csrf
+                @method('DELETE')
+
+                <button class="btn btn-sm btn-outline-danger delete-movimentacao" data-id="{{ $mov->id }}" title="{{ __('stock_movement.delete') }}">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </form>
+            </td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+      @else
+      <div class="alert alert-warning">{{ __('stock_movement.no_records') }}</div>
+      @endif
+    </div>
+    <div class="col-lg-3">
+      <div class="painel-resumo text-center">
+        <p class="mb-2">
+          <strong>{{ __('stock_movement.inward') }}:</strong> {{ $entradas_qtd }} (R$ {{ number_format($entradas_valor, 2, ',', '.') }})
+        </p>
+        <p class="mb-2">
+          <strong>{{ __('stock_movement.outward') }}:</strong> {{ $saidas_qtd }} (R$ {{ number_format($saidas_valor, 2, ',', '.') }})
+        </p>
+        <p class="mb-2">
+          <strong>{{ __('stock_movement.current_stock') }}:</strong> {{ $estoque_atual }}
+        </p>
+        <p class="mb-0">
+          <strong>{{ __('stock_movement.profit') }}:</strong>
+          <span style="color: {{ $lucro < 0 ? 'red' : 'green' }}; font-weight: bold">
+            R$ {{ number_format($lucro, 2, ',', '.') }}
+          </span>
+        </p>
       </div>
     </div>
+  </div>
   @elseif(request('produto'))
-    <div class="alert alert-danger">{{ __('stock_movement.product_not_found') }}</div>
+  <div class="alert alert-danger">{{ __('stock_movement.product_not_found') }}</div>
   @else
-    <div class="alert alert-info">{{ __('stock_movement.search_message') }}</div>
+  <div class="alert alert-info">{{ __('stock_movement.search_message') }}</div>
   @endif
 </div>
 
@@ -116,9 +120,8 @@
               <label class="form-label">{{ __('stock_movement.type_label') }}*</label>
               <select class="form-select" name="type" required>
                 <option value="" disabled selected>{{ __('stock_movement.select') }}</option>
-                <option value="entrada">{{ __('stock_movement.inward') }}</option>
-                <option value="saida">{{ __('stock_movement.outward') }}</option>
-                <option value="balanco">{{ __('stock_movement.balance') }}</option>
+                <option value="inward">{{ __('stock_movement.inward') }}</option>
+                <option value="outward">{{ __('stock_movement.outward') }}</option>
               </select>
             </div>
             <div class="col">
@@ -155,36 +158,3 @@
 @endif
 
 @endsection
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.delete-movimentacao').forEach(button => {
-        button.addEventListener('click', function(e) {
-            const movimentacaoId = this.dataset.id;
-            if (confirm('{{ __('stock_movement.confirm_delete') }}')) {
-                excluirMovimentacao(movimentacaoId);
-            }
-        });
-    });
-
-    function excluirMovimentacao(id) {
-        fetch(`/movimentacoes/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                location.reload();
-            } else {
-                alert('{{ __('stock_movement.delete_error') }}');
-            }
-        })
-        .catch(error => {
-            console.error('Erro:', error);
-            alert('{{ __('stock_movement.delete_error') }}');
-        });
-    }
-});
-</script>
