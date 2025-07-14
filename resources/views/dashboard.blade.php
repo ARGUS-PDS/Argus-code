@@ -12,7 +12,7 @@
       @if($produtos_validade->count())
         <ul class="mt-2">
           @foreach($produtos_validade as $produto)
-            <li>{{ $produto->description }} - Vence em {{ \Carbon\Carbon::parse($produto->expiration_date)->diffInDays(now()) }} dias ({{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})</li>
+            <li>{{ $produto->description }} - Vence em {{ intval(max(0, now()->diffInDays(\Carbon\Carbon::parse($produto->expiration_date), false))) }} dias ({{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})</li>
           @endforeach
         </ul>
       @else

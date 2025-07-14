@@ -33,7 +33,7 @@ class AdminController extends Controller
     {
         $produtos_validade = \App\Models\Product::whereNotNull('expiration_date')
             ->whereDate('expiration_date', '>=', now())
-            ->whereDate('expiration_date', '<=', now()->addDays(7))
+            ->whereDate('expiration_date', '<=', now()->addMonths(6))
             ->orderBy('expiration_date')
             ->get();
 

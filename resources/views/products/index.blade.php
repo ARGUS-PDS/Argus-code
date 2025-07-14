@@ -302,18 +302,18 @@
             <thead>
                 <tr>
                     <th style="width:32px;"></th>
-                    <th>{{ __('products.image') }}</th>
-                    <th>{{ __('products.name') }}</th>
-                    <th>{{ __('products.supplier') }}</th>
-                    <th>{{ __('products.code') }}</th>
-                    <th>{{ __('products.stock') }}</th>
-                    <th>{{ __('products.price') }}</th>
+                    <th>Imagem</th>
+                    <th>Nome</th>
+                    <th>Código de barras</th>
+                    <th>Fornecedor</th>
+                    <th>Estoque</th>
+                    <th>Valor</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($products as $product)
-                <tr>
+                <tr onclick="window.location='{{ route('products.edit', $product->id) }}'" style="cursor:pointer;">
                     <td><input type="checkbox"></td>
                     <td>
                         @if ($product->image_url)
@@ -323,17 +323,14 @@
                         @endif
                     </td>
                     <td>{{ $product->description }}</td>
+                    <td>{{ $product->barcode }}</td>
                     <td>{{ $product->supplier ? $product->supplier->name : __('products.no_supplier') }}</td>
-                    <td>{{ $product->code }}</td>
                     <td>{{ $product->currentStock }}</td>
                     <td>R$ {{ number_format($product->value, 2, ',', '.') }}</td>
                     <td>
                         <div class="dropdown">
-                            <i class="bi bi-three-dots-vertical dropdown-toggle" role="button" id="dropdownMenuButton{{ $product->id }}" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                            <ul class="dropdown-menu" data-bs-boundary="viewport" aria-labelledby="dropdownMenuButton{{ $product->id }}">
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('products.edit', $product->id) }}">{{ __('products.edit') }}</a>
-                                </li>
+                            <i class="bi bi-three-dots-vertical" role="button" id="dropdownMenuButton{{ $product->id }}" data-bs-toggle="dropdown" aria-expanded="false" onclick="event.stopPropagation();"></i>
+                            <ul class="dropdown-menu" data-bs-boundary="viewport" aria-labelledby="dropdownMenuButton{{ $product->id }}" onclick="event.stopPropagation();">
                                 <li>
                                     <a class="dropdown-item" href="{{ route('products.edit', $product->id) }}">{{ __('products.print') }}</a>
                                 </li>
