@@ -85,7 +85,7 @@
     .table tbody tr:last-child td:last-child {
         border-bottom-right-radius: 12px;
     }
-    
+
     .table tbody tr:hover {
         background-color: rgba(119, 49, 56, 0.1);
     }
@@ -153,12 +153,12 @@
 @endsection
 
 @section('content')
-<div class="container-fluid py-3"> {{-- Usando container-fluid para largura total e padding --}}
+<div class="container-fluid py-3">
     <div class="d-flex align-items-center justify-content-between mb-4">
-        <h2 class="fw-bold mb-0" style="color: var(--color-vinho);">Produtos</h2>
+        <h2 class="fw-bold mb-0" style="color: var(--color-vinho);">{{ __('products.title') }}</h2>
         <div class="d-flex align-items-center" style="gap: 16px;">
             <form action="{{ url()->current() }}" method="GET" class="search-bar" autocomplete="off">
-                <input class="search" type="text" name="q" value="{{ request('q') }}" placeholder="Pesquisar por nome ou código de barras..." list="produtos-list">
+                <input class="search" type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('products.search_placeholder') }}">
                 <datalist id="produtos-list">
                     @foreach($products as $produto)
                         <option value="{{ $produto->description }}">{{ $produto->barcode }}</option>
@@ -169,14 +169,14 @@
                     <i class="bi bi-search"></i>
                 </button>
             </form>
-            <span class="ms-4" style="color: var(--color-vinho-fundo);">Estoque atual: {{ $products->sum('currentStock') }}</span>
-            <button type="button" class="btn p-0" title="Imprimir" style="background:none; border:none; color: var(--color-vinho);">
+            <span class="ms-4" style="color: var(--color-vinho-fundo);">{{ __('products.current_stock') }}: {{ $products->sum('currentStock') }}</span>
+            <button type="button" class="btn p-0" title="{{ __('products.print') }}" style="background:none; border:none; color: var(--color-vinho);">
                 <i class="bi bi-printer fs-4"></i>
             </button>
-            <button type="button" class="btn p-0" title="Excluir" style="background:none; border:none; color: var(--color-vinho);">
+            <button type="button" class="btn p-0" title="{{ __('products.delete') }}" style="background:none; border:none; color: var(--color-vinho);">
                 <i class="bi bi-trash fs-4"></i>
             </button>
-            <a href="{{ route('products.create') }}" class="btn add-btn d-flex align-items-center justify-content-center p-0" title="Adicionar" style="width: 36px; height: 36px;">
+            <a href="{{ route('products.create') }}" class="btn add-btn d-flex align-items-center justify-content-center p-0" title="{{ __('products.add') }}" style="width: 36px; height: 36px;">
                 <i class="bi bi-plus"></i>
             </a>
         </div>
@@ -187,12 +187,12 @@
             <thead>
                 <tr>
                     <th style="width:32px;"></th>
-                    <th>Imagem</th>
-                    <th>Nome</th>
-                    <th>Fornecedor</th>
-                    <th>Código</th>
-                    <th>Estoque</th>
-                    <th>Preço</th>
+                    <th>{{ __('products.image') }}</th>
+                    <th>{{ __('products.name') }}</th>
+                    <th>{{ __('products.supplier') }}</th>
+                    <th>{{ __('products.code') }}</th>
+                    <th>{{ __('products.stock') }}</th>
+                    <th>{{ __('products.price') }}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -202,31 +202,31 @@
                     <td><input type="checkbox"></td>
                     <td>
                         @if ($product->image_url)
-                        <img src="{{ asset($product->image_url) }}" alt="Imagem do produto" class="img-thumb">
+                        <img src="{{ asset($product->image_url) }}" alt="{{ __('products.image_alt') }}" class="img-thumb">
                         @else
-                        <span class="text-muted small">Sem imagem</span>
+                        <span class="text-muted small">{{ __('products.no_image') }}</span>
                         @endif
                     </td>
                     <td>{{ $product->description }}</td>
-                    <td>{{ $product->supplier ? $product->supplier->name : 'Sem fornecedor' }}</td>
+                    <td>{{ $product->supplier ? $product->supplier->name : __('products.no_supplier') }}</td>
                     <td>{{ $product->code }}</td>
                     <td>{{ $product->currentStock }}</td>
                     <td>R$ {{ number_format($product->value, 2, ',', '.') }}</td>
                     <td>
                         <div class="dropdown">
-                            <i class="bi bi-three-dots-vertical dropdown-toggle" role="button" id="dropdownMenuButton{{ $product->id }}" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer; color: var(--color-gray-escuro);"></i> {{-- Use var() para consistência --}}
+                            <i class="bi bi-three-dots-vertical dropdown-toggle" role="button" id="dropdownMenuButton{{ $product->id }}" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer; color: var(--color-gray-escuro);"></i>
                             <ul class="dropdown-menu" data-bs-boundary="viewport" aria-labelledby="dropdownMenuButton{{ $product->id }}">
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('products.edit', $product->id) }}">Editar</a>
-                                </li>
-                                 <li>
-                                    <a class="dropdown-item" href="{{ route('products.edit', $product->id) }}">Imprimir</a>
+                                    <a class="dropdown-item" href="{{ route('products.edit', $product->id) }}">{{ __('products.edit') }}</a>
                                 </li>
                                 <li>
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este produto?');">
+                                    <a class="dropdown-item" href="{{ route('products.edit', $product->id) }}">{{ __('products.print') }}</a>
+                                </li>
+                                <li>
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('{{ __('products.confirm_delete') }}');">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="dropdown-item text-danger" type="submit">Excluir</button>
+                                        <button class="dropdown-item text-danger" type="submit">{{ __('products.delete') }}</button>
                                     </form>
                                 </li>
                             </ul>
@@ -235,7 +235,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="text-center text-muted py-4">Nenhum produto cadastrado.</td>
+                    <td colspan="7" class="text-center text-muted py-4">{{ __('products.no_records') }}</td>
                 </tr>
                 @endforelse
             </tbody>

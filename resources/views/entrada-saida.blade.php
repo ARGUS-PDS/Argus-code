@@ -6,27 +6,27 @@
 
 <div class="container py-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="entrada-saida-titulo mb-0">Entrada e saida</h2>
+    <h2 class="entrada-saida-titulo mb-0">{{ __('stock_movement.title') }}</h2>
     @if($produtoSelecionado)
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLancamento">+ Novo lançamento</button>
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLancamento">+ {{ __('stock_movement.new_entry') }}</button>
     @endif
   </div>
 
   {{-- Pesquisa de produto --}}
   <form method="GET" class="mb-4 entrada-saida-pesquisa" style="max-width: 350px;">
-    <div class="input-group">
-      <input type="text" name="produto" class="form-control" placeholder="Pesquisar produto por nome ou código de barras..." value="{{ request('produto') }}" list="produtos-list">
-      <datalist id="produtos-list">
-        @foreach($products as $produto)
-          <option value="{{ $produto->description }}">{{ $produto->barcode }}</option>
-          <option value="{{ $produto->barcode }}">{{ $produto->description }}</option>
-        @endforeach
-      </datalist>
-      <button class="btn btn-secondary" type="submit">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </form>
+  <div class="input-group">
+    <input type="text" name="produto" class="form-control" placeholder="{{ __('stock_movement.search_placeholder') }}" value="{{ request('produto') }}" list="produtos-list">
+    <datalist id="produtos-list">
+      @foreach($products as $produto)
+        <option value="{{ $produto->description }}">{{ $produto->barcode }}</option>
+        <option value="{{ $produto->barcode }}">{{ $produto->description }}</option>
+      @endforeach
+    </datalist>
+    <button class="btn btn-secondary" type="submit">
+      <i class="bi bi-search"></i>
+    </button>
+  </div>
+</form>
 
   @if($produtoSelecionado)
     <div class="mb-3">
@@ -41,11 +41,11 @@
           <table class="table text-center align-middle" id="tabelaMovimentacoes">
             <thead>
               <tr>
-                <th>Data</th>
-                <th>Quantidade</th>
-                <th>Valor</th>
-                <th>Tipo</th>
-                <th>Observação</th>
+                <th>{{ __('stock_movement.date') }}</th>
+                <th>{{ __('stock_movement.quantity') }}</th>
+                <th>{{ __('stock_movement.value') }}</th>
+                <th>{{ __('stock_movement.type') }}</th>
+                <th>{{ __('stock_movement.note') }}</th>
                 <th></th>
               </tr>
             </thead>
@@ -58,7 +58,7 @@
                 <td>{{ ucfirst($mov->type) }}</td>
                 <td>{{ $mov->note ?? '-' }}</td>
                 <td>
-                  <button class="btn btn-sm btn-outline-danger delete-movimentacao" data-id="{{ $mov->id }}" title="Excluir">
+                  <button class="btn btn-sm btn-outline-danger delete-movimentacao" data-id="{{ $mov->id }}" title="{{ __('stock_movement.delete') }}">
                     <i class="bi bi-trash"></i>
                   </button>
                 </td>
@@ -67,22 +67,22 @@
             </tbody>
           </table>
         @else
-          <div class="alert alert-warning">Nenhuma movimentação encontrada para este produto.</div>
+          <div class="alert alert-warning">{{ __('stock_movement.no_records') }}</div>
         @endif
       </div>
       <div class="col-lg-3">
         <div class="painel-resumo text-center">
           <p class="mb-2">
-            <strong>Entradas:</strong> {{ $entradas_qtd }} (R$ {{ number_format($entradas_valor, 2, ',', '.') }})
+            <strong>{{ __('stock_movement.inward') }}:</strong> {{ $entradas_qtd }} (R$ {{ number_format($entradas_valor, 2, ',', '.') }})
           </p>
           <p class="mb-2">
-            <strong>Saídas:</strong> {{ $saidas_qtd }} (R$ {{ number_format($saidas_valor, 2, ',', '.') }})
+            <strong>{{ __('stock_movement.outward') }}:</strong> {{ $saidas_qtd }} (R$ {{ number_format($saidas_valor, 2, ',', '.') }})
           </p>
           <p class="mb-2">
-            <strong>Estoque atual:</strong> {{ $estoque_atual }}
+            <strong>{{ __('stock_movement.current_stock') }}:</strong> {{ $estoque_atual }}
           </p>
           <p class="mb-0">
-            <strong>Lucro:</strong>
+            <strong>{{ __('stock_movement.profit') }}:</strong>
             <span style="color: {{ $lucro < 0 ? 'red' : 'green' }}">
               R$ {{ number_format($lucro, 2, ',', '.') }}
             </span>
@@ -91,9 +91,9 @@
       </div>
     </div>
   @elseif(request('produto'))
-    <div class="alert alert-danger">Produto não encontrado.</div>
+    <div class="alert alert-danger">{{ __('stock_movement.product_not_found') }}</div>
   @else
-    <div class="alert alert-info">Pesquise um produto para ver suas movimentações.</div>
+    <div class="alert alert-info">{{ __('stock_movement.search_message') }}</div>
   @endif
 </div>
 
@@ -103,7 +103,7 @@
   <div class="modal-dialog">
     <div class="modal-content rounded-4 px-3 pb-3 pt-2">
       <div class="modal-header border-0">
-        <h5 class="modal-title fw-bold">Novo Lançamento</h5>
+        <h5 class="modal-title fw-bold">{{ __('stock_movement.modal_title') }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
@@ -113,39 +113,39 @@
 
           <div class="row mb-3">
             <div class="col">
-              <label class="form-label">Tipo*</label>
+              <label class="form-label">{{ __('stock_movement.type_label') }}*</label>
               <select class="form-select" name="type" required>
-                <option value="" disabled selected>Selecione...</option>
-                <option value="entrada">Entrada</option>
-                <option value="saida">Saída</option>
-                <option value="balanco">Balanço</option>
+                <option value="" disabled selected>{{ __('stock_movement.select') }}</option>
+                <option value="entrada">{{ __('stock_movement.inward') }}</option>
+                <option value="saida">{{ __('stock_movement.outward') }}</option>
+                <option value="balanco">{{ __('stock_movement.balance') }}</option>
               </select>
             </div>
             <div class="col">
-              <label class="form-label">Data*</label>
+              <label class="form-label">{{ __('stock_movement.date_label') }}*</label>
               <input type="date" name="date" class="form-control" value="{{ date('Y-m-d') }}" required>
             </div>
           </div>
 
           <div class="row mb-3">
             <div class="col">
-              <label class="form-label">Quantidade*</label>
+              <label class="form-label">{{ __('stock_movement.quantity_label') }}*</label>
               <input type="number" name="quantity" class="form-control" required>
             </div>
             <div class="col">
-              <label class="form-label">Custo*</label>
+              <label class="form-label">{{ __('stock_movement.cost_label') }}*</label>
               <input type="number" name="cost" class="form-control" step="0.01" min="0" required>
             </div>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Observação</label>
+            <label class="form-label">{{ __('stock_movement.note_label') }}</label>
             <input type="text" name="note" class="form-control">
           </div>
 
           <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-outline-primary me-2" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary px-4">Salvar</button>
+            <button type="button" class="btn btn-outline-primary me-2" data-bs-dismiss="modal">{{ __('stock_movement.cancel') }}</button>
+            <button type="submit" class="btn btn-primary px-4">{{ __('stock_movement.save') }}</button>
           </div>
         </form>
       </div>
@@ -158,12 +158,10 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Botão de excluir
     document.querySelectorAll('.delete-movimentacao').forEach(button => {
         button.addEventListener('click', function(e) {
             const movimentacaoId = this.dataset.id;
-            
-            if (confirm('Tem certeza que deseja excluir esta movimentação?')) {
+            if (confirm('{{ __('stock_movement.confirm_delete') }}')) {
                 excluirMovimentacao(movimentacaoId);
             }
         });
@@ -180,12 +178,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 location.reload();
             } else {
-                alert('Erro ao excluir movimentação');
+                alert('{{ __('stock_movement.delete_error') }}');
             }
         })
         .catch(error => {
             console.error('Erro:', error);
-            alert('Erro ao excluir movimentação');
+            alert('{{ __('stock_movement.delete_error') }}');
         });
     }
 });
