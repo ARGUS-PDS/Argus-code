@@ -9,7 +9,7 @@
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.prod_valid_title') }}</h5>
       @if($produtos_validade->count())
-      <ul class="mt-2">
+      <ul class="mt-2 scrollable-list"> {{-- Adicionada a classe scrollable-list aqui --}}
         @foreach($produtos_validade as $produto)
         <li>{{ $produto->description }} - {{ __('dashboard.expires_in') }} {{ intval(max(0, now()->diffInDays(\Carbon\Carbon::parse($produto->expiration_date), false))) }} {{ __('dashboard.days') }} ({{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})</li>
         @endforeach
@@ -27,7 +27,7 @@
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.movement_title') }}</h5>
       @if($movimentacoes->count())
-      <ul class="mt-2">
+      <ul class="mt-2 scrollable-list"> {{-- Adicionada a classe scrollable-list aqui --}}
         @foreach($movimentacoes as $mov)
         <li>
           @if($mov->type === 'inward')
@@ -51,7 +51,7 @@
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.alerts_title') }}</h5>
       @if($produtos_vencidos->count())
-      <ul class="mt-2">
+      <ul class="mt-2 scrollable-list"> {{-- Adicionada a classe scrollable-list aqui --}}
         @foreach($produtos_vencidos as $produto)
         <li>{{ $produto->description }} {{ __('dashboard.expired_on') }} {{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }}</li>
         @endforeach
@@ -82,6 +82,41 @@
     </div>
   </div>
 </div>
+
+<style>
+    .panel ul.scrollable-list {
+        max-height: 150px; /* Altura máxima da lista */
+        overflow-y: auto; /* Adiciona scroll vertical se o conteúdo exceder */
+        padding-right: 10px; /* Espaço para a barra de rolagem */
+        list-style: disc; /* Garante que os bullet points apareçam */
+        padding-left: 20px; /* Adiciona padding para os bullet points */
+    }
+
+    .panel ul.scrollable-list li {
+        white-space: normal; /* Permite que o texto quebre linha */
+        word-wrap: break-word; /* Garante que palavras longas quebrem */
+        margin-bottom: 5px; /* Espaçamento entre os itens da lista */
+    }
+
+    /* Opcional: Estilo para a barra de rolagem */
+    .panel ul.scrollable-list::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .panel ul.scrollable-list::-webkit-scrollbar-track {
+        background: var(--color-bege-claro);
+        border-radius: 10px;
+    }
+
+.panel ul.scrollable-list::-webkit-scrollbar-thumb {
+    background: #888; /* Um cinza médio para o "polegar" da barra */
+    border-radius: 10px;
+}
+
+.panel ul.scrollable-list::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Um cinza mais escuro no hover */
+}
+</style>
 
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 
