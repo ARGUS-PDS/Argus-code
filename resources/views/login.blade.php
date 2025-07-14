@@ -12,9 +12,20 @@
     <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
 </head>
 
+<script src="https://unpkg.com/vanilla-masker/build/vanilla-masker.min.js"></script>
+<script>
+    VMasker(document.querySelector("input[name='whatsapp']")).maskPattern("(99) 99999-9999");
+</script>
+
 <body>
     <div class="container" id="container">
         <div class="formulario-container logar">
+                @if(session('success_contato'))
+                    <div id="mensagem-enviada" class="mt-3 text-success fw-bold">
+                        <strong><i class="fas fa-check-circle me-2"></i>Contato registrado!</strong>
+                    </div>
+                @endif
+                <br>
             <form method="POST" action="/login" onsubmit="mostrarTelaCarregando()">
                 @csrf
                 <h1>Entrar</h1>
@@ -41,19 +52,20 @@
             </form>
         </div>
 
+
         <div class="formulario-container registro">
-            <form>
+            <form method="POST" action="{{ route('contato.enviar') }}">
+                @csrf
                 <h1>Entre em contato</h1>
-                <input type="text" placeholder="Nome" required />
-                <input type="email" placeholder="Email" required />
+
+                <input type="text" name="nome" placeholder="Seu Nome" required />
+                <input type="text" name="empresa" placeholder="Sua Empresa" required />
+                <input type="email" name="email" placeholder="Email para contato" required />
                 <input 
                     type="tel" 
-                    id="whatsapp" 
                     name="whatsapp" 
-                    placeholder="(00) 00000-0000" 
-                    pattern="^\(\d{2}\) \d{5}-\d{4}$" 
-                    required 
-                    title="Digite um número de WhatsApp válido. Ex: (99) 99999-9999"
+                    placeholder="(00)00000-0000"
+                    required
                 >
                 <button class="botao-input">Enviar</button>
             </form>
@@ -67,8 +79,8 @@
                     <button class="botao-input hidden" id="entrar">Entrar</button>
                 </div>
                 <div class="painel-alternativo painel-direito">
-                    <h1>Olá, Amigo!</h1>
-                    <p>Cadastre-se agora e simplifique sua gestão de estoque de maneira inteligente!</p>
+                    <h1>Olá!</h1>
+                    <p>Entre em contato conosco agora e simplifique sua gestão de estoque de maneira inteligente!</p>
                     <button class="botao-input hidden" id="registrar">Registrar</button>
                 </div>
             </div>
@@ -76,6 +88,17 @@
     </div>
 
     <script src="{{ asset('js/login.js') }}"></script>
+    <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const mensagem = document.getElementById("mensagem-enviada");
+                if (mensagem) {
+                    setTimeout(() => {
+                        mensagem.remove();
+                    }, 4000); 
+                }
+            });
+    </script>
+
     @include('layouts.carregamento')
 </body>
 </html>

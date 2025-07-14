@@ -11,7 +11,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SupplierOrderController;
 use App\Http\Controllers\MovementController;
 use App\Http\Controllers\CompanyController;
-
+use App\Http\Controllers\ContatoController;
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -97,8 +97,7 @@ Route::get('/movimentacoes/{id}/edit', [MovementController::class, 'edit'])->nam
 Route::put('/movimentacoes/{id}', [MovementController::class, 'update'])->name('movimentacao.update');
 Route::delete('/movimentacoes/{id}', [MovementController::class, 'destroy'])->name('movimentacao.destroy');
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
+Route::post('/contato', [ContatoController::class, 'enviarContato'])->name('contato.enviar');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
