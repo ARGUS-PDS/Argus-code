@@ -71,7 +71,7 @@
         <button class="grafico-btn" data-periodo="semana">{{ __('dashboard.week') }}</button>
         <button class="grafico-btn" data-periodo="dia">{{ __('dashboard.day') }}</button>
       </div>
-      <h5>Vendas</h5>
+      <h5>{{ __('dashboard.sales') }}</h5>
       <div style="flex:1; min-height: 0;">
         <canvas id="vendasTempoChart" style="width:100%; height:180px;"></canvas>
       </div>
