@@ -255,7 +255,7 @@
                 </button>
             </form>
             <span class="ms-4 fw-bold" style="color: var(--color-vinho);">
-                {{ __('products.current_stock') }}: {{ $products->count() }}/{{ $products->total() }}
+                {{ __('products.current_stock') }}: {{ ($products->currentPage() * $products->perPage() > $products->total()) ? $products->total() : $products->currentPage() * $products->perPage() }}/{{ $products->total() }}
             </span>
             <button type="button" class="btn p-0" title="{{ __('products.print') }}">
                 <i class="bi bi-printer fs-4"></i>
@@ -285,7 +285,6 @@
         <th>{{ __('products.name') }}</th>
         <th>{{ __('products.code') }}</th>
         <th class="text-center">{{ __('products.supplier') }}</th>
-        <th class="text-center">{{ __('products.stock') }}</th>
         <th class="text-center">{{ __('products.price') }}</th>
         <th class="text-center"></th>
     </tr>
@@ -307,7 +306,6 @@
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->barcode }}</td>
                     <td class="text-center">{{ $product->supplier ? $product->supplier->name : __('products.no_supplier') }}</td>
-                    <td class="text-center">{{ $product->currentStock }}</td>
                     <td class="text-center">R$ {{ number_format($product->value, 2, ',', '.') }}</td>
                     <td class="text-center">
                         <div class="dropdown">
@@ -380,4 +378,81 @@
         document.getElementById('deleteIds').value = ids.join(',');
         document.getElementById('massDeleteForm').submit();
     }
+</script>
+
+<script>
+function renderProductsTable(products) {
+    let html = '';
+    products.forEach(product => {
+        html += `<tr onclick="window.location='${product.edit_url}'" style="cursor:pointer;">`;
+        html += `<td class='text-center'><input type='checkbox' onclick='event.stopPropagation();'></td>`;
+        html += `<td class='text-center'>`;
+        if (product.image_url && product.image_exists) {
+            html += `<img src='${product.image_url}' alt='Imagem do produto' class='img-thumb' loading='lazy'>`;
+        } else {
+            html += `<i class='bi bi-image img-thumb' style='font-size: 2rem; padding-top: 15px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; color: var(--color-vinho-fundo);'></i>`;
+        }
+        html += `</td>`;
+        html += `<td>${product.description}</td>`;
+        html += `<td>${product.barcode}</td>`;
+        html += `<td class='text-center'>${product.supplier ? product.supplier.name : 'Sem fornecedor'}</td>`;
+        html += `<td class='text-center'>R$ ${parseFloat(product.value).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>`;
+        html += `<td class='text-center'>`;
+        html += `<div class='dropdown'>`;
+        html += `<i class='bi bi-three-dots-vertical' role='button' data-bs-toggle='dropdown' aria-expanded='false' onclick='event.stopPropagation();'></i>`;
+        html += `<ul class='dropdown-menu' data-bs-boundary='viewport'>`;
+        html += `<li><a class='dropdown-item' href='#'>Imprimir</a></li>`;
+        html += `<li><form action='/products/${product.id}' method='POST' onsubmit="return confirm('Tem certeza que deseja excluir?');">`;
+        html += `@csrf @method('DELETE')`;
+        html += `<button class='dropdown-item text-danger' type='submit'>Excluir</button></form></li>`;
+        html += `</ul></div></td></tr>`;
+    });
+    document.querySelector('.products-table tbody').innerHTML = html;
+}
+
+// Função para renderizar a paginação
+function renderPagination(current, last) {
+    let html = '';
+    if (last > 1) {
+        html += `<div class='d-flex justify-content-center mt-4'>`;
+        if (current === 1) {
+            html += `<button class='btn btn-secondary me-2' disabled>Anterior</button>`;
+        } else {
+            html += `<button class='btn btn-primary me-2' onclick='fetchProducts(${current - 1})'>Anterior</button>`;
+        }
+        if (current < last) {
+            html += `<button class='btn btn-primary' onclick='fetchProducts(${current + 1})'>Próximo</button>`;
+        } else {
+            html += `<button class='btn btn-secondary' disabled>Próximo</button>`;
+        }
+        html += `</div>`;
+    }
+    document.getElementById('ajax-pagination').innerHTML = html;
+}
+
+// Função para buscar produtos via AJAX
+function fetchProducts(page = 1) {
+    const q = document.querySelector('.search-bar input[name="q"]').value;
+    fetch(`{{ route('products.index') }}?q=${encodeURIComponent(q)}&page=${page}`, {headers: {'X-Requested-With': 'XMLHttpRequest'}})
+        .then(res => res.json())
+        .then(data => {
+            renderProductsTable(data.data);
+            renderPagination(data.current_page, data.last_page);
+            document.querySelector('.ms-4.fw-bold').textContent = `Estoque atual: ${data.data.length}/${data.total}`;
+        });
+}
+
+// Evento de busca dinâmica
+const searchInput = document.querySelector('.search-bar input[name="q"]');
+if (searchInput) {
+    searchInput.addEventListener('input', function() {
+        fetchProducts(1);
+    });
+}
+// Substituir a paginação tradicional por um container para paginação AJAX
+const pagDiv = document.createElement('div');
+pagDiv.id = 'ajax-pagination';
+document.querySelector('.products-table').after(pagDiv);
+// Inicializar com a página atual
+// fetchProducts(1);
 </script>

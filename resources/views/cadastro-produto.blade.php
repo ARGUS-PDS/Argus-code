@@ -427,7 +427,8 @@
                     <label for="image_url" class="form-label mb-2">Imagem do Produto</label>
                     <input type="file" name="image_url" id="image_url" class="form-control" accept="image/*" onchange="previewImage(event)">
                     <div class="image-preview-area position-relative">
-                        <button type="button" id="removeBtn" class="btn btn-danger btn-sm position-absolute" style="z-index:2; border-radius:50%; width:20px; height:20px; padding:0; font-size:1rem; top:-20px; left:100px; display: {{ (isset($product) && $product->image_url) ? 'block' : 'none' }}; display: flex; align-items: center; justify-content: center; background: var(--color-vinho-fundo); border: none; color: var(--color-bege-claro);" onclick="removeImage()">&times;</button>
+                        <button type="button" id="removeBtn" class="btn btn-danger btn-sm position-absolute" style="z-index:2; border-radius:50%; width:20px; height:20px; padding:0; font-size:1rem; top:-20px; left:100px; display: {{ (isset($product) && $product->image_url) ? 'block' : 'none' }}; display: flex; align-items: center; justify-content: center; background: var(--color-vinho-fundo); border: none; color: var(--color-bege-claro);"
+                            onclick="removeImage()" @if(!(isset($product) && $product->image_url)) hidden @endif>&times;</button>
                         @if(isset($product) && $product->image_url)
                             <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="image-preview">
                             <div id="placeholder" class="image-placeholder-text">Imagem atual</div>

@@ -13,7 +13,16 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with('supplier');
+        \DB::listen(function ($query) {
+            \Log::info('SQL Executada:', [
+                'sql' => $query->sql,
+                'bindings' => $query->bindings,
+                'time' => $query->time
+            ]);
+        });
+
+        $query = Product::select(['id', 'description', 'barcode', 'supplierId', 'value', 'image_url'])
+            ->orderBy('id', 'desc');
 
         if ($request->has('q') && $request->q) {
             $q = $request->q;
@@ -24,7 +33,23 @@ class ProductController extends Controller
             });
         }
 
-        $products = $query->paginate(10);
+        // Cache para listagem sem filtro
+        if (!$request->has('q') || !$request->q) {
+            $products = \Cache::remember('products_page_' . $request->get('page', 1), 60, function () use ($query) {
+                return $query->paginate(10);
+            });
+        } else {
+            $products = $query->paginate(10);
+        }
+
+        if ($request->ajax()) {
+            return response()->json([
+                'data' => $products->items(),
+                'total' => $products->total(),
+                'current_page' => $products->currentPage(),
+                'last_page' => $products->lastPage(),
+            ]);
+        }
 
         return view('products.index', compact('products'));
     }
@@ -40,7 +65,10 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->delete();
-
+        // Limpa o cache das páginas de produtos
+        foreach (range(1, 10) as $page) {
+            \Cache::forget('products_page_' . $page);
+        }
         return redirect('/lista-produtos')->with('success', 'Produto excluído com sucesso!');
     }
 
@@ -91,6 +119,10 @@ class ProductController extends Controller
             \Log::info('Status definido:', ['status' => $validated['status']]);
 
             $product->update($validated);
+            // Limpa o cache das páginas de produtos
+            foreach (range(1, 10) as $page) {
+                \Cache::forget('products_page_' . $page);
+            }
             \Log::info('Produto atualizado com sucesso');
 
             return redirect('/lista-produtos')->with('success', 'Produto atualizado com sucesso!');
@@ -216,7 +248,10 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
             'minimumStock' => $request->input('minimumStock'),
             'status' => $request->has('status') ? 1 : 0,
         ]);
-
+        // Limpa o cache das páginas de produtos
+        foreach (range(1, 10) as $page) {
+            \Cache::forget('products_page_' . $page);
+        }
         return redirect('/lista-produtos')->with('success', 'Produto cadastrado com sucesso!');
     }
 

@@ -45,6 +45,7 @@ Route::resource('products', ProductController::class);
 Route::get('/pesquisa', [ProductController::class, 'index'])->name('pesquisa.index');
 Route::get('/produtos/busca', [App\Http\Controllers\ProductController::class, 'buscaJson'])->name('produtos.buscaJson');
 Route::post('/products/mass-delete', [ProductController::class, 'massDelete'])->name('products.massDelete');
+Route::get('/products/search-ajax', [ProductController::class, 'searchAjax'])->name('products.searchAjax');
 
 
 Route::get('/voltar', function () {
