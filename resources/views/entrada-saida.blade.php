@@ -75,10 +75,10 @@
           @if ($movimentacoes->onFirstPage())
               <button class="btn btn-secondary me-2" disabled>Anterior</button>
           @else
-              <a href="{{ $movimentacoes->previousPageUrl() }}" class="btn btn-primary me-2">Anterior</a>
+              <a href="{{ $movimentacoes->previousPageUrl() }}&produto={{ request('produto') }}" class="btn btn-primary me-2">Anterior</a>
           @endif
           @if ($movimentacoes->hasMorePages())
-              <a href="{{ $movimentacoes->nextPageUrl() }}" class="btn btn-primary">Próximo</a>
+              <a href="{{ $movimentacoes->nextPageUrl() }}&produto={{ request('produto') }}" class="btn btn-primary">Próximo</a>
           @else
               <button class="btn btn-secondary" disabled>Próximo</button>
           @endif

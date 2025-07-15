@@ -22,6 +22,7 @@ class ProductController extends Controller
         });
 
         $query = Product::select(['id', 'description', 'barcode', 'supplierId', 'value', 'image_url'])
+            ->with('supplier')
             ->orderBy('id', 'desc');
 
         if ($request->has('q') && $request->q) {
@@ -233,7 +234,7 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
             $imagePath = 'products/' . $nomeArquivo;
         }
 
-        Product::create([
+        $product = Product::create([
             'image_url' => $imagePath ?? null,
             'code' => $request->input('code'),
             'description' => $request->input('description'),
@@ -248,6 +249,18 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
             'minimumStock' => $request->input('minimumStock'),
             'status' => $request->has('status') ? 1 : 0,
         ]);
+
+        // Se informou estoque inicial, cria movimentação de entrada automática
+        if ($request->filled('currentStock') && (int)$request->input('currentStock') > 0) {
+            \App\Models\Movement::create([
+                'product_id' => $product->id,
+                'type' => 'inward',
+                'date' => now(),
+                'quantity' => (int)$request->input('currentStock'),
+                'cost' => $request->input('value') ?? 0,
+                'note' => 'Entrada ao cadastrar produto',
+            ]);
+        }
         // Limpa o cache das páginas de produtos
         foreach (range(1, 10) as $page) {
             \Cache::forget('products_page_' . $page);
