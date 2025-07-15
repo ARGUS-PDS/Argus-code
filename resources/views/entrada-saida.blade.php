@@ -70,6 +70,20 @@
           @endforeach
         </tbody>
       </table>
+      @if ($movimentacoes->lastPage() > 1)
+      <div class="d-flex justify-content-center mt-3">
+          @if ($movimentacoes->onFirstPage())
+              <button class="btn btn-secondary me-2" disabled>Anterior</button>
+          @else
+              <a href="{{ $movimentacoes->previousPageUrl() }}" class="btn btn-primary me-2">Anterior</a>
+          @endif
+          @if ($movimentacoes->hasMorePages())
+              <a href="{{ $movimentacoes->nextPageUrl() }}" class="btn btn-primary">Próximo</a>
+          @else
+              <button class="btn btn-secondary" disabled>Próximo</button>
+          @endif
+      </div>
+      @endif
       @else
       <div class="alert alert-warning">{{ __('stock_movement.no_records') }}</div>
       @endif
@@ -85,12 +99,14 @@
         <p class="mb-2">
           <strong>{{ __('stock_movement.current_stock') }}:</strong> {{ $estoque_atual }}
         </p>
+        <!--
         <p class="mb-0">
           <strong>{{ __('stock_movement.profit') }}:</strong>
           <span style="color: {{ $lucro < 0 ? 'red' : 'green' }}; font-weight: bold">
             R$ {{ number_format($lucro, 2, ',', '.') }}
           </span>
         </p>
+        -->
       </div>
     </div>
   </div>
@@ -117,7 +133,7 @@
 
           <div class="row mb-3">
             <div class="col">
-              <label class="form-label">{{ __('stock_movement.type_label') }}*</label>
+              <label class="form-label">{{ __('stock_movement.type_label') }}</label>
               <select class="form-select" name="type" required>
                 <option value="" disabled selected>{{ __('stock_movement.select') }}</option>
                 <option value="inward">{{ __('stock_movement.inward') }}</option>
@@ -125,18 +141,18 @@
               </select>
             </div>
             <div class="col">
-              <label class="form-label">{{ __('stock_movement.date_label') }}*</label>
+              <label class="form-label">{{ __('stock_movement.date_label') }}</label>
               <input type="date" name="date" class="form-control" value="{{ date('Y-m-d') }}" required>
             </div>
           </div>
 
           <div class="row mb-3">
             <div class="col">
-              <label class="form-label">{{ __('stock_movement.quantity_label') }}*</label>
+              <label class="form-label">{{ __('stock_movement.quantity_label') }}</label>
               <input type="number" name="quantity" class="form-control" required>
             </div>
             <div class="col">
-              <label class="form-label">{{ __('stock_movement.cost_label') }}*</label>
+              <label class="form-label">{{ __('stock_movement.cost_label') }}</label>
               <input type="number" name="cost" class="form-control" step="0.01" min="0" required>
             </div>
           </div>

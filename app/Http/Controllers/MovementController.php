@@ -18,23 +18,28 @@ class MovementController extends Controller
             $produtoSelecionado = Product::where('description', 'like', '%' . $request->produto . '%')
                 ->orWhere('barcode', 'like', '%' . $request->produto . '%')
                 ->first();
-
-            if ($produtoSelecionado) {
-                $movimentacoes = Movement::where('product_id', $produtoSelecionado->id)
-                    ->orderBy('date', 'desc')
-                    ->get();
-            }
         }
 
         $entradas_valor = $entradas_qtd = $saidas_valor = $saidas_qtd = $lucro = $estoque_atual = 0;
         if ($produtoSelecionado) {
             $movimentacoes = Movement::where('product_id', $produtoSelecionado->id)
                 ->orderBy('date', 'desc')
-                ->get();
-            $entradas_valor = $movimentacoes->whereIn('type', ['entrada', 'inward', 'Inward'])->sum('cost');
-            $entradas_qtd   = $movimentacoes->whereIn('type', ['entrada', 'inward', 'Inward'])->sum('quantity');
-            $saidas_valor   = $movimentacoes->whereIn('type', ['saida', 'outward', 'Outward'])->sum('cost');
-            $saidas_qtd     = $movimentacoes->whereIn('type', ['saida', 'outward', 'Outward'])->sum('quantity');
+                ->paginate(5);
+
+            // Calcular totais diretamente no banco
+            $entradas = Movement::where('product_id', $produtoSelecionado->id)
+                ->whereIn('type', ['entrada', 'inward', 'Inward'])
+                ->selectRaw('SUM(cost) as valor, SUM(quantity) as qtd')
+                ->first();
+            $saidas = Movement::where('product_id', $produtoSelecionado->id)
+                ->whereIn('type', ['saida', 'outward', 'Outward'])
+                ->selectRaw('SUM(cost) as valor, SUM(quantity) as qtd')
+                ->first();
+
+            $entradas_valor = $entradas->valor ?? 0;
+            $entradas_qtd   = $entradas->qtd ?? 0;
+            $saidas_valor   = $saidas->valor ?? 0;
+            $saidas_qtd     = $saidas->qtd ?? 0;
             $lucro = $saidas_valor - $entradas_valor;
             $estoque_atual = $entradas_qtd - $saidas_qtd;
         }
@@ -53,7 +58,7 @@ class MovementController extends Controller
             'note' => 'nullable|string',
         ]);
 
-        Movement::create($request->only([
+        $movement = Movement::create($request->only([
             'product_id',
             'type',
             'date',
@@ -62,7 +67,9 @@ class MovementController extends Controller
             'note'
         ]));
 
-        return redirect()->route('movimentacao.index')->with('success', 'Movimentação registrada com sucesso!');
+        $produto = Product::find($request->product_id);
+        return redirect()->route('movimentacao.index', ['produto' => $produto ? $produto->description : null])
+            ->with('success', 'Movimentação registrada com sucesso!');
     }
 
     public function edit($id)
@@ -94,9 +101,11 @@ class MovementController extends Controller
     public function destroy($id)
     {
         $movement = Movement::findOrFail($id);
+        $produto = Product::find($movement->product_id);
         $movement->delete();
 
-        return response()->json(['success' => true]);
+        return redirect()->route('movimentacao.index', ['produto' => $produto ? $produto->description : null])
+            ->with('success', 'Movimentação excluída com sucesso!');
     }
 
 
