@@ -254,17 +254,26 @@
                     <i class="bi bi-search"></i>
                 </button>
             </form>
-            <span class="ms-4 fw-bold" style="color: var(--color-vinho);">{{ __('products.current_stock') }}: {{ $products->count() }}</span>
+            <span class="ms-4 fw-bold" style="color: var(--color-vinho);">
+                {{ __('products.current_stock') }}: {{ $products->count() }}/{{ $products->total() }}
+            </span>
             <button type="button" class="btn p-0" title="{{ __('products.print') }}">
                 <i class="bi bi-printer fs-4"></i>
             </button>
-            <button type="button" class="btn p-0" title="{{ __('products.delete') }}">
+            <form id="massDeleteForm" action="{{ route('products.massDelete') }}" method="POST" style="display:none;">
+                @csrf
+                <input type="hidden" name="ids" id="deleteIds">
+            </form>
+            <button type="button" class="btn p-0" title="{{ __('products.delete') }}" onclick="submitMassDelete()">
                 <i class="bi bi-trash fs-4"></i>
             </button>
             <a href="{{ route('products.create') }}" class="btn add-btn" title="{{ __('products.add') }}">
                 <i class="bi bi-plus"></i>
             </a>
         </div>
+    </div>
+    <div id="selected-count" class="mb-2 ms-1" style="color: var(--color-vinho); font-weight: bold; display: none;">
+        Selecionados: <span id="selectedValue">0</span>
     </div>
 
     <div class="table-responsive">
@@ -284,10 +293,13 @@
 <tbody>
     @forelse ($products as $product)
     <tr onclick="window.location='{{ route('products.edit', $product->id) }}'" style="cursor:pointer;">
-        <td class="text-center"><input type="checkbox"></td>
+        <td class="text-center"><input type="checkbox" onclick="event.stopPropagation();"></td>
                     <td class="text-center">
-                        @if ($product->image_url)
-                        <img src="{{ asset($product->image_url) }}" alt="{{ __('products.image_alt') }}" class="img-thumb">
+                        @php
+                            $imgPath = public_path($product->image_url ?? '');
+                        @endphp
+                        @if (!empty($product->image_url) && file_exists($imgPath))
+                            <img src="{{ asset($product->image_url) }}" alt="Imagem do produto" class="img-thumb" loading="lazy">
                         @else
                             <i class="bi bi-image img-thumb" style="font-size: 2rem; padding-top: 15px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; color: var(--color-vinho-fundo);"></i>
                         @endif
@@ -323,5 +335,49 @@
             </tbody>
         </table>
     </div>
+    <div class="d-flex justify-content-center mt-4">
+        @if ($products->onFirstPage())
+            <button class="btn btn-secondary me-2" disabled>Anterior</button>
+        @else
+            <a href="{{ $products->previousPageUrl() }}" class="btn btn-primary me-2">Anterior</a>
+        @endif
+        @if ($products->hasMorePages())
+            <a href="{{ $products->nextPageUrl() }}" class="btn btn-primary">Próximo</a>
+        @else
+            <button class="btn btn-secondary" disabled>Próximo</button>
+        @endif
+    </div>
+    {{-- Links de paginação --}}
+    
+    
 </div>
 @endsection
+
+<script>
+    // Atualiza o contador de selecionados
+    function updateSelectedCount() {
+        const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+        const count = Array.from(checkboxes).filter(cb => cb.checked).length;
+        document.getElementById('selectedValue').textContent = count;
+        document.getElementById('selected-count').style.display = count > 0 ? 'block' : 'none';
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+        checkboxes.forEach(cb => cb.addEventListener('change', updateSelectedCount));
+        updateSelectedCount();
+    });
+
+    function submitMassDelete() {
+        const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+        const ids = Array.from(checkboxes)
+            .map((cb, idx) => cb.checked ? @json($products->items()) [idx].id : null)
+            .filter(id => id !== null);
+        if (ids.length === 0) {
+            alert('Selecione pelo menos um produto para excluir.');
+            return;
+        }
+        if (!confirm('Tem certeza que deseja excluir os produtos selecionados?')) return;
+        document.getElementById('deleteIds').value = ids.join(',');
+        document.getElementById('massDeleteForm').submit();
+    }
+</script>

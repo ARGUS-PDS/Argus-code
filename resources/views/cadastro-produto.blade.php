@@ -426,14 +426,16 @@
                 <div class="image-upload-container">
                     <label for="image_url" class="form-label mb-2">Imagem do Produto</label>
                     <input type="file" name="image_url" id="image_url" class="form-control" accept="image/*" onchange="previewImage(event)">
-                    <div class="image-preview-area">
+                    <div class="image-preview-area position-relative">
+                        <button type="button" id="removeBtn" class="btn btn-danger btn-sm position-absolute" style="z-index:2; border-radius:50%; width:20px; height:20px; padding:0; font-size:1rem; top:-20px; left:100px; display: {{ (isset($product) && $product->image_url) ? 'block' : 'none' }}; display: flex; align-items: center; justify-content: center; background: var(--color-vinho-fundo); border: none; color: var(--color-bege-claro);" onclick="removeImage()">&times;</button>
                         @if(isset($product) && $product->image_url)
-                        <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="image-preview">
-                        <div id="placeholder" class="image-placeholder-text">Imagem atual</div>
+                            <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="image-preview">
+                            <div id="placeholder" class="image-placeholder-text">Imagem atual</div>
                         @else
-                        <img id="preview" src="#" alt="Pré-visualização" class="image-preview d-none">
-                        <div id="placeholder" class="image-placeholder-text">Nenhuma imagem selecionada</div>
+                            <img id="preview" src="#" alt="Pré-visualização" class="image-preview d-none">
+                            <div id="placeholder" class="image-placeholder-text">Nenhuma imagem selecionada</div>
                         @endif
+                        <input type="hidden" name="remove_image" id="remove_image" value="0">
                     </div>
                 </div>
             </div>
@@ -537,18 +539,23 @@
         function previewImage(event) {
             const preview = document.getElementById('preview');
             const placeholder = document.getElementById('placeholder');
+            const removeBtn = document.getElementById('removeBtn');
             if (event.target.files && event.target.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     preview.src = e.target.result;
                     preview.classList.remove('d-none');
                     placeholder.classList.add('d-none');
+                    removeBtn.style.display = 'block';
+                    document.getElementById('remove_image').value = '0';
                 };
                 reader.readAsDataURL(event.target.files[0]);
             } else {
                 preview.src = '#';
                 preview.classList.add('d-none');
                 placeholder.classList.remove('d-none');
+                removeBtn.style.display = 'none';
+                document.getElementById('remove_image').value = '0';
             }
         }
 
@@ -581,6 +588,20 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     </script>
+    <script>
+function removeImage() {
+    const preview = document.getElementById('preview');
+    const placeholder = document.getElementById('placeholder');
+    const removeBtn = document.getElementById('removeBtn');
+    preview.src = '#';
+    preview.classList.add('d-none');
+    placeholder.textContent = 'Nenhuma imagem selecionada';
+    placeholder.classList.remove('d-none');
+    removeBtn.style.display = 'none';
+    document.getElementById('image_url').value = '';
+    document.getElementById('remove_image').value = '1';
+}
+</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 

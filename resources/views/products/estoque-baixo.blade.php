@@ -2,18 +2,6 @@
 
 @section('styles')
 <style>
- 
-    :root {
-        --color-vinho: #773138; /* Vinho principal para títulos e botões primários */
-        --color-bege-claro: #f8f0e5; /* Bege claro para o fundo da página e elementos secundários */
-        --color-gray-claro: #ddd; /* Cinza claro para bordas e elementos sutis */
-        --color-gray-escuro: #555; /* Cinza escuro para textos e bordas mais fortes */
-        --color-green: #28a745; /* Verde geral para sucesso (mantido para outros usos como WhatsApp) */
-        
-        --color-table-header: #773138; /* Cor do cabeçalho da tabela de Fornecedores */
-        --color-table-row-bg: #f8f0e5; /* Cor de fundo das linhas da tabela */
-        --color-input-bg: #fff; /* Fundo dos inputs */
-    }
 
     body {
         padding: 0;
@@ -48,7 +36,7 @@
     /* Estilos para os cards de produto */
     .product-card {
         background-color: #fff;
-        border: 1px solid #e0e0e0;
+        border: 1px solid var(--color-white);
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         padding: 1.5rem;
@@ -94,14 +82,14 @@
     .form-control {
         border-radius: 8px;
         border: 1px solid var(--color-gray-claro);
-        background-color: var(--color-input-bg); 
+        background-color: var(--color-white); 
         color: var(--color-gray-escuro);
     }
 
     .form-control:focus {
         border-color: var(--color-vinho);
         box-shadow: 0 0 0 0.25rem rgba(119, 49, 56, 0.25);
-        background-color: var(--color-input-bg);
+        background-color: var(--color-white);
     }
 
     /* Estilos dos botões de envio (E-mail/WhatsApp) dentro do formulário de pedido */
@@ -136,7 +124,7 @@
         padding: 1.5rem;
         background-color: var(--color-bege-claro); 
         border-radius: 0 0 8px 8px; 
-        border-top: 1px solid #e0e0e0;
+        border-top: 1px solid var(--color-bege-claro);
     }
     .card-body-custom h6 {
         color: var(--color-vinho);

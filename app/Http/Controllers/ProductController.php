@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::query();
+        $query = Product::with('supplier');
 
         if ($request->has('q') && $request->q) {
             $q = $request->q;
@@ -24,7 +24,7 @@ class ProductController extends Controller
             });
         }
 
-        $products = $query->paginate(20);
+        $products = $query->paginate(10);
 
         return view('products.index', compact('products'));
     }
@@ -75,7 +75,16 @@ class ProductController extends Controller
                 $nomeArquivo = uniqid() . '.' . $file->getClientOriginalExtension();
                 $file->move(public_path('products'), $nomeArquivo);
                 $validated['image_url'] = 'products/' . $nomeArquivo;
-                \Log::info('Nova imagem salva:', $validated['image_url']);
+                \Log::info('Nova imagem salva:', ['image_url' => $validated['image_url']]);
+            } else {
+                $validated['image_url'] = $product->image_url;
+            }
+
+            if ($request->input('remove_image') == '1') {
+                if ($product->image_url && file_exists(public_path($product->image_url))) {
+                    @unlink(public_path($product->image_url));
+                }
+                $validated['image_url'] = null;
             }
 
             $validated['status'] = $request->has('status') ? true : false;
@@ -209,5 +218,21 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
         ]);
 
         return redirect('/lista-produtos')->with('success', 'Produto cadastrado com sucesso!');
+    }
+
+    public function massDelete(Request $request)
+    {
+        $ids = explode(',', $request->input('ids'));
+        foreach ($ids as $id) {
+            $product = Product::find($id);
+            if ($product) {
+                // Opcional: deletar imagem do disco
+                if ($product->image_url && file_exists(public_path($product->image_url))) {
+                    @unlink(public_path($product->image_url));
+                }
+                $product->delete();
+            }
+        }
+        return redirect('/lista-produtos')->with('success', 'Produtos excluídos com sucesso!');
     }
 }
