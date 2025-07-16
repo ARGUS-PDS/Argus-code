@@ -114,9 +114,7 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="m-0">Cadastrar Fornecedor</h2>
-        <a href="{{ route('suppliers.index') }}" class="btn btn-custom-back">
-            <i class="bi bi-arrow-left"></i> Voltar
-        </a>
+        <x-btn-voltar href="{{ route('suppliers.index') }}" />
     </div>
 
     @if ($errors->any())
@@ -290,8 +288,8 @@
             </fieldset>
 
             <div class="d-flex justify-content-end mt-4 gap-2">
-                <button type="reset" class="btn btn-secondary">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                <x-btn-cancelar href="{{ route('suppliers.index') }}" />
+                <x-btn-salvar />
             </div>
         </form>
     </div>

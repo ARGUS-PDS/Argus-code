@@ -104,40 +104,6 @@
         background: #fff;
     }
 
-    .add-btn {
-        border: 2px solid var(--color-vinho);
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        color: var(--color-vinho);
-        background: none;
-        cursor: pointer;
-        margin-left: 8px;
-        transition: background 0.5s, color 0.5s;
-    }
-
-    .add-btn:hover {
-        background: var(--color-vinho);
-        color: var(--color-bege-claro);
-    }
-
-    .menu-dot {
-        font-size: 1.5rem;
-        color: var(--color-gray-escuro);
-        cursor: pointer;
-        text-align: center;
-    }
-
-    .bi-plus-circle-fill,
-    .bi-dash-circle-fill {
-        color: var(--color-vinho);
-        margin-left: 5px;
-    }
-
     td p {
         margin-bottom: 0;
     }
@@ -163,9 +129,7 @@
                 </button>
             </form>
             <span class="ms-4 text-secondary">Estoque atual: </span>
-            <a href="{{ route('suppliers.create') }}" class="btn btn-primary add-btn ms-2" title="Adicionar">
-                <i class="bi bi-plus"></i>
-            </a>
+            <x-btn-mais href="{{ route('suppliers.create') }}" />
         </div>
     </div>
 
@@ -206,21 +170,18 @@
                         <i id="toggleIconA{{ $supplier->id }}" onclick="seemoreaddresses('{{ $supplier->id }}')" class="bi bi-plus-circle-fill" style="cursor: pointer;"></i>
                     </td>
                     <td>
-                        <div class="dropdown">
-                            <i class="bi bi-three-dots-vertical dropdown-toggle" role="button" id="dropdownMenuButton{{ $supplier->id }}" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer; color: var(--color-gray-escuro);"></i>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ $supplier->id }}">
-                                <li>
-                                    <a class="dropdown-item" href="{{ route('suppliers.edit', $supplier->id) }}">Editar</a>
-                                </li>
-                                <li>
-                                    <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este fornecedor?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="dropdown-item text-danger" type="submit">Excluir</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
+                        <x-btn-tres-pontos id="dropdownMenuButton{{ $supplier->id }}">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('suppliers.edit', $supplier->id) }}">Editar</a>
+                            </li>
+                            <li>
+                                <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este fornecedor?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="dropdown-item text-danger" type="submit">Excluir</button>
+                                </form>
+                            </li>
+                        </x-btn-tres-pontos>
                     </td>
                 </tr>
                 <tr id="addresses{{ $supplier->id }}" style="display: none;">

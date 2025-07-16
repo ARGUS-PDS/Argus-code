@@ -259,8 +259,8 @@
             </fieldset>
 
             <div class="d-flex justify-content-end mt-4 gap-2">
-                <a href="{{ route('suppliers.index') }}" class="btn btn-secondary">Cancelar</a>
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                <x-btn-cancelar href="{{ route('suppliers.index') }}" />
+                <x-btn-salvar />
             </div>
         </form>
     </div>

@@ -57,30 +57,6 @@
             line-height: 1.2;
         }
 
-        .btn-voltar {
-            background-color: var(--color-vinho);
-            color: var(--color-bege-claro);
-            border: none;
-            border-radius: 10px;
-            /* Mais arredondado */
-            padding: 10px 18px;
-            /* Mais padding */
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            /* Mais espaço no ícone */
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-voltar:hover {
-            background-color: var(--bs-btn-hover-bg);
-            transform: translateY(-2px);
-            /* Efeito de levitar */
-        }
-
         .section-title {
             color: var(--color-vinho);
             font-weight: bold;
@@ -267,53 +243,6 @@
             color: var(--color-green);
         }
 
-        /* Botões de ação */
-        .form-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-            /* Mais espaço entre os botões */
-            margin-top: 40px;
-            /* Mais espaçamento */
-            padding-top: 25px;
-            border-top: 1px solid var(--color-gray-claro);
-        }
-
-        .btn-cancel {
-            background-color:var(--color-red);
-            color: var(--color-white);
-            border: none;
-            border-radius: 10px;
-            padding: 12px 25px;
-            /* Mais padding */
-            font-size: 1.05rem;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-cancel:hover {
-            background-color: #c82333;
-            transform: translateY(-2px);
-        }
-
-        .btn-send {
-            background-color: var(--color-vinho);
-            color: var(--color-bege-claro);
-            border: none;
-            border-radius: 10px;
-            padding: 12px 25px;
-            font-size: 1.05rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-send:hover {
-            background-color: var(--bs-btn-hover-bg);
-            transform: translateY(-2px);
-        }
-
         /* Alertas de validação (Bootstrap) */
         .alert {
             border-radius: 10px;
@@ -382,6 +311,24 @@
                 width: 100%;
             }
         }
+        .remove-image-btn {
+            z-index: 2;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            font-size: 1.3rem;
+            line-height: 24px;
+            top: -12px;
+            left: 100px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-vinho-fundo);
+            border: none;
+            color: var(--color-bege-claro);
+            position: absolute;
+        }
     </style>
 </head>
 
@@ -391,9 +338,7 @@
             <h2 class="text-2xl">
                 {{ isset($product) ? 'Editar Produto' : 'Cadastrar Produto' }}
             </h2>
-            <a href="/lista-produtos" class="btn-voltar">
-                <i class="bi bi-arrow-left"></i> Voltar
-            </a>
+            <x-btn-voltar href="/lista-produtos" />
         </div>
 
         @if ($errors->any())
@@ -427,8 +372,7 @@
                     <label for="image_url" class="form-label mb-2">Imagem do Produto</label>
                     <input type="file" name="image_url" id="image_url" class="form-control" accept="image/*" onchange="previewImage(event)">
                     <div class="image-preview-area position-relative">
-                        <button type="button" id="removeBtn" class="btn btn-danger btn-sm position-absolute" style="z-index:2; border-radius:50%; width:20px; height:20px; padding:0; font-size:1rem; top:-20px; left:100px; display: {{ (isset($product) && $product->image_url) ? 'block' : 'none' }}; display: flex; align-items: center; justify-content: center; background: var(--color-vinho-fundo); border: none; color: var(--color-bege-claro);"
-                            onclick="removeImage()" @if(!(isset($product) && $product->image_url)) hidden @endif>&times;</button>
+                        <button type="button" id="removeBtn" class="btn btn-danger btn-sm remove-image-btn">&times;</button>
                         @if(isset($product) && $product->image_url)
                             <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="image-preview">
                             <div id="placeholder" class="image-placeholder-text">Imagem atual</div>
@@ -529,8 +473,8 @@
                     </label>
                 </div>
                 <div class="form-actions">
-                    <a href="/lista-produtos" class="btn btn-cancel">Cancelar</a>
-                    <button type="submit" class="btn btn-send">{{ isset($product) ? 'Atualizar' : 'Salvar' }}</button>
+                    <x-btn-cancelar href="/lista-produtos" />
+                    <x-btn-salvar />
                 </div>
             </div>
         </form>
@@ -569,7 +513,6 @@
             }
         }
 
-        // Garante que o texto de status inicial esteja correto ao carregar a página
         document.addEventListener('DOMContentLoaded', function() {
             const statusCheckbox = document.querySelector('.toggle-switch input[name="status"]');
             if (statusCheckbox) {
@@ -579,16 +522,89 @@
     </script>
     <script>
 document.addEventListener('DOMContentLoaded', function() {
-    var barcodeInput = document.getElementById('barcode');
+    const barcodeInput = document.getElementById('barcode');
+    const nameInput = document.getElementById('description');
+    const codeInput = document.getElementById('code');
+    const brandInput = document.getElementById('brand');
+    const modelInput = document.getElementById('model');
+    const imageInput = document.getElementById('image_url');
+    const previewImg = document.getElementById('preview');
+    const placeholder = document.getElementById('placeholder');
+    const removeBtn = document.getElementById('removeBtn');
+
+    function atualizarDescricao() {
+        if (nameInput && codeInput) {
+            codeInput.value = nameInput.value.toLowerCase();
+        }
+    }
+
+    async function consultarProdutoCosmos(codigo) {
+        if (!codigo || codigo.length < 6) return;
+        try {
+            const res = await fetch(
+                `https://api.cosmos.bluesoft.com.br/gtins/${codigo}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                        "X-Cosmos-Token": "CYPxDw3T-3fmTBDk7bInsg",
+                        "User-Agent": "Cosmos-API-Request",
+                    },
+                }
+            );
+            if (!res.ok) return;
+            const data = await res.json();
+            if (data) {
+                if (data.description && nameInput) {
+                    nameInput.value = data.description;
+                    atualizarDescricao();
+                }
+                if (data.brand && brandInput) brandInput.value = data.brand.name;
+                if (data.gpc && modelInput) modelInput.value = data.gpc.description;
+                if (data.thumbnail && previewImg) {
+                    previewImg.src = data.thumbnail;
+                    previewImg.classList.remove('d-none');
+                    if (placeholder) placeholder.classList.add('d-none');
+                    if (removeBtn) removeBtn.style.display = 'block';
+                } else if (removeBtn) {
+                    removeBtn.style.display = 'none';
+                }
+            }
+        } catch (error) {
+        }
+    }
+
     if (barcodeInput) {
         barcodeInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
-                e.preventDefault(); // Impede o submit do formulário ao bipar
+                e.preventDefault();
+                consultarProdutoCosmos(barcodeInput.value.trim());
             }
         });
+    }
+
+    if (nameInput && codeInput) {
+        nameInput.addEventListener('input', atualizarDescricao);
+    }
+
+    if (removeBtn) {
+        removeBtn.addEventListener('click', function() {
+            if (previewImg) {
+                previewImg.src = '#';
+                previewImg.classList.add('d-none');
             }
+            if (placeholder) {
+                placeholder.textContent = 'Nenhuma imagem selecionada';
+                placeholder.classList.remove('d-none');
+            }
+            removeBtn.style.display = 'none';
+            if (imageInput) imageInput.value = '';
+            document.getElementById('remove_image').value = '1';
         });
-    </script>
+    }
+});
+</script>
     <script>
 function removeImage() {
     const preview = document.getElementById('preview');

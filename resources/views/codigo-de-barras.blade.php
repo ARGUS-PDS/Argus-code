@@ -109,8 +109,8 @@
           <input name="status" type="checkbox" class="form-check-input" id="situacao" />
           <label class="form-check-label" for="situacao">Ativo</label>
         </div>
-        <button type="submit" class="btn btn-success">Salvar</button>
-        <button type="button" class="btn btn-secondary ml-2" id="btnCancelar">Cancelar</button>
+        <x-btn-salvar />
+        <x-btn-cancelar href="#" id="btnCancelar" />
       </div>
   </div>
   </form>

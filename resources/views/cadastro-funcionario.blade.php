@@ -270,8 +270,8 @@
             </fieldset>
 
             <div class="d-flex justify-content-end mt-4 gap-2">
-                <button type="reset" class="btn btn-secondary">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                <x-btn-cancelar href="{{ route('dashboard') }}" />
+                <x-btn-salvar />
             </div>
         </form>
     </div>

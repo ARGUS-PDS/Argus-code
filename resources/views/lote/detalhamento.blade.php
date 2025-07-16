@@ -177,9 +177,7 @@
 <div class="container-card">
     <div class="header-section">
         <h2>Detalhamento de Lote</h2>
-        <a href="{{ url()->previous() }}" class="btn-voltar">
-            <i class="bi bi-arrow-left"></i> Voltar
-        </a>
+        <x-btn-voltar href="{{ url()->previous() }}" />
     </div>
 
     <div class="section-card">

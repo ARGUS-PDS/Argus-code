@@ -152,37 +152,6 @@
         padding: 5px;
     }
 
-    .btn.p-0 {
-        color: var(--color-vinho);
-        transition: color 0.3s ease, transform 0.2s ease;
-    }
-
-    .btn.p-0:hover {
-        color: var(--color-vinho);
-        transform: scale(1.1);
-    }
-
-    .add-btn {
-        border: 2px solid var(--color-vinho);
-        border-radius: 50%;
-        width: 36px;
-        height: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        color: var(--color-vinho);
-        background: none;
-        cursor: pointer;
-        margin-left: 8px;
-        transition: background 0.3s ease, color 0.3s ease;
-    }
-
-    .add-btn:hover {
-        background: var(--color-vinho);
-        color: var(--color-bege-claro);
-    }
-
     .dropdown .dropdown-toggle {
         color: var(--color-vinho) !important;
         transition: color 0.3s ease;
@@ -267,9 +236,7 @@
             <button type="button" class="btn p-0" title="{{ __('products.delete') }}" onclick="submitMassDelete()">
                 <i class="bi bi-trash fs-4"></i>
             </button>
-            <a href="{{ route('products.create') }}" class="btn add-btn" title="{{ __('products.add') }}">
-                <i class="bi bi-plus"></i>
-            </a>
+            <x-btn-mais href="{{ route('products.create') }}"></x-btn-mais>
         </div>
     </div>
     <div id="selected-count" class="mb-2 ms-1" style="color: var(--color-vinho); font-weight: bold; display: none;">
@@ -308,21 +275,18 @@
                     <td class="text-center">{{ $product->supplier ? $product->supplier->name : __('products.no_supplier') }}</td>
                     <td class="text-center">R$ {{ number_format($product->value, 2, ',', '.') }}</td>
                     <td class="text-center">
-                        <div class="dropdown">
-                            <i class="bi bi-three-dots-vertical" role="button" id="dropdownMenuButton{{ $product->id }}" data-bs-toggle="dropdown" aria-expanded="false" onclick="event.stopPropagation();"></i>
-                            <ul class="dropdown-menu" data-bs-boundary="viewport" aria-labelledby="dropdownMenuButton{{ $product->id }}" onclick="event.stopPropagation();">
-                                <li>
+                        <x-btn-tres-pontos id="dropdownMenuButton{{ $product->id }}">
+                            <li>
                                 <a class="dropdown-item" href="">{{ __('products.print') }}</a>
-                                </li>
-                                <li>
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('{{ __('products.confirm_delete') }}');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="dropdown-item text-danger" type="submit">{{ __('products.delete') }}</button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
+                            </li>
+                            <li>
+                                <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('{{ __('products.confirm_delete') }}');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="dropdown-item text-danger" type="submit">{{ __('products.delete') }}</button>
+                                </form>
+                            </li>
+                        </x-btn-tres-pontos>
                     </td>
                 </tr>
                 @empty

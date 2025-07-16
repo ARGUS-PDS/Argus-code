@@ -202,20 +202,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .btn-primary {
-            background-color: var(--bs-primary) !important;
-            border-color: var(--bs-primary) !important;
-            color: var(--bs-btn-color) !important;
-        }
-
-        .btn-primary:hover,
-        .btn-primary:focus {
-            background-color: var(--color-vinho-escuro) !important;
-            border-color: var(--color-vinho-escuro) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
         .alert {
             border-radius: 10px;
             padding: 15px 20px;
@@ -270,10 +256,8 @@
         <div class="header-section">
             <h1>Lista de Empresas</h1>
             <div class="header-buttons">
-                <a href="{{ route('admin.dashboard') }}" class="btn-voltar">
-                    <i class="bi bi-arrow-left"></i> Voltar
-                </a>
-                <a href="{{ route('companies.create') }}" class="btn btn-primary">Cadastrar Nova Empresa</a>
+                <x-btn-voltar href="{{ route('admin.dashboard') }}" />
+                <x-btn-mais href="{{ route('companies.create') }}" />
             </div>
         </div>
 

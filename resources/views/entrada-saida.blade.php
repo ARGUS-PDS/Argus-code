@@ -163,8 +163,8 @@
           </div>
 
           <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-outline-primary me-2" data-bs-dismiss="modal">{{ __('stock_movement.cancel') }}</button>
-            <button type="submit" class="btn btn-primary px-4">{{ __('stock_movement.save') }}</button>
+            <x-btn-cancelar href="#" data-bs-dismiss="modal" />
+            <x-btn-salvar />
           </div>
         </form>
       </div>

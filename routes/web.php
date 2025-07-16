@@ -31,7 +31,8 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/cadastrar-produto-ean', function () {
-    return view('codigo-de-barras');
+    $suppliers = \App\Models\Supplier::all();
+    return view('codigo-de-barras', compact('suppliers'));
 });
 
 

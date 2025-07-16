@@ -260,9 +260,7 @@
     <div class="container-card">
         <div class="header-section">
             <h2>Cadastrar Nova Empresa</h2>
-            <a href="{{ route('companies.index') }}" class="btn-voltar">
-                <i class="bi bi-arrow-left"></i> Voltar
-            </a>
+            <x-btn-voltar href="{{ route('companies.index') }}" />
         </div>
 
         {{-- Exibição de mensagens de sucesso --}}

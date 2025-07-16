@@ -32,7 +32,6 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ __('menu.cadastros') }}</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/lista-produtos" onclick="mostrarTelaCarregando()">{{__('menu.produtos')}}</a></li>
-                            <li><a class="dropdown-item" href="/cadastrar-produto-ean" onclick="mostrarTelaCarregando()">{{__('menu.ean')}}</a></li>
                             <li><a class="dropdown-item" href="/lista-fornecedores" onclick="mostrarTelaCarregando()">{{__('menu.fornecedores')}}</a></li>
                             <li><a class="dropdown-item" href="/cadastrar-funcionario" onclick="mostrarTelaCarregando()">{{__('menu.funcionarios')}}</a></li>
                         </ul>
