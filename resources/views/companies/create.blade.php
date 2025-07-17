@@ -1,56 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastrar Nova Empresa - Argus Admin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cadastrar Nova Empresa - Argus Admin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="icon" href="{{ asset('images/favicon-light.png') }}" media="(prefers-color-scheme: light)" type="image/png">
     <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
+    
+    @include('layouts.css-variables')
+    
     <style>
-        /* Variáveis de Cores (Centralizadas para este template de admin) */
-        :root {
-            --color-vinho: #773138;
-            --color-bege-claro: #f8f0e5;
-            --color-bege-card-interno: #fcf5ee; /* Fundo dos cards internos */
-            --color-gray-claro: #ddd;
-            --color-gray-medio: #aaa;
-            --color-gray-escuro: #555;
-            --color-vinho-fundo-transparente: rgba(119, 49, 56, 0.25);
-
-            /* Cores para o degradê do fundo */
-            --gradient-start: #eecac0;
-            --gradient-end: #773138;
-
-            /* Sobrescrevendo variáveis Bootstrap para cores dos botões e componentes */
-            --bs-primary: var(--color-vinho);
-            --bs-secondary: var(--color-gray-escuro);
-            --bs-btn-bg: var(--bs-primary);
-            --bs-btn-border-color: var(--bs-primary);
-            --bs-btn-hover-bg: #5f282e;
-            --bs-btn-hover-border-color: #5f282e;
-            --bs-btn-active-bg: #471e23;
-            --bs-btn-active-border-color: #471e23;
-            --bs-btn-color: #fff;
-            --bs-danger: #dc3545;
-            --bs-btn-danger-bg: var(--bs-danger);
-            --bs-btn-danger-border-color: var(--bs-danger);
-            --bs-btn-danger-hover-bg: #c82333;
-            --bs-btn-danger-hover-border-color: #bd2130;
-
-            /* Cores para alertas */
-            --bs-alert-bg-success: #d4edda;
-            --bs-alert-border-success: #c3e6cb;
-            --bs-alert-color-success: #155724;
-            --bs-alert-bg-danger: #f8d7da;
-            --bs-alert-border-danger: #f5c6cb;
-            --bs-alert-color-danger: #721c24;
-        }
-
-        /* Estilos do Body com Degradê e Centralização */
         body {
-            background: linear-gradient(to right, var(--gradient-start), var(--gradient-end)) !important;
+            background: linear-gradient(to right, var(--color-vinho), var(--color-bege-claro)) !important;
             font-family: Arial, sans-serif;
             min-height: 100vh; /* Garante que o degradê ocupe a altura total da viewport */
             display: flex;
@@ -107,7 +70,7 @@
         }
 
         .btn-voltar:hover {
-            background-color: #5f282e;
+            background-color: var(--bs-btn-hover-bg);
             transform: translateY(-2px);
             color: var(--color-bege-claro);
         }
@@ -148,7 +111,7 @@
             border-radius: 10px;
             font-size: 1rem;
             color: var(--color-gray-escuro);
-            background-color: #fff;
+            background-color: var(--color-white);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
@@ -160,7 +123,7 @@
 
         /* Estilo para campos desabilitados/somente leitura */
         .form-control:disabled, .form-control[readonly] {
-            background-color: #f0f0f0;
+            background-color: var(--color-bege-card-interno);
             opacity: 1;
             color: var(--color-gray-escuro);
             border-color: var(--color-gray-claro);
@@ -177,9 +140,9 @@
 
         /* Botão "Salvar Empresa e Usuário" - Usando btn-primary para ser vinho */
         .btn-primary {
-            background-color: var(--bs-primary) !important;
-            border-color: var(--bs-primary) !important;
-            color: var(--bs-btn-color) !important;
+            background-color: var(--color-vinho) !important;
+            border-color: var(--color-vinho) !important;
+            color: var(--color-white) !important;
             border-radius: 10px;
             padding: 10px 20px;
             font-weight: 600;
@@ -189,7 +152,7 @@
 
         .btn-primary:hover {
             background-color: var(--bs-btn-hover-bg) !important;
-            border-color: var(--bs-btn-hover-border-color) !important;
+            border-color: var(--bs-btn-hover-bg) !important;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
@@ -204,13 +167,13 @@
 
         .alert-success {
             background-color: var(--bs-alert-bg-success) !important;
-            color: var(--bs-alert-color-success) !important;
+            color: var(--color-green) !important;
             border-color: var(--bs-alert-border-success) !important;
         }
 
         .alert-danger {
             background-color: var(--bs-alert-bg-danger) !important;
-            color: var(--bs-alert-color-danger) !important;
+            color: var(--color-red) !important;
             border-color: var(--bs-alert-border-danger) !important;
         }
 

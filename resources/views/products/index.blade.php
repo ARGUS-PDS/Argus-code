@@ -22,59 +22,6 @@
         margin-bottom: 0;
     }
 
-    /* Estilos da barra de pesquisa - PADRÃO VINHO COM TEXTO BEGE CLARO */
-    .search-bar {
-        background: var(--color-vinho); /* Fundo vinho por padrão */
-        border-radius: 20px;
-        padding: 6px 16px;
-        color: var(--color-bege-claro); /* Texto bege claro por padrão */
-        width: 300px;
-        display: flex;
-        align-items: center;
-        border: 2px solid var(--color-vinho); /* Borda vinho por padrão */
-        transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .search-bar input {
-        background: transparent;
-        border: none;
-        outline: none;
-        width: 90%;
-        color: var(--color-bege-claro); /* Texto digitado bege claro por padrão */
-    }
-
-    .search-bar input::placeholder {
-        color: var(--color-bege-claro); /* Placeholder bege claro por padrão */
-        opacity: 1;
-    }
-
-    .search-bar:hover {
-        background: transparent; /* Fundo transparente no hover */
-        border-color: var(--color-vinho); /* Borda vinho no hover */
-        color: var(--color-vinho); /* Texto vinho no hover */
-    }
-
-    .search-bar:hover input {
-        color: var(--color-vinho); /* Texto digitado vinho no hover */
-    }
-
-    .search-bar:hover input::placeholder {
-        color: var(--color-vinho) !important;
-        opacity: 1 !important;
-    }
-
-    .search-bar .bi-search {
-        color: var(--color-bege-claro); /* Ícone bege claro por padrão */
-        font-size: 1.2rem;
-        margin-left: 8px;
-        border: none;
-        transition: color 0.3s ease;
-    }
-
-    .search-bar:hover .bi-search {
-        color: var(--color-vinho); /* Ícone vinho no hover */
-    }
-
     /* Estilos da tabela - VOLTOU PARA O FUNDO BEGE */
     .table {
         border-collapse: separate;
@@ -180,6 +127,57 @@
         color: #fff;
     }
 
+    /* Checkbox customizado apenas para os produtos */
+    .products-table tbody input[type="checkbox"] {
+        accent-color: var(--color-vinho);
+        width: 18px;
+        height: 18px;
+        border-radius: 5px;
+        border: 2px solid var(--color-vinho);
+        background: var(--color-bege-claro);
+        transition: box-shadow 0.2s;
+        box-shadow: 0 1px 3px rgba(119,49,56,0.07);
+    }
+    .products-table tbody input[type="checkbox"]:hover {
+        box-shadow: 0 0 0 2px var(--color-vinho-fundo);
+    }
+    .products-table tbody input[type="checkbox"]:checked {
+        background: var(--color-vinho);
+        border-color: var(--color-vinho);
+    }
+    .products-table tbody input[type="checkbox"]:focus {
+        outline: none;
+    }
+    #select-all-checkbox {
+        accent-color: var(--color-bege-claro);
+        width: 18px;
+        height: 18px;
+        border-radius: 5px;
+        border: 2px solid var(--color-bege-claro);
+        background: var(--color-bege-claro);
+        transition: box-shadow 0.2s;
+        box-shadow: 0 1px 3px rgba(119,49,56,0.07);
+        position: relative;
+    }
+    #select-all-checkbox:focus {
+        outline: none;
+    }
+    #select-all-checkbox:checked {
+        background: var(--color-bege-claro);
+        border-color: var(--color-bege-claro);
+    }
+    #select-all-checkbox:checked::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 4px;
+        top: 1px;
+        width: 8px;
+        height: 14px;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+    }
+
     @media (max-width: 768px) {
         .search-bar {
             width: 100%;
@@ -211,18 +209,14 @@
     <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap">
         <h2 class="fw-bold mb-0">{{ __('products.title') }}</h2>
         <div class="d-flex align-items-center" style="gap: 16px;">
-            <form action="{{ url()->current() }}" method="GET" class="search-bar" autocomplete="off">
-                <input class="search" type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('products.search_placeholder') }}">
-                <datalist id="produtos-list">
-                    @foreach($products as $produto)
-                        <option value="{{ $produto->description }}">{{ $produto->barcode }}</option>
-                        <option value="{{ $produto->barcode }}">{{ $produto->description }}</option>
-                    @endforeach
-                </datalist>
-                <button type="submit" style="background: none; border: none; padding: 0;">
-                    <i class="bi bi-search"></i>
-                </button>
-            </form>
+            <x-search-bar 
+                :datalist-options="collect($products->take(5))->map(fn($produto) => [
+                    'value' => $produto->description,
+                    'label' => $produto->barcode
+                ])->toArray()"
+                :value="request('q')"
+                placeholder="{{ __('products.search_placeholder') }}"
+            />
             <span class="ms-4 fw-bold" style="color: var(--color-vinho);">
                 {{ __('products.current_stock') }}: {{ ($products->currentPage() * $products->perPage() > $products->total()) ? $products->total() : $products->currentPage() * $products->perPage() }}/{{ $products->total() }}
             </span>
@@ -239,15 +233,19 @@
             <x-btn-mais href="{{ route('products.create') }}"></x-btn-mais>
         </div>
     </div>
-    <div id="selected-count" class="mb-2 ms-1" style="color: var(--color-vinho); font-weight: bold; display: none;">
+    <div id="selected-count" class="mb-2 ms-1" style="color: var(--color-vinho); font-weight: bold; display: none; position: absolute; left: 65px; top: 180px; z-index: 10;">
+        <button id="clear-selection" type="button" style="background: none; border: none; color: var(--color-vinho); font-size: 1.2rem; margin-left: 10px; cursor: pointer; padding: 0; line-height: 1;">
+            &times;
+        </button>
         Selecionados: <span id="selectedValue">0</span>
     </div>
-
     <div class="table-responsive">
         <table class="table align-middle products-table">
             <thead>
     <tr>
-        <th class="text-center" style="width:32px;"></th>
+        <th class="text-center" style="width:32px;">
+            <input type="checkbox" id="select-all-checkbox" onclick="event.stopPropagation();">
+        </th>
         <th class="text-center">{{ __('products.image') }}</th>
         <th>{{ __('products.name') }}</th>
         <th>{{ __('products.code') }}</th>
@@ -319,14 +317,44 @@
     // Atualiza o contador de selecionados
     function updateSelectedCount() {
         const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
-        const count = Array.from(checkboxes).filter(cb => cb.checked).length;
+        const rowCheckboxes = Array.from(checkboxes).filter(cb => cb.id !== 'select-all-checkbox');
+        const count = rowCheckboxes.filter(cb => cb.checked).length;
         document.getElementById('selectedValue').textContent = count;
         document.getElementById('selected-count').style.display = count > 0 ? 'block' : 'none';
+        // Sincronizar o checkbox do cabeçalho
+        const selectAll = document.getElementById('select-all-checkbox');
+        if (selectAll) {
+            selectAll.checked = rowCheckboxes.length > 0 && rowCheckboxes.every(cb => cb.checked);
+        }
+    }
+    function attachClearSelectionListener() {
+        const clearBtn = document.getElementById('clear-selection');
+        if (clearBtn) {
+            clearBtn.onclick = function() {
+                const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+                checkboxes.forEach(cb => cb.checked = false);
+                updateSelectedCount();
+            };
+        }
+    }
+    function attachSelectAllListener() {
+        const selectAll = document.getElementById('select-all-checkbox');
+        if (selectAll) {
+            selectAll.onclick = function() {
+                const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+                checkboxes.forEach(cb => {
+                    if (cb !== selectAll) cb.checked = selectAll.checked;
+                });
+                updateSelectedCount();
+            };
+        }
     }
     document.addEventListener('DOMContentLoaded', function() {
         const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
         checkboxes.forEach(cb => cb.addEventListener('change', updateSelectedCount));
         updateSelectedCount();
+        attachClearSelectionListener();
+        attachSelectAllListener();
     });
 
     function submitMassDelete() {
@@ -342,6 +370,12 @@
         document.getElementById('deleteIds').value = ids.join(',');
         document.getElementById('massDeleteForm').submit();
     }
+
+    document.getElementById('clear-selection').addEventListener('click', function() {
+        const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+        checkboxes.forEach(cb => cb.checked = false);
+        updateSelectedCount();
+    });
 </script>
 
 <script>
@@ -372,6 +406,12 @@ function renderProductsTable(products) {
         html += `</ul></div></td></tr>`;
     });
     document.querySelector('.products-table tbody').innerHTML = html;
+    // Reanexar eventos após renderização dinâmica
+    const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+    checkboxes.forEach(cb => cb.addEventListener('change', updateSelectedCount));
+    attachClearSelectionListener();
+    attachSelectAllListener();
+    updateSelectedCount();
 }
 
 // Função para renderizar a paginação

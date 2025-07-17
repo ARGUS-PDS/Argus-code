@@ -1,17 +1,9 @@
 @extends('layouts.app')
 
+@include('layouts.css-variables')
+
 @section('styles')
 <style>
-    :root {
-        --color-vinho: #773138;
-        --color-bege-claro: #f8f0e5;
-        --color-bege-card-interno: #fcf5ee;
-        --color-gray-claro: #ddd;
-        --color-gray-medio: #aaa;
-        --color-gray-escuro: #555;
-        --color-vinho-fundo-transparente: rgba(119, 49, 56, 0.25);
-    }
-
     body {
         padding: 0;
         background-color: var(--color-bege-claro);
@@ -63,7 +55,7 @@
     }
 
     .btn-voltar:hover {
-        background-color: #5f282e;
+        background-color: var(--bs-btn-hover-bg);
         transform: translateY(-2px);
         color: var(--color-bege-claro);
     }
@@ -101,7 +93,7 @@
         border-radius: 10px;
         font-size: 1rem;
         color: var(--color-gray-escuro);
-        background-color: #fff;
+        background-color: var(--color-white);
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -112,7 +104,7 @@
     }
 
     .form-control:disabled, .form-control[readonly] {
-        background-color: #f0f0f0;
+        background-color: var(--color-bege-card-interno);
         opacity: 1;
         color: var(--color-gray-escuro);
         border-color: var(--color-gray-claro);
@@ -120,7 +112,7 @@
     }
 
     .input-group-text {
-        background-color: #f0f0f0;
+        background-color: var(--color-bege-card-interno);
         color: var(--color-vinho);
         border: 1px solid var(--color-gray-medio);
         border-left: none;

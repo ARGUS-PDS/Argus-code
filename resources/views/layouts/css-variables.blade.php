@@ -10,11 +10,11 @@
   --color-vinho-fundo:rgba(119, 49, 56, 0.5);
   --color-vinho-fundo-transparente: rgba(119, 49, 56, 0.1);
 
-
   --bs-btn-hover-bg: #5f282e;
-  --bs-btn-hover-border-color: #5f282e;
-
-
+  --bs-alert-bg-success: #d4edda;
+  --bs-alert-border-success: #c3e6cb;
+  --bs-alert-bg-danger: #f8d7da; 
+  --bs-alert-border-danger: #f5c6cb;
 
   --color-white: #FFFFFF;
   --color-black: #000000;
@@ -22,7 +22,10 @@
   --color-gray-2: #5a6268;
   --color-gray-3: #545b62;
   --color-gray-claro: #f8f9fa;
+  --color-gray-medio: #aaa;
   --color-gray-escuro: #202132;
+  --color-border-table: rgba(221, 221, 221, 0.5);
+
   
 
   --color-green: #198754;

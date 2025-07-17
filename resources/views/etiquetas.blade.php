@@ -1,10 +1,9 @@
-@extends('layouts.app')
+@include('layouts.css-variables')
 
 @section('styles')
 <link href="https://fonts.googleapis.com/css2?family=Libre+Barcode+39&display=swap" rel="stylesheet" />
 
 <style>
-
     .container-card {
         background-color: var(--color-bege-card-interno);
         border-radius: 18px;

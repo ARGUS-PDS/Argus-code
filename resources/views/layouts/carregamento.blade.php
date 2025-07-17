@@ -1,3 +1,5 @@
+@include('layouts.css-variables')
+
         <div id="tela-carregando" style="
             display: none;
             position: fixed;
@@ -10,8 +12,8 @@
         ">
             <div style="color: white; font-size: 1.2rem; text-align: center;">
                 <div class="loader" style="
-                    border: 8px solid #f3f3f3;
-                    border-top: 8px solid #490006;
+                    border: 8px solid var(--bs-alert-bg-danger);
+                    border-top: 8px solid var(--color-vinho);
                     border-radius: 50%;
                     width: 60px;
                     height: 60px;

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-@include('layouts.css-variables') {{-- Garante que suas variáveis CSS globais sejam carregadas --}}
+@include('layouts.css-variables')
 
 <head>
     <meta charset="UTF-8" />

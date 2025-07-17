@@ -1,27 +1,9 @@
 @extends('layouts.app') 
 
+@include('layouts.css-variables')
+
 @section('styles')
 <style>
-
-    :root {
-        --color-vinho: #773138;
-        --color-bege-claro: #f8f0e5; 
-        --color-gray-claro: #ddd;
-        --color-gray-escuro: #555;
-        --color-green: #28a745;
-        --color-table-header-bg: #773138;
-        --color-table-header-text: #fff;
-        --color-table-row-bg: #fdfaf7; 
-        --color-border: #e0e0e0; 
-
-        --bs-secondary: var(--color-vinho);
-        --bs-btn-color: var(--color-vinho);
-        --bs-btn-border-color: var(--color-vinho);
-        --bs-btn-hover-color: var(--color-bege-claro);
-        --bs-btn-hover-bg: var(--color-vinho);
-        --bs-btn-hover-border-color: var(--color-vinho);
-    }
-
     body {
         padding: 0;
         margin: 0;
@@ -65,21 +47,21 @@
     }
 
     .table-custom thead {
-        background-color: var(--color-table-header-bg); 
-        color: var(--color-table-header-text);
+        background-color: var(--color-vinho); 
+        color: var(--color-white);
     }
 
     .table-custom th,
     .table-custom td {
         padding: 12px 15px;
-        border-bottom: 1px solid var(--color-border);
-        border-right: 1px solid var(--color-border);
+        border-bottom: 1px solid var(--color-bege);
+        border-right: 1px solid var(--color-bege);
         text-align: left;
         color: var(--color-gray-escuro); 
     }
 
     .table-custom thead th {
-        color: var(--color-table-header-text); 
+        color: var(--color-white); 
         font-weight: bold;
     }
 
@@ -93,10 +75,10 @@
     }
 
     .table-custom tbody tr:nth-child(odd) {
-        background-color: var(--color-table-row-bg);
+        background-color: var(--color-bege);
     }
     .table-custom tbody tr:nth-child(even) {
-        background-color: #ffffff;
+        background-color: var(--color-white);
     }
 
     .table-custom tbody tr:hover {

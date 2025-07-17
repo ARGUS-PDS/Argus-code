@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@include('layouts.css-variables')
+
 @section('styles')
 <style>
 

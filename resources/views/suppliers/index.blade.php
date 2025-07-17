@@ -2,47 +2,6 @@
 
 @section('styles')
 <style>
-    :root {
-        --color-vinho: #773138;
-        --color-bege-claro: #f8f0e5;
-        --color-bege-card-interno: #fcf5ee;
-        --color-gray-claro: #ddd;
-        --color-gray-escuro: #555;
-        --color-green: #28a745;
-        --color-table-header-bg: #773138;
-        --color-table-header-text: #fff;
-        --color-table-row-bg: #fdfaf7;
-        --color-border: #e0e0e0;
-
-        --bs-primary: var(--color-vinho);
-        --bs-secondary: var(--color-gray-escuro);
-
-        --bs-btn-bg: var(--bs-primary);
-        --bs-btn-border-color: var(--bs-primary);
-        --bs-btn-hover-bg: #5f282e;
-        --bs-btn-hover-border-color: #5f282e;
-        --bs-btn-active-bg: #471e23;
-        --bs-btn-active-border-color: #471e23;
-        --bs-btn-color: #fff;
-
-        --bs-danger: #dc3545;
-        --bs-btn-danger-bg: var(--bs-danger);
-        --bs-btn-danger-border-color: var(--bs-danger);
-        --bs-btn-danger-hover-bg: #c82333;
-        --bs-btn-danger-hover-border-color: #bd2130;
-
-        --bs-alert-bg-success: #d4edda;
-        --bs-alert-border-success: #c3e6cb;
-        --bs-alert-color-success: #155724;
-
-        --bs-alert-bg-danger: #f8d7da;
-        --bs-alert-border-danger: #f5c6cb;
-        --bs-alert-color-danger: #721c24;
-
-        --gradient-start: #eecac0; 
-        --gradient-end: #773138;   
-    }
-
     body {
         background-color: var(--color-bege-claro);
         padding: 0;
@@ -61,7 +20,7 @@
     .search-bar input {
         background: transparent;
         border: none;
-        color: #fff;
+        color: var(--color-white);
         outline: none;
         width: 90%;
     }
@@ -75,7 +34,7 @@
     }
 
     .search-bar .bi-search {
-        color: #fff;
+        color: var(--color-white);
         font-size: 1.2rem;
         margin-left: 8px;
     }
@@ -99,9 +58,9 @@
         width: 40px;
         height: 40px;
         object-fit: cover;
-        border: 2px solid #198754;
+        border: 2px solid var(--color-green);
         border-radius: 8px;
-        background: #fff;
+        background: var(--color-white);
     }
 
     td p {

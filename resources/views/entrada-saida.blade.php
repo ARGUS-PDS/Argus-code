@@ -13,19 +13,15 @@
   </div>
 
   {{-- Pesquisa de produto --}}
-  <form method="GET" class="mb-4 entrada-saida-pesquisa" style="max-width: 350px;">
-    <div class="input-group">
-      <input type="text" name="produto" class="form-control" placeholder="{{ __('stock_movement.search_placeholder') }}" value="{{ request('produto') }}" list="produtos-list">
-      <datalist id="produtos-list">
-        @foreach($products as $produto)
-        <option value="{{ $produto->description }}">{{ $produto->barcode }}</option>
-        @endforeach
-      </datalist>
-      <button class="btn btn-secondary" type="submit">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </form>
+  <x-search-bar 
+    name="produto"
+    :datalist-options="collect($products->take(5))->map(fn($produto) => [
+        'value' => $produto->description,
+        'label' => $produto->barcode
+    ])->toArray()"
+    :value="request('produto')"
+    placeholder="{{ __('stock_movement.search_placeholder') }}"
+  />
 
   @if($produtoSelecionado)
   <div class="mb-3">
