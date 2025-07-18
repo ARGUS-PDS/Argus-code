@@ -50,10 +50,19 @@
   <div class="col-md-4">
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.alerts_title') }}</h5>
-      @if($produtos_vencidos->count())
-      <ul class="mt-2 scrollable-list"> {{-- Adicionada a classe scrollable-list aqui --}}
+      @if($produtos_vencidos->count() || $produtos_estoque_minimo->count() || $produtos_estoque_baixo->count() || $produtos_estoque_zerado->count())
+      <ul class="mt-2 scrollable-list">
         @foreach($produtos_vencidos as $produto)
         <li>{{ $produto->description }} {{ __('dashboard.expired_on') }} {{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }}</li>
+        @endforeach
+        @foreach($produtos_estoque_minimo as $produto)
+        <li>{{ $produto->description }} <span style="color: var(--color-orange); font-weight: bold;">(Estoque Mínimo)</span></li>
+        @endforeach
+        @foreach($produtos_estoque_baixo as $produto)
+        <li>{{ $produto->description }} <span style="color: var(--color-red); font-weight: bold;">(Estoque Baixo)</span></li>
+        @endforeach
+        @foreach($produtos_estoque_zerado as $produto)
+        <li>{{ $produto->description }} <span style="color: var(--color-vinho); font-weight: bold;">(Esgotado)</span></li>
         @endforeach
       </ul>
       @else

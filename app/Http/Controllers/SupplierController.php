@@ -19,7 +19,7 @@ class SupplierController extends Controller
                 ->orWhere('code', 'like', '%' . $q . '%');
         }
 
-        $suppliers = $query->get();
+        $suppliers = $query->paginate(5);
 
         return view('suppliers.index', compact('suppliers'));
     }

@@ -35,9 +35,8 @@ class AdminController extends Controller
             ->whereDate('expiration_date', '>=', now())
             ->whereDate('expiration_date', '<=', now()->addMonths(6))
             ->orderBy('expiration_date')
-            ->get();
+            ->get(['id', 'description', 'expiration_date']);
 
-        // Últimas 10 movimentações
         $movimentacoes = \App\Models\Movement::with('product')
             ->orderBy('date', 'desc')
             ->limit(10)
@@ -46,8 +45,37 @@ class AdminController extends Controller
         $produtos_vencidos = \App\Models\Product::whereNotNull('expiration_date')
             ->whereDate('expiration_date', '<', now())
             ->orderBy('expiration_date')
-            ->get();
+            ->get(['id', 'description', 'expiration_date']);
 
-        return view('dashboard', compact('produtos_validade', 'movimentacoes', 'produtos_vencidos'));
+        $alertas = \Cache::remember('dashboard_alertas', 60, function () {
+            $estoqueQuery = "
+                SELECT p.id, p.description, p.minimumStock, 
+                    COALESCE(SUM(CASE WHEN m.type = 'entrada' THEN m.quantity WHEN m.type = 'saida' THEN -m.quantity ELSE 0 END), 0) as estoque_atual
+                FROM products p
+                LEFT JOIN movements m ON m.product_id = p.id
+                GROUP BY p.id, p.description, p.minimumStock
+            ";
+
+            $produtos = collect(\DB::select($estoqueQuery));
+
+            $minimo = $produtos->filter(fn($p) => $p->estoque_atual == $p->minimumStock && $p->estoque_atual > 0);
+            $baixo  = $produtos->filter(fn($p) => $p->estoque_atual > 0 && $p->estoque_atual < $p->minimumStock);
+            $zerado = $produtos->filter(fn($p) => $p->estoque_atual == 0);
+
+            return [
+                'minimo' => $minimo,
+                'baixo' => $baixo,
+                'zerado' => $zerado,
+            ];
+        });
+
+        return view('dashboard', [
+            'produtos_validade' => $produtos_validade,
+            'movimentacoes' => $movimentacoes,
+            'produtos_vencidos' => $produtos_vencidos,
+            'produtos_estoque_minimo' => $alertas['minimo'],
+            'produtos_estoque_baixo' => $alertas['baixo'],
+            'produtos_estoque_zerado' => $alertas['zerado'],
+        ]);
     }
 }

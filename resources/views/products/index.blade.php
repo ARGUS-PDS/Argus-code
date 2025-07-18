@@ -295,18 +295,7 @@
             </tbody>
         </table>
     </div>
-    <div class="d-flex justify-content-center mt-4">
-        @if ($products->onFirstPage())
-            <button class="btn btn-secondary me-2" disabled>Anterior</button>
-        @else
-            <a href="{{ $products->previousPageUrl() }}" class="btn btn-primary me-2">Anterior</a>
-        @endif
-        @if ($products->hasMorePages())
-            <a href="{{ $products->nextPageUrl() }}" class="btn btn-primary">Próximo</a>
-        @else
-            <button class="btn btn-secondary" disabled>Próximo</button>
-        @endif
-    </div>
+    <x-paginacao :paginator="$products" />
     {{-- Links de paginação --}}
     
     

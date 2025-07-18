@@ -163,9 +163,15 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Produtos com Estoque Baixo</h2>
-        <a href="{{ route('orders.index') }}" class="btn btn-primary-header-action"> {{-- Agora é vinho --}}
-            Ver Pedidos Enviados
-        </a>
+        <div class="d-flex align-items-center" style="gap: 16px;">
+            <x-search-bar 
+                name="q"
+                :value="request('q')"
+                placeholder="Pesquisar produto..."
+                action="{{ route('produtos.esgotando') }}"
+            />
+            <a href="{{ route('orders.index') }}" class="btn btn-primary-header-action ms-3">Ver Pedidos Enviados</a>
+        </div>
     </div>
 
     @if(session('success'))
@@ -234,6 +240,8 @@
             </div>
         </div>
     @endforeach
+
+    <x-paginacao :paginator="$produtos" />
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

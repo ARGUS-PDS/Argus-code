@@ -143,14 +143,41 @@ class ProductController extends Controller
         return view('cadastro-produto', compact('suppliers'));
     }
 
-    public function produtosEsgotando()
-{
-    $produtos = Product::with('supplier')
-    ->whereColumn('currentStock', '<=', 'minimumStock')
-    ->paginate(20);
+    public function produtosEsgotando(Request $request)
+    {
+        $perPage = 5;
+        $page = $request->get('page', 1);
 
-    return view('products.estoque-baixo', compact('produtos'));
-}
+        // Subquery para calcular o estoque atual
+        $estoqueSub = \DB::table('products as p')
+            ->select(
+                'p.id',
+                'p.description',
+                'p.minimumStock',
+                'p.supplierId',
+                \DB::raw("COALESCE(SUM(CASE 
+                    WHEN m.type IN ('entrada', 'inward') THEN m.quantity
+                    WHEN m.type IN ('saida', 'outward') THEN -m.quantity
+                    ELSE 0 END), 0) as currentStock")
+            )
+            ->leftJoin('movements as m', 'm.product_id', '=', 'p.id')
+            ->groupBy('p.id', 'p.description', 'p.minimumStock', 'p.supplierId');
+
+        // Monta a query principal a partir da subquery
+        $query = \DB::table(\DB::raw("({$estoqueSub->toSql()}) as estoque"))
+            ->mergeBindings($estoqueSub)
+            ->where('currentStock', '>', 0)
+            ->whereColumn('currentStock', '<=', 'minimumStock');
+
+        if ($request->filled('q')) {
+            $q = $request->input('q');
+            $query->where('description', 'like', "%$q%");
+        }
+
+        $produtos = $query->paginate($perPage, ['*'], 'page', $page);
+
+        return view('products.estoque-baixo', ['produtos' => $produtos]);
+    }
 
 public function enviarPedido(Request $request)
 {

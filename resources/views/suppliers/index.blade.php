@@ -171,6 +171,7 @@
             </tbody>
         </table>
     </div>
+    <x-paginacao :paginator="$suppliers" />
 </div>
 
 
