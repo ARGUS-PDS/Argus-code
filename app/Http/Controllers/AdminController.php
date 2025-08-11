@@ -50,7 +50,10 @@ class AdminController extends Controller
         $alertas = \Cache::remember('dashboard_alertas', 60, function () {
             $estoqueQuery = "
                 SELECT p.id, p.description, p.minimumStock, 
-                    COALESCE(SUM(CASE WHEN m.type = 'entrada' THEN m.quantity WHEN m.type = 'saida' THEN -m.quantity ELSE 0 END), 0) as estoque_atual
+                    COALESCE(SUM(CASE 
+                        WHEN m.type IN ('entrada', 'inward') THEN m.quantity
+                        WHEN m.type IN ('saida', 'outward') THEN -m.quantity
+                        ELSE 0 END), 0) as estoque_atual
                 FROM products p
                 LEFT JOIN movements m ON m.product_id = p.id
                 GROUP BY p.id, p.description, p.minimumStock
@@ -58,9 +61,13 @@ class AdminController extends Controller
 
             $produtos = collect(\DB::select($estoqueQuery));
 
-            $minimo = $produtos->filter(fn($p) => $p->estoque_atual == $p->minimumStock && $p->estoque_atual > 0);
-            $baixo  = $produtos->filter(fn($p) => $p->estoque_atual > 0 && $p->estoque_atual < $p->minimumStock);
-            $zerado = $produtos->filter(fn($p) => $p->estoque_atual == 0);
+            $esgotado_ids = $produtos->filter(fn($p) => (int)$p->estoque_atual === 0)->pluck('id')->all();
+            $minimo_ids = $produtos->filter(fn($p) => (int)$p->estoque_atual > 0 && (int)$p->estoque_atual == (int)$p->minimumStock)->pluck('id')->all();
+            $baixo_ids = $produtos->filter(fn($p) => (int)$p->estoque_atual > 0 && (int)$p->estoque_atual < (int)$p->minimumStock)->pluck('id')->all();
+
+            $minimo = $produtos->whereIn('id', $minimo_ids)->whereNotIn('id', $esgotado_ids)->values();
+            $baixo  = $produtos->whereIn('id', $baixo_ids)->whereNotIn('id', $esgotado_ids)->whereNotIn('id', $minimo_ids)->values();
+            $zerado = $produtos->whereIn('id', $esgotado_ids)->values();
 
             return [
                 'minimo' => $minimo,

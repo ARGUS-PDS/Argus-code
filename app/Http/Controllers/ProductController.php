@@ -144,7 +144,7 @@ class ProductController extends Controller
     }
 
     public function produtosEsgotando(Request $request)
-    {
+{
         $perPage = 5;
         $page = $request->get('page', 1);
 
@@ -177,7 +177,7 @@ class ProductController extends Controller
         $produtos = $query->paginate($perPage, ['*'], 'page', $page);
 
         return view('products.estoque-baixo', ['produtos' => $produtos]);
-    }
+}
 
 public function enviarPedido(Request $request)
 {
