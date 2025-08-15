@@ -8,6 +8,7 @@ use App\Models\Supplier;
 use App\Models\SupplierOrder;
 use App\Mail\PedidoReposicaoMail;
 use Illuminate\Support\Facades\Mail;
+use App\Helpers\CloudinaryHelper;
 
 class ProductController extends Controller
 {
@@ -100,19 +101,14 @@ class ProductController extends Controller
             \Log::info('Dados validados:', $validated);
 
             if ($request->hasFile('image_url')) {
-                $file = $request->file('image_url');
-                $nomeArquivo = uniqid() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('products'), $nomeArquivo);
-                $validated['image_url'] = 'products/' . $nomeArquivo;
-                \Log::info('Nova imagem salva:', ['image_url' => $validated['image_url']]);
+                $uploadResult = \App\Helpers\CloudinaryHelper::upload($request->file('image_url')->getRealPath());
+                $validated['image_url'] = $uploadResult['secure_url'] ?? null;
+                \Log::info('Imagem enviada para Cloudinary:', ['url' => $validated['image_url']]);
             } else {
                 $validated['image_url'] = $product->image_url;
             }
 
             if ($request->input('remove_image') == '1') {
-                if ($product->image_url && file_exists(public_path($product->image_url))) {
-                    @unlink(public_path($product->image_url));
-                }
                 $validated['image_url'] = null;
             }
 
@@ -120,7 +116,7 @@ class ProductController extends Controller
             \Log::info('Status definido:', ['status' => $validated['status']]);
 
             $product->update($validated);
-            // Limpa o cache das páginas de produtos
+            
             foreach (range(1, 10) as $page) {
                 \Cache::forget('products_page_' . $page);
             }
@@ -253,13 +249,14 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
         ]);
 
         $validated['status'] = $request->has('status') ? true : false;
-
+ 
+           // Faz upload para Cloudinary
+        $uploadedFileUrl = null;
         if ($request->hasFile('image_url')) {
-            $file = $request->file('image_url');
-            $nomeArquivo = uniqid() . '.' . $file->getClientOriginalExtension();
-            $file->move(public_path('products'), $nomeArquivo);
-            $imagePath = 'products/' . $nomeArquivo;
+            $uploadResult = CloudinaryHelper::upload($request->file('image_url')->getRealPath());
+            $uploadedFileUrl = $uploadResult['secure_url'] ?? null;
         }
+
 
         $product = Product::create([
             'image_url' => $imagePath ?? null,
@@ -275,6 +272,7 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
             'currentStock' => $request->input('currentStock'),
             'minimumStock' => $request->input('minimumStock'),
             'status' => $request->has('status') ? 1 : 0,
+            'image_url' => $uploadedFileUrl,
         ]);
 
         // Se informou estoque inicial, cria movimentação de entrada automática

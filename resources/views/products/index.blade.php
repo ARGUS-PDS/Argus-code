@@ -262,11 +262,12 @@
                         @php
                             $imgPath = public_path($product->image_url ?? '');
                         @endphp
-                        @if (!empty($product->image_url) && file_exists($imgPath))
-                            <img src="{{ asset($product->image_url) }}" alt="Imagem do produto" class="img-thumb" loading="lazy">
+                        @if (!empty($product->image_url))
+                            <img src="{{ $product->image_url }}" alt="Imagem do produto" class="img-thumb" loading="lazy">
                         @else
-                            <i class="bi bi-image img-thumb" style="font-size: 2rem; padding-top: 15px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; color: var(--color-vinho-fundo);"></i>
+                            <i class="bi bi-image img-thumb" style="font-size: 2rem; padding: 15px 20px; color: var(--color-vinho-fundo);"></i>
                         @endif
+
                     </td>
                     <td>{{ $product->description }}</td>
                     <td>{{ $product->barcode }}</td>

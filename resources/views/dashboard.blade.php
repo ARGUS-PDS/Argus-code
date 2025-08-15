@@ -9,7 +9,7 @@
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.prod_valid_title') }}</h5>
       @if($produtos_validade->count())
-      <ul class="mt-2 scrollable-list"> {{-- Adicionada a classe scrollable-list aqui --}}
+      <ul class="mt-2 scrollable-list"> 
         @foreach($produtos_validade as $produto)
         <li>{{ $produto->description }} - {{ __('dashboard.expires_in') }} {{ intval(max(0, now()->diffInDays(\Carbon\Carbon::parse($produto->expiration_date), false))) }} {{ __('dashboard.days') }} ({{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})</li>
         @endforeach
