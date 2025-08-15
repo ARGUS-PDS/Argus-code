@@ -70,8 +70,9 @@
                             <span class="ms-2">{{ Auth::user() ? Auth::user()->name : 'Usuário' }}</span>
                         </button>
                         <div id="userMenuPanel" class="user-menu-panel shadow text-center">
-                            <form id="profilePicForm" enctype="multipart/form-data">
-                                <input type="file" id="profilePicInput" accept="image/*" style="display:none">
+                            <form id="profilePicForm" action="{{ route('profile.upload-photo') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="profile_photo_url" id="profilePicInput" accept="image/*" style="display:none" onchange="document.getElementById('profilePicForm').submit(); mostrarTelaCarregando();">
                                 <label for="profilePicInput" style="cursor:pointer; display:inline-block; margin-top: 12px;">
                                     @if(Auth::user() && Auth::user()->profile_photo_url)
                                         <img id="profilePicImg"

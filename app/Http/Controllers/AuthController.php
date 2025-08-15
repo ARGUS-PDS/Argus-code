@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use App\Helpers\CloudinaryHelper;
 
 class AuthController extends Controller
 {
@@ -43,6 +44,28 @@ class AuthController extends Controller
         throw ValidationException::withMessages([
             'email' => 'Credenciais inválidas.'
         ]);
+    }
+
+    public function uploadPhoto(Request $request)
+    {
+        $request->validate([
+            'profile_photo_url' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $user = auth()->user();
+
+        if ($request->hasFile('profile_photo_url')) {
+            $uploadResult = CloudinaryHelper::upload($request->file('profile_photo_url')->getRealPath());
+
+            if (isset($uploadResult['secure_url'])) {
+                $user->profile_photo_url = $uploadResult['secure_url'];
+                $user->save();
+            } else {
+                return redirect()->back()->withErrors(['error' => 'Erro ao enviar imagem para o Cloudinary.']);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Foto de perfil atualizada!');
     }
 
     public function logout(Request $request)

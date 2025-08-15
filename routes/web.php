@@ -50,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/products/mass-delete', [ProductController::class, 'massDelete'])->name('products.massDelete');
     Route::get('/products/search-ajax', [ProductController::class, 'searchAjax'])->name('products.searchAjax');
 
+    Route::post('/profile/photo', [AuthController::class, 'uploadPhoto'])->name('profile.upload-photo');
 
     Route::get('/voltar', function () {
         return view('dashboard');
