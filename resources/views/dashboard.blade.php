@@ -11,7 +11,7 @@
       @if($produtos_validade->count())
       <ul class="mt-2 scrollable-list"> 
         @foreach($produtos_validade as $produto)
-        <li>{{ $produto->description }} - {{ __('dashboard.expires_in') }} {{ intval(max(0, now()->diffInDays(\Carbon\Carbon::parse($produto->expiration_date), false))) }} {{ __('dashboard.days') }} ({{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})</li>
+       <li><i class="bi bi-calendar-x text-danger"></i> {{ $produto->description }} - {{ __('dashboard.expires_in') }} {{ intval(max(0, now()->diffInDays(\Carbon\Carbon::parse($produto->expiration_date), false))) }} {{ __('dashboard.days') }} ({{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})</li>
         @endforeach
       </ul>
       @else
@@ -27,7 +27,7 @@
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.movement_title') }}</h5>
       @if($movimentacoes->count())
-      <ul class="mt-2 scrollable-list"> {{-- Adicionada a classe scrollable-list aqui --}}
+      <ul class="mt-2 scrollable-list"> 
         @foreach($movimentacoes as $mov)
         <li>
           @if($mov->type === 'inward')
@@ -53,17 +53,33 @@
       @if($produtos_vencidos->count() || $produtos_estoque_minimo->count() || $produtos_estoque_baixo->count() || $produtos_estoque_zerado->count())
       <ul class="mt-2 scrollable-list">
         @foreach($produtos_vencidos as $produto)
-        <li>{{ $produto->description }} {{ __('dashboard.expired_on') }} {{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }}</li>
+          <li>
+            <i class="bi bi-exclamation-circle-fill text-danger me-2"></i>
+            {{ $produto->description }} {{ __('dashboard.expired_on') }} {{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }}
+          </li>
         @endforeach
+
         @foreach($produtos_estoque_minimo as $produto)
-        <li>{{ $produto->description }} <span style="color: var(--color-orange); font-weight: bold;">(Estoque Mínimo)</span></li>
+          <li>
+            <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+            {{ $produto->description }} <span style="color: var(--color-orange); font-weight: bold;">(Estoque Mínimo)</span>
+          </li>
         @endforeach
+
         @foreach($produtos_estoque_baixo as $produto)
-        <li>{{ $produto->description }} <span style="color: var(--color-red); font-weight: bold;">(Estoque Baixo)</span></li>
+          <li>
+            <i class="bi bi-arrow-down-circle-fill text-danger me-2"></i>
+            {{ $produto->description }} <span style="color: var(--color-red); font-weight: bold;">(Estoque Baixo)</span>
+          </li>
         @endforeach
+
         @foreach($produtos_estoque_zerado as $produto)
-        <li>{{ $produto->description }} <span style="color: var(--color-vinho); font-weight: bold;">(Esgotado)</span></li>
+          <li>
+            <i class="bi bi-x-circle-fill text-vinho me-2"></i>
+            {{ $produto->description }} <span style="color: var(--color-vinho); font-weight: bold;">(Esgotado)</span>
+          </li>
         @endforeach
+
       </ul>
       @else
       <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
@@ -94,20 +110,19 @@
 
 <style>
     .panel ul.scrollable-list {
-        max-height: 150px; /* Altura máxima da lista */
-        overflow-y: auto; /* Adiciona scroll vertical se o conteúdo exceder */
-        padding-right: 10px; /* Espaço para a barra de rolagem */
-        list-style: disc; /* Garante que os bullet points apareçam */
-        padding-left: 20px; /* Adiciona padding para os bullet points */
+    max-height: 150px;
+    overflow-y: auto;
+    padding-right: 10px;
+    list-style: none; 
+    padding-left: 0;  
     }
 
     .panel ul.scrollable-list li {
-        white-space: normal; /* Permite que o texto quebre linha */
-        word-wrap: break-word; /* Garante que palavras longas quebrem */
-        margin-bottom: 5px; /* Espaçamento entre os itens da lista */
+        white-space: normal; 
+        word-wrap: break-word; 
+        margin-bottom: 7px; 
     }
 
-    /* Opcional: Estilo para a barra de rolagem */
     .panel ul.scrollable-list::-webkit-scrollbar {
         width: 8px;
     }
@@ -118,13 +133,14 @@
     }
 
 .panel ul.scrollable-list::-webkit-scrollbar-thumb {
-    background: #888; /* Um cinza médio para o "polegar" da barra */
+    background: #888; 
     border-radius: 10px;
 }
 
 .panel ul.scrollable-list::-webkit-scrollbar-thumb:hover {
-    background: #555; /* Um cinza mais escuro no hover */
+    background: #555; 
 }
+
 </style>
 
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
