@@ -402,32 +402,33 @@
                         <input type="text" name="code" id="code" class="form-control" placeholder="Ex: esmalte_vermelho_anita" value="{{ isset($product) ? $product->code : '' }}">
                     </div>
 
-                    <div class="col-md-6 form-group">
+                    <!-- <div class="col-md-6 form-group">
                         <label for="expiration_date" class="form-label">Data de validade</label>
                         <input name="expiration_date" type="date" id="expiration_date" class="form-control" value="{{ isset($product) ? $product->expiration_date : '' }}">
+                    </div> -->
+
+                    <div class="col-md-5 form-group">
+                        <label for="supplierId" class="form-label">Fornecedor</label>
+                        <select name="supplierId" id="supplierId" class="form-select">
+                            <option value="">Selecione um fornecedor</option>
+                            @foreach ($suppliers as $supplier)
+                            <option value="{{ $supplier->id }}" {{ isset($product) && $product->supplierId == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
+
+                    <div class="col-md-4 form-group">
+                        <label for="value" class="form-label">Valor de Venda (R$)</label>
+                        <input name="value" type="number" step="0.01" inputmode="decimal" class="form-control" placeholder="R$" value="{{ isset($product) ? $product->value : '' }}">
+                    </div>
+
                 </div>
             </div>
 
-            <div class="col-md-4 form-group">
-                <label for="value" class="form-label">Valor (R$)</label>
-                <input name="value" type="number" step="0.01" inputmode="decimal" class="form-control" placeholder="R$" value="{{ isset($product) ? $product->value : '' }}">
-            </div>
-
-            <div class="col-md-4 form-group">
+            <!--<div class="col-md-4 form-group">
                 <label for="profit" class="form-label">Lucro (R$)</label>
                 <input name="profit" type="number" step="0.01" inputmode="decimal" class="form-control" placeholder="R$" value="{{ isset($product) ? $product->profit : '' }}">
-            </div>
-
-            <div class="col-md-4 form-group">
-                <label for="supplierId" class="form-label">Fornecedor</label>
-                <select name="supplierId" id="supplierId" class="form-select">
-                    <option value="">Selecione um fornecedor</option>
-                    @foreach ($suppliers as $supplier)
-                    <option value="{{ $supplier->id }}" {{ isset($product) && $product->supplierId == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+            </div>-->
 
             <div class="col-md-6">
                 <div class="additional-info-card">
