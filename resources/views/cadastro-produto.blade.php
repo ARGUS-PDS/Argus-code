@@ -482,6 +482,17 @@
     </div>
 
     <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            const currentStock = parseInt(document.getElementById('currentStock').value) || 0;
+            const minimumStock = parseInt(document.getElementById('minimumStock').value) || 0;
+
+            if (minimumStock > currentStock) {
+                event.preventDefault();
+                alert('O estoque mínimo não pode ser maior que o estoque atual.');
+                document.getElementById('minimumStock').focus();
+            }
+        });
+
         function previewImage(event) {
             const preview = document.getElementById('preview');
             const placeholder = document.getElementById('placeholder');
