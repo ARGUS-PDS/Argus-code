@@ -12,6 +12,7 @@ use App\Http\Controllers\SupplierOrderController;
 use App\Http\Controllers\MovementController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\SaleController;
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -102,6 +103,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/movimentacoes/{id}', [MovementController::class, 'destroy'])->name('movimentacao.destroy');
 
     Route::post('/contato', [ContatoController::class, 'enviarContato'])->name('contato.enviar');
+
+    Route::get('/vendas', [SaleController::class, 'create'])->name('vendas.create');
+    Route::post('/vendas/finalizar', [SaleController::class, 'store'])->name('vendas.store');
+    Route::post('/vendas/buscar-produto', [SaleController::class, 'findByBarcode'])->name('vendas.buscar-produto');
+
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
