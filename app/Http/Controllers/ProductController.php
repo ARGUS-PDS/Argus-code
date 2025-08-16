@@ -175,7 +175,6 @@ class ProductController extends Controller
         // Monta a query principal a partir da subquery
         $query = \DB::table(\DB::raw("({$estoqueSub->toSql()}) as estoque"))
             ->mergeBindings($estoqueSub)
-            ->where('currentStock', '>', 0)
             ->whereColumn('currentStock', '<=', 'minimumStock');
 
         if ($request->filled('q')) {
