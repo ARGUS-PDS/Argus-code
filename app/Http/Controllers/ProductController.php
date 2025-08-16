@@ -45,6 +45,19 @@ class ProductController extends Controller
         }
 
         if ($request->ajax()) {
+            $products->getCollection()->transform(function ($product) {
+                return [
+                    'id' => $product->id,
+                    'description' => $product->description,
+                    'barcode' => $product->barcode,
+                    'value' => $product->value,
+                    'supplier' => $product->supplier ? ['name' => $product->supplier->name] : null,
+                    'image_url' => $product->image_url,
+                    'image_exists' => !empty($product->image_url),
+                    'edit_url' => route('products.edit', $product->id),
+                ];
+            });
+
             return response()->json([
                 'data' => $products->items(),
                 'total' => $products->total(),
@@ -296,16 +309,16 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
     public function massDelete(Request $request)
     {
         $ids = explode(',', $request->input('ids'));
-        foreach ($ids as $id) {
-            $product = Product::find($id);
-            if ($product) {
-                // Opcional: deletar imagem do disco
-                if ($product->image_url && file_exists(public_path($product->image_url))) {
-                    @unlink(public_path($product->image_url));
-                }
-                $product->delete();
-            }
+        Product::whereIn('id', $ids)->delete();
+
+        foreach (range(1, 10) as $page) {
+            \Cache::forget('products_page_' . $page);
         }
-        return redirect('/lista-produtos')->with('success', 'Produtos excluídos com sucesso!');
+
+        if ($request->ajax()) {
+            return response()->json(['success' => true]);
+        }
+
+        return redirect()->route('products.index')->with('success', 'Produtos excluídos com sucesso.');
     }
 }

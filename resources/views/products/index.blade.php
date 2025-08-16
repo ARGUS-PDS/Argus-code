@@ -227,7 +227,7 @@
                 @csrf
                 <input type="hidden" name="ids" id="deleteIds">
             </form>
-            <button type="button" class="btn p-0" title="{{ __('products.delete') }}" onclick="submitMassDelete()">
+            <button type="button" class="btn p-0" title="{{ __('products.delete') }}" onclick="submitMassDelete();">
                 <i class="bi bi-trash fs-4"></i>
             </button>
             <x-btn-mais href="{{ route('products.create') }}"></x-btn-mais>
@@ -257,7 +257,7 @@
 <tbody>
     @forelse ($products as $product)
     <tr onclick="window.location='{{ route('products.edit', $product->id) }}'" style="cursor:pointer;">
-        <td class="text-center"><input type="checkbox" onclick="event.stopPropagation();"></td>
+        <td class="text-center"><input type="checkbox" data-id="{{ $product->id }}" onclick="event.stopPropagation();"></td>
                     <td class="text-center">
                         @php
                             $imgPath = public_path($product->image_url ?? '');
@@ -299,7 +299,7 @@
     <x-paginacao :paginator="$products" />
     {{-- Links de paginação --}}
     
-    
+    @include('layouts.carregamento')
 </div>
 @endsection
 
@@ -350,16 +350,44 @@
     function submitMassDelete() {
         const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
         const ids = Array.from(checkboxes)
-            .map((cb, idx) => cb.checked ? @json($products->items()) [idx].id : null)
-            .filter(id => id !== null);
+            .filter(cb => cb.checked && cb.dataset.id)
+            .map(cb => cb.dataset.id);
+
         if (ids.length === 0) {
             alert('Selecione pelo menos um produto para excluir.');
             return;
         }
+
         if (!confirm('Tem certeza que deseja excluir os produtos selecionados?')) return;
-        document.getElementById('deleteIds').value = ids.join(',');
-        document.getElementById('massDeleteForm').submit();
+
+        mostrarTelaCarregando();
+        const form = document.getElementById('massDeleteForm');
+        const formData = new FormData(form);
+
+        formData.set('ids', ids.join(','));
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+            }
+        }).then(res => {
+            if (res.ok) {
+                return fetchProducts(); 
+            } else {
+                alert('Erro ao excluir os produtos.');
+                throw new Error('Erro ao excluir');
+            }
+        }).then(() => {
+            esconderTelaCarregando(); 
+        }).catch(err => {
+            console.error(err);
+            esconderTelaCarregando(); 
+        });
     }
+
+
 
     document.getElementById('clear-selection').addEventListener('click', function() {
         const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
@@ -427,13 +455,15 @@ function renderPagination(current, last) {
 // Função para buscar produtos via AJAX
 function fetchProducts(page = 1) {
     const q = document.querySelector('.search-bar input[name="q"]').value;
-    fetch(`{{ route('products.index') }}?q=${encodeURIComponent(q)}&page=${page}`, {headers: {'X-Requested-With': 'XMLHttpRequest'}})
-        .then(res => res.json())
-        .then(data => {
-            renderProductsTable(data.data);
-            renderPagination(data.current_page, data.last_page);
-            document.querySelector('.ms-4.fw-bold').textContent = `Estoque atual: ${data.data.length}/${data.total}`;
-        });
+    return fetch(`{{ route('products.index') }}?q=${encodeURIComponent(q)}&page=${page}`, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(res => res.json())
+    .then(data => {
+        renderProductsTable(data.data);
+        renderPagination(data.current_page, data.last_page);
+        document.querySelector('.ms-4.fw-bold').textContent = `Estoque atual: ${data.data.length}/${data.total}`;
+    });
 }
 
 // Evento de busca dinâmica

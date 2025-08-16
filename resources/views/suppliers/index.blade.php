@@ -87,7 +87,6 @@
                     <i class="bi bi-search"></i>
                 </button>
             </form>
-            <span class="ms-4 text-secondary">Estoque atual: </span>
             <x-btn-mais href="{{ route('suppliers.create') }}" />
         </div>
     </div>
