@@ -31,6 +31,12 @@ class Product extends Model
         return $this->hasMany(\App\Models\Movement::class, 'product_id');
     }
 
+    public function batch()
+    {
+        return $this->belongsTo(Batch::class, 'batch_id');
+    }
+
+
     public function getCurrentStockAttribute()
     {
         $entradas = $this->movements()->where('type', 'inward')->sum('quantity');

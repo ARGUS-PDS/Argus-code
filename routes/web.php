@@ -13,6 +13,7 @@ use App\Http\Controllers\MovementController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\BatchController;
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -111,8 +112,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+    Route::resource('batches', BatchController::class);
+
     Route::get('/admin/dashboard', function () {
-    return view('admin.admin-dashboard');
+        return view('admin.admin-dashboard');
     })->name('admin.dashboard');
 });
 
@@ -125,8 +128,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('lang/{locale}', function (string $locale) {
     if (in_array($locale, ['pt_BR', 'en'])) {
-        session()->put('locale', $locale); 
-        app()->setLocale($locale);         
+        session()->put('locale', $locale);
+        app()->setLocale($locale);
     }
     return back();
 })->name('lang.switch');
