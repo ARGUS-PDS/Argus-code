@@ -29,14 +29,17 @@
       @if($movimentacoes->count())
       <ul class="mt-2 scrollable-list"> 
         @foreach($movimentacoes as $mov)
-        <li>
-          @if($mov->type === 'inward')
-          <i class="bi bi-arrow-up-circle-fill text-success me-1"></i>
-          @else
-          <i class="bi bi-arrow-down-circle-fill text-danger me-1"></i>
-          @endif
-          ({{ $mov->quantity }}) - {{ $mov->product->description ?? '-' }}
-        </li> @endforeach
+          <li>
+            @if($mov->type === 'inward')
+              <i class="bi bi-arrow-up-circle-fill text-success me-1"></i>
+            @else
+              <i class="bi bi-arrow-down-circle-fill text-danger me-1"></i>
+            @endif
+            ({{ $mov->quantity }}) - {{ $mov->product->description ?? '-' }}
+            <small class="text-muted">({{ \Carbon\Carbon::parse($mov->created_at)->format('d/m/Y H:i') }})</small>
+          </li>
+        @endforeach
+
       </ul>
       @else
       <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
