@@ -156,6 +156,19 @@
         border-color: darken(var(--color-gray-claro), 10%);
         color: var(--color-gray-escuro);
     }
+
+    .btn-selected {
+    background-color: var(--color-vinho) !important;
+    color: #fff !important;
+    border-color: var(--color-vinho) !important;
+}
+
+.btn-whatsapp-selected {
+    background-color: var(--color-green) !important;
+    color: #fff !important;
+    border-color: var(--color-green) !important;
+}
+
 </style>
 @endsection
 
@@ -216,7 +229,15 @@
                         </div>
                         <div class="mb-3">
                             <label for="prazo{{ $produto->id }}" class="form-label">Prazo de entrega:</label>
-                            <input type="text" name="prazo" id="prazo{{ $produto->id }}" class="form-control">
+                            <div class="d-flex gap-2">
+                                <input type="number" name="prazo_valor" id="prazo_valor{{ $produto->id }}" class="form-control" min="1" required placeholder="Ex: 2">
+                                <select name="prazo_unidade" id="prazo_unidade{{ $produto->id }}" class="form-control" required>
+                                    <option value="" disabled selected>Selecione</option>
+                                    <option value="dia(s)">Dia(s)</option>
+                                    <option value="semana(s)">Semana(s)</option>
+                                    <option value="mês(es)">Mês(es)</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Enviar via:</label>
@@ -232,7 +253,7 @@
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 mt-4">
-                            <button type="submit" class="btn btn-primary-form">Enviar Pedido</button>
+                            <button type="submit" class="btn btn-primary-form" onclick="mostrarTelaCarregando()">Enviar Pedido</button>
                             <button type="button" class="btn btn-secondary-form" data-bs-toggle="collapse" data-bs-target="#formPedido{{ $produto->id }}">Cancelar</button>
                         </div>
                     </form>
@@ -240,6 +261,8 @@
             </div>
         </div>
     @endforeach
+
+    @include('layouts.carregamento')
 
     <x-paginacao :paginator="$produtos" />
 </div>
@@ -253,7 +276,19 @@
 
 <script>
     function setCanalEnvio(produtoId, canal) {
-        document.getElementById(`canal_envio_input_${produtoId}`).value = canal;
+        const hiddenInput = document.getElementById(`canal_envio_input_${produtoId}`);
+        hiddenInput.value = canal;
+
+        const emailBtn = document.querySelector(`#formPedido${produtoId} .btn-outline-email`);
+        const whatsappBtn = document.querySelector(`#formPedido${produtoId} .btn-outline-whatsapp`);
+        emailBtn.classList.remove('btn-selected');
+        whatsappBtn.classList.remove('btn-whatsapp-selected');
+
+        if (canal === 'email') {
+            emailBtn.classList.add('btn-selected');
+        } else if (canal === 'whatsapp') {
+            whatsappBtn.classList.add('btn-whatsapp-selected');
+        }
     }
 </script>
 @endsection
