@@ -8,6 +8,7 @@ use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\Movement;
 use DB;
+use Carbon\Carbon;
 
 class SaleController extends Controller
 {
@@ -47,10 +48,8 @@ class SaleController extends Controller
                     throw new \Exception('Estoque insuficiente para o produto: ' . $product->description);
                 }
 
-                
                 $product->currentStock -= $item['quantity'];
                 $product->save();
-                \Log::info('Estoque atualizado: ', ['product_id' => $product->id, 'currentStock' => $product->currentStock]);
 
                 SaleItem::create([
                     'sale_id' => $venda->id,
@@ -59,7 +58,6 @@ class SaleController extends Controller
                     'unit_price' => $item['unit_price']
                 ]);
 
-                
                 Movement::create([
                     'product_id' => $product->id,
                     'type' => 'outward', 
@@ -78,5 +76,40 @@ class SaleController extends Controller
             DB::rollback();
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    public function vendasPorPeriodo(Request $request)
+    {
+        $periodo = $request->get('periodo', 'dia');
+
+        $query = Sale::query()
+            ->select(DB::raw('SUM(total) as total'));
+
+        switch ($periodo) {
+            case 'ano':
+                $query->addSelect(DB::raw('YEAR(created_at) as label'))
+                      ->groupBy('label');
+                break;
+
+            case 'mes':
+                $query->addSelect(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as label'))
+                      ->groupBy('label');
+                break;
+
+            case 'semana':
+                $query->addSelect(DB::raw('YEARWEEK(created_at, 1) as label'))
+                      ->groupBy('label');
+                break;
+
+            case 'dia':
+            default:
+                $query->addSelect(DB::raw('DATE(created_at) as label'))
+                      ->groupBy('label');
+                break;
+        }
+
+        $dados = $query->orderBy('label')->get();
+
+        return response()->json($dados);
     }
 }

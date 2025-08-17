@@ -67,13 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
       card.classList.remove('drag-over');
     });
   });
-
-  document.querySelectorAll('.grafico-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.grafico-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
+  
 
   //variáveis CSS
   const rootStyles = getComputedStyle(document.documentElement);
@@ -82,67 +76,83 @@ document.addEventListener('DOMContentLoaded', function () {
   const begeClaro = rootStyles.getPropertyValue('--color-bege-claro').trim();
   const branco = rootStyles.getPropertyValue('--color-white').trim();;
 
-
+  // cria o gráfico vazio logo no início
   const ctxTempo = document.getElementById('vendasTempoChart').getContext('2d');
   const vendasTempoChart = new Chart(ctxTempo, {
     type: 'line',
     data: {
-      labels: ['08h', '09h', '10h', '11h', '12h', '13h', '14h', '15h', '16h', '17h'],
+      labels: [], // começa vazio
       datasets: [{
         label: 'Vendas',
-        data: [2, 5, 8, 6, 10, 7, 12, 9, 4, 6],
-        borderColor: 'rgba(119,49,56,1)',
-        backgroundColor: 'rgba(119,49,56,0.1)',
+        data: [],
+        borderColor: vinho,
+        backgroundColor: vinhoFundo,
         tension: 0.4,
         fill: true,
-        pointBackgroundColor: 'rgba(119,49,56,1)',
-        pointBorderColor: 'rgba(119,49,56,0.1)',
+        pointBackgroundColor: vinho,
+        pointBorderColor: vinhoFundo,
         pointRadius: 5,
       }]
     },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
       plugins: {
-        legend: { display: false },
+        legend: { display: false }
       },
       scales: {
+        x: { 
+          grid: { display: false },
+          ticks: { stepSize: 1, color: vinho }  
+        },
+        
         y: {
           beginAtZero: true,
-          ticks: { color: 'rgba(119,49,56,1)' },
-          grid: { color: 'rgba(119,49,56,0.1)' }
-        },
-        x: {
-          ticks: { color: 'rgba(119,49,56,1)' },
-          grid: { color: 'rgba(119,49,56,0.1)' }
-        }
+          ticks: { stepSize: 1, color: vinho },
+          suggestedMax: 5,
+          grid: { display: false }
+        }      
       }
     }
   });
 
+  const canvas = document.getElementById('vendasTempoChart');
+
+canvas.addEventListener('mouseenter', () => {
+  vendasTempoChart.options.scales.x.ticks.color = begeClaro;
+  vendasTempoChart.options.scales.y.ticks.color = begeClaro;
+  vendasTempoChart.update();
+});
+
+canvas.addEventListener('mouseleave', () => {
+  vendasTempoChart.options.scales.x.ticks.color = vinho;
+  vendasTempoChart.options.scales.y.ticks.color = vinho;
+  vendasTempoChart.update();
+});
+
+
+  function carregarDados(periodo) {
+    fetch(`/dashboard/vendas?periodo=${periodo}`)
+      .then(res => res.json())
+      .then(dados => {
+        const labels = dados.map(d => d.label);
+        const valores = dados.map(d => d.total);
   
-  const graficoPanel = document.querySelector('.grafico');
-  graficoPanel.addEventListener('mouseenter', () => {
-    vendasTempoChart.data.datasets[0].borderColor = begeClaro;
-    vendasTempoChart.data.datasets[0].backgroundColor = begeClaro + '22';
-    vendasTempoChart.data.datasets[0].pointBackgroundColor = begeClaro;
-    vendasTempoChart.options.scales.x.ticks.color = branco;
-    vendasTempoChart.options.scales.y.ticks.color = branco;
-    vendasTempoChart.options.scales.x.grid.color = begeClaro + '22';
-    vendasTempoChart.options.scales.y.grid.color = begeClaro + '22';
-
-    vendasTempoChart.update();
-  });
-  graficoPanel.addEventListener('mouseleave', () => {
-    vendasTempoChart.data.datasets[0].borderColor = vinho;
-    vendasTempoChart.data.datasets[0].backgroundColor = vinho + '22';
-    vendasTempoChart.data.datasets[0].pointBackgroundColor = vinho;
-    vendasTempoChart.data.datasets[0].pointBorderColor = begeClaro;
-    vendasTempoChart.options.scales.x.ticks.color = vinho;
-    vendasTempoChart.options.scales.y.ticks.color = vinho;
-    vendasTempoChart.options.scales.x.grid.color = vinho + '22';
-    vendasTempoChart.options.scales.y.grid.color = vinho + '22';
-
-    vendasTempoChart.update();
-  });
+        vendasTempoChart.data.labels = labels;
+        vendasTempoChart.data.datasets[0].data = valores;
+        vendasTempoChart.update();
+      });
+  }
+  
+  // quando a página carrega, já busca "mes" como padrão
+  carregarDados('mes');
+  
+  // clique nos botões
+  document.querySelectorAll('.grafico-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.grafico-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const periodo = btn.dataset.periodo;
+      carregarDados(periodo);
+    });
+  });  
 });
