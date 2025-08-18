@@ -13,15 +13,14 @@
   </div>
 
   {{-- Pesquisa de produto --}}
-  <x-search-bar 
+  <x-search-bar
     name="produto"
     :datalist-options="collect($products->take(5))->map(fn($produto) => [
         'value' => $produto->description,
         'label' => $produto->barcode
     ])->toArray()"
     :value="request('produto')"
-    placeholder="{{ __('stock_movement.search_placeholder') }}"
-  />
+    placeholder="{{ __('stock_movement.search_placeholder') }}" />
 
   @if($produtoSelecionado)
   <div class="mb-3">
@@ -68,16 +67,16 @@
       </table>
       @if ($movimentacoes->lastPage() > 1)
       <div class="d-flex justify-content-center mt-3">
-          @if ($movimentacoes->onFirstPage())
-              <button class="btn btn-secondary me-2" disabled>Anterior</button>
-          @else
-              <a href="{{ $movimentacoes->previousPageUrl() }}&produto={{ request('produto') }}" class="btn btn-primary me-2">Anterior</a>
-          @endif
-          @if ($movimentacoes->hasMorePages())
-              <a href="{{ $movimentacoes->nextPageUrl() }}&produto={{ request('produto') }}" class="btn btn-primary">Próximo</a>
-          @else
-              <button class="btn btn-secondary" disabled>Próximo</button>
-          @endif
+        @if ($movimentacoes->onFirstPage())
+        <button class="btn btn-secondary me-2" disabled>Anterior</button>
+        @else
+        <a href="{{ $movimentacoes->previousPageUrl() }}&produto={{ request('produto') }}" class="btn btn-primary me-2">Anterior</a>
+        @endif
+        @if ($movimentacoes->hasMorePages())
+        <a href="{{ $movimentacoes->nextPageUrl() }}&produto={{ request('produto') }}" class="btn btn-primary">Próximo</a>
+        @else
+        <button class="btn btn-secondary" disabled>Próximo</button>
+        @endif
       </div>
       @endif
       @else
@@ -95,14 +94,12 @@
         <p class="mb-2">
           <strong>{{ __('stock_movement.current_stock') }}:</strong> {{ $estoque_atual }}
         </p>
-        <!--
         <p class="mb-0">
           <strong>{{ __('stock_movement.profit') }}:</strong>
           <span style="color: {{ $lucro < 0 ? 'red' : 'green' }}; font-weight: bold">
             R$ {{ number_format($lucro, 2, ',', '.') }}
           </span>
         </p>
-        -->
       </div>
     </div>
   </div>
@@ -157,6 +154,16 @@
             <label class="form-label">{{ __('stock_movement.note_label') }}</label>
             <input type="text" name="note" class="form-control">
           </div>
+
+          <div class="mb-3">
+            <label class="form-label">Lote | Batch</label>
+            <select name="batch_id" class="form-select">
+              <!--fwegewg-->
+
+            </select>
+          </div>
+
+
 
           <div class="d-flex justify-content-end">
             <x-btn-cancelar href="#" data-bs-dismiss="modal" />

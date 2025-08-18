@@ -13,6 +13,7 @@ class BatchController extends Controller
         return view('lote.index', compact('batches'));
     }
 
+
     public function create()
     {
         return view('lote.create');

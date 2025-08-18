@@ -311,6 +311,7 @@
                 width: 100%;
             }
         }
+
         .remove-image-btn {
             z-index: 2;
             border-radius: 50%;
@@ -374,11 +375,11 @@
                     <div class="image-preview-area position-relative">
                         <button type="button" id="removeBtn" class="btn btn-danger btn-sm remove-image-btn">&times;</button>
                         @if(isset($product) && $product->image_url)
-                            <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="image-preview">
-                            <div id="placeholder" class="image-placeholder-text">Imagem atual</div>
+                        <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="image-preview">
+                        <div id="placeholder" class="image-placeholder-text">Imagem atual</div>
                         @else
-                            <img id="preview" src="#" alt="Pré-visualização" class="image-preview d-none">
-                            <div id="placeholder" class="image-placeholder-text">Nenhuma imagem selecionada</div>
+                        <img id="preview" src="#" alt="Pré-visualização" class="image-preview d-none">
+                        <div id="placeholder" class="image-placeholder-text">Nenhuma imagem selecionada</div>
                         @endif
                         <input type="hidden" name="remove_image" id="remove_image" value="0">
                     </div>
@@ -533,104 +534,102 @@
         });
     </script>
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const barcodeInput = document.getElementById('barcode');
-    const nameInput = document.getElementById('description');
-    const codeInput = document.getElementById('code');
-    const brandInput = document.getElementById('brand');
-    const modelInput = document.getElementById('model');
-    const imageInput = document.getElementById('image_url');
-    const previewImg = document.getElementById('preview');
-    const placeholder = document.getElementById('placeholder');
-    const removeBtn = document.getElementById('removeBtn');
+        document.addEventListener('DOMContentLoaded', function() {
+            const barcodeInput = document.getElementById('barcode');
+            const nameInput = document.getElementById('description');
+            const codeInput = document.getElementById('code');
+            const brandInput = document.getElementById('brand');
+            const modelInput = document.getElementById('model');
+            const imageInput = document.getElementById('image_url');
+            const previewImg = document.getElementById('preview');
+            const placeholder = document.getElementById('placeholder');
+            const removeBtn = document.getElementById('removeBtn');
 
-    function atualizarDescricao() {
-        if (nameInput && codeInput) {
-            codeInput.value = nameInput.value.toLowerCase();
-        }
-    }
+            function atualizarDescricao() {
+                if (nameInput && codeInput) {
+                    codeInput.value = nameInput.value.toLowerCase();
+                }
+            }
 
-    async function consultarProdutoCosmos(codigo) {
-        if (!codigo || codigo.length < 6) return;
-        try {
-            const res = await fetch(
-                `https://api.cosmos.bluesoft.com.br/gtins/${codigo}`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Accept: "application/json",
-                        "X-Cosmos-Token": "CYPxDw3T-3fmTBDk7bInsg",
-                        "User-Agent": "Cosmos-API-Request",
-                    },
-                }
-            );
-            if (!res.ok) return;
-            const data = await res.json();
-            if (data) {
-                if (data.description && nameInput) {
-                    nameInput.value = data.description;
-                    atualizarDescricao();
-                }
-                if (data.brand && brandInput) brandInput.value = data.brand.name;
-                if (data.gpc && modelInput) modelInput.value = data.gpc.description;
-                if (data.thumbnail && previewImg) {
-                    previewImg.src = data.thumbnail;
-                    previewImg.classList.remove('d-none');
-                    if (placeholder) placeholder.classList.add('d-none');
-                    if (removeBtn) removeBtn.style.display = 'block';
-                } else if (removeBtn) {
+            async function consultarProdutoCosmos(codigo) {
+                if (!codigo || codigo.length < 6) return;
+                try {
+                    const res = await fetch(
+                        `https://api.cosmos.bluesoft.com.br/gtins/${codigo}`, {
+                            method: "GET",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Accept: "application/json",
+                                "X-Cosmos-Token": "CYPxDw3T-3fmTBDk7bInsg",
+                                "User-Agent": "Cosmos-API-Request",
+                            },
+                        }
+                    );
+                    if (!res.ok) return;
+                    const data = await res.json();
+                    if (data) {
+                        if (data.description && nameInput) {
+                            nameInput.value = data.description;
+                            atualizarDescricao();
+                        }
+                        if (data.brand && brandInput) brandInput.value = data.brand.name;
+                        if (data.gpc && modelInput) modelInput.value = data.gpc.description;
+                        if (data.thumbnail && previewImg) {
+                            previewImg.src = data.thumbnail;
+                            previewImg.classList.remove('d-none');
+                            if (placeholder) placeholder.classList.add('d-none');
+                            if (removeBtn) removeBtn.style.display = 'block';
+                        } else if (removeBtn) {
+                            removeBtn.style.display = 'none';
+                        }
+                    }
+                } catch (error) {}
+            }
+
+            if (barcodeInput) {
+                barcodeInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        consultarProdutoCosmos(barcodeInput.value.trim());
+                    }
+                });
+            }
+
+            if (nameInput && codeInput) {
+                nameInput.addEventListener('input', atualizarDescricao);
+            }
+
+            if (removeBtn) {
+                removeBtn.addEventListener('click', function() {
+                    if (previewImg) {
+                        previewImg.src = '#';
+                        previewImg.classList.add('d-none');
+                    }
+                    if (placeholder) {
+                        placeholder.textContent = 'Nenhuma imagem selecionada';
+                        placeholder.classList.remove('d-none');
+                    }
                     removeBtn.style.display = 'none';
-                }
-            }
-        } catch (error) {
-        }
-    }
-
-    if (barcodeInput) {
-        barcodeInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                e.preventDefault();
-                consultarProdutoCosmos(barcodeInput.value.trim());
+                    if (imageInput) imageInput.value = '';
+                    document.getElementById('remove_image').value = '1';
+                });
             }
         });
-    }
-
-    if (nameInput && codeInput) {
-        nameInput.addEventListener('input', atualizarDescricao);
-    }
-
-    if (removeBtn) {
-        removeBtn.addEventListener('click', function() {
-            if (previewImg) {
-                previewImg.src = '#';
-                previewImg.classList.add('d-none');
-            }
-            if (placeholder) {
-                placeholder.textContent = 'Nenhuma imagem selecionada';
-                placeholder.classList.remove('d-none');
-            }
-            removeBtn.style.display = 'none';
-            if (imageInput) imageInput.value = '';
-            document.getElementById('remove_image').value = '1';
-        });
-    }
-});
-</script>
+    </script>
     <script>
-function removeImage() {
-    const preview = document.getElementById('preview');
-    const placeholder = document.getElementById('placeholder');
-    const removeBtn = document.getElementById('removeBtn');
-    preview.src = '#';
-    preview.classList.add('d-none');
-    placeholder.textContent = 'Nenhuma imagem selecionada';
-    placeholder.classList.remove('d-none');
-    removeBtn.style.display = 'none';
-    document.getElementById('image_url').value = '';
-    document.getElementById('remove_image').value = '1';
-}
-</script>
+        function removeImage() {
+            const preview = document.getElementById('preview');
+            const placeholder = document.getElementById('placeholder');
+            const removeBtn = document.getElementById('removeBtn');
+            preview.src = '#';
+            preview.classList.add('d-none');
+            placeholder.textContent = 'Nenhuma imagem selecionada';
+            placeholder.classList.remove('d-none');
+            removeBtn.style.display = 'none';
+            document.getElementById('image_url').value = '';
+            document.getElementById('remove_image').value = '1';
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
