@@ -172,4 +172,37 @@
     </div>
     <x-paginacao :paginator="$suppliers" />
 </div>
+
+
+<script>
+    function seemorecontat(id) {
+        const contacts = document.getElementById("contacts" + id);
+        const icon = document.getElementById('toggleIconC' + id);
+
+        if (contacts.style.display === "none" || contacts.style.display === "") {
+            contacts.style.display = "table-row";
+            icon.classList.remove('bi-plus-circle-fill');
+            icon.classList.add('bi-dash-circle-fill');
+        } else {
+            contacts.style.display = "none";
+            icon.classList.remove('bi-dash-circle-fill');
+            icon.classList.add('bi-plus-circle-fill');
+        }
+    }
+
+    function seemoreaddresses(id) {
+        const addresses = document.getElementById("addresses" + id);
+        const icon = document.getElementById('toggleIconA' + id);
+
+        if (addresses.style.display === "none" || addresses.style.display === "") {
+            addresses.style.display = "table-row";
+            icon.classList.remove('bi-plus-circle-fill');
+            icon.classList.add('bi-dash-circle-fill');
+        } else {
+            addresses.style.display = "none";
+            icon.classList.remove('bi-dash-circle-fill');
+            icon.classList.add('bi-plus-circle-fill');
+        }
+    }
+</script>
 @endsection
