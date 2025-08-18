@@ -9,7 +9,6 @@
         background-color: var(--color-bege-claro); 
     }
 
-    /* Estilo para o título principal da página */
     h2 {
         color: var(--color-vinho); 
         font-weight: bold;
@@ -17,7 +16,6 @@
         text-align: left;
     }
 
-    /* Estilo do botão "Ver Pedidos Enviados"*/
     .btn-primary-header-action { 
         background-color: var(--color-vinho);
         border-color: var(--color-vinho);
@@ -33,7 +31,6 @@
         color: #fff;
     }
 
-    /* Estilos para os cards de produto */
     .product-card {
         background-color: #fff;
         border: 1px solid var(--color-white);
@@ -59,7 +56,6 @@
         color: var(--color-gray-escuro); 
     }
 
-    /* Estilo para o botão "Fazer Pedido" */
     .btn-outline-primary-custom {
         color: var(--color-vinho);
         border-color: var(--color-vinho);
@@ -73,7 +69,6 @@
         color: var(--color-bege-claro);
     }
 
-    /* Estilos para os inputs e labels dentro do formulário de pedido */
     .form-label {
         color: var(--color-gray-escuro);
         font-weight: 600;
@@ -92,8 +87,7 @@
         background-color: var(--color-white);
     }
 
-    /* Estilos dos botões de envio (E-mail/WhatsApp) dentro do formulário de pedido */
-    .btn-outline-email { /* E-mail */
+    .btn-outline-email {
         color: var(--color-vinho);
         border-color: var(--color-vinho);
         border-radius: 8px;
@@ -106,8 +100,8 @@
         color: #fff;
     }
 
-    .btn-outline-whatsapp { /* WhatsApp */
-        color: var(--color-green); /* Usar o verde padrão de sucesso para o WhatsApp */
+    .btn-outline-whatsapp {
+        color: var(--color-green);
         border-color: var(--color-green);
         border-radius: 8px;
         transition: all 0.3s ease;
@@ -119,7 +113,6 @@
         color: #fff;
     }
 
-    /* Estilo para o card do formulário de pedido (quando expandido) */
     .card-body-custom {
         padding: 1.5rem;
         background-color: var(--color-bege-claro); 
@@ -131,8 +124,7 @@
         font-weight: bold;
     }
 
-    /* Botões Enviar Pedido / Cancelar */
-    .btn-primary-form { /* Estilo para o botão Enviar Pedido */
+    .btn-primary-form {
         background-color: var(--color-vinho);
         border-color: var(--color-vinho);
         border-radius: 8px;
@@ -143,7 +135,7 @@
         background-color: rgb(136, 59, 67);
         border-color: rgb(136, 59, 67);
     }
-    .btn-secondary-form { /* Estilo para o botão Cancelar */
+    .btn-secondary-form {
         background-color: var(--color-gray-claro);
         border-color: var(--color-gray-claro);
         color: var(--color-gray-escuro);
@@ -175,15 +167,15 @@
 @section('content')
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Produtos com Estoque Baixo</h2>
+        <h2>{{ __('lowstock.produtos_com_estoque_baixo') }}</h2>
         <div class="d-flex align-items-center" style="gap: 16px;">
             <x-search-bar 
                 name="q"
                 :value="request('q')"
-                placeholder="Pesquisar produto..."
+                placeholder="{{ __('lowstock.pesquisar_produto') }}"
                 action="{{ route('produtos.esgotando') }}"
             />
-            <a href="{{ route('orders.index') }}" class="btn btn-primary-header-action ms-3">Ver Pedidos Enviados</a>
+            <a href="{{ route('orders.index') }}" class="btn btn-primary-header-action ms-3">{{ __('lowstock.ver_pedidos_enviados') }}</a>
         </div>
     </div>
 
@@ -205,7 +197,7 @@
                 <div>
                     <h5 class="mb-1">{{ $produto->description }}</h5>
                     <small>
-                        Estoque atual: <strong>{{ $produto->currentStock }}</strong> | Mínimo: {{ $produto->minimumStock }}
+                        {{ __('lowstock.estoque_atual') }} <strong>{{ $produto->currentStock }}</strong> | {{ __('lowstock.minimo') }} {{ $produto->minimumStock }}
                     </small>
                 </div>
                 <button class="btn btn-outline-primary-custom"
@@ -214,47 +206,47 @@
                     data-bs-target="#formPedido{{ $produto->id }}"
                     aria-expanded="false"
                     aria-controls="formPedido{{ $produto->id }}">
-                    Fazer Pedido
+                    {{ __('lowstock.fazer_pedido') }}
                 </button>
             </div>
             <div class="collapse mt-3" id="formPedido{{ $produto->id }}">
                 <div class="card card-body card-body-custom">
-                    <h6 class="mb-3">Fazer Pedido</h6>
+                    <h6 class="mb-3">{{ __('lowstock.fazer_pedido') }}</h6>
                     <form action="{{ route('pedido.enviar') }}" method="POST">
                         @csrf
                         <input type="hidden" name="produto_id" value="{{ $produto->id }}">
                         <div class="mb-3">
-                            <label for="quantidade{{ $produto->id }}" class="form-label">Quantidade desejada:</label>
+                            <label for="quantidade{{ $produto->id }}" class="form-label">{{ __('lowstock.quantidade_desejada') }}</label>
                             <input type="number" name="quantidade" id="quantidade{{ $produto->id }}" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label for="prazo{{ $produto->id }}" class="form-label">Prazo de entrega:</label>
+                            <label for="prazo{{ $produto->id }}" class="form-label">{{ __('lowstock.prazo_de_entrega') }}</label>
                             <div class="d-flex gap-2">
-                                <input type="number" name="prazo_valor" id="prazo_valor{{ $produto->id }}" class="form-control" min="1" required placeholder="Ex: 2">
+                                <input type="number" name="prazo_valor" id="prazo_valor{{ $produto->id }}" class="form-control" min="1" required placeholder="{{ __('lowstock.exemplo_prazo') }}">
                                 <select name="prazo_unidade" id="prazo_unidade{{ $produto->id }}" class="form-control" required>
-                                    <option value="" disabled selected>Selecione</option>
-                                    <option value="dia(s)">Dia(s)</option>
-                                    <option value="semana(s)">Semana(s)</option>
-                                    <option value="mês(es)">Mês(es)</option>
+                                    <option value="" disabled selected>{{ __('lowstock.selecione') }}</option>
+                                    <option value="dia(s)">{{ __('lowstock.dia_s') }}</option>
+                                    <option value="semana(s)">{{ __('lowstock.semana_s') }}</option>
+                                    <option value="mês(es)">{{ __('lowstock.mes_es') }}</option>
                                 </select>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Enviar via:</label>
+                            <label class="form-label">{{ __('lowstock.enviar_via') }}</label>
                             <div class="d-flex gap-2">
                                 <button type="button" class="btn btn-outline-email" onclick="setCanalEnvio('{{ $produto->id }}', 'email')">
-                                    <i class="fas fa-envelope"></i> E-mail
+                                    <i class="fas fa-envelope"></i> {{ __('lowstock.email') }}
                                 </button>
                                 <button type="button" class="btn btn-outline-whatsapp" onclick="setCanalEnvio('{{ $produto->id }}', 'whatsapp')">
-                                    <i class="fab fa-whatsapp"></i> WhatsApp
+                                    <i class="fab fa-whatsapp"></i> {{ __('lowstock.whatsapp') }}
                                 </button>
                             </div>
                             <input type="hidden" name="canal_envio" id="canal_envio_input_{{ $produto->id }}" required>
                         </div>
 
                         <div class="d-flex justify-content-end gap-2 mt-4">
-                            <button type="submit" class="btn btn-primary-form" onclick="mostrarTelaCarregando()">Enviar Pedido</button>
-                            <button type="button" class="btn btn-secondary-form" data-bs-toggle="collapse" data-bs-target="#formPedido{{ $produto->id }}">Cancelar</button>
+                            <button type="submit" class="btn btn-primary-form" onclick="mostrarTelaCarregando()">{{ __('lowstock.enviar_pedido') }}</button>
+                            <button type="button" class="btn btn-secondary-form" data-bs-toggle="collapse" data-bs-target="#formPedido{{ $produto->id }}">{{ __('lowstock.cancelar') }}</button>
                         </div>
                     </form>
                 </div>

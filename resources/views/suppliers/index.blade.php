@@ -73,16 +73,16 @@
 @if(session('success'))
 <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
     {{ session('success') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('suppliers.close') }}"></button>
 </div>
 @endif
 
 <div class="container-fluid py-3">
     <div class="d-flex align-items-center justify-content-between mb-4">
-        <h2 class="fw-bold mb-0">Fornecedores</h2>
+        <h2 class="fw-bold mb-0">{{ __('suppliers.title') }}</h2>
         <div class="d-flex align-items-center gap-3">
             <form action="{{ route('pesquisa.index') }}" method="GET" class="search-bar">
-                <input type="text" name="q" value="{{ request('q') }}" placeholder="Pesquisar por nome ou código...">
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="{{ __('suppliers.search_placeholder') }}">
                 <button type="submit" style="background: none; border: none; color: #fff;">
                     <i class="bi bi-search"></i>
                 </button>
@@ -96,12 +96,12 @@
             <thead>
                 <tr>
                     <th style="width:32px"></th>
-                    <th>Nome</th>
-                    <th>Código</th>
-                    <th>CPF/CNPJ</th>
-                    <th>Distribuidor</th>
-                    <th>Contato</th>
-                    <th>Endereço</th>
+                    <th>{{ __('suppliers.name') }}</th>
+                    <th>{{ __('suppliers.code') }}</th>
+                    <th>{{ __('suppliers.document') }}</th>
+                    <th>{{ __('suppliers.distributor') }}</th>
+                    <th>{{ __('suppliers.contact') }}</th>
+                    <th>{{ __('suppliers.address') }}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -122,7 +122,7 @@
                             @if($supplier->address)
                             {{ $supplier->address->place }}, Nº {{ $supplier->address->number }}, {{ $supplier->address->neighborhood }}
                             @else
-                            Não informado
+                            {{ __('suppliers.not_informed') }}
                             @endif
                         </p>
                         <i id="toggleIconA{{ $supplier->id }}" onclick="seemoreaddresses('{{ $supplier->id }}')" class="bi bi-plus-circle-fill" style="cursor: pointer;"></i>
@@ -130,13 +130,13 @@
                     <td>
                         <x-btn-tres-pontos id="dropdownMenuButton{{ $supplier->id }}">
                             <li>
-                                <a class="dropdown-item" href="{{ route('suppliers.edit', $supplier->id) }}">Editar</a>
+                                <a class="dropdown-item" href="{{ route('suppliers.edit', $supplier->id) }}">{{ __('suppliers.edit') }}</a>
                             </li>
                             <li>
-                                <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este fornecedor?');">
+                                <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" onsubmit="return confirm('{{ __('suppliers.confirm_delete') }}');">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="dropdown-item text-danger" type="submit">Excluir</button>
+                                    <button class="dropdown-item text-danger" type="submit">{{ __('suppliers.delete') }}</button>
                                 </form>
                             </li>
                         </x-btn-tres-pontos>
@@ -145,26 +145,26 @@
                 <tr id="addresses{{ $supplier->id }}" style="display: none;">
                     <td colspan="8">
                         @if($supplier->address)
-                        <strong>Endereço:</strong> {{ $supplier->address->place }}, Nº {{ $supplier->address->number }}, {{ $supplier->address->neighborhood }} <br>
-                        <strong>CEP:</strong> {{ $supplier->address->cep }} <br>
-                        <strong>Cidade:</strong> {{ $supplier->address->city }} - {{ $supplier->address->state }}
+                        <strong>{{ __('suppliers.address') }}:</strong> {{ $supplier->address->place }}, Nº {{ $supplier->address->number }}, {{ $supplier->address->neighborhood }} <br>
+                        <strong>{{ __('suppliers.zip') }}:</strong> {{ $supplier->address->cep }} <br>
+                        <strong>{{ __('suppliers.city') }}:</strong> {{ $supplier->address->city }} - {{ $supplier->address->state }}
                         @else
-                        <strong>Endereço:</strong> Não cadastrado.
+                        <strong>{{ __('suppliers.address') }}:</strong> {{ __('suppliers.not_registered') }}
                         @endif
                     </td>
                 </tr>
                 <tr id="contacts{{ $supplier->id }}" style="display: none;">
                     <td colspan="8">
-                        <strong>Telefone Fixo:</strong> {{ $supplier->fixedphone }} <br>
-                        <strong>Celular:</strong> {{ $supplier->phone }} <br>
-                        <strong>Email:</strong> {{ $supplier->email }} <br>
-                        <strong>Contato 1:</strong> {{ $supplier->contactName1 }} - {{ $supplier->contactPosition1 }} - {{ $supplier->contactNumber1 }} <br>
-                        <strong>Contato 2:</strong> {{ $supplier->contactName2 }} - {{ $supplier->contactPosition2 }} - {{ $supplier->contactNumber2 }}
+                        <strong>{{ __('suppliers.fixed_phone') }}:</strong> {{ $supplier->fixedphone }} <br>
+                        <strong>{{ __('suppliers.mobile') }}:</strong> {{ $supplier->phone }} <br>
+                        <strong>{{ __('suppliers.email') }}:</strong> {{ $supplier->email }} <br>
+                        <strong>{{ __('suppliers.contact1') }}:</strong> {{ $supplier->contactName1 }} - {{ $supplier->contactPosition1 }} - {{ $supplier->contactNumber1 }} <br>
+                        <strong>{{ __('suppliers.contact2') }}:</strong> {{ $supplier->contactName2 }} - {{ $supplier->contactPosition2 }} - {{ $supplier->contactNumber2 }}
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" class="text-center text-muted py-4">Nenhum fornecedor cadastrado.</td>
+                    <td colspan="8" class="text-center text-muted py-4">{{ __('suppliers.no_suppliers') }}</td>
                 </tr>
                 @endforelse
             </tbody>
@@ -172,37 +172,4 @@
     </div>
     <x-paginacao :paginator="$suppliers" />
 </div>
-
-
-<script>
-    function seemorecontat(id) {
-        const contacts = document.getElementById("contacts" + id);
-        const icon = document.getElementById('toggleIconC' + id);
-
-        if (contacts.style.display === "none" || contacts.style.display === "") {
-            contacts.style.display = "table-row";
-            icon.classList.remove('bi-plus-circle-fill');
-            icon.classList.add('bi-dash-circle-fill');
-        } else {
-            contacts.style.display = "none";
-            icon.classList.remove('bi-dash-circle-fill');
-            icon.classList.add('bi-plus-circle-fill');
-        }
-    }
-
-    function seemoreaddresses(id) {
-        const addresses = document.getElementById("addresses" + id);
-        const icon = document.getElementById('toggleIconA' + id);
-
-        if (addresses.style.display === "none" || addresses.style.display === "") {
-            addresses.style.display = "table-row";
-            icon.classList.remove('bi-plus-circle-fill');
-            icon.classList.add('bi-dash-circle-fill');
-        } else {
-            addresses.style.display = "none";
-            icon.classList.remove('bi-dash-circle-fill');
-            icon.classList.add('bi-plus-circle-fill');
-        }
-    }
-</script>
 @endsection

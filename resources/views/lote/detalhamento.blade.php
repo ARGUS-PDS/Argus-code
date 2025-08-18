@@ -168,18 +168,18 @@
 @section('content')
 <div class="container-card">
     <div class="header-section">
-        <h2>Detalhamento de Lote</h2>
-        <x-btn-voltar href="{{ url()->previous() }}" />
+        <h2>{{ __('lots.detalhamento_lote') }}</h2>
+        <x-btn-voltar href="{{ url()->previous() }}" :label="__('lots.voltar')" />
     </div>
 
     <div class="section-card">
-        <h3 class="card-title">Informações do Lote</h3>
+        <h3 class="card-title">{{ __('lots.informacoes_lote') }}</h3>
 
         <div class="row g-4">
             <div class="col-md-6">
-                <label for="lote" class="form-label">Lote</label>
+                <label for="lote" class="form-label">{{ __('lots.lote') }}</label>
                 <div class="input-group">
-                    <input type="text" name="lote" id="lote" class="form-control" placeholder="Digite o número do lote">
+                    <input type="text" name="lote" id="lote" class="form-control" placeholder="{{ __('lots.digite_numero_lote') }}">
                     <span class="input-group-text">
                         <i class="bi bi-search"></i>
                     </span>
@@ -187,17 +187,17 @@
             </div>
 
             <div class="col-md-6">
-                <label for="produto" class="form-label">Produto</label>
-                <input type="text" name="produto" id="produto" class="form-control" placeholder="Nome do produto" disabled>
+                <label for="produto" class="form-label">{{ __('lots.produto') }}</label>
+                <input type="text" name="produto" id="produto" class="form-control" placeholder="{{ __('lots.nome_produto') }}" disabled>
             </div>
 
             <div class="col-md-6">
-                <label for="data_validade" class="form-label">Data de Validade</label>
+                <label for="data_validade" class="form-label">{{ __('lots.data_validade') }}</label>
                 <input type="date" name="data_validade" id="data_validade" class="form-control" disabled>
             </div>
 
             <div class="col-md-6">
-                <label for="data_entrada" class="form-label">Data de Entrada</label>
+                <label for="data_entrada" class="form-label">{{ __('lots.data_entrada') }}</label>
                 <input type="date" name="data_entrada" id="data_entrada" class="form-control" disabled>
             </div>
         </div>

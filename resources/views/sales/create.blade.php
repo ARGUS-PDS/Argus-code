@@ -2,26 +2,24 @@
 
 @section('content')
 <div class="container mt-4" id="frente-container">
-    <h2>Frente de Caixa</h2>
+    <h2>{{ __('pos.titulo') }}</h2>
 
-    <!-- Botão Nova Venda -->
     <div class="d-flex justify-content-start mb-3">
-        <button class="btn btn-primary" id="nova-venda">Nova Venda</button>
+        <button class="btn btn-primary" id="nova-venda">{{ __('pos.nova_venda_btn') }}</button>
     </div>
 
     <div class="row">
-        <!-- Área principal da venda -->
         <div class="col-md-8">
-            <input type="text" id="barcode" class="form-control mb-3" placeholder="Escaneie ou digite o código de barras" autocomplete="off">
+            <input type="text" id="barcode" class="form-control mb-3" placeholder="{{ __('pos.placeholder_codigo_barras') }}" autocomplete="off">
 
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>Foto</th>
-                        <th>Produto</th>
-                        <th>Valor</th>
-                        <th>Qtd</th>
-                        <th>Total</th>
+                        <th>{{ __('pos.foto') }}</th>
+                        <th>{{ __('pos.produto') }}</th>
+                        <th>{{ __('pos.valor') }}</th>
+                        <th>{{ __('pos.quantidade_abreviado') }}</th>
+                        <th>{{ __('pos.total') }}</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -29,18 +27,16 @@
             </table>
         </div>
 
-        <!-- Sidebar com lista de pedidos -->
         <div class="col-md-4">
-            <h5>Pedidos</h5>
+            <h5>{{ __('pos.pedidos_titulo') }}</h5>
             <ul id="lista-pedidos" class="list-group"></ul>
         </div>
     </div>
 </div>
 
-<!-- Rodapé -->
 <div id="frente-footer" class="d-flex justify-content-end align-items-center p-3 border-top bg-white position-fixed w-100" style="bottom:0; left:0; z-index: 1000;">
-    <h4 class="me-3">Total: R$ <span id="total">0.00</span></h4>
-    <button class="btn btn-success" id="finalizar">Finalizar Venda</button>
+    <h4 class="me-3">{{ __('pos.total') }}: R$ <span id="total">0.00</span></h4>
+    <button class="btn btn-success" id="finalizar">{{ __('pos.finalizar_venda_btn') }}</button>
 </div>
 
 <style>
@@ -105,7 +101,7 @@ function renderPedidos() {
         lista.innerHTML += `
             <li class="list-group-item d-flex justify-content-between align-items-center ${ativo}">
                 <span onclick="selecionarPedido(${p.id})" style="cursor:pointer;">
-                    Pedido ${p.id}
+                    {{ __('pos.pedido_numero') }} ${p.id}
                 </span>
                 <button class="btn btn-sm btn-danger" onclick="apagarPedido(${p.id})">X</button>
             </li>
@@ -117,7 +113,7 @@ function apagarPedido(id) {
     const index = pedidos.findIndex(p => p.id === id);
     if (index === -1) return;
 
-    if (!confirm(`Deseja realmente apagar o Pedido ${id}?`)) return;
+    if (!confirm(`{{ __('pos.confirmar_apagar_pedido') }}`.replace(':id', id))) return;
 
     pedidos.splice(index, 1);
 
@@ -195,7 +191,7 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
         const codigo = this.value.trim();
         if (!codigo) return;
         if (!pedidoAtual) {
-            alert('Nenhum pedido selecionado!');
+            alert('{{ __('pos.alerta_nenhum_pedido') }}');
             this.value = '';
             return;
         }
@@ -211,7 +207,7 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
         .then(res => res.json())
         .then(produto => {
             if (!produto || !produto.id) {
-                alert('Produto não encontrado.');
+                alert('{{ __('pos.alerta_produto_nao_encontrado') }}');
                 this.value = '';
                 return;
             }
@@ -222,7 +218,7 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
             } else {
                 pedidoAtual.itens.unshift({
                     id: produto.id,
-                    description: produto.description ?? 'Sem descrição',
+                    description: produto.description ?? '{{ __('pos.sem_descricao') }}',
                     unit_price: parseFloat(produto.value ?? 0),
                     quantity: 1,
                     image_url: produto.image_url ?? ''
@@ -234,7 +230,7 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
         })
         .catch(err => {
             console.error(err);
-            alert('Erro ao buscar produto.');
+            alert('{{ __('pos.alerta_erro_servidor') }}');
             this.value = '';
         });
     }
@@ -242,12 +238,12 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
 
 document.getElementById('finalizar').addEventListener('click', () => {
     if (!pedidoAtual) {
-        alert('Nenhum pedido selecionado!');
+        alert('{{ __('pos.alerta_nenhum_pedido') }}');
         return;
     }
 
     if (pedidoAtual.itens.length === 0) {
-        alert('Adicione pelo menos 1 produto antes de finalizar a venda!');
+        alert('{{ __('pos.alerta_adicionar_produto') }}');
         return;
     }
 
@@ -269,10 +265,9 @@ document.getElementById('finalizar').addEventListener('click', () => {
     .then(res => res.json())
     .then(res => {
         if (res.success) {
-            alert('Venda registrada com sucesso!');
+            alert('{{ __('pos.alerta_venda_sucesso') }}');
             pedidoAtual.finalizado = true;
 
-            // Remove da lista de pedidos finalizados
             const aberto = pedidos.find(p => !p.finalizado);
             if (!aberto) {
                 novaVenda();
@@ -283,10 +278,10 @@ document.getElementById('finalizar').addEventListener('click', () => {
             renderPedidos();
             renderCart();
         } else {
-            alert('Erro ao registrar venda: ' + res.error);
+            alert(`{{ __('pos.alerta_erro_registro') }}: ${res.error}`);
         }
     })
-    .catch(err => alert('Erro no servidor.'));
+    .catch(err => alert('{{ __('pos.alerta_erro_servidor') }}'));
 });
 
 window.onload = () => {

@@ -7,17 +7,15 @@
     body {
         padding: 0;
         margin: 0;
-        background-color: var(--color-bege-claro); /* Fundo da página */
+        background-color: var(--color-bege-claro);
     }
 
-    /* Estilo para o título principal da página */
     h2 {
         color: var(--color-vinho); 
         font-weight: bold;
         text-align: left;
     }
 
-    /* Ajustes específicos para o botão Voltar */
     .btn-custom-back {
         border-radius: 8px;
         padding: 0.5rem 1rem;
@@ -35,7 +33,6 @@
         border-color: var(--color-vinho) !important;
     }
 
-    /* Estilos da Tabela */
     .table-custom {
         width: 100%;
         border-collapse: separate;
@@ -98,9 +95,9 @@
 @section('content')
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="m-0">Pedidos Enviados</h2> 
+        <h2 class="m-0">{{ __('order.pedidos_enviados') }}</h2> 
         <a href="{{ route('produtos.esgotando') }}" class="btn btn-outline-secondary btn-custom-back">
-            <i class="bi bi-arrow-left"></i> Voltar
+            <i class="bi bi-arrow-left"></i> {{ __('order.voltar') }}
         </a>
     </div>
 
@@ -120,13 +117,13 @@
         <table class="table-custom">
             <thead>
                 <tr>
-                    <th>Data</th>
-                    <th>Produto</th>
-                    <th>Fornecedor</th>
-                    <th>Quantidade</th>
-                    <th>Prazo</th>
-                    <th>Canal</th>
-                    <th>Mensagem</th>
+                    <th>{{ __('order.data') }}</th>
+                    <th>{{ __('order.produto') }}</th>
+                    <th>{{ __('order.fornecedor') }}</th>
+                    <th>{{ __('order.quantidade') }}</th>
+                    <th>{{ __('order.prazo') }}</th>
+                    <th>{{ __('order.canal') }}</th>
+                    <th>{{ __('order.mensagem') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -142,7 +139,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="text-center">Nenhum pedido enviado ainda.</td>
+                        <td colspan="7" class="text-center">{{ __('order.nenhum_pedido_enviado') }}</td>
                     </tr>
                 @endforelse
             </tbody>

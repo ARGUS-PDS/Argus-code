@@ -365,9 +365,9 @@
 @section('content')
 <div class="container-card">
     <div class="header-section">
-        <h2>Gerar Etiquetas para Produtos</h2>
+        <h2>{{ __('labels.titulo_etiquetas') }}</h2>
         <a href="/dashboard" class="btn-voltar">
-            <i class="bi bi-arrow-left"></i> Voltar
+            <i class="bi bi-arrow-left"></i> {{ __('labels.voltar') }}
         </a>
     </div>
 
@@ -382,17 +382,17 @@
     <div class="form-add-card">
         <form method="POST" action="{{ route('etiquetas.adicionar') }}" class="d-flex align-items-center gap-3">
             @csrf
-            <label for="codigo" class="col-form-label mb-0">Código de Barras (GTIN):</label>
-            <input type="text" name="codigo" id="codigo" class="form-control" placeholder="Digite ou escaneie o código" required autofocus />
-            <button type="submit" class="btn btn-primary">Adicionar</button>
+            <label for="codigo" class="col-form-label mb-0">{{ __('labels.codigo_barras_label') }}</label>
+            <input type="text" name="codigo" id="codigo" class="form-control" placeholder="{{ __('labels.placeholder_codigo') }}" required autofocus />
+            <button type="submit" class="btn btn-primary">{{ __('labels.adicionar_btn') }}</button>
         </form>
     </div>
 
 
     @if(!empty($etiquetas))
         <div class="action-buttons">
-            <a href="{{ route('etiquetas.limpar') }}" class="btn btn-outline-danger">Limpar Tudo</a>
-            <button onclick="window.print()" class="btn btn-success">Imprimir Etiquetas</button>
+            <a href="{{ route('etiquetas.limpar') }}" class="btn btn-outline-danger">{{ __('labels.limpar_tudo') }}</a>
+            <button onclick="window.print()" class="btn btn-success">{{ __('labels.imprimir_etiquetas') }}</button>
         </div>
 
 
@@ -403,7 +403,7 @@
                     <div class="preco-barcode">
                         <div class="preco">R$ {{ number_format((float) $et['preco'], 2, ',', '.') }}</div>
                         <div class="barcode">
-                            <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($et['codigo'], 'C128') }}" alt="Código de Barras: {{ $et['codigo'] }}" />
+                            <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($et['codigo'], 'C128') }}" alt="{{ __('labels.alt_codigo_barras') }} {{ $et['codigo'] }}" />
                         </div>
                     </div>
                 </div>

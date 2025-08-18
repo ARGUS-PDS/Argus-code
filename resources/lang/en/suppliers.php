@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'title' => 'Suppliers',
+    'search_placeholder' => 'Search by name or code...',
+    'name' => 'Name',
+    'code' => 'Code',
+    'document' => 'CPF/CNPJ',
+    'distributor' => 'Distributor',
+    'contact' => 'Contact',
+    'address' => 'Address',
+    'not_informed' => 'Not informed',
+    'edit' => 'Edit',
+    'delete' => 'Delete',
+    'confirm_delete' => 'Are you sure you want to delete this supplier?',
+    'zip' => 'ZIP',
+    'city' => 'City',
+    'not_registered' => 'Not registered.',
+    'fixed_phone' => 'Fixed Phone',
+    'mobile' => 'Mobile',
+    'email' => 'Email',
+    'contact1' => 'Contact 1',
+    'contact2' => 'Contact 2',
+    'no_suppliers' => 'No suppliers registered.',
+    'close' => 'Close',
+];

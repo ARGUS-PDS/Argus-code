@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'title' => 'Fornecedores',
+    'search_placeholder' => 'Pesquisar por nome ou código...',
+    'name' => 'Nome',
+    'code' => 'Código',
+    'document' => 'CPF/CNPJ',
+    'distributor' => 'Distribuidor',
+    'contact' => 'Contato',
+    'address' => 'Endereço',
+    'not_informed' => 'Não informado',
+    'edit' => 'Editar',
+    'delete' => 'Excluir',
+    'confirm_delete' => 'Tem certeza que deseja excluir este fornecedor?',
+    'zip' => 'CEP',
+    'city' => 'Cidade',
+    'not_registered' => 'Não cadastrado.',
+    'fixed_phone' => 'Telefone Fixo',
+    'mobile' => 'Celular',
+    'email' => 'Email',
+    'contact1' => 'Contato 1',
+    'contact2' => 'Contato 2',
+    'no_suppliers' => 'Nenhum fornecedor cadastrado.',
+    'close' => 'Fechar',
+];

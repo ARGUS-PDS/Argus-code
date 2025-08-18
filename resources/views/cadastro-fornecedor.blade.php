@@ -115,7 +115,7 @@
 @section('content')
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="m-0">Cadastrar Fornecedor</h2>
+        <h2 class="m-0">{{ __('suppliersregister.title_create') }}</h2>
         <x-btn-voltar href="{{ route('suppliers.index') }}" />
     </div>
 
@@ -139,75 +139,75 @@
         <form id="formFornecedor" method="POST" action="{{ route('suppliers.store') }}">
             @csrf
             <fieldset class="mb-4">
-                <legend>Dados Iniciais</legend>
+                <legend>{{ __('suppliersregister.fieldset_initial_data') }}</legend>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="code" class="form-label">Código</label>
+                        <label for="code" class="form-label">{{ __('suppliersregister.label_code') }}</label>
                         <input type="text" class="form-control" id="code" name="code" value="{{ old('code') }}">
                     </div>
 
                     <div class="col-md-2">
-                        <label for="type" class="form-label">Tipo da Pessoa</label>
+                        <label for="type" class="form-label">{{ __('suppliersregister.label_person_type') }}</label>
                         <select id="type" name="type" class="form-select" required>
-                            <option value="" selected disabled>Selecione</option>
-                            <option value="FISICA" {{ old('type') == 'FISICA' ? 'selected' : '' }}>Física</option>
-                            <option value="JURIDICA" {{ old('type') == 'JURIDICA' ? 'selected' : '' }}>Jurídica</option>
+                            <option value="" selected disabled>{{ __('suppliersregister.option_select') }}</option>
+                            <option value="FISICA" {{ old('type') == 'FISICA' ? 'selected' : '' }}>{{ __('suppliersregister.option_physical') }}</option>
+                            <option value="JURIDICA" {{ old('type') == 'JURIDICA' ? 'selected' : '' }}>{{ __('suppliersregister.option_legal') }}</option>
                         </select>
                     </div>
 
                     <div class="col-md-4">
-                        <label id="label-doc" for="cpf_cnpj" class="form-label">CPF/CNPJ</label>
+                        <label id="label-doc" for="cpf_cnpj" class="form-label">{{ __('suppliersregister.label_document') }}</label>
                         <input type="text" class="form-control" id="cpf_cnpj" name="document" value="{{ old('document') }}" required>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-5">
-                        <label for="trade_name" class="form-label">Nome Fantasia</label>
+                        <label for="trade_name" class="form-label">{{ __('suppliersregister.label_trade_name') }}</label>
                         <input type="text" class="form-control" id="trade_name" name="name" value="{{ old('name') }}" required>
                     </div>
 
                     <div class="col-md-5">
-                        <label for="distributor" class="form-label">Distribuidora</label>
+                        <label for="distributor" class="form-label">{{ __('suppliersregister.label_distributor') }}</label>
                         <input type="text" class="form-control" id="distributor" name="distributor" value="{{ old('distributor') }}">
                     </div>
                 </div>
             </fieldset>
 
             <fieldset class="mb-4">
-                <legend>Endereço</legend>
+                <legend>{{ __('suppliersregister.fieldset_address') }}</legend>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="zip_code" class="form-label">CEP</label>
+                        <label for="zip_code" class="form-label">{{ __('suppliersregister.label_zip_code') }}</label>
                         <input type="text" class="form-control" id="zip_code" name="address[cep]" value="{{ old('address.cep') }}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-8">
-                        <label for="place" class="form-label">Logradouro</label>
+                        <label for="place" class="form-label">{{ __('suppliersregister.label_place') }}</label>
                         <input type="text" class="form-control" id="place" name="address[place]" value="{{ old('address.place') }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="number" class="form-label">Número</label>
+                        <label for="number" class="form-label">{{ __('suppliersregister.label_number') }}</label>
                         <input type="number" class="form-control" id="number" name="address[number]" value="{{ old('address.number') }}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="neighborhood" class="form-label">Bairro</label>
+                        <label for="neighborhood" class="form-label">{{ __('suppliersregister.label_neighborhood') }}</label>
                         <input type="text" class="form-control" id="neighborhood" name="address[neighborhood]" value="{{ old('address.neighborhood') }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="city" class="form-label">Cidade</label>
+                        <label for="city" class="form-label">{{ __('suppliersregister.label_city') }}</label>
                         <input type="text" class="form-control" id="city" name="address[city]" value="{{ old('address.city') }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="state" class="form-label">Estado</label>
+                        <label for="state" class="form-label">{{ __('suppliersregister.label_state') }}</label>
                         <select id="state" name="address[state]" class="form-select">
-                            <option value="" selected disabled>Selecione</option>
+                            <option value="" selected disabled>{{ __('suppliersregister.option_select') }}</option>
                             <option value="AC" {{ old('address.state') == 'AC' ? 'selected' : '' }}>AC</option>
                             <option value="AL" {{ old('address.state') == 'AL' ? 'selected' : '' }}>AL</option>
                             <option value="AP" {{ old('address.state') == 'AP' ? 'selected' : '' }}>AP</option>
@@ -241,49 +241,49 @@
             </fieldset>
 
             <fieldset class="mb-4">
-                <legend>Contato</legend>
+                <legend>{{ __('suppliersregister.fieldset_contact') }}</legend>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="fixedphone" class="form-label">Telefone fixo</label>
+                        <label for="fixedphone" class="form-label">{{ __('suppliersregister.label_fixed_phone') }}</label>
                         <input type="tel" class="form-control" id="fixedphone" name="fixedphone" value="{{ old('fixedphone') }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="phone" class="form-label">Celular</label>
+                        <label for="phone" class="form-label">{{ __('suppliersregister.label_phone') }}</label>
                         <input type="tel" class="form-control" id="phone" name="phone" value="{{ old('phone') }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="email" class="form-label">E-mail</label>
+                        <label for="email" class="form-label">{{ __('suppliersregister.label_email') }}</label>
                         <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="contactNumber1" class="form-label">Contato 1 Telefone</label>
+                        <label for="contactNumber1" class="form-label">{{ __('suppliersregister.label_contact1_phone') }}</label>
                         <input type="text" class="form-control" id="contactNumber1" name="contactNumber1" value="{{ old('contactNumber1') }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="contactName1" class="form-label">Contato 1 Nome</label>
+                        <label for="contactName1" class="form-label">{{ __('suppliersregister.label_contact1_name') }}</label>
                         <input type="text" class="form-control" id="contactName1" name="contactName1" value="{{ old('contactName1') }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="contactPosition1" class="form-label">Contato 1 Cargo</label>
+                        <label for="contactPosition1" class="form-label">{{ __('suppliersregister.label_contact1_position') }}</label>
                         <input type="text" class="form-control" id="contactPosition1" name="contactPosition1" value="{{ old('contactPosition1') }}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="contactNumber2" class="form-label">Contato 2 Telefone</label>
+                        <label for="contactNumber2" class="form-label">{{ __('suppliersregister.label_contact2_phone') }}</label>
                         <input type="text" class="form-control" id="contactNumber2" name="contactNumber2" value="{{ old('contactNumber2') }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="contactName2" class="form-label">Contato 2 Nome</label>
+                        <label for="contactName2" class="form-label">{{ __('suppliersregister.label_contact2_name') }}</label>
                         <input type="text" class="form-control" id="contactName2" name="contactName2" value="{{ old('contactName2') }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="contactPosition2" class="form-label">Contato 2 Cargo</label>
+                        <label for="contactPosition2" class="form-label">{{ __('suppliersregister.label_contact2_position') }}</label>
                         <input type="text" class="form-control" id="contactPosition2" name="contactPosition2" value="{{ old('contactPosition2') }}">
                     </div>
                 </div>
@@ -311,17 +311,17 @@
             var docInput = $('#cpf_cnpj');
 
             if (type === 'FISICA') {
-                docLabel.text('CPF');
+                docLabel.text('{{ __('suppliersregister.label_cpf') }}');
                 docInput.mask('000.000.000-00', {
                     reverse: true
                 });
             } else if (type === 'JURIDICA') {
-                docLabel.text('CNPJ');
+                docLabel.text('{{ __('suppliersregister.label_cnpj') }}');
                 docInput.mask('00.000.000/0000-00', {
                     reverse: true
                 });
             } else {
-                docLabel.text('CPF/CNPJ');
+                docLabel.text('{{ __('suppliersregister.label_document') }}');
                 docInput.unmask();
             }
             docInput.val('');
@@ -350,7 +350,7 @@
                             $("#city").val(dados.localidade);
                             $("#state").val(dados.uf).change();
                         } else {
-                            alert("CEP não encontrado.");
+                            alert('{{ __('suppliersregister.alert_zip_code_not_found') }}');
                             $("#place").val("");
                             $("#neighborhood").val("");
                             $("#city").val("");
@@ -358,7 +358,7 @@
                         }
                     });
                 } else {
-                    alert("Formato de CEP inválido.");
+                    alert('{{ __('suppliersregister.alert_invalid_zip_code_format') }}');
                     $("#place").val("");
                     $("#neighborhood").val("");
                     $("#city").val("");
