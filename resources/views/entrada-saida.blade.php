@@ -13,14 +13,15 @@
   </div>
 
   {{-- Pesquisa de produto --}}
-  <x-search-bar
+  <x-search-bar 
     name="produto"
     :datalist-options="collect($products->take(5))->map(fn($produto) => [
         'value' => $produto->description,
         'label' => $produto->barcode
     ])->toArray()"
     :value="request('produto')"
-    placeholder="{{ __('stock_movement.search_placeholder') }}" />
+    placeholder="{{ __('stock_movement.search_placeholder') }}"
+  />
 
   @if($produtoSelecionado)
   <div class="mb-3">
@@ -49,7 +50,7 @@
             <td>{{ \Carbon\Carbon::parse($mov->date)->format('d/m/Y') }}</td>
             <td>{{ $mov->quantity }}</td>
             <td>R${{ number_format($mov->cost, 2, ',', '.') }}</td>
-            <td style="color: {{ $mov->type == "inward" ? 'red' : 'green' }}">{{ $mov->type == "inward" ? 'Entrada' : 'Saída' }}</td>
+            <td style="color: {{ $mov->type == 'inward' ? 'green' : ($mov->type == 'outward' ? 'red' : 'blue') }}">{{ $mov->type == 'inward' ? 'Entrada' : ($mov->type == 'outward' ? 'Saída' : 'Balanço') }}</td>
             <td>{{ $mov->note ?? '-' }}</td>
             <td>
               <form action="{{ route('movimentacao.destroy', $mov->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta movimentação?');">
@@ -65,20 +66,7 @@
           @endforeach
         </tbody>
       </table>
-      @if ($movimentacoes->lastPage() > 1)
-      <div class="d-flex justify-content-center mt-3">
-        @if ($movimentacoes->onFirstPage())
-        <button class="btn btn-secondary me-2" disabled>Anterior</button>
-        @else
-        <a href="{{ $movimentacoes->previousPageUrl() }}&produto={{ request('produto') }}" class="btn btn-primary me-2">Anterior</a>
-        @endif
-        @if ($movimentacoes->hasMorePages())
-        <a href="{{ $movimentacoes->nextPageUrl() }}&produto={{ request('produto') }}" class="btn btn-primary">Próximo</a>
-        @else
-        <button class="btn btn-secondary" disabled>Próximo</button>
-        @endif
-      </div>
-      @endif
+      <x-paginacao :paginator="$movimentacoes" />
       @else
       <div class="alert alert-warning">{{ __('stock_movement.no_records') }}</div>
       @endif
@@ -94,12 +82,14 @@
         <p class="mb-2">
           <strong>{{ __('stock_movement.current_stock') }}:</strong> {{ $estoque_atual }}
         </p>
+        <!--
         <p class="mb-0">
           <strong>{{ __('stock_movement.profit') }}:</strong>
           <span style="color: {{ $lucro < 0 ? 'red' : 'green' }}; font-weight: bold">
             R$ {{ number_format($lucro, 2, ',', '.') }}
           </span>
         </p>
+        -->
       </div>
     </div>
   </div>
@@ -131,6 +121,7 @@
                 <option value="" disabled selected>{{ __('stock_movement.select') }}</option>
                 <option value="inward">{{ __('stock_movement.inward') }}</option>
                 <option value="outward">{{ __('stock_movement.outward') }}</option>
+                <option value="balance">Balanço</option>
               </select>
             </div>
             <div class="col">

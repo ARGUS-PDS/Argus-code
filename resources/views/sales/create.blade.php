@@ -12,7 +12,7 @@
     <div class="row">
         <!-- Área principal da venda -->
         <div class="col-md-8">
-            <input type="text" id="barcode" class="form-control mb-3" placeholder="Escaneie ou digite o código de barras">
+            <input type="text" id="barcode" class="form-control mb-3" placeholder="Escaneie ou digite o código de barras" autocomplete="off">
 
             <table class="table table-bordered">
                 <thead>
@@ -31,13 +31,13 @@
 
         <!-- Sidebar com lista de pedidos -->
         <div class="col-md-4">
-            <h5>Pedidos em aberto</h5>
+            <h5>Pedidos</h5>
             <ul id="lista-pedidos" class="list-group"></ul>
         </div>
     </div>
 </div>
 
-<!-- rodape -->
+<!-- Rodapé -->
 <div id="frente-footer" class="d-flex justify-content-end align-items-center p-3 border-top bg-white position-fixed w-100" style="bottom:0; left:0; z-index: 1000;">
     <h4 class="me-3">Total: R$ <span id="total">0.00</span></h4>
     <button class="btn btn-success" id="finalizar">Finalizar Venda</button>
@@ -45,7 +45,7 @@
 
 <style>
     body {
-        padding-bottom: 80px; /* Espaço para o rodapé fixo não cobrir a tabela */
+        padding-bottom: 80px;
     }
 </style>
 
@@ -54,9 +54,6 @@ let pedidos = [];
 let pedidoAtual = null;
 let contadorPedidos = 1;
 
-// =======================
-// Persistência por dia
-// =======================
 function carregarPedidos() {
     const dataSalva = localStorage.getItem('frente_caixa_data');
     const hoje = new Date().toISOString().split('T')[0];
@@ -66,7 +63,6 @@ function carregarPedidos() {
         if (dados) {
             pedidos = dados.pedidos || [];
             contadorPedidos = dados.contadorPedidos || 1;
-            // Seleciona último pedido não finalizado
             pedidoAtual = pedidos.find(p => !p.finalizado) || null;
         }
     } else {
@@ -85,9 +81,6 @@ function salvarPedidos() {
     }));
 }
 
-// =======================
-// Funções principais
-// =======================
 function novaVenda() {
     const novo = {
         id: contadorPedidos,
@@ -106,21 +99,41 @@ function novaVenda() {
 function renderPedidos() {
     const lista = document.getElementById('lista-pedidos');
     lista.innerHTML = '';
-    pedidos.forEach(p => {
-        if (!p.finalizado) {
-            const ativo = (pedidoAtual && pedidoAtual.id === p.id) ? 'active' : '';
-            lista.innerHTML += `
-                <li class="list-group-item ${ativo}" onclick="selecionarPedido(${p.id})">
+    // Exibe apenas pedidos não finalizados
+    pedidos.filter(p => !p.finalizado).forEach(p => {
+        const ativo = (pedidoAtual && pedidoAtual.id === p.id) ? 'active' : '';
+        lista.innerHTML += `
+            <li class="list-group-item d-flex justify-content-between align-items-center ${ativo}">
+                <span onclick="selecionarPedido(${p.id})" style="cursor:pointer;">
                     Pedido ${p.id}
-                </li>
-            `;
-        }
+                </span>
+                <button class="btn btn-sm btn-danger" onclick="apagarPedido(${p.id})">X</button>
+            </li>
+        `;
     });
+}
+
+function apagarPedido(id) {
+    const index = pedidos.findIndex(p => p.id === id);
+    if (index === -1) return;
+
+    if (!confirm(`Deseja realmente apagar o Pedido ${id}?`)) return;
+
+    pedidos.splice(index, 1);
+
+    if (pedidoAtual && pedidoAtual.id === id) {
+        const aberto = pedidos.find(p => !p.finalizado) || null;
+        pedidoAtual = aberto;
+    }
+
+    renderPedidos();
+    renderCart();
+    salvarPedidos();
 }
 
 function selecionarPedido(id) {
     const selecionado = pedidos.find(p => p.id === id);
-    if (selecionado && !selecionado.finalizado) {
+    if (selecionado) {
         pedidoAtual = selecionado;
         renderCart();
         renderPedidos();
@@ -130,7 +143,10 @@ function selecionarPedido(id) {
 function renderCart() {
     const tbody = document.getElementById('cart-body');
     tbody.innerHTML = '';
-    if (!pedidoAtual) return;
+    if (!pedidoAtual) {
+        document.getElementById('total').innerText = '0.00';
+        return;
+    }
 
     let total = 0;
     pedidoAtual.itens.forEach((item, index) => {
@@ -139,7 +155,7 @@ function renderCart() {
         tbody.innerHTML += `
             <tr>
                 <td><img src="${item.image_url ?? ''}" alt="" width="50"></td>
-                <td>${item.description}</td>
+                <td>${item.description ?? ''}</td>
                 <td>
                     <input type="number" min="0" step="0.01" value="${item.unit_price.toFixed(2)}" onchange="updatePrice(${index}, this.value)">
                 </td>
@@ -173,14 +189,16 @@ function removerItem(index) {
     renderCart();
 }
 
-// =======================
-// Código de barras
-// =======================
 document.getElementById('barcode').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         e.preventDefault();
         const codigo = this.value.trim();
-        if (!codigo || !pedidoAtual) return;
+        if (!codigo) return;
+        if (!pedidoAtual) {
+            alert('Nenhum pedido selecionado!');
+            this.value = '';
+            return;
+        }
 
         fetch('{{ route("vendas.buscar-produto") }}', {
             method: 'POST',
@@ -192,31 +210,44 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
         })
         .then(res => res.json())
         .then(produto => {
+            if (!produto || !produto.id) {
+                alert('Produto não encontrado.');
+                this.value = '';
+                return;
+            }
+
             const existente = pedidoAtual.itens.find(item => item.id === produto.id);
             if (existente) {
                 existente.quantity += 1;
             } else {
-                pedidoAtual.itens.push({
+                pedidoAtual.itens.unshift({
                     id: produto.id,
-                    description: produto.description,
-                    unit_price: parseFloat(produto.value),
+                    description: produto.description ?? 'Sem descrição',
+                    unit_price: parseFloat(produto.value ?? 0),
                     quantity: 1,
-                    image_url: produto.image_url
+                    image_url: produto.image_url ?? ''
                 });
             }
+
             renderCart();
             this.value = '';
         })
-        .catch(err => alert('Produto não encontrado.'));
+        .catch(err => {
+            console.error(err);
+            alert('Erro ao buscar produto.');
+            this.value = '';
+        });
     }
 });
 
-// =======================
-// Finalizar venda
-// =======================
 document.getElementById('finalizar').addEventListener('click', () => {
     if (!pedidoAtual) {
         alert('Nenhum pedido selecionado!');
+        return;
+    }
+
+    if (pedidoAtual.itens.length === 0) {
+        alert('Adicione pelo menos 1 produto antes de finalizar a venda!');
         return;
     }
 
@@ -241,7 +272,7 @@ document.getElementById('finalizar').addEventListener('click', () => {
             alert('Venda registrada com sucesso!');
             pedidoAtual.finalizado = true;
 
-            // Seleciona próximo pedido aberto ou cria novo
+            // Remove da lista de pedidos finalizados
             const aberto = pedidos.find(p => !p.finalizado);
             if (!aberto) {
                 novaVenda();
@@ -258,12 +289,8 @@ document.getElementById('finalizar').addEventListener('click', () => {
     .catch(err => alert('Erro no servidor.'));
 });
 
-// =======================
-// Inicialização
-// =======================
 window.onload = () => {
     carregarPedidos();
-
     if (!pedidoAtual) {
         novaVenda();
     } else {

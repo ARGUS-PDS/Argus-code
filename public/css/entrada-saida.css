@@ -162,8 +162,32 @@
 }
 
 .delete-movimentacao:hover {
-  background-color: #dc3545;
-  color: white;
+  background-color: var(--color-red);
+  color: var(--color-white);
 }
 
+
+.modal-body .form-select {
+  color: var(--color-vinho);
+  border: 1.5px solid var(--color-vinho-fundo);
+  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+}
+
+.modal-body .form-select:focus {
+  border-color: var(--color-vinho);
+}
+
+.modal-body .form-select option {
+  background-color: var(--color-bege-claro);
+  color: var(--color-vinho);
+}
+
+.modal-body .form-select option:hover,
+.modal-body .form-select option:checked {
+  background-color: var(--color-vinho-fundo);
+  color: var(--color-vinho-claro);
+}
 

@@ -26,24 +26,30 @@ class MovementController extends Controller
         if ($produtoSelecionado) {
             $movimentacoes = Movement::where('product_id', $produtoSelecionado->id)
                 ->orderBy('date', 'desc')
-                ->paginate(5);
+                ->paginate(5)
+                ->appends($request->only('produto'));
 
-            // Calcular totais diretamente no banco
-            $entradas = Movement::where('product_id', $produtoSelecionado->id)
-                ->whereIn('type', ['entrada', 'inward', 'Inward'])
-                ->selectRaw('SUM(cost) as valor, SUM(quantity) as qtd')
-                ->first();
-            $saidas = Movement::where('product_id', $produtoSelecionado->id)
-                ->whereIn('type', ['saida', 'outward', 'Outward'])
-                ->selectRaw('SUM(cost) as valor, SUM(quantity) as qtd')
-                ->first();
+            // Calcular totais percorrendo todos os movimentos
+            $allMovs = Movement::where('product_id', $produtoSelecionado->id)
+                ->orderBy('date', 'asc')
+                ->get();
 
-            $entradas_valor = $entradas->valor ?? 0;
-            $entradas_qtd   = $entradas->qtd ?? 0;
-            $saidas_valor   = $saidas->valor ?? 0;
-            $saidas_qtd     = $saidas->qtd ?? 0;
+            foreach ($allMovs as $mov) {
+                if ($mov->type === 'inward') {
+                    $entradas_qtd += $mov->quantity;
+                    $entradas_valor += $mov->cost;
+                    $estoque_atual += $mov->quantity;
+                } elseif ($mov->type === 'outward') {
+                    $saidas_qtd += $mov->quantity;
+                    $saidas_valor += $mov->cost;
+                    $estoque_atual -= $mov->quantity;
+                } elseif ($mov->type === 'balance') {
+                    // Balanço substitui o estoque atual
+                    $estoque_atual = $mov->quantity;
+                }
+            }
+
             $lucro = $saidas_valor - $entradas_valor;
-            $estoque_atual = $entradas_qtd - $saidas_qtd;
         }
 
         return view('entrada-saida', compact('products', 'produtoSelecionado', 'movimentacoes', 'entradas_valor', 'entradas_qtd', 'saidas_valor', 'saidas_qtd', 'lucro', 'estoque_atual', 'batches'));
@@ -53,11 +59,11 @@ class MovementController extends Controller
     {
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'type' => 'required|in:inward,outward',
-            'date' => 'required|date',
-            'quantity' => 'required|integer|min:1',
-            'cost' => 'required|numeric',
-            'note' => 'nullable|string',
+            'type'       => 'required|in:inward,outward,balance',
+            'date'       => 'required|date',
+            'quantity'   => 'required|integer|min:1',
+            'cost'       => 'required|numeric',
+            'note'       => 'nullable|string',
         ]);
 
         $movement = Movement::create($request->only([
@@ -70,6 +76,7 @@ class MovementController extends Controller
         ]));
 
         $produto = Product::find($request->product_id);
+
         return redirect()->route('movimentacao.index', ['produto' => $produto ? $produto->description : null])
             ->with('success', 'Movimentação registrada com sucesso!');
     }
@@ -84,11 +91,11 @@ class MovementController extends Controller
     {
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'type' => 'required|in:entrada,saida,balanco',
-            'date' => 'required|date',
-            'quantity' => 'required|integer|min:0',
-            'cost' => 'required|numeric|min:0',
-            'note' => 'nullable|string|max:255',
+            'type'       => 'required|in:entrada,saida,balanco',
+            'date'       => 'required|date',
+            'quantity'   => 'required|integer|min:0',
+            'cost'       => 'required|numeric|min:0',
+            'note'       => 'nullable|string|max:255',
         ]);
 
         $movement = Movement::findOrFail($id);
@@ -104,17 +111,17 @@ class MovementController extends Controller
     {
         $movement = Movement::findOrFail($id);
         $produto = Product::find($movement->product_id);
+
         $movement->delete();
 
         return redirect()->route('movimentacao.index', ['produto' => $produto ? $produto->description : null])
             ->with('success', 'Movimentação excluída com sucesso!');
     }
 
-
-
     public function pesquisarProduto(Request $request)
     {
-        return Product::where('description', 'like', '%' . $request->q . '%')->get(['id', 'description']);
+        return Product::where('description', 'like', '%' . $request->q . '%')
+            ->get(['id', 'description']);
     }
 
     public function searchProducts(Request $request)

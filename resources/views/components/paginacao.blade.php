@@ -1,17 +1,27 @@
 @props(['paginator'])
+
 @if ($paginator->lastPage() > 1)
-    <div class="d-flex justify-content-center mt-4" style="gap: 8px;">
-        @if ($paginator->onFirstPage())
-            <button class="btn paginacao-anterior" disabled style="cursor: default;">Anterior</button>
-        @else
-            <a href="{{ $paginator->previousPageUrl() }}" class="btn paginacao-anterior">Anterior</a>
-        @endif
-        @if ($paginator->hasMorePages())
-            <a href="{{ $paginator->nextPageUrl() }}" class="btn paginacao-proximo">Próximo</a>
-        @else
-            <button class="btn paginacao-proximo" disabled style="cursor: default;">Próximo</button>
-        @endif
+    <div class="d-flex flex-column align-items-center mt-4" style="gap: 8px;">
+        <div class="d-flex justify-content-center" style="gap: 8px;">
+            @if ($paginator->onFirstPage())
+                <button class="btn paginacao-anterior" disabled style="cursor: default;">Anterior</button>
+            @else
+                <a href="{{ $paginator->previousPageUrl() }}" class="btn paginacao-anterior">Anterior</a>
+            @endif
+
+            @if ($paginator->hasMorePages())
+                <a href="{{ $paginator->nextPageUrl() }}" class="btn paginacao-proximo">Próximo</a>
+            @else
+                <button class="btn paginacao-proximo" disabled style="cursor: default;">Próximo</button>
+            @endif
+        </div>
+
+        <!-- Página atual / total de páginas -->
+        <div style="color: var(--color-vinho); font-weight: 600; margin-top: 4px;">
+            {{ $paginator->currentPage() }} / {{ $paginator->lastPage() }}
+        </div>
     </div>
+
     <style>
         .paginacao-anterior {
             border: 2px solid var(--color-vinho);
@@ -52,8 +62,7 @@
             color: var(--color-vinho);
             opacity: 1;
         }
-        
-        
+
         .paginacao-proximo[disabled] {
             cursor: default !important;
             pointer-events: none;
@@ -63,4 +72,4 @@
             opacity: 1;
         }
     </style>
-@endif 
+@endif
