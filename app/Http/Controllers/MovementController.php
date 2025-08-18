@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Batch;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Movement;
@@ -13,6 +14,7 @@ class MovementController extends Controller
         $produtoSelecionado = null;
         $movimentacoes = [];
         $products = Product::orderBy('description')->get();
+        $batches = Batch::orderBy('id')->get();
 
         if ($request->filled('produto')) {
             $produtoSelecionado = Product::where('description', 'like', '%' . $request->produto . '%')
@@ -44,7 +46,7 @@ class MovementController extends Controller
             $estoque_atual = $entradas_qtd - $saidas_qtd;
         }
 
-        return view('entrada-saida', compact('products', 'produtoSelecionado', 'movimentacoes', 'entradas_valor', 'entradas_qtd', 'saidas_valor', 'saidas_qtd', 'lucro', 'estoque_atual'));
+        return view('entrada-saida', compact('products', 'produtoSelecionado', 'movimentacoes', 'entradas_valor', 'entradas_qtd', 'saidas_valor', 'saidas_qtd', 'lucro', 'estoque_atual', 'batches'));
     }
 
     public function store(Request $request)

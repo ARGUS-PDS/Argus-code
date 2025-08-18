@@ -158,8 +158,11 @@
           <div class="mb-3">
             <label class="form-label">Lote | Batch</label>
             <select name="batch_id" class="form-select">
-              <!--fwegewg-->
-
+              <option value="" disabled selected>Selecione um lote</option>
+              @foreach($batches as $lote) <option value="{{ $lote->id }}">
+                {{ $lote->batch_code }} - Validade : {{ $lote->expiration_date }}
+              </option>
+              @endforeach
             </select>
           </div>
 
