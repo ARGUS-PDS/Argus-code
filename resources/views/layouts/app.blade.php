@@ -43,7 +43,7 @@
                             <li><a class="dropdown-item" href="#" onclick="mostrarTelaCarregando()">{{ __('menu.acompanhamento_validade') }}</a></li>
                             <li><a class="dropdown-item" href="/etiquetas" onclick="mostrarTelaCarregando()">{{ __('menu.etiquetas') }}</a></li>
                             <li><a class="dropdown-item" href="/detalhamento-lote" onclick="mostrarTelaCarregando()">{{ __('menu.detalhamento_lote') }}</a></li>
-                            <li><a class="dropdown-item" href="/vendas" onclick="mostrarTelaCarregando()">Frente de caixa</a></li>
+                            <li><a class="dropdown-item" href="/vendas" onclick="mostrarTelaCarregando()">{{__('menu.frente_caixa')}}</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

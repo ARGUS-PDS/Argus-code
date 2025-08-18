@@ -19,4 +19,6 @@ return [
     'envio_pedido'=>'Envio de Pedido',
     'cotacao_fornecedores'=>'Cotação de Fornecedores',
     'historico_pedidos'=>'Histórico de Pedidos',
+
+    'frente_caixa'=>'Frente de caixa',
 ];

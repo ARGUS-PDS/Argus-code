@@ -19,4 +19,5 @@ return [
     'envio_pedido'=>'Send Order',
     'cotacao_fornecedores'=>'Supplier Quotation',
     'historico_pedidos'=>'Order History',
+    'frente_caixa'=>'Point of Sale'
 ];

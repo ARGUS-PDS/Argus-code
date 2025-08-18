@@ -66,6 +66,11 @@
     td p {
         margin-bottom: 0;
     }
+
+    .dropdown-item, .tres-pontos{
+        z-index: 1000;
+    }
+
 </style>
 @endsection
 
@@ -128,7 +133,7 @@
                         <i id="toggleIconA{{ $supplier->id }}" onclick="seemoreaddresses('{{ $supplier->id }}')" class="bi bi-plus-circle-fill" style="cursor: pointer;"></i>
                     </td>
                     <td>
-                        <x-btn-tres-pontos id="dropdownMenuButton{{ $supplier->id }}">
+                        <x-btn-tres-pontos class="tres-pontos" id="dropdownMenuButton{{ $supplier->id }}">
                             <li>
                                 <a class="dropdown-item" href="{{ route('suppliers.edit', $supplier->id) }}">{{ __('suppliers.edit') }}</a>
                             </li>

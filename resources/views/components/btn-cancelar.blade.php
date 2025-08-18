@@ -9,7 +9,6 @@
     font-size: 0.95rem;
     text-decoration: none;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     margin-right: 8px;
     display: inline-block;
 }

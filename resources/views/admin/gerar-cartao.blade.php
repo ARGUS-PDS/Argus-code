@@ -106,7 +106,6 @@
 
         .btn {
             border-radius: 10px;
-            padding: 0.6rem 1.4rem; 
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
@@ -194,6 +193,16 @@
             margin-bottom: 20px; 
         }
 
+        .btn-voltar{
+            position: fixed;
+            margin-left: 510px;
+            margin-bottom: 0;
+        }
+
+        .btn-bottomm{
+            display: flex;
+        }
+
         /* Estilos de impressão */
         @media print {
             body * {
@@ -220,6 +229,8 @@
                 display: none !important;
             }
         }
+
+        
     </style>
 
 </head>
@@ -227,6 +238,7 @@
 
     <div class="container">
         <h3 class="mb-4">Gerar Cartão de Segurança</h3>
+        
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -257,11 +269,14 @@
                 </select>
             </div>
 
+        <div class="btn-bottom">
+            <x-btn-voltar class="btn-voltar" href="/admin-dashboard" />
             <button type="submit" class="btn btn-primary">Gerar Cartão</button>
+        </div>
         </form>
 
         @if (session('cartao'))
-            <div id="cartao-seguranca" class="card mt-5 p-4 text-center mx-auto">
+        <div id="cartao-seguranca" class="card mt-5 p-4 text-center mx-auto">
                 <h5 class="mb-2">Cartão de Segurança Argus</h5>
                 <p><strong>User:</strong> {{ \App\Models\User::find(session('user_id'))->name }}</p>
                 <p><strong>Número do cartão:</strong> {{ session('cartao') }}</p>
@@ -271,6 +286,7 @@
         @endif
 
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
