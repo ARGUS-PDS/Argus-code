@@ -8,7 +8,9 @@
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="entrada-saida-titulo mb-0">{{ __('stock_movement.title') }}</h2>
     @if($produtoSelecionado)
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLancamento">+ {{ __('stock_movement.new_entry') }}</button>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLancamento">
+      + {{ __('stock_movement.new_entry') }}
+    </button>
     @endif
   </div>
 
@@ -28,6 +30,7 @@
   </div>
   @endif
 
+  {{-- Movimentações --}}
   @if($produtoSelecionado)
   <div class="row">
     <div class="col-lg-9 mb-4">
@@ -57,7 +60,6 @@
               <form action="{{ route('movimentacao.destroy', $mov->id) }}" method="POST" onsubmit="return confirm('{{ __('stock_movement.confirm_delete') }}');">
                 @csrf
                 @method('DELETE')
-
                 <button class="btn btn-sm btn-outline-danger delete-movimentacao" data-id="{{ $mov->id }}" title="{{ __('stock_movement.delete') }}">
                   <i class="bi bi-trash"></i>
                 </button>
@@ -74,23 +76,9 @@
     </div>
     <div class="col-lg-3">
       <div class="painel-resumo text-center">
-        <p class="mb-2">
-          <strong>{{ __('stock_movement.inward') }}:</strong> {{ $entradas_qtd }} (R$ {{ number_format($entradas_valor, 2, ',', '.') }})
-        </p>
-        <p class="mb-2">
-          <strong>{{ __('stock_movement.outward') }}:</strong> {{ $saidas_qtd }} (R$ {{ number_format($saidas_valor, 2, ',', '.') }})
-        </p>
-        <p class="mb-2">
-          <strong>{{ __('stock_movement.current_stock') }}:</strong> {{ $estoque_atual }}
-        </p>
-        <!--
-        <p class="mb-0">
-          <strong>{{ __('stock_movement.profit') }}:</strong>
-          <span style="color: {{ $lucro < 0 ? 'red' : 'green' }}; font-weight: bold">
-            R$ {{ number_format($lucro, 2, ',', '.') }}
-          </span>
-        </p>
-        -->
+        <p class="mb-2"><strong>{{ __('stock_movement.inward') }}:</strong> {{ $entradas_qtd }} (R$ {{ number_format($entradas_valor, 2, ',', '.') }})</p>
+        <p class="mb-2"><strong>{{ __('stock_movement.outward') }}:</strong> {{ $saidas_qtd }} (R$ {{ number_format($saidas_valor, 2, ',', '.') }})</p>
+        <p class="mb-2"><strong>{{ __('stock_movement.current_stock') }}:</strong> {{ $estoque_atual }}</p>
       </div>
     </div>
   </div>
@@ -101,7 +89,7 @@
   @endif
 </div>
 
-{{-- Modal --}}
+{{-- Modal de Lançamento --}}
 @if($produtoSelecionado)
 <div class="modal fade" id="modalLancamento" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
@@ -147,8 +135,15 @@
             <input type="text" name="note" class="form-control">
           </div>
 
+          {{-- Seleção de Lote --}}
           <div class="mb-3">
-            <label class="form-label">{{ __('stock_movement.batch_label') }}</label>
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <label class="form-label">{{ __('stock_movement.batch_label') }}</label>
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLote">
+                + Novo Lote
+              </button>
+            </div>
+
             <select name="batch_id" class="form-select">
               <option value="" disabled selected>{{ __('stock_movement.select_batch') }}</option>
               @foreach($batches as $lote)
@@ -167,12 +162,64 @@
       </div>
     </div>
   </div>
-  <script>
-    function batch() {
-      console.log("clique")
-    }
-  </script>
 </div>
 @endif
+
+<div class="modal fade" id="modalLote" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cadastrar Lote</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formLote" action="{{ route('batches.store') }}" method="POST">
+          @csrf
+          <div class="mb-3">
+            <label class="form-label">Código do Lote</label>
+            <input type="text" class="form-control" name="batch_code" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Data de Validade</label>
+            <input type="date" class="form-control" name="expiration_date" required>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-secondary">Salvar</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById("btnSalvarLote").addEventListener("click", function() {
+    const form = document.getElementById("formLote");
+    const formData = new FormData(form);
+
+    fetch("{{ route('batches.store') }}", {
+        method: "POST",
+        body: formData
+      })
+      .then(async res => {
+        if (!res.ok) throw new Error(await res.text());
+        return res.json();
+      })
+      .then(lote => {
+        const select = document.querySelector('[name="batch_id"]');
+        const option = new Option(`Cód.: ${lote.batch_code} - Val.: ${lote.expiration_date}`, lote.id, true, true);
+        select.add(option);
+
+        // Fecha o modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById("modalLote"));
+        modal.hide();
+
+        form.reset();
+      })
+      .catch(err => console.error("Erro ao salvar lote:", err));
+  });
+</script>
 
 @endsection

@@ -19,5 +19,9 @@ class Movement extends Model
     {
         return $this->belongsTo(Product::class);
     }
-}
 
+    public function batch()
+    {
+        return $this->belongsTo(Batch::class);
+    }
+}

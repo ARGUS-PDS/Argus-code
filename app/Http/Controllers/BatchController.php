@@ -9,7 +9,7 @@ class BatchController extends Controller
 {
     public function index()
     {
-        $batches = Batch::with('products')->get();
+        $batches = Batch::with('movements')->get();
         return view('lote.index', compact('batches'));
     }
 
@@ -21,42 +21,47 @@ class BatchController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'batch_code' => 'required|string|max:100|unique:batch,batch_code',
+        $request->validate([
+            'batch_code' => 'required|string|max:100',
             'expiration_date' => 'required|date',
         ]);
 
-        Batch::create($validated);
-
-        return redirect()->route('batches.index')->with('success', 'Lote criado com sucesso!');
+        try {
+            $batch = Batch::create($request->only('batch_code', 'expiration_date'));
+            return response()->json($batch);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
-    public function show(Batch $batch)
+
+
+    public function show(Batch $batches)
     {
-        $batch->load('products');
-        return view('lote.show', compact('batch'));
+        $batches->load('products');
+        return view('lote.show', compact('batches'));
     }
 
-    public function edit(Batch $batch)
+    public function edit(Batch $batches)
     {
-        return view('lote.edit', compact('batch'));
+        return view('lote.edit', compact('batches'));
     }
 
-    public function update(Request $request, Batch $batch)
+    public function update(Request $request, Batch $batches)
     {
         $validated = $request->validate([
-            'batch_code' => 'required|string|max:100|unique:batch,batch_code,' . $batch->id,
+            'batch_code' => 'required|string|max:100|unique:batches,batch_code,' . $batches->id,
             'expiration_date' => 'required|date',
         ]);
 
-        $batch->update($validated);
+        $batches->update($validated);
 
         return redirect()->route('batches.index')->with('success', 'Lote atualizado com sucesso!');
     }
 
-    public function destroy(Batch $batch)
+    public function destroy(Batch $batches)
     {
-        $batch->delete();
+        $batches->delete();
 
         return redirect()->route('batches.index')->with('success', 'Lote excluído com sucesso!');
     }
