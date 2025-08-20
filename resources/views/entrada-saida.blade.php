@@ -13,15 +13,14 @@
   </div>
 
   {{-- Pesquisa de produto --}}
-  <x-search-bar 
+  <x-search-bar
     name="produto"
     :datalist-options="collect($products->take(5))->map(fn($produto) => [
         'value' => $produto->description,
         'label' => $produto->barcode
     ])->toArray()"
     :value="request('produto')"
-    placeholder="{{ __('stock_movement.search_placeholder') }}"
-  />
+    placeholder="{{ __('stock_movement.search_placeholder') }}" />
 
   @if($produtoSelecionado)
   <div class="mb-3">
@@ -147,7 +146,10 @@
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Lote | Batch</label>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <label class="form-label">Lote | Batch</label>
+              <x-btn-mais onclick="batch()" />
+            </div>
             <select name="batch_id" class="form-select">
               <option value="" disabled selected>Selecione um lote</option>
               @foreach($batches as $lote) <option value="{{ $lote->id }}">
@@ -167,6 +169,11 @@
       </div>
     </div>
   </div>
+  <script>
+    function batch() {
+      console.log("clique")
+    }
+  </script>
 </div>
 @endif
 
