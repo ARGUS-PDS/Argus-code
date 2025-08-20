@@ -49,10 +49,12 @@
             <td>{{ \Carbon\Carbon::parse($mov->date)->format('d/m/Y') }}</td>
             <td>{{ $mov->quantity }}</td>
             <td>R${{ number_format($mov->cost, 2, ',', '.') }}</td>
-            <td style="color: {{ $mov->type == 'inward' ? 'green' : ($mov->type == 'outward' ? 'red' : 'blue') }}">{{ $mov->type == 'inward' ? 'Entrada' : ($mov->type == 'outward' ? 'Saída' : 'Balanço') }}</td>
+            <td style="color: {{ $mov->type == 'inward' ? 'green' : ($mov->type == 'outward' ? 'red' : 'blue') }}">
+              {{ $mov->type == 'inward' ? __('stock_movement.inward') : ($mov->type == 'outward' ? __('stock_movement.outward') : __('stock_movement.balance')) }}
+            </td>
             <td>{{ $mov->note ?? '-' }}</td>
             <td>
-              <form action="{{ route('movimentacao.destroy', $mov->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir esta movimentação?');">
+              <form action="{{ route('movimentacao.destroy', $mov->id) }}" method="POST" onsubmit="return confirm('{{ __('stock_movement.confirm_delete') }}');">
                 @csrf
                 @method('DELETE')
 
@@ -120,7 +122,7 @@
                 <option value="" disabled selected>{{ __('stock_movement.select') }}</option>
                 <option value="inward">{{ __('stock_movement.inward') }}</option>
                 <option value="outward">{{ __('stock_movement.outward') }}</option>
-                <option value="balance">Balanço</option>
+                <option value="balance">{{ __('stock_movement.balance') }}</option>
               </select>
             </div>
             <div class="col">
@@ -146,20 +148,16 @@
           </div>
 
           <div class="mb-3">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <label class="form-label">Lote | Batch</label>
-              <x-btn-mais onclick="batch()" />
-            </div>
+            <label class="form-label">{{ __('stock_movement.batch_label') }}</label>
             <select name="batch_id" class="form-select">
-              <option value="" disabled selected>Selecione um lote</option>
-              @foreach($batches as $lote) <option value="{{ $lote->id }}">
-                {{ $lote->batch_code }} - Validade : {{ $lote->expiration_date }}
+              <option value="" disabled selected>{{ __('stock_movement.select_batch') }}</option>
+              @foreach($batches as $lote)
+              <option value="{{ $lote->id }}">
+                Cód.: {{ $lote->batch_code }} - Val.: {{ $lote->expiration_date }}
               </option>
               @endforeach
             </select>
           </div>
-
-
 
           <div class="d-flex justify-content-end">
             <x-btn-cancelar href="#" data-bs-dismiss="modal" />
