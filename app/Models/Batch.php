@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Batch extends Model
 {
-    protected $table = 'batch';
+    protected $table = 'batches';
 
     protected $fillable = [
         'batch_code',
         'expiration_date',
     ];
 
-    public function products()
+    public function movements()
     {
-        return $this->hasMany(Product::class, 'batch_id');
+        return $this->hasMany(Movement::class);
     }
 }
