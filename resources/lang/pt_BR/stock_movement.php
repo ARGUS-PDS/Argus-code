@@ -15,7 +15,7 @@ return [
 
     'inward' => 'Entrada',
     'outward' => 'Saída',
-    'balance' => 'Saldo',
+    'balance' => 'Balanço',
 
     'no_records' => 'Nenhum lançamento encontrado.',
     'product_not_found' => 'Produto não encontrado.',
