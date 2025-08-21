@@ -13,6 +13,7 @@ class Movement extends Model
         'quantity',
         'cost',
         'note',
+        'batch_id'
     ];
 
     public function product()

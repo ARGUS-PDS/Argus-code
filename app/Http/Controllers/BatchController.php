@@ -32,6 +32,8 @@ class BatchController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
+        return redirect()->to('/entrada-saida?produto=' . urlencode($request->produto))
+            ->with('success', 'Lote cadastrado com sucesso!');
     }
 
 

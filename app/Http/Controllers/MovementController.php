@@ -64,6 +64,7 @@ class MovementController extends Controller
             'quantity'   => 'required|integer|min:1',
             'cost'       => 'required|numeric',
             'note'       => 'nullable|string',
+            'batch_id'   => 'nullable|integer'
         ]);
 
         $movement = Movement::create($request->only([
@@ -72,7 +73,8 @@ class MovementController extends Controller
             'date',
             'quantity',
             'cost',
-            'note'
+            'note',
+            'batch_id'
         ]));
 
         $produto = Product::find($request->product_id);

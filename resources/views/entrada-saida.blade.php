@@ -175,6 +175,7 @@
       <div class="modal-body">
         <form id="formLote" action="{{ route('batches.store') }}" method="POST">
           @csrf
+          <input type="hidden" name="produto" value="{{ request('produto') }}">
           <div class="mb-3">
             <label class="form-label">Código do Lote</label>
             <input type="text" class="form-control" name="batch_code" required>
@@ -185,7 +186,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-secondary">Salvar</button>
+            <button type="submit" class="btn btn-primary">Salvar</button>
           </div>
         </form>
       </div>
