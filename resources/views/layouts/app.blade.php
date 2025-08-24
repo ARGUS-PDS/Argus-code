@@ -57,7 +57,6 @@
                 </ul>
                 
                 <div class="navbar-right-items">
-                    <a href="#"><i class="bi bi-info-circle-fill nav-icon"></i></a>
                     <div class="user-info position-relative">
                         <button title="Meu perfil" id="userMenuBtn" class="btn btn-user-menu d-flex align-items-center" type="button">
                             @if(Auth::user() && Auth::user()->profile_photo_url)
@@ -88,16 +87,21 @@
                                 </label>
                             </form>
                             <div class="mt-3 fw-bold" style="font-size: 20px; color: var(--color-bege-claro);">Olá, {{ Auth::user() ? Auth::user()->name : 'Usuário' }}</div>
-                            <a href="{{ route('logout') }}"
-                                class="logout-container d-inline-flex align-items-center gap-2 mt-3"
+                            
+                            <a href="#"
+                                class="d-block align-items-center gap-2 mt-3"
                                 style="color: var(--color-bege-claro); font-weight: bold; font-size: 1.1rem; text-decoration: none; background: none; border: none; cursor: pointer;"
-                                title="Sair"
-                                onclick="event.preventDefault(); mostrarTelaCarregando(); document.getElementById('logout-form').submit();">
-                                <i class="bi bi-box-arrow-right nav-icon" style="font-size: 1.5rem; color: var(--color-bege-claro);"></i>
-                                <span style="color: var(--color-bege-claro);">Sair</span>
+                                data-bs-toggle="modal" data-bs-target="#modalAlterarSenha">
+                                <i class="bi bi-key-fill nav-icon" style="font-size: 1.5rem; color: var(--color-bege-claro);"></i>
+                                <span style="color: var(--color-bege-claro);">Alterar senha</span>
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                 @csrf
+                                    <button type="submit" class="logout-container mt-3">
+                                        <i class="bi bi-box-arrow-right nav-icon"></i>
+                                        <span>Sair</span>
+                                    </button>
                             </form>
                         </div>
                     </div>
@@ -143,8 +147,171 @@
         @yield('content')
     </main>
 
+    {{-- Modal de Alterar Senha --}}
+    <div class="modal fade" id="modalAlterarSenha" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 px-3 pb-3 pt-2">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Alterar Senha</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="formAlterarSenha" onsubmit="handleChangePassword(event)">
+                        @csrf
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Senha Atual</label>
+                            <div class="password-container position-relative">
+                                <input type="password" name="current_password" class="form-control" required>
+                                <i class="bi bi-eye toggle-password" onclick="togglePassword(this)"></i>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nova Senha</label>
+                            <div class="password-container position-relative">
+                                <input type="password" name="new_password" class="form-control" required minlength="8">
+                                <i class="bi bi-eye toggle-password" onclick="togglePassword(this)"></i>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Confirmar Nova Senha</label>
+                            <div class="password-container position-relative">
+                                <input type="password" name="new_password_confirmation" class="form-control" required minlength="8">
+                                <i class="bi bi-eye toggle-password" onclick="togglePassword(this)"></i>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <x-btn-cancelar data-bs-dismiss="modal" />
+                            <x-btn-salvar />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
     @include('layouts.carregamento')
+
+    <script>
+        // Função para toggle de visibilidade da senha
+        function togglePassword(element) {
+            const input = element.previousElementSibling;
+            if (input.type === 'password') {
+                input.type = 'text';
+                element.classList.add('active');
+                element.classList.remove('bi-eye');
+                element.classList.add('bi-eye-slash');
+            } else {
+                input.type = 'password';
+                element.classList.remove('active');
+                element.classList.remove('bi-eye-slash');
+                element.classList.add('bi-eye');
+            }
+        }
+
+        // Função para lidar com o envio do formulário de alterar senha
+        function handleChangePassword(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const currentPassword = form.querySelector('[name="current_password"]').value;
+            const newPassword = form.querySelector('[name="new_password"]').value;
+            const confirmPassword = form.querySelector('[name="new_password_confirmation"]').value;
+            
+            // Limpa mensagens anteriores
+            clearMessages();
+            
+            // Validações
+            if (newPassword.length < 8) {
+                showMessage('A nova senha deve ter pelo menos 8 caracteres.', 'danger');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showMessage('As senhas não coincidem.', 'danger');
+                return;
+            }
+            
+            if (newPassword === currentPassword) {
+                showMessage('A nova senha deve ser diferente da senha atual.', 'danger');
+                return;
+            }
+            
+            // Se passou pelas validações, mostra mensagem de sucesso (simulando)
+            showMessage('Senha alterada com sucesso! (Funcionalidade em desenvolvimento)', 'success');
+            
+            // Limpa o formulário
+            form.reset();
+            
+            // Fecha o modal após 2 segundos
+            setTimeout(() => {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('modalAlterarSenha'));
+                if (modal) {
+                    modal.hide();
+                }
+            }, 2000);
+        }
+
+        // Função para mostrar mensagens
+        function showMessage(message, type) {
+            const modalBody = document.querySelector('#modalAlterarSenha .modal-body');
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
+            alertDiv.innerHTML = `
+                <i class="bi bi-${type === 'success' ? 'check-circle-fill' : 'exclamation-triangle-fill'} me-2"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            // Insere a mensagem antes do formulário
+            const form = modalBody.querySelector('form');
+            modalBody.insertBefore(alertDiv, form);
+        }
+
+        // Função para limpar mensagens
+        function clearMessages() {
+            const alerts = document.querySelectorAll('#modalAlterarSenha .alert');
+            alerts.forEach(alert => alert.remove());
+        }
+
+        // Limpa mensagens quando o modal é fechado
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('modalAlterarSenha');
+            if (modal) {
+                modal.addEventListener('hidden.bs.modal', function() {
+                    clearMessages();
+                    const form = this.querySelector('form');
+                    if (form) {
+                        form.reset();
+                    }
+                });
+            }
+
+            // Adiciona classe modal-open ao body quando qualquer modal abrir
+            const allModals = document.querySelectorAll('.modal');
+            allModals.forEach(modal => {
+                modal.addEventListener('show.bs.modal', function() {
+                    document.body.classList.add('modal-open');
+                    
+                    // Se for o modal de alterar senha, fecha o modal do usuário
+                    if (this.id === 'modalAlterarSenha') {
+                        const userMenuPanel = document.getElementById('userMenuPanel');
+                        if (userMenuPanel) {
+                            userMenuPanel.style.display = 'none';
+                        }
+                    }
+                });
+                
+                modal.addEventListener('hidden.bs.modal', function() {
+                    document.body.classList.remove('modal-open');
+                });
+            });
+        });
+    </script>
 </body>
 </html>

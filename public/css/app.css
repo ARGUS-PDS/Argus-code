@@ -90,21 +90,35 @@ body {
     background-color: var(--color-vinho-fundo);
 }
 
-    .logout-container .lang-label {
-        opacity: 0;
-        width: 0;
-        overflow: hidden;
-        transition: opacity 0.3s, width 0.3s;
-        color: var(--color-vinho);
-    }
-    
-    .logout-container:hover .lang-label,
-    .logout-container:hover .nav-icon {
-        opacity: 1;
-        width: auto;
-        color: var(--color-vinho);
-    }
 
+.logout-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    border: 2px solid var(--color-bege-claro);
+    background: var(--color-bege-claro);
+    color: var(--color-vinho);
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.logout-container:hover {
+    background: var(--color-vinho);
+    color: var(--color-bege-claro);
+}
+
+.logout-container .nav-icon {
+    font-size: 1.2rem;
+    color: inherit !important;
+}
+
+.logout-container .nav-icon:hover {
+    color: inherit !important;
+}
 
 @media (min-width: 992px) {
     .navbar-nav .dropdown:hover .dropdown-menu {
@@ -269,4 +283,134 @@ body {
     max-height:100px;
     min-height: 100px;
     vertical-align: middle !important;
+}
+
+/* Estilos para o modal de alterar senha */
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--color-gray-medio);
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: var(--color-vinho);
+}
+
+.toggle-password.active {
+    color: var(--color-vinho);
+}
+
+/* Estilos para o modal */
+.modal-content {
+    border: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--color-gray-claro);
+    padding-bottom: 1rem;
+}
+
+.modal-title {
+    color: var(--color-vinho);
+}
+
+.form-label {
+    color: var(--color-vinho);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    color: var(--color-vinho);
+    border: 1.5px solid var(--color-vinho-fundo);
+    border-radius: 12px;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--color-vinho);
+    box-shadow: 0 0 0 0.25rem var(--color-vinho-fundo-transparente);
+    outline: none;
+}
+
+.form-select {
+    color: var(--color-vinho);
+    border: 1.5px solid var(--color-vinho-fundo);
+    border-radius: 12px;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.05rem;
+    transition: all 0.3s ease;
+}
+
+.form-select:focus {
+    border-color: var(--color-vinho);
+    box-shadow: 0 0 0 0.25rem var(--color-vinho-fundo-transparente);
+    outline: none;
+}
+
+.form-select option {
+    background-color: var(--color-bege-claro);
+    color: var(--color-vinho);
+}
+
+.form-select option:hover,
+.form-select option:checked {
+    background-color: var(--color-vinho-fundo);
+    color: var(--color-vinho-claro);
+}
+
+body.modal-open .navbar {
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+body.modal-open .navbar * {
+    pointer-events: none;
+}
+
+/* Restaura o navbar quando o modal é fechado */
+body:not(.modal-open) .navbar {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.btn-primary {
+    background-color: var(--color-vinho);
+    border-color: var(--color-vinho);
+    color: var(--color-white);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-vinho-escuro);
+    border-color: var(--color-vinho-escuro);
+}
+
+.btn-secondary {
+    background-color: var(--color-gray);
+    border-color: var(--color-gray);
+    color: var(--color-white);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-gray-escuro);
+    border-color: var(--color-gray-escuro);
 }
