@@ -462,7 +462,7 @@ function fetchProducts(page = 1) {
     .then(data => {
         renderProductsTable(data.data);
         renderPagination(data.current_page, data.last_page);
-        document.querySelector('.ms-4.fw-bold').textContent = `Estoque: ${data.data.length}/${data.total}`;
+        document.querySelector('.ms-4.fw-bold').textContent = `Estoque atual: ${data.data.length}/${data.total}`;
     });
 }
 
