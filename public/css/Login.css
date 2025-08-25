@@ -280,9 +280,9 @@ body {
     }
 }
 #toast-contato {
-    position: absolute; /* mudar de fixed para absolute */
-    bottom: 10px; /* distância do final do painel */
-    left: 50%; /* centraliza horizontalmente */
+    position: absolute; 
+    bottom: 10px; 
+    left: 50%; 
     transform: translateX(-50%);
     background: #4caf50;
     color: #fff;
