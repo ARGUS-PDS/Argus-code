@@ -1,15 +1,14 @@
 let isCnpjValid = false;
 let isPasswordValid = false;
 let doPasswordsMatch = false;
+let isEmailValid = false;
 
 function showJsError(message, duration = 5000) {
     const container = document.getElementById("jsErrorContainer");
     const msg = document.getElementById("jsErrorMessage");
     msg.textContent = message;
-
     container.classList.remove("d-none");
     setTimeout(() => container.classList.add("alert-show"), 50);
-
     setTimeout(() => {
         container.classList.remove("alert-show");
         setTimeout(() => container.classList.add("d-none"), 400);
@@ -58,6 +57,21 @@ document.getElementById("cnpj").addEventListener("blur", async function () {
     }
 });
 
+const userEmail = document.getElementById("user_email");
+userEmail.addEventListener("blur", function () {
+    const email = this.value.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        isEmailValid = false;
+        showJsError(
+            "Por favor, insira um e-mail válido (ex: exemplo@dominio.com)."
+        );
+        this.focus();
+    } else {
+        isEmailValid = true;
+    }
+});
+
 document.getElementById("companyForm").addEventListener("submit", function (e) {
     if (!isPasswordValid) {
         e.preventDefault();
@@ -72,6 +86,12 @@ document.getElementById("companyForm").addEventListener("submit", function (e) {
     if (!isCnpjValid) {
         e.preventDefault();
         showJsError("CNPJ inválido. Verifique antes de salvar.");
+        return;
+    }
+    if (!isEmailValid) {
+        e.preventDefault();
+        showJsError("Por favor, insira um e-mail válido.");
+        userEmail.focus();
         return;
     }
 });
@@ -105,13 +125,11 @@ function checkPasswordStrength(password) {
     const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(
         password
     );
-
     updateRequirement("lengthReq", hasMinLength);
     updateRequirement("uppercaseReq", hasUpperCase);
     updateRequirement("lowercaseReq", hasLowerCase);
     updateRequirement("numberReq", hasNumber);
     updateRequirement("specialReq", hasSpecialChar);
-
     const strength =
         (hasMinLength +
             hasUpperCase +
@@ -122,7 +140,6 @@ function checkPasswordStrength(password) {
     const strengthBar = document.getElementById("passwordStrengthBar");
     const feedbackElement = document.getElementById("passwordFeedback");
     strengthBar.style.width = strength + "%";
-
     if (strength < 40) {
         feedbackElement.textContent = "Força da senha: fraca";
         strengthBar.className = "progress-bar bg-danger";
@@ -133,7 +150,6 @@ function checkPasswordStrength(password) {
         feedbackElement.textContent = "Força da senha: forte";
         strengthBar.className = "progress-bar bg-success";
     }
-
     isPasswordValid =
         hasMinLength &&
         hasUpperCase &&
@@ -164,7 +180,6 @@ function checkPasswordMatch() {
         "user_password_confirmation"
     ).value;
     const feedbackElement = document.getElementById("passwordMatchFeedback");
-
     if (confirmPassword === "") {
         feedbackElement.style.display = "none";
         doPasswordsMatch = false;
