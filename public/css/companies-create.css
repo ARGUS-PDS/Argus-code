@@ -142,25 +142,6 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.alert {
-    border-radius: 10px;
-    padding: 15px 20px;
-    font-size: 1rem;
-    margin-bottom: 20px;
-}
-
-.alert-success {
-    background-color: var(--bs-alert-bg-success) !important;
-    color: var(--color-green) !important;
-    border-color: var(--bs-alert-border-success) !important;
-}
-
-.alert-danger {
-    background-color: var(--bs-alert-bg-danger) !important;
-    color: var(--color-red) !important;
-    border-color: var(--bs-alert-border-danger) !important;
-}
-
 .password-container {
     position: relative;
     width: 100%;
@@ -185,6 +166,96 @@ body {
     color: var(--color-vinho);
 }
 
+.password-strength {
+    margin-top: 10px;
+}
+
+.password-feedback {
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+.password-requirements {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.requirement {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 0.8rem;
+}
+
+.requirement i {
+    margin-right: 5px;
+}
+
+.requirement.valid {
+    color: #198754;
+}
+
+.requirement.invalid {
+    color: #dc3545;
+}
+
+.progress {
+    height: 8px;
+    margin-bottom: 5px;
+}
+
+.password-match-feedback {
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: none;
+}
+
+.password-match-feedback.valid {
+    color: #198754;
+    display: block;
+}
+
+.password-match-feedback.invalid {
+    color: #dc3545;
+    display: block;
+}
+
+.alert-custom {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 12px;
+    padding: 15px 20px;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.alert-show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.alert-danger-custom {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+.alert-danger-custom ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.alert-danger-custom i {
+    font-size: 1.2rem;
+    margin-top: 3px;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .container-card {
@@ -193,35 +264,43 @@ body {
         margin-right: 15px;
         width: calc(100% - 30px);
     }
+
     .header-section {
         flex-direction: column;
         align-items: flex-start;
         gap: 15px;
         margin-bottom: 20px;
     }
+
     .header-section h2 {
         font-size: 1.8rem;
     }
+
     .section-card {
         padding: 20px;
         margin-bottom: 20px;
     }
+
     .section-card .card-title {
         font-size: 1.2rem;
         margin-bottom: 15px;
     }
+
     .form-label {
         font-size: 0.9rem;
     }
+
     .form-control,
     .form-select {
         padding: 10px 15px;
     }
+
     .action-buttons {
         justify-content: center;
         flex-direction: column;
         gap: 10px;
     }
+
     .action-buttons .btn {
         width: 100%;
     }
