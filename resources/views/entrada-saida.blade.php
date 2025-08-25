@@ -148,7 +148,7 @@
               <option value="" disabled selected>{{ __('stock_movement.select_batch') }}</option>
               @foreach($batches as $lote)
               <option value="{{ $lote->id }}">
-                Cód.: {{ $lote->batch_code }} - Val.: {{ $lote->expiration_date }}
+                Cód.: {{ $lote->batch_code }} - Val.: {{ \Carbon\Carbon::parse($lote->expiration_date)->format('d/m/Y') }}
               </option>
               @endforeach
             </select>
@@ -186,7 +186,9 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <x-btn-salvar />
+            <button type="button" id="btnSalvarLote" class="btn btn-primary">
+              Salvar
+            </button>
           </div>
         </form>
       </div>
