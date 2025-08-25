@@ -25,6 +25,7 @@ Route::get('/admin-dashboard', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
+    Route::get('/dashboard/vendas', [AdminController::class, 'vendas'])->name('dashboard.vendas');
     Route::get('/admin-dashboard', function () {
         return view('admin.admin-dashboard');
     });

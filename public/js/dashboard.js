@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+  Chart.register(ChartDataLabels);
+  
   let draggedGroup = null;
   const dashboardRow = document.getElementById('dashboard-row');
   const chartRow = document.getElementById('dashboard-chart-row');
@@ -74,6 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const vinho = rootStyles.getPropertyValue('--color-vinho').trim();
   const vinhoFundo = rootStyles.getPropertyValue('--color-vinho-fundo').trim();
   const begeClaro = rootStyles.getPropertyValue('--color-bege-claro').trim();
+  const begeClaroFundo = rootStyles.getPropertyValue('--color-bege-claro-fundo').trim();
   const branco = rootStyles.getPropertyValue('--color-white').trim();;
 
   // cria o gráfico vazio logo no início
@@ -81,69 +84,213 @@ document.addEventListener('DOMContentLoaded', function () {
   const vendasTempoChart = new Chart(ctxTempo, {
     type: 'line',
     data: {
-      labels: [], // começa vazio
+      labels: [],
       datasets: [{
-        label: 'Vendas',
+        label: 'Vendas (R$)',
         data: [],
         borderColor: vinho,
         backgroundColor: vinhoFundo,
         tension: 0.4,
         fill: true,
         pointBackgroundColor: vinho,
-        pointBorderColor: vinhoFundo,
-        pointRadius: 5,
+        pointBorderColor: branco,
+        pointRadius: 8,
+        pointHoverRadius: 10,
+        pointBorderWidth: 3,
+        borderWidth: 4,
       }]
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
+
+      layout: {
+        padding: {
+          top: 30,
+          right: 30,
+          bottom: 10,
+          left: 10
+        }
+      },
+
       plugins: {
-        legend: { display: false }
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: begeClaro,
+          titleColor: vinho,
+          bodyColor: vinho,
+          borderColor: begeClaroFundo,
+          borderWidth: 1,
+          cornerRadius: 8,
+          displayColors: false,
+          callbacks: {
+            title: function(context) {
+              return context[0].label;
+            },
+            label: function(context) {
+              return 'R$ ' + context.parsed.y.toLocaleString('pt-BR', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              });
+            }
+          }
+        },
+        // Plugin personalizado para mostrar valores sempre visíveis
+        customCanvasBackgroundColor: {
+          beforeDraw: (chart) => {
+            const ctx = chart.ctx;
+            ctx.save();
+            ctx.globalCompositeOperation = 'destination-over';
+            ctx.fillStyle = 'transparent';
+            ctx.fillRect(0, 0, chart.width, chart.height);
+            ctx.restore();
+          }
+        },
+        // Plugin para mostrar valores nos pontos
+        datalabels: {
+          color: vinho,
+          anchor: 'end',
+          align: 'top',
+          offset: 8,
+          font: {
+            weight: 'bold',
+            size: 11
+          },
+          formatter: function(value) {
+            return 'R$ ' + value.toLocaleString('pt-BR', {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2
+            });
+          }
+        }
       },
       scales: {
         x: { 
-          grid: { display: false },
-          ticks: { stepSize: 1, color: vinho }  
+          grid: { 
+            display: false
+          },
+          ticks: { 
+            color: vinho,
+            font: {
+              size: 12,
+              weight: '600'
+            }
+          },
+          border: {
+            display: false
+          }
         },
         
         y: {
-          beginAtZero: true,
-          ticks: { stepSize: 1, color: vinho },
-          suggestedMax: 5,
-          grid: { display: false }
+          display: false,
+          beginAtZero: true
         }      
+      },
+      interaction: {
+        intersect: false,
+        mode: 'index'
+      },
+      elements: {
+        point: {
+          hoverBackgroundColor: vinhoFundo,
+          hoverBorderColor: vinho
+        }
       }
     }
   });
 
   const canvas = document.getElementById('vendasTempoChart');
 
-canvas.addEventListener('mouseenter', () => {
-  vendasTempoChart.options.scales.x.ticks.color = begeClaro;
-  vendasTempoChart.options.scales.y.ticks.color = begeClaro;
-  vendasTempoChart.update();
-});
+  canvas.addEventListener('mouseenter', () => {
+    vendasTempoChart.options.scales.x.ticks.color = begeClaro;
+    vendasTempoChart.options.scales.y.ticks.color = begeClaro;
 
-canvas.addEventListener('mouseleave', () => {
-  vendasTempoChart.options.scales.x.ticks.color = vinho;
-  vendasTempoChart.options.scales.y.ticks.color = vinho;
-  vendasTempoChart.update();
-});
+    vendasTempoChart.options.elements.point.hoverBackgroundColor = begeClaroFundo;
+    vendasTempoChart.options.elements.point.hoverBorderColor = begeClaro;
+    
+    vendasTempoChart.options.plugins.datalabels.color = begeClaro;
+
+    vendasTempoChart.data.datasets[0].borderColor = begeClaro; 
+    vendasTempoChart.data.datasets[0].backgroundColor = begeClaroFundo; 
+    vendasTempoChart.update();
+  });
+
+
+  canvas.addEventListener('mouseleave', () => {
+    vendasTempoChart.options.scales.x.ticks.color = vinho;
+    vendasTempoChart.options.scales.y.ticks.color = vinho;
+
+    vendasTempoChart.options.elements.point.hoverBackgroundColor = vinhoFundo;
+    vendasTempoChart.options.elements.point.hoverBorderColor = vinho;
+
+    vendasTempoChart.options.plugins.datalabels.color = vinho;
+
+    vendasTempoChart.data.datasets[0].borderColor = vinho;
+    vendasTempoChart.data.datasets[0].backgroundColor = vinhoFundo;
+    vendasTempoChart.update();
+  });
 
 
   function carregarDados(periodo) {
+    // Mostra loading
+    const canvas = document.getElementById('vendasTempoChart');
+    canvas.style.opacity = '0.5';
+    
+    // Atualiza texto do botão ativo
+    const btnAtivo = document.querySelector(`[data-periodo="${periodo}"]`);
+    if (btnAtivo) {
+      btnAtivo.innerHTML = '<i class="bi bi-arrow-clockwise spin"></i> Carregando...';
+      btnAtivo.disabled = true;
+    }
+
     fetch(`/dashboard/vendas?periodo=${periodo}`)
       .then(res => res.json())
       .then(dados => {
+        if (dados.length === 0) {
+          vendasTempoChart.data.labels = ['Nenhuma venda'];
+          vendasTempoChart.data.datasets[0].data = [0];
+          vendasTempoChart.update();
+          return;
+        }
+
         const labels = dados.map(d => d.label);
         const valores = dados.map(d => d.total);
   
         vendasTempoChart.data.labels = labels;
         vendasTempoChart.data.datasets[0].data = valores;
+        
+        vendasTempoChart.options.scales.y.ticks.callback = function(value) {
+          return 'R$ ' + value.toLocaleString('pt-BR');
+        };
+        
+        vendasTempoChart.update('active');
+      })
+      .catch(error => {
+        console.error('Erro ao carregar dados:', error);
+        vendasTempoChart.data.labels = ['Erro ao carregar'];
+        vendasTempoChart.data.datasets[0].data = [0];
         vendasTempoChart.update();
+      })
+      .finally(() => {
+        // Restaura estado normal
+        canvas.style.opacity = '1';
+        if (btnAtivo) {
+          btnAtivo.innerHTML = getPeriodoLabel(periodo);
+          btnAtivo.disabled = false;
+        }
       });
   }
-  
-  // quando a página carrega, já busca "mes" como padrão
+
+  // Função para obter o label correto do período
+  function getPeriodoLabel(periodo) {
+    const labels = {
+      'dia': 'Dia',
+      //'semana': 'Semana', 
+      'mes': 'Mês',
+      'ano': 'Ano'
+    };
+    return labels[periodo] || periodo;
+  }
   carregarDados('mes');
   
   // clique nos botões

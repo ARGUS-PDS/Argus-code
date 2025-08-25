@@ -2,6 +2,7 @@
 :root {
   --color-bege-card-interno: #fcf5ee;
   --color-bege-claro: #f8f0e5;
+  --color-bege-claro-fundo:rgba(248, 240, 229, 0.5);
   --color-bege-medio: #C6A578;
   --color-bege-escuro: #8d6b48;
   

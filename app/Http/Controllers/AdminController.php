@@ -99,4 +99,114 @@ class AdminController extends Controller
             'produtos_estoque_zerado' => $alertas['zerado'],
         ]);
     }
+
+    public function vendas(Request $request)
+    {
+        $periodo = $request->get('periodo', 'mes');
+        $vendas = collect();
+
+        switch ($periodo) {
+            case 'dia':
+                // Últimos 7 dias - movimentações de saída (vendas)
+                $vendas = \App\Models\Movement::where('type', 'outward')
+                    ->where('note', 'like', 'Venda ID:%')
+                    ->whereDate('date', '>=', now()->subDays(7))
+                    ->selectRaw('DATE(date) as data, SUM(cost * quantity) as total')
+                    ->groupBy('data')
+                    ->orderBy('data')
+                    ->get()
+                    ->keyBy('data');
+
+                $vendasCompletas = collect();
+                for ($i = 6; $i >= 0; $i--) {
+                    $data = now()->subDays($i)->format('Y-m-d');
+                    $total = $vendas->get($data, (object)['total' => 0])->total;
+                    $vendasCompletas->push([
+                        'label' => now()->subDays($i)->format('d/m'),
+                        'total' => (float) $total
+                    ]);
+                }
+                $vendas = $vendasCompletas;
+                break;
+
+            /*
+            case 'semana':
+                // Últimas 8 semanas - movimentações de saída (vendas)
+                $vendas = \App\Models\Movement::where('type', 'outward')
+                    ->where('note', 'like', 'Venda ID:%')
+                    ->where('date', '>=', now()->subWeeks(8))
+                    ->selectRaw('YEARWEEK(date, 1) as semana, SUM(cost * quantity) as total')
+                    ->groupBy('semana')
+                    ->orderBy('semana')
+                    ->get()
+                    ->keyBy('semana');
+
+                // Preenche todas as semanas, mesmo sem vendas
+                $vendasCompletas = collect();
+                for ($i = 7; $i >= 0; $i--) {
+                    $semana = now()->subWeeks($i)->format('o-W');
+                    $total = $vendas->get($semana, (object)['total' => 0])->total;
+                    $vendasCompletas->push([
+                        'label' => 'Sem ' . now()->subWeeks($i)->format('W'),
+                        'total' => (float) $total
+                    ]);
+                }
+                $vendas = $vendasCompletas;
+                break;
+            */
+            case 'mes':
+                // Últimos 6 meses - movimentações de saída (vendas)
+                $vendas = \App\Models\Movement::where('type', 'outward')
+                    ->where('note', 'like', 'Venda ID:%')
+                    ->where('date', '>=', now()->subMonths(6))
+                    ->selectRaw('YEAR(date) as ano, MONTH(date) as mes, SUM(cost * quantity) as total')
+                    ->groupBy('ano', 'mes')
+                    ->orderBy('ano')
+                    ->orderBy('mes')
+                    ->get()
+                    ->keyBy(function($item) {
+                        return $item->ano . '-' . str_pad($item->mes, 2, '0', STR_PAD_LEFT);
+                    });
+
+                // Preenche todos os meses, mesmo sem vendas
+                $vendasCompletas = collect();
+                for ($i = 5; $i >= 0; $i--) {
+                    $data = now()->subMonths($i);
+                    $chave = $data->format('Y-m');
+                    $total = $vendas->get($chave, (object)['total' => 0])->total;
+                    $vendasCompletas->push([
+                        'label' => $data->format('M/Y'),
+                        'total' => (float) $total
+                    ]);
+                }
+                $vendas = $vendasCompletas;
+                break;
+
+            case 'ano':
+                // Últimos 3 anos - movimentações de saída (vendas)
+                $vendas = \App\Models\Movement::where('type', 'outward')
+                    ->where('note', 'like', 'Venda ID:%')
+                    ->where('date', '>=', now()->subYears(3))
+                    ->selectRaw('YEAR(date) as ano, SUM(cost * quantity) as total')
+                    ->groupBy('ano')
+                    ->orderBy('ano')
+                    ->get()
+                    ->keyBy('ano');
+
+                // Preenche todos os anos, mesmo sem vendas
+                $vendasCompletas = collect();
+                for ($i = 2; $i >= 0; $i--) {
+                    $ano = now()->subYears($i)->format('Y');
+                    $total = $vendas->get($ano, (object)['total' => 0])->total;
+                    $vendasCompletas->push([
+                        'label' => $ano,
+                        'total' => (float) $total
+                    ]);
+                }
+                $vendas = $vendasCompletas;
+                break;
+        }
+
+        return response()->json($vendas);
+    }
 }
