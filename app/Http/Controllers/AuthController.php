@@ -29,21 +29,21 @@ class AuthController extends Controller
 
             if (trim($user->cartao_seg) !== $cartao_seg) {
                 Auth::logout();
-                throw ValidationException::withMessages([
+                return back()->withErrors([
                     'cartao_seg' => 'Cartão de segurança inválido.'
-                ]);
+                ])->withInput();
             }
 
             $request->session()->regenerate();
 
-            return $user->email === 'argus@adm.com.br' 
+            return $user->email === 'argus@adm.com.br'
                 ? redirect('/admin-dashboard')
                 : redirect()->intended('/dashboard');
         }
 
-        throw ValidationException::withMessages([
+        return back()->withErrors([
             'email' => 'Credenciais inválidas.'
-        ]);
+        ])->withInput();
     }
 
     public function uploadPhoto(Request $request)

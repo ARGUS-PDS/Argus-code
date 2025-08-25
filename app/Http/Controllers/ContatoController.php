@@ -30,7 +30,6 @@ class ContatoController extends Controller
             }
         );
 
-        return back()->with('success_contato', 'Mensagem enviada com sucesso!');
+        return redirect()->back()->with('contato_enviado', true);
     }
 }
-
