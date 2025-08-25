@@ -546,7 +546,8 @@
             const removeBtn = document.getElementById('removeBtn');
 
             function atualizarDescricao() {
-                if (nameInput && codeInput) {
+                function atualizarDescricao() {
+                if (nameInput && codeInput && !codeInput.value) {
                     codeInput.value = nameInput.value.toLowerCase();
                 }
             }

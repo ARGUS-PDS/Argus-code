@@ -3,7 +3,7 @@
 return [
     'title' => 'Products',
     'search_placeholder' => 'Search...',
-    'current_stock' => 'Current stock',
+    'current_stock' => 'Stock',
     'image' => 'Image',
     'name' => 'Name',
     'supplier' => 'Supplier',

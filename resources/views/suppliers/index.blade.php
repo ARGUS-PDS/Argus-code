@@ -51,7 +51,7 @@
 
     .table-responsive {
         border-radius: 15px;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .img-thumb {
