@@ -47,7 +47,7 @@
           <i class="toggle-password fas fa-eye" onclick="togglePassword('cartao_seg', this)"></i>
         </div>
 
-        <a href="#">Sua senha venceu?</a>
+        <a href="#" onclick="abrirModal()">Sua senha venceu?</a>
         <button onclick="mostrarTelaCarregando()" class="botao-input" type="submit">Entrar</button>
       </form>
     </div>
@@ -86,11 +86,37 @@
         <div class="painel-alternativo painel-direito">
           <h1>Olá!</h1>
           <p>Entre em contato conosco agora e simplifique sua gestão de estoque de maneira inteligente!</p>
-          <button class="botao-input hidden" id="registrar">Registrar</button>
+          <button class="botao-input" id="registrar">Registrar</button>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Modal de Suporte -->
+  <div id="modal-suporte" class="modal" style="display: {{ $errors->any() && old('email') ? 'flex' : (session('contato_enviado') ? 'flex' : 'none') }}">
+    <div class="modal-content formulario-container">
+      <span class="close" onclick="fecharModal()">&times;</span>
+      <h2>Solicitar Suporte</h2>
+      <form method="POST" action="{{ route('senha.vencida') }}">
+        <div class="error-container">
+          @if(session('contato_enviado'))
+              <div class="alert alert-success">Solicitação enviada com sucesso!</div>
+          @endif
+          @if ($errors->suporte->any())
+            @foreach ($errors->suporte->all() as $error)
+                <div class="alert alert-danger">{{ $error }}</div>
+            @endforeach
+        @endif
+      </div>
+        @csrf
+        <input type="email" name="email" placeholder="Seu Email" required>
+        <input type="text" name="cartao_seg" placeholder="Final do cartão de segurança" required pattern="\d{4}">
+        <button class="botao-input" type="submit">Enviar</button>
+      </form>
+    </div>
+  </div>
+
+
 
   <script src="https://unpkg.com/vanilla-masker/build/vanilla-masker.min.js"></script>
 
@@ -100,6 +126,30 @@
 
   <script>
   window.contatoEnviado = <?php echo json_encode(session('contato_enviado', false)); ?>;
+  </script>
+
+  <script>
+    @if ($errors->suporte->any() || session('contato_enviado'))
+        document.getElementById("modal-suporte").style.display = "flex";
+    @endif
+  </script>
+
+  <script>
+    function abrirModal() {
+      document.getElementById("modal-suporte").style.display = "flex";
+    }
+
+    function fecharModal() {
+      document.getElementById("modal-suporte").style.display = "none";
+    }
+
+
+    window.onclick = function(event) {
+      let modal = document.getElementById("modal-suporte");
+      if (event.target == modal) {
+        fecharModal();
+      }
+    }
   </script>
 
   <script src="{{ asset('js/login.js') }}"></script>

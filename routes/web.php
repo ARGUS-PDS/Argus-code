@@ -14,6 +14,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\BatchController;
+use App\Http\Controllers\SupportController;
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -114,6 +115,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::resource('batches', BatchController::class);
+
+    Route::post('/senha-vencida', [SupportController::class, 'senhaVencida'])->name('senha.vencida');
 
     Route::get('/admin/dashboard', function () {
         return view('admin.admin-dashboard');
