@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       layout: {
         padding: {
-          top: 30,
+          top: 35,
           right: 30,
           bottom: 10,
           left: 10
@@ -236,9 +236,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const canvas = document.getElementById('vendasTempoChart');
     canvas.style.opacity = '0.5';
     
-    // Atualiza texto do botão ativo
     const btnAtivo = document.querySelector(`[data-periodo="${periodo}"]`);
     if (btnAtivo) {
+      btnAtivo.innerHTML = 'Carregando...';
       btnAtivo.disabled = true;
     }
 

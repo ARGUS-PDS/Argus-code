@@ -121,8 +121,11 @@ class AdminController extends Controller
                 // Últimos 7 dias - movimentações de saída (vendas)
                 $vendas = \App\Models\Movement::where('type', 'outward')
                     ->where('note', 'like', 'Venda ID:%')
-                    ->whereDate('date', '>=', now()->subDays(7))
-                    ->selectRaw('DATE(date) as data, SUM(cost * quantity) as total')
+                    ->where(function($query) {
+                        $query->whereDate('date', '>=', now()->subDays(7))
+                              ->orWhereDate('created_at', '>=', now()->subDays(7));
+                    })
+                    ->selectRaw('COALESCE(DATE(date), DATE(created_at)) as data, SUM(cost * quantity) as total')
                     ->groupBy('data')
                     ->orderBy('data')
                     ->get()
@@ -169,8 +172,11 @@ class AdminController extends Controller
                 // Últimos 6 meses - movimentações de saída (vendas)
                 $vendas = \App\Models\Movement::where('type', 'outward')
                     ->where('note', 'like', 'Venda ID:%')
-                    ->where('date', '>=', now()->subMonths(6))
-                    ->selectRaw('YEAR(date) as ano, MONTH(date) as mes, SUM(cost * quantity) as total')
+                    ->where(function($query) {
+                        $query->whereDate('date', '>=', now()->subMonths(6))
+                              ->orWhereDate('created_at', '>=', now()->subMonths(6));
+                    })
+                    ->selectRaw('YEAR(COALESCE(date, created_at)) as ano, MONTH(COALESCE(date, created_at)) as mes, SUM(cost * quantity) as total')
                     ->groupBy('ano', 'mes')
                     ->orderBy('ano')
                     ->orderBy('mes')
@@ -197,8 +203,11 @@ class AdminController extends Controller
                 // Últimos 3 anos - movimentações de saída (vendas)
                 $vendas = \App\Models\Movement::where('type', 'outward')
                     ->where('note', 'like', 'Venda ID:%')
-                    ->where('date', '>=', now()->subYears(3))
-                    ->selectRaw('YEAR(date) as ano, SUM(cost * quantity) as total')
+                    ->where(function($query) {
+                        $query->whereDate('date', '>=', now()->subYears(3))
+                              ->orWhereDate('created_at', '>=', now()->subYears(3));
+                    })
+                    ->selectRaw('YEAR(COALESCE(date, created_at)) as ano, SUM(cost * quantity) as total')
                     ->groupBy('ano')
                     ->orderBy('ano')
                     ->get()

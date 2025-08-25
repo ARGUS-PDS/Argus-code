@@ -97,7 +97,6 @@
       <div class="grafico-toolbar">
         <button class="grafico-btn" data-periodo="ano">{{ __('dashboard.year') }}</button>
         <button class="grafico-btn active" data-periodo="mes">{{ __('dashboard.month') }}</button>
-        <button class="grafico-btn" data-periodo="semana">{{ __('dashboard.week') }}</button>
         <button class="grafico-btn" data-periodo="dia">{{ __('dashboard.day') }}</button>
       </div>
       <h5>{{ __('dashboard.sales') }}</h5>
@@ -145,6 +144,7 @@
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 <script src="{{ asset('js/dashboard.js') }}"></script>
 
 @endsection
