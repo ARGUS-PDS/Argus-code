@@ -8,18 +8,21 @@
   <div class="col-md-4">
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.prod_valid_title') }}</h5>
-      @if($produtos_validade->count())
+      <!-- @foreach($lotes_validade_proximas as $lote)
+      <li>
+        <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+        {{ $lote->batch_code }} - {{ \Carbon\Carbon::parse($lote->expiration_date)->format('d/m/Y') }} <span style="color: var(--color-orange); font-weight: bold;">(Lotes listados)</span>
+      </li>
+      @endforeach -->
       <ul class="mt-2 scrollable-list">
-        @foreach($produtos_validade as $produto)
-        <li><i class="bi bi-calendar-x text-danger"></i> {{ $produto->description }} - {{ __('dashboard.expires_in') }} {{ intval(max(0, now()->diffInDays(\Carbon\Carbon::parse($produto->expiration_date), false))) }} {{ __('dashboard.days') }} ({{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})</li>
+        @foreach($produtos_lote as $produto)
+        <li>
+          <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+          {{ $produto->description }} - Lote: {{ $produto->batch_code }}
+          (Validade: {{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})
+        </li>
         @endforeach
       </ul>
-      @else
-      <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
-        <i class="bi bi-calendar-x" style="font-size: 2.5rem; color: var(--color-vinho);"></i>
-        <span class="fw-bold text-center mt-2" style="color: var(--color-vinho);">{{ __('dashboard.no_news') }}</span>
-      </div>
-      @endif
     </div>
   </div>
 
@@ -53,7 +56,7 @@
   <div class="col-md-4">
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.alerts_title') }}</h5>
-      @if($produtos_vencidos->count() || $produtos_estoque_minimo->count() || $produtos_estoque_baixo->count() || $produtos_estoque_zerado->count() || $lotes_validade->count() || $lotes_validade_proximas->count())
+      @if($produtos_vencidos->count() || $produtos_estoque_minimo->count() || $produtos_estoque_baixo->count() || $produtos_estoque_zerado->count() || $lotes_validade_proximas->count() || $produtos_lote->count())
       <ul class="mt-2 scrollable-list">
         @foreach($produtos_vencidos as $produto)
         <li>
@@ -62,19 +65,6 @@
         </li>
         @endforeach
 
-        @foreach($lotes_validade_proximas as $lote)
-        <li>
-          <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
-          {{ $lote->batch_code }} <span style="color: var(--color-orange); font-weight: bold;">(Lote próximo do vencimento)</span>
-        </li>
-        @endforeach
-
-        @foreach($lotes_validade as $lote)
-        <li>
-          <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
-          {{ $lote->batch_code }} <span style="color: var(--color-orange); font-weight: bold;">(Lote com vencimento distante)</span>
-        </li>
-        @endforeach
 
         @foreach($produtos_estoque_baixo as $produto)
         <li>
@@ -107,6 +97,7 @@
       <div class="grafico-toolbar">
         <button class="grafico-btn" data-periodo="ano">{{ __('dashboard.year') }}</button>
         <button class="grafico-btn active" data-periodo="mes">{{ __('dashboard.month') }}</button>
+        <button class="grafico-btn" data-periodo="semana">{{ __('dashboard.week') }}</button>
         <button class="grafico-btn" data-periodo="dia">{{ __('dashboard.day') }}</button>
       </div>
       <h5>{{ __('dashboard.sales') }}</h5>
@@ -154,7 +145,6 @@
 <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 <script src="{{ asset('js/dashboard.js') }}"></script>
 
 @endsection

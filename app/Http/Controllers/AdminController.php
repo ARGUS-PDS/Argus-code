@@ -47,16 +47,27 @@ class AdminController extends Controller
             ->orderBy('expiration_date')
             ->get(['id', 'description', 'expiration_date']);
 
-        $lotes_validade = \App\Models\Batch::whereNotNull('expiration_date')
-            ->whereDate('expiration_date', '>', now())
+        $lotes_validade_proximas = \App\Models\Batch::whereNotNull('expiration_date')
+            ->whereDate('expiration_date', '>=', now()) // ainda não venceu
+            // ->whereDate('expiration_date', '<=', now()->addMonths(2)) // até 2 meses a partir de hoje
             ->orderBy('expiration_date')
             ->get(['batch_code', 'expiration_date']);
 
-        $lotes_validade_proximas = \App\Models\Batch::whereNotNull('expiration_date')
-            ->whereDate('expiration_date', '>=', now()) // ainda não venceu
-            ->whereDate('expiration_date', '<=', now()->addMonths(2)) // até 2 meses a partir de hoje
-            ->orderBy('expiration_date')
-            ->get(['batch_code', 'expiration_date']);
+        $produtos_lote = \App\Models\Product::select(
+            'products.id',
+            'products.description',
+            'batches.batch_code',
+            'batches.expiration_date'
+        )
+            ->join('movements as m', 'm.product_id', '=', 'products.id')
+            ->join('batches', 'batches.id', '=', 'm.batch_id')
+            ->whereNotNull('batches.expiration_date')
+            ->whereDate('batches.expiration_date', '>=', now())
+            ->whereDate('batches.expiration_date', '<=', now()->addMonths(2))
+            ->orderBy('batches.expiration_date')
+            ->distinct() // evita repetir o mesmo produto-lote várias vezes
+            ->get();
+
 
 
         $alertas = \Cache::remember('dashboard_alertas', 60, function () {
@@ -92,8 +103,8 @@ class AdminController extends Controller
             'produtos_validade' => $produtos_validade,
             'movimentacoes' => $movimentacoes,
             'produtos_vencidos' => $produtos_vencidos,
-            'lotes_validade' => $lotes_validade,
             'lotes_validade_proximas' => $lotes_validade_proximas,
+            'produtos_lote' => $produtos_lote,
             'produtos_estoque_minimo' => $alertas['minimo'],
             'produtos_estoque_baixo' => $alertas['baixo'],
             'produtos_estoque_zerado' => $alertas['zerado'],
@@ -164,7 +175,7 @@ class AdminController extends Controller
                     ->orderBy('ano')
                     ->orderBy('mes')
                     ->get()
-                    ->keyBy(function($item) {
+                    ->keyBy(function ($item) {
                         return $item->ano . '-' . str_pad($item->mes, 2, '0', STR_PAD_LEFT);
                     });
 
