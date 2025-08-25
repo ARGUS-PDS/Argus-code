@@ -239,7 +239,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Atualiza texto do botão ativo
     const btnAtivo = document.querySelector(`[data-periodo="${periodo}"]`);
     if (btnAtivo) {
-      btnAtivo.innerHTML = '<i class="bi bi-arrow-clockwise spin"></i> Carregando...';
       btnAtivo.disabled = true;
     }
 
