@@ -48,8 +48,8 @@ class AdminController extends Controller
             ->get(['id', 'description', 'expiration_date']);
 
         $lotes_validade_proximas = \App\Models\Batch::whereNotNull('expiration_date')
-            ->whereDate('expiration_date', '>=', now()) // ainda não venceu
-            // ->whereDate('expiration_date', '<=', now()->addMonths(2)) // até 2 meses a partir de hoje
+            ->whereDate('expiration_date', '>=', now())
+            // ->whereDate('expiration_date', '<=', now()->addMonths(2))
             ->orderBy('expiration_date')
             ->get(['batch_code', 'expiration_date']);
 
@@ -65,7 +65,7 @@ class AdminController extends Controller
             ->whereDate('batches.expiration_date', '>=', now())
             ->whereDate('batches.expiration_date', '<=', now()->addMonths(2))
             ->orderBy('batches.expiration_date')
-            ->distinct() // evita repetir o mesmo produto-lote várias vezes
+            ->distinct()
             ->get();
 
 
@@ -121,9 +121,9 @@ class AdminController extends Controller
                 // Últimos 7 dias - movimentações de saída (vendas)
                 $vendas = \App\Models\Movement::where('type', 'outward')
                     ->where('note', 'like', 'Venda ID:%')
-                    ->where(function($query) {
+                    ->where(function ($query) {
                         $query->whereDate('date', '>=', now()->subDays(7))
-                              ->orWhereDate('created_at', '>=', now()->subDays(7));
+                            ->orWhereDate('created_at', '>=', now()->subDays(7));
                     })
                     ->selectRaw('COALESCE(DATE(date), DATE(created_at)) as data, SUM(cost * quantity) as total')
                     ->groupBy('data')
@@ -172,9 +172,9 @@ class AdminController extends Controller
                 // Últimos 6 meses - movimentações de saída (vendas)
                 $vendas = \App\Models\Movement::where('type', 'outward')
                     ->where('note', 'like', 'Venda ID:%')
-                    ->where(function($query) {
+                    ->where(function ($query) {
                         $query->whereDate('date', '>=', now()->subMonths(6))
-                              ->orWhereDate('created_at', '>=', now()->subMonths(6));
+                            ->orWhereDate('created_at', '>=', now()->subMonths(6));
                     })
                     ->selectRaw('YEAR(COALESCE(date, created_at)) as ano, MONTH(COALESCE(date, created_at)) as mes, SUM(cost * quantity) as total')
                     ->groupBy('ano', 'mes')
@@ -203,9 +203,9 @@ class AdminController extends Controller
                 // Últimos 3 anos - movimentações de saída (vendas)
                 $vendas = \App\Models\Movement::where('type', 'outward')
                     ->where('note', 'like', 'Venda ID:%')
-                    ->where(function($query) {
+                    ->where(function ($query) {
                         $query->whereDate('date', '>=', now()->subYears(3))
-                              ->orWhereDate('created_at', '>=', now()->subYears(3));
+                            ->orWhereDate('created_at', '>=', now()->subYears(3));
                     })
                     ->selectRaw('YEAR(COALESCE(date, created_at)) as ano, SUM(cost * quantity) as total')
                     ->groupBy('ano')
