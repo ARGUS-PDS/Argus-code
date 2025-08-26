@@ -86,7 +86,8 @@
         font-size: 0.95rem;
     }
 
-    .form-control, .form-select {
+    .form-control,
+    .form-select {
         width: 100%;
         padding: 12px 18px;
         border: 1px solid var(--color-gray-medio);
@@ -97,13 +98,15 @@
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .form-control:focus, .form-select:focus {
+    .form-control:focus,
+    .form-select:focus {
         border-color: var(--color-vinho);
         box-shadow: 0 0 0 0.25rem var(--color-vinho-fundo-transparente);
         outline: none;
     }
 
-    .form-control:disabled, .form-control[readonly] {
+    .form-control:disabled,
+    .form-control[readonly] {
         background-color: var(--color-bege-card-interno);
         opacity: 1;
         color: var(--color-gray-escuro);
@@ -138,27 +141,34 @@
             padding: 25px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
+
         .header-section {
             flex-direction: column;
             align-items: flex-start;
             gap: 15px;
             margin-bottom: 20px;
         }
+
         .header-section h2 {
             font-size: 1.8rem;
         }
+
         .section-card {
             padding: 20px;
             margin-bottom: 20px;
         }
+
         .section-card .card-title {
             font-size: 1.2rem;
             margin-bottom: 15px;
         }
+
         .form-label {
             font-size: 0.9rem;
         }
-        .form-control, .form-select {
+
+        .form-control,
+        .form-select {
             padding: 10px 15px;
         }
     }
@@ -180,7 +190,7 @@
                 <label for="lote" class="form-label">{{ __('lots.lote') }}</label>
                 <div class="input-group">
                     <input type="text" name="lote" id="lote" class="form-control" placeholder="{{ __('lots.digite_numero_lote') }}">
-                    <span class="input-group-text">
+                    <span class="input-group-text" style="cursor: pointer;">
                         <i class="bi bi-search"></i>
                     </span>
                 </div>
@@ -206,4 +216,44 @@
 @endsection
 
 @section('scripts')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const searchBtn = document.querySelector(".input-group-text");
+        const loteInput = document.getElementById("lote");
+
+        searchBtn.addEventListener("click", function() {
+            let lote = loteInput.value.trim();
+
+            if (!lote) {
+                alert("Digite o código do lote!");
+                return;
+            }
+
+            fetch("{{ route('batches.buscar') }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        batch_code: lote
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById("produto").value = data.data.produto;
+                        document.getElementById("data_validade").value = data.data.data_validade.split(" ")[0];
+                        document.getElementById("data_entrada").value = data.data.data_entrada.split(" ")[0];
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro:", error);
+                    alert("Erro ao buscar o lote!");
+                });
+        });
+    });
+</script>
 @endsection

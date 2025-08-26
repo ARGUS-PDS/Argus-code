@@ -36,6 +36,34 @@ class BatchController extends Controller
             ->with('success', 'Lote cadastrado com sucesso!');
     }
 
+    public function buscarPorCodigo(Request $request)
+    {
+        $request->validate([
+            'batch_code' => 'required|string'
+        ]);
+
+        $batch = \App\Models\Batch::with('product')
+            ->where('batch_code', $request->batch_code)
+            ->first();
+
+        if (!$batch) {
+            return response()->json([
+                'success' => false,
+                'message' => 'O código do lote não existe.'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'produto' => $batch->product ? $batch->product->description : '-',
+                'data_validade' => $batch->expiration_date,
+                'data_entrada' => $batch->created_at->format('Y-m-d'),
+            ]
+        ]);
+    }
+
+
 
 
     public function show(Batch $batches)

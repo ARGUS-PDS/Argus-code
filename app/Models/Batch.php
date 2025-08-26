@@ -17,4 +17,15 @@ class Batch extends Model
     {
         return $this->hasMany(Movement::class);
     }
+    public function product()
+    {
+        return $this->hasOneThrough(
+            Product::class,
+            Movement::class,
+            'batch_id',   // foreign key em movements
+            'id',         // foreign key em products
+            'id',         // local key em batches
+            'product_id'  // local key em movements
+        );
+    }
 }

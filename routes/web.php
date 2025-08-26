@@ -115,6 +115,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::resource('batches', BatchController::class);
+    Route::post('/batches/buscar', [App\Http\Controllers\BatchController::class, 'buscarPorCodigo'])
+        ->name('batches.buscar');
+
 
     Route::post('/senha-vencida', [SupportController::class, 'senhaVencida'])->name('senha.vencida');
 
