@@ -1,4 +1,4 @@
-<a href="{{ $href }}" class="btn-voltar"><i class="bi bi-arrow-left"></i> Voltar</a>
+<a href="{{ url()->previous() }}" class="btn-voltar"><i class="bi bi-arrow-left"></i> Voltar</a>
 <style>
 .btn-voltar {
     background-color: var(--color-vinho) !important;

@@ -19,7 +19,7 @@
   <div class="container-card">
     <div class="header-section">
       <h2>Cadastrar Nova Empresa</h2>
-      <x-btn-voltar href="{{ route('companies.index') }}" />
+      <x-btn-voltar/>
     </div>
 
     @if ($errors->any())

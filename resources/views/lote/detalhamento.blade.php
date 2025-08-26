@@ -179,7 +179,7 @@
 <div class="container-card">
     <div class="header-section">
         <h2>{{ __('lots.detalhamento_lote') }}</h2>
-        <x-btn-voltar href="{{ url()->previous() }}" :label="__('lots.voltar')" />
+        <x-btn-voltar/>
     </div>
 
     <div class="section-card">

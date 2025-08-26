@@ -116,7 +116,7 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="m-0">{{ __('suppliersregister.title_create') }}</h2>
-        <x-btn-voltar href="{{ route('suppliers.index') }}" />
+        <x-btn-voltar" />
     </div>
 
     @if ($errors->any())

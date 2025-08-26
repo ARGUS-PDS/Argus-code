@@ -270,7 +270,7 @@
             </div>
 
         <div class="btn-bottom">
-            <x-btn-voltar class="btn-voltar" href="/admin-dashboard" />
+            <x-btn-voltar/>
             <button type="submit" class="btn btn-primary">Gerar Cartão</button>
         </div>
         </form>
