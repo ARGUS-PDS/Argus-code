@@ -185,7 +185,7 @@
             <input type="date" class="form-control" name="expiration_date" required>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <x-btn-cancelar href="#" data-bs-dismiss="modal" />
             <button type="button" id="btnSalvarLote" class="btn btn-primary">
               Salvar
             </button>
