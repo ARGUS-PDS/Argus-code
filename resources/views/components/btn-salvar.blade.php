@@ -13,6 +13,7 @@
     margin-left: 8px;
     display: inline-block;
 }
+
 .btn-salvar:hover {
     background-color: var(--color-vinho);
     color: var(--color-bege-claro);

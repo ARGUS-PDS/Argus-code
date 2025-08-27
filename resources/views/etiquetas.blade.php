@@ -41,30 +41,6 @@
     line-height: 1.2;
 }
 
-
-.btn-voltar {
-    background-color: var(--color-vinho);
-    color: var(--color-bege-claro);
-    border: none;
-    border-radius: 10px;
-    padding: 10px 18px;
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-
-.btn-voltar:hover {
-    background-color: #6b0f2c;
-    transform: translateY(-2px);
-    color: var(--color-bege-claro);
-}
-
-
 .form-add-card {
     background-color: var(--color-white);
     border: 1px solid var(--color-gray-claro);
@@ -366,9 +342,7 @@
 <div class="container-card">
     <div class="header-section">
         <h2>{{ __('labels.titulo_etiquetas') }}</h2>
-        <a href="/dashboard" class="btn-voltar">
-            <i class="bi bi-arrow-left"></i> {{ __('labels.voltar') }}
-        </a>
+        <x-btn-voltar/>
     </div>
 
 

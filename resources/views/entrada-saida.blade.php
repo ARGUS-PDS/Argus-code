@@ -96,7 +96,6 @@
     <div class="modal-content rounded-4 px-3 pb-3 pt-2">
       <div class="modal-header border-0">
         <h5 class="modal-title fw-bold">{{ __('stock_movement.modal_title') }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form action="{{ route('movimentacao.store') }}" method="POST">
@@ -170,7 +169,6 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Cadastrar Lote</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body">
         <form id="formLote" action="{{ route('batches.store') }}" method="POST">

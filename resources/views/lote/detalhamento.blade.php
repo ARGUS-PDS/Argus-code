@@ -39,27 +39,6 @@
         line-height: 1.2;
     }
 
-    .btn-voltar {
-        background-color: var(--color-vinho);
-        color: var(--color-bege-claro);
-        border: none;
-        border-radius: 10px;
-        padding: 10px 18px;
-        font-size: 0.95rem;
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        text-decoration: none;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .btn-voltar:hover {
-        background-color: var(--bs-btn-hover-bg);
-        transform: translateY(-2px);
-        color: var(--color-bege-claro);
-    }
-
     .section-card {
         background-color: #fff;
         border: 1px solid var(--color-gray-claro);
@@ -179,7 +158,6 @@
 <div class="container-card">
     <div class="header-section">
         <h2>{{ __('lots.detalhamento_lote') }}</h2>
-        <x-btn-voltar/>
     </div>
 
     <div class="section-card">

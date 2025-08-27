@@ -18,17 +18,17 @@
 
     .btn-primary-header-action { 
         background-color: var(--color-vinho);
-        border-color: var(--color-vinho);
-        color: #fff;
+        color: var(--color-bege-claro);
+        border: 2px solid var(--color-vinho);
         border-radius: 8px;
         transition: all 0.3s ease;
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
     }
     .btn-primary-header-action:hover {
-        background-color: rgb(136, 59, 67); 
-        border-color: rgb(136, 59, 67);
-        color: #fff;
+        background-color: var(--color-bege-claro);
+        color: var(--color-vinho);
+        border: 2px solid var(--color-vinho);
     }
 
     .product-card {

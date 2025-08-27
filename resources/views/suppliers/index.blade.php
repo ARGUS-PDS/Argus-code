@@ -10,33 +10,50 @@
 
     .search-bar {
         background: var(--color-vinho);
+        border: 2px solid var(--color-vinho);
         border-radius: 20px;
         padding: 6px 16px;
         width: 300px;
         display: flex;
         align-items: center;
+        transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
 
     .search-bar input {
         background: transparent;
         border: none;
-        color: var(--color-white);
+        color: var(--color-bege-claro);
         outline: none;
         width: 90%;
     }
 
     .search-bar input::placeholder {
-        color: rgba(255, 255, 255, 0.7);
+        color: var(--color-bege-claro);
     }
 
     .search-bar:hover {
-        background: rgb(136, 59, 67);
+        background: var(--color-bege-claro) !important;
+        color: var(--color-vinho) !important;
+    }
+
+    .search-bar:hover input {
+        color: var(--color-vinho) !important;
+    }
+        
+    .search-bar:hover input::placeholder {
+        color: var(--color-vinho) !important;
+        opacity: 1 !important;
     }
 
     .search-bar .bi-search {
-        color: var(--color-white);
+        color: var(--color-bege-claro);
         font-size: 1.2rem;
         margin-left: 8px;
+        transition: color 0.3s ease;
+    }
+
+    .search-bar:hover .bi-search {
+        color: var(--color-vinho);
     }
 
     .table thead th {

@@ -308,10 +308,11 @@ body {
     color: var(--color-vinho);
 }
 
-/* Estilos para o modal */
+/* modal */
 .modal-content {
     border: none;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    background-color: var(--color-bege-claro);
 }
 
 .modal-header {
@@ -379,7 +380,6 @@ body.modal-open .navbar * {
     pointer-events: none;
 }
 
-/* Restaura o navbar quando o modal é fechado */
 body:not(.modal-open) .navbar {
     opacity: 1;
     pointer-events: auto;

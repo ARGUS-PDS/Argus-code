@@ -107,11 +107,10 @@
         .btn {
             border-radius: 10px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            text-transform: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            font-size: 0.9rem; 
+            font-size: 1rem; 
         }
 
         .btn-primary {

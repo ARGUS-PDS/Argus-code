@@ -16,23 +16,6 @@
         text-align: left;
     }
 
-    .btn-custom-back {
-        border-radius: 8px;
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-    .btn-outline-secondary.btn-custom-back:hover {
-        background-color: var(--color-vinho) !important;
-        color: var(--color-bege-claro) !important;
-        border-color: var(--color-vinho) !important;
-    }
-
     .table-custom {
         width: 100%;
         border-collapse: separate;
@@ -96,9 +79,7 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="m-0">{{ __('order.pedidos_enviados') }}</h2> 
-        <a href="{{ route('produtos.esgotando') }}" class="btn btn-outline-secondary btn-custom-back">
-            <i class="bi bi-arrow-left"></i> {{ __('order.voltar') }}
-        </a>
+        <x-btn-voltar/>
     </div>
 
     @if(session('success'))

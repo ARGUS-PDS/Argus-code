@@ -92,6 +92,15 @@
   border: 2px solid var(--color-vinho);
 }
 
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:focus:active {
+    background: var(--color-vinho) !important;
+    color: var(--color-bege-claro) !important;
+    border: 2px solid var(--color-vinho) !important;
+    box-shadow: none !important;
+}
+
 .btn-outline-danger {
   border-radius: 8px;
 }
@@ -153,6 +162,7 @@
 .text-wine {
   color: var(--color-vinho) !important;
   font-weight: 600;
+  padding: 10px;
 }
 
 .delete-movimentacao {
