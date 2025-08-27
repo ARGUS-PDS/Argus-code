@@ -107,32 +107,6 @@
             margin-top: 10px;
         }
 
-
-        .btn-voltar {
-            background-color: var(--color-vinho);
-            color: var(--color-bege-claro);
-            border: none;
-            border-radius: 10px;
-            padding: 10px 18px;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            outline: none !important;
-        }
-
-
-        .btn-voltar:hover {
-            background-color: var(--color-vinho-escuro);
-            transform: translateY(-2px);
-            color: var(--color-bege-claro);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-
         .section-card {
             background-color: var(--color-bege-card-interno);
             border: 1px solid rgba(221, 221, 221, 0.5);
@@ -212,32 +186,50 @@
         .btn {
             border-radius: 10px;
             padding: 0.6rem 1.4rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            text-transform: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            font-size: 0.9rem;
+            font-size: 1rem;
             outline: none !important;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
 
         .btn-primary {
-            background-color: var(--bs-primary) !important;
-            border-color: var(--bs-primary) !important;
-            color: var(--bs-btn-color) !important;
+            background-color: var(--color-vinho) !important;
+            border: 2px solid var(--color-vinho) !important;
+            color: var(--color-bege-claro) !important;
+            text-decoration: none !important;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s !important;
         }
-
 
         .btn-primary:hover,
         .btn-primary:focus {
-            background-color: var(--color-vinho-escuro) !important;
-            border-color: var(--color-vinho-escuro) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background-color: transparent !important;
+            border: 2px solid var(--color-vinho) !important;
+            color: var(--color-vinho) !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+            transform: translateY(-2px) !important;
         }
 
+        .btn-voltar {
+            background-color: var(--color-vinho) !important;
+            color: var(--color-bege-claro) !important;
+            border: 2px solid var(--color-vinho) !important;
+            border-radius: 10px !important;
+            padding: 10px 18px !important;
+            font-size: 0.95rem !important;
+            text-decoration: none !important;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s !important;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+        }
+
+        .btn-voltar:hover {
+            background-color: transparent !important;
+            color: var(--color-vinho) !important;
+            border: 2px solid var(--color-vinho) !important;
+            transform: translateY(-2px) !important;
+        }
 
         .alert {
             border-radius: 10px;
@@ -294,9 +286,7 @@
         <div class="header-section">
             <h1>Lista de Empresas</h1>
             <div class="header-buttons">
-                <a href="{{ route('admin.dashboard') }}" class="btn-voltar">
-                    <i class="bi bi-arrow-left"></i> Voltar
-                </a>
+                <a href="/admin-dashboard" class="btn-voltar"><i class="bi bi-arrow-left"></i> Voltar</a>
                 <a href="{{ route('companies.create') }}" class="btn btn-primary">Cadastrar Nova Empresa</a>
             </div>
         </div>

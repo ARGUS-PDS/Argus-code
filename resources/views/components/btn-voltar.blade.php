@@ -10,8 +10,6 @@
     text-decoration: none !important;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s !important;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
-    margin-right: 8px !important;
-    display: inline-block !important;
 }
 .btn-voltar:hover {
     background-color: transparent !important;
