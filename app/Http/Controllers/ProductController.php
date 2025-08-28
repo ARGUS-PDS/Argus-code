@@ -22,7 +22,7 @@ class ProductController extends Controller
             ]);
         });
 
-        $query = Product::select(['id', 'description', 'barcode', 'supplierId', 'value', 'image_url'])
+        $query = Product::select(['id', 'description', 'barcode', 'supplierId', 'value', 'image_url', 'brand', 'minimumStock'])
             ->with('supplier')
             ->orderBy('id', 'desc');
 
@@ -35,8 +35,24 @@ class ProductController extends Controller
             });
         }
 
-        // Cache para listagem sem filtro
-        if (!$request->has('q') || !$request->q) {
+        // Filtros adicionais
+        if ($request->filled('price_min')) {
+            $query->where('value', '>=', (float) $request->price_min);
+        }
+        if ($request->filled('price_max')) {
+            $query->where('value', '<=', (float) $request->price_max);
+        }
+        if ($request->filled('brand')) {
+            $query->where('brand', 'like', '%' . $request->brand . '%');
+        }
+        if ($request->filled('supplier_id')) {
+            $query->where('supplierId', $request->supplier_id);
+        }
+
+
+        // Cache para listagem sem filtro (apenas quando não houver nenhum filtro aplicado)
+        $hasAnyFilter = $request->filled('q') || $request->filled('price_min') || $request->filled('price_max') || $request->filled('brand') || $request->filled('supplier_id');
+        if (!$hasAnyFilter) {
             $products = \Cache::remember('products_page_' . $request->get('page', 1), 60, function () use ($query) {
                 return $query->paginate(10);
             });

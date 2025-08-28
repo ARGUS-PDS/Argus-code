@@ -127,6 +127,76 @@
         color: #fff;
     }
 
+    /* Filtros - botão e painel */
+    .filters-toggle {
+        border: none;
+        background: transparent;
+        color: var(--color-vinho);
+        padding: 6px 8px;
+        border-radius: 8px;
+    }
+    
+    h2 .filters-toggle {
+        display: inline-flex;
+        align-items: center;
+        padding: 0 6px;
+        vertical-align: middle;
+    }
+
+    h2 .filters-toggle .bi {
+        line-height: 1;
+        position: relative;
+        top: 2px;
+    }
+    
+    .filters-toggle:focus {
+        outline: none;
+    }
+    
+    .filters-panel {
+        position: fixed;
+        top: 90px;
+        left: 0;
+        width: 320px;
+        max-width: 85vw;
+        max-height: 80vh;
+        overflow: auto;
+        background: var(--color-bege-card-interno);
+        border: 1px solid rgba(119, 49, 56, 0.15);
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        padding: 16px;
+        transform: translateX(-110%);
+        transition: transform 0.25s ease;
+        z-index: 1200;
+    }
+    
+    .filters-panel.show {
+        transform: translateX(0);
+    }
+    
+    .filters-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.25);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease;
+        z-index: 1190;
+    }
+    
+    .filters-backdrop.show { opacity: 1; visibility: visible; }
+    .filters-panel .form-label {
+        color: var(--color-vinho);
+        font-weight: 600;
+    }
+    
+    .filters-actions {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+    }
+
     /* Checkbox customizado apenas para os produtos */
     .products-table tbody input[type="checkbox"] {
         accent-color: var(--color-vinho);
@@ -138,16 +208,20 @@
         transition: box-shadow 0.2s;
         box-shadow: 0 1px 3px rgba(119,49,56,0.07);
     }
+    
     .products-table tbody input[type="checkbox"]:hover {
         box-shadow: 0 0 0 2px var(--color-vinho-fundo);
     }
+
     .products-table tbody input[type="checkbox"]:checked {
         background: var(--color-vinho);
         border-color: var(--color-vinho);
     }
+
     .products-table tbody input[type="checkbox"]:focus {
         outline: none;
     }
+
     #select-all-checkbox {
         accent-color: var(--color-bege-claro);
         width: 18px;
@@ -159,13 +233,16 @@
         box-shadow: 0 1px 3px rgba(119,49,56,0.07);
         position: relative;
     }
+
     #select-all-checkbox:focus {
         outline: none;
     }
+
     #select-all-checkbox:checked {
         background: var(--color-bege-claro);
         border-color: var(--color-bege-claro);
     }
+
     #select-all-checkbox:checked::after {
         content: '';
         display: block;
@@ -176,6 +253,27 @@
         height: 14px;
         border-width: 0 3px 3px 0;
         transform: rotate(45deg);
+    }
+
+    .btn-limpar {
+        background-color: var(--color-vinho);
+        color: var(--color-bege-claro);
+        border: 2px solid var(--color-vinho);
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s;
+        margin-right: 8px;
+        display: inline-block;
+        cursor: pointer;
+    }
+    
+    .btn-limpar:hover {
+        background-color: transparent;
+        color: var(--color-vinho);
+        border: 2px solid var(--color-vinho);
+        transform: translateY(-2px);
     }
 
     @media (max-width: 768px) {
@@ -207,7 +305,49 @@
 @section('content')
 <div class="container-fluid py-3">
     <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap">
-        <h2 class="fw-bold mb-0">{{ __('products.title') }}</h2>
+        <h2 class="fw-bold mb-0 d-flex align-items-center" style="gap: 8px;">
+            {{ __('products.title') }}
+            <div class="dropdown filters-dropdown" data-bs-auto-close="outside">
+                <button id="filtersToggleBtn" type="button" class="filters-toggle" title="Filtros" data-bs-toggle="dropdown" aria-expanded="false" style="line-height: 1; display: inline-flex; align-items: center;">
+                    <i class="bi bi-filter-left fs-4"></i>
+                </button>
+                <div class="dropdown-menu p-3 shadow" style="min-width: 320px;">
+                    <form id="filtersForm" method="GET" action="{{ route('products.index') }}">
+                        <input type="hidden" name="q" value="{{ request('q') }}">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label">Preço mín.</label>
+                                <input type="number" step="0.01" min="0" class="form-control" name="price_min" value="{{ request('price_min') }}">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Preço máx.</label>
+                                <input type="number" step="0.01" min="0" class="form-control" name="price_max" value="{{ request('price_max') }}">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Marca</label>
+                                <input type="text" class="form-control" name="brand" placeholder="Ex.: Nestlé" value="{{ request('brand') }}">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Fornecedor</label>
+                                <select name="supplier_id" class="form-select">
+                                    <option value="">Todos</option>
+                                    @foreach(\App\Models\Supplier::orderBy('name')->get() as $supplier)
+                                        <option value="{{ $supplier->id }}" {{ request('supplier_id') == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="filters-actions">
+                                    <button type="button" class="btn btn-limpar" onclick="limparFiltros()">Limpar</button>
+                                    <x-btn-salvar/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </h2>
         <div class="d-flex align-items-center" style="gap: 16px;">
             <x-search-bar 
                 :datalist-options="collect($products->take(5))->map(fn($produto) => [
@@ -217,8 +357,8 @@
                 :value="request('q')"
                 placeholder="{{ __('products.search_placeholder') }}"
             />
-            <span class="ms-4 fw-bold" style="color: var(--color-vinho);">
-                {{ __('products.current_stock') }}: {{ ($products->currentPage() * $products->perPage() > $products->total()) ? $products->total() : $products->currentPage() * $products->perPage() }}/{{ $products->total() }}
+            <span class="ms-4 fw-bold" style="color: var(--color-vinho);"> 
+                Produtos exibidos: {{ ($products->currentPage() * $products->perPage() > $products->total()) ? $products->total() : $products->currentPage() * $products->perPage() }} de {{ $products->total() }}
             </span>
             <button type="button" class="btn p-0" title="{{ __('products.print') }}">
                 <i class="bi bi-printer fs-4"></i>
@@ -233,6 +373,7 @@
             <x-btn-mais href="{{ route('products.create') }}"></x-btn-mais>
         </div>
     </div>
+    
     <div id="selected-count" class="mb-2 ms-1" style="color: var(--color-vinho); font-weight: bold; display: none; position: absolute; left: 65px; top: 180px; z-index: 10;">
         <button id="clear-selection" type="button" style="background: none; border: none; color: var(--color-vinho); font-size: 1.2rem; margin-left: 10px; cursor: pointer; padding: 0; line-height: 1;">
             &times;
@@ -290,7 +431,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" class="text-center text-muted py-4">{{ __('products.no_records') }}</td>
+                    <td colspan="8" class="py-4">&nbsp;</td>
                 </tr>
                 @endforelse
             </tbody>
@@ -399,6 +540,12 @@
 <script>
 function renderProductsTable(products) {
     let html = '';
+    if (!products || products.length === 0) {
+        html = `<tr><td colspan="7" class="py-4">&nbsp;</td></tr>`;
+        document.querySelector('.products-table tbody').innerHTML = html;
+        updateSelectedCount();
+        return;
+    }
     products.forEach(product => {
         html += `<tr onclick="window.location='${product.edit_url}'" style="cursor:pointer;">`;
         html += `<td class='text-center'><input type='checkbox' onclick='event.stopPropagation();'></td>`;
@@ -455,7 +602,18 @@ function renderPagination(current, last) {
 // Função para buscar produtos via AJAX
 function fetchProducts(page = 1) {
     const q = document.querySelector('.search-bar input[name="q"]').value;
-    return fetch(`{{ route('products.index') }}?q=${encodeURIComponent(q)}&page=${page}`, {
+    const form = document.getElementById('filtersForm');
+    const params = new URLSearchParams();
+    params.set('q', q || '');
+    params.set('page', page);
+    if (form) {
+        const fd = new FormData(form);
+        for (const [key, value] of fd.entries()) {
+            if (key === 'q') continue; // já tratado
+            if (value !== null && value !== '') params.set(key, value);
+        }
+    }
+    return fetch(`{{ route('products.index') }}?${params.toString()}`, {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
     .then(res => res.json())
@@ -477,6 +635,20 @@ if (searchInput) {
 const pagDiv = document.createElement('div');
 pagDiv.id = 'ajax-pagination';
 document.querySelector('.products-table').after(pagDiv);
-// Inicializar com a página atual
-// fetchProducts(1);
+// Submeter filtros via AJAX
+const filtersForm = document.getElementById('filtersForm');
+if (filtersForm) {
+    filtersForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        fetchProducts(1).then(()=>{
+            try { const dd = bootstrap.Dropdown.getOrCreateInstance(document.getElementById('filtersToggleBtn')); dd.hide(); } catch(_){}
+        });
+    });
+    const autoInputs = filtersForm.querySelectorAll('select[name="supplier_id"]');
+    autoInputs.forEach(el => el.addEventListener('change', ()=> fetchProducts(1)));
+}
+
+function limparFiltros() {
+    window.location.href = "{{ route('products.index') }}";
+}
 </script>
