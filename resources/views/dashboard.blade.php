@@ -8,18 +8,12 @@
   <div class="col-md-4">
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.prod_valid_title') }}</h5>
-      <!-- @foreach($lotes_validade_proximas as $lote)
-      <li>
-        <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
-        {{ $lote->batch_code }} - {{ \Carbon\Carbon::parse($lote->expiration_date)->format('d/m/Y') }} <span style="color: var(--color-orange); font-weight: bold;">(Lotes listados)</span>
-      </li>
-      @endforeach -->
       <ul class="mt-2 scrollable-list">
         @foreach($produtos_lote as $produto)
         <li>
           <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
-          {{ $produto->description }} - Lote: {{ $produto->batch_code }}
-          (Validade: {{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})
+          {{ $produto->description }} - {{ __('dashboard.batch') }}: {{ $produto->batch_code }}
+          ({{ __('dashboard.expiration') }}: {{ \Carbon\Carbon::parse($produto->expiration_date)->format('d/m/Y') }})
         </li>
         @endforeach
       </ul>
@@ -42,7 +36,6 @@
           <small class="text-muted">({{ \Carbon\Carbon::parse($mov->created_at)->format('d/m/Y H:i') }})</small>
         </li>
         @endforeach
-
       </ul>
       @else
       <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
@@ -65,18 +58,17 @@
         </li>
         @endforeach
 
-
         @foreach($produtos_estoque_baixo as $produto)
         <li>
           <i class="bi bi-arrow-down-circle-fill text-danger me-2"></i>
-          {{ $produto->description }} <span style="color: var(--color-red); font-weight: bold;">(Estoque Baixo)</span>
+          {{ $produto->description }} <span style="color: var(--color-red); font-weight: bold;">({{ __('dashboard.low_stock') }})</span>
         </li>
         @endforeach
 
         @foreach($produtos_estoque_zerado as $produto)
         <li>
           <i class="bi bi-x-circle-fill text-vinho me-2"></i>
-          {{ $produto->description }} <span style="color: var(--color-vinho); font-weight: bold;">(Esgotado)</span>
+          {{ $produto->description }} <span style="color: var(--color-vinho); font-weight: bold;">({{ __('dashboard.out_of_stock') }})</span>
         </li>
         @endforeach
 

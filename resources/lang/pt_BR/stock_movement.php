@@ -36,4 +36,8 @@ return [
     'select' => 'Selecione...',
     'select_batch' => 'Selecione o lote',
     'expiration_date' => 'Validade',
+    'new_batch' => 'Novo Lote',
+    'batch_register' => 'Cadastro de Lote',
+    'batch_code' => 'Código de Lote',
+    'save' => 'Salvar',
 ];

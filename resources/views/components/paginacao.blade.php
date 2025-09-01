@@ -4,15 +4,15 @@
     <div class="d-flex flex-column align-items-center mt-4" style="gap: 8px;">
         <div class="d-flex justify-content-center" style="gap: 8px;">
             @if ($paginator->onFirstPage())
-                <button class="btn paginacao-anterior" disabled style="cursor: default;">Anterior</button>
+                <button class="btn paginacao-anterior" disabled style="cursor: default;">{{ __('buttons.previous') }}</button>
             @else
-                <a href="{{ $paginator->previousPageUrl() }}" class="btn paginacao-anterior">Anterior</a>
+                <a href="{{ $paginator->previousPageUrl() }}" class="btn paginacao-anterior">{{ __('buttons.previous') }}</a>
             @endif
 
             @if ($paginator->hasMorePages())
-                <a href="{{ $paginator->nextPageUrl() }}" class="btn paginacao-proximo">Próximo</a>
+                <a href="{{ $paginator->nextPageUrl() }}" class="btn paginacao-proximo">{{ __('buttons.next') }}</a>
             @else
-                <button class="btn paginacao-proximo" disabled style="cursor: default;">Próximo</button>
+                <button class="btn paginacao-proximo" disabled style="cursor: default;">{{ __('buttons.next') }}</button>
             @endif
         </div>
 

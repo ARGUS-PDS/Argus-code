@@ -1,4 +1,6 @@
-<a href="{{ url()->previous() }}" class="btn-voltar"><i class="bi bi-arrow-left"></i> Voltar</a>
+<a href="{{ url()->previous() }}" class="btn-voltar">
+    <i class="bi bi-arrow-left"></i> {{ __('buttons.back') }}
+</a>
 <style>
 .btn-voltar {
     background-color: var(--color-vinho) !important;
@@ -17,4 +19,4 @@
     border: 2px solid var(--color-vinho) !important;
     transform: translateY(-2px) !important;
 }
-</style> 
+</style>

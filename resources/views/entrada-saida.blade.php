@@ -139,7 +139,7 @@
             <div class="d-flex align-items-center justify-content-between mb-2">
               <label class="form-label">{{ __('stock_movement.batch_label') }}</label>
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLote">
-                + Novo Lote
+                + {{ __('stock_movement.new_batch') }}
               </button>
             </div>
 
@@ -168,24 +168,24 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Cadastrar Lote</h5>
+        <h5 class="modal-title">{{ __('stock_movement.batch_register') }}</h5>
       </div>
       <div class="modal-body">
         <form id="formLote" action="{{ route('batches.store') }}" method="POST">
           @csrf
           <input type="hidden" name="produto" value="{{ request('produto') }}">
           <div class="mb-3">
-            <label class="form-label">Código do Lote</label>
+            <label class="form-label">{{ __('stock_movement.batch_code') }}</label>
             <input type="text" class="form-control" name="batch_code" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Data de Validade</label>
+            <label class="form-label">{{ __('stock_movement.expiration_date') }}</label>
             <input type="date" class="form-control" name="expiration_date" required>
           </div>
           <div class="modal-footer">
             <x-btn-cancelar href="#" data-bs-dismiss="modal" />
             <button type="button" id="btnSalvarLote" class="btn btn-primary">
-              Salvar
+              {{ __('stock_movement.save') }}
             </button>
           </div>
         </form>

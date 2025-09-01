@@ -12,7 +12,7 @@ return [
     'pedidos_titulo' => 'Orders',
     'pedido_numero' => 'Order',
     'confirmar_apagar_pedido' => 'Are you sure you want to delete Order :id?',
-    'finalizar_venda_btn' => 'Finalize Sale',
+    'finalizar_venda_btn' => 'End Sale',
     'alerta_nenhum_pedido' => 'No order selected!',
     'alerta_produto_nao_encontrado' => 'Product not found.',
     'alerta_erro_servidor' => 'Server error.',

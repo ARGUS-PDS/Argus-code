@@ -2,11 +2,11 @@
 
 @if(isset($attributes['data-bs-dismiss']))
     <button type="button" class="btn-cancelar" {{ $attributes }}>
-        Cancelar
+        {{ __('buttons.cancel') }}
     </button>
 @else
     <a href="{{ $href }}" class="btn-cancelar" {{ $attributes }}>
-        Cancelar
+        {{ __('buttons.cancel') }}
     </a>
 @endif
 
@@ -31,4 +31,4 @@
     border: 2px solid var(--color-vinho);
     transform: translateY(-2px);
 }
-</style> 
+</style>

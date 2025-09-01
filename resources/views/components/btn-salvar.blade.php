@@ -1,4 +1,4 @@
-<button type="submit" class="btn-salvar">Salvar</button>
+<button type="submit" class="btn-salvar">{{ __('buttons.save') }}</button>
 <style>
 .btn-salvar {
     background-color: var(--color-bege-claro);
@@ -20,4 +20,4 @@
     border: 2px solid var(--color-vinho);
     transform: translateY(-2px);
 }
-</style> 
+</style>

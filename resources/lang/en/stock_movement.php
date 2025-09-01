@@ -36,4 +36,9 @@ return [
     'select' => 'Select...',
     'select_batch' => 'Select batch',
     'expiration_date' => 'Expiration Date',
+    'new_batch' => 'New Batch',
+    'batch_register' => 'Batch Register',
+    'batch_code' => 'Batch Code',
+    'save' => 'Save',
+
 ];

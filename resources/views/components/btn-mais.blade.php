@@ -1,4 +1,4 @@
-<a href="{{ $href }}" class="btn-mais" title="Adicionar">
+<a href="{{ $href }}" class="btn-mais" title="{{ __('buttons.add') }}">
     <i class="bi bi-plus"></i>
 </a>
 <style>
@@ -24,4 +24,4 @@
     border: 2px solid var(--color-vinho);
     transform: translateY(-2px);
 }
-</style> 
+</style>
