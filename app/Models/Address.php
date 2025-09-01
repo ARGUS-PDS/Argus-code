@@ -12,7 +12,8 @@ class Address extends Model
         'number',
         'neighborhood',
         'city',
-        'state'
+        'state',
+        'details'
     ];
 
     // Um Endereço TEM UM Fornecedor (se for 1:1)

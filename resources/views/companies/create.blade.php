@@ -22,6 +22,10 @@
       <x-btn-voltar />
     </div>
 
+    <div class="required-note">
+      <span class="text-danger">*</span> Campos obrigatórios
+    </div>
+
     @if ($errors->any())
     <div class="alert alert-custom alert-danger-custom alert-show">
       <i class="bi bi-exclamation-triangle-fill me-2"></i>
@@ -46,20 +50,20 @@
         <h4 class="card-title">Dados da Empresa</h4>
         <div class="row g-3">
           <div class="col-md-6">
-            <label for="cnpj" class="form-label">CNPJ</label>
+            <label for="cnpj" class="form-label required">CNPJ</label>
             <input type="text" name="cnpj" id="cnpj" class="form-control" required maxlength="18" placeholder="00.000.000/0000-00" />
-            <div id="cnpjStatus" class="cnpj-status d-none"></div>
+            <div id="cnpjStatus" class="validation-status d-none"></div>
           </div>
           <div class="col-md-6">
-            <label for="businessName" class="form-label">Razão Social</label>
+            <label for="businessName" class="form-label required">Razão Social</label>
             <input type="text" name="businessName" id="businessName" class="form-control" required maxlength="50" />
           </div>
           <div class="col-md-6">
-            <label for="tradeName" class="form-label">Nome Fantasia</label>
+            <label for="tradeName" class="form-label required">Nome Fantasia</label>
             <input type="text" name="tradeName" id="tradeName" class="form-control" required maxlength="50" />
           </div>
           <div class="col-md-6">
-            <label for="stateRegistration" class="form-label">Inscrição Estadual</label>
+            <label for="stateRegistration" class="form-label required">Inscrição Estadual</label>
             <input type="text" name="stateRegistration" id="stateRegistration" class="form-control" maxlength="15" />
           </div>
         </div>
@@ -70,27 +74,32 @@
         <h4 class="card-title">Endereço</h4>
         <div class="row g-3">
           <div class="col-md-6">
-            <label for="cep" class="form-label">CEP</label>
-            <input type="text" name="cep" id="cep" class="form-control" required maxlength="8" placeholder="00000000">
+            <label for="cep" class="form-label required">CEP</label>
+            <input type="text" name="cep" id="cep" class="form-control" required maxlength="9" placeholder="00000-000">
+            <div id="cepStatus" class="validation-status d-none"></div>
           </div>
           <div class="col-md-6">
-            <label for="place" class="form-label">Logradouro</label>
+            <label for="place" class="form-label required">Logradouro</label>
             <input type="text" name="place" id="place" class="form-control" required maxlength="100" />
           </div>
           <div class="col-md-6">
-            <label for="number" class="form-label">Número</label>
+            <label for="number" class="form-label required">Número</label>
             <input type="number" name="number" id="number" class="form-control" required />
           </div>
           <div class="col-md-6">
-            <label for="neighborhood" class="form-label">Bairro</label>
+            <label for="details" class="form-label">Complemento</label>
+            <input type="text" name="details" id="details" class="form-control" maxlength="50" placeholder="Opcional" />
+          </div>
+          <div class="col-md-6">
+            <label for="neighborhood" class="form-label required">Bairro</label>
             <input type="text" name="neighborhood" id="neighborhood" class="form-control" required maxlength="100" />
           </div>
           <div class="col-md-6">
-            <label for="city" class="form-label">Cidade</label>
+            <label for="city" class="form-label required">Cidade</label>
             <input type="text" name="city" id="city" class="form-control" required maxlength="100" />
           </div>
           <div class="col-md-6">
-            <label for="state" class="form-label">Estado</label>
+            <label for="state" class="form-label required">Estado</label>
             <input type="text" name="state" id="state" class="form-control" required maxlength="2" />
           </div>
         </div>
@@ -101,16 +110,16 @@
         <h4 class="card-title">Usuário Master (Dono da Empresa)</h4>
         <div class="row g-3">
           <div class="col-md-6">
-            <label for="user_name" class="form-label">Nome</label>
+            <label for="user_name" class="form-label required">Nome</label>
             <input type="text" name="user_name" id="user_name" class="form-control" required maxlength="255" />
           </div>
           <div class="col-md-6">
-            <label for="user_email" class="form-label">Email</label>
+            <label for="user_email" class="form-label required">Email</label>
             <input type="email" name="user_email" id="user_email" class="form-control" required maxlength="255" placeholder="exemplo@gmail.com" />
           </div>
 
           <div class="col-md-6">
-            <label for="user_password" class="form-label">Senha</label>
+            <label for="user_password" class="form-label required">Senha</label>
             <div class="password-container">
               <input type="password" name="user_password" id="user_password" class="form-control" required minlength="8" />
               <i class="toggle-password fas fa-eye" onclick="togglePassword('user_password', this)"></i>
@@ -131,7 +140,7 @@
           </div>
 
           <div class="col-md-6">
-            <label for="user_password_confirmation" class="form-label">Confirmar Senha</label>
+            <label for="user_password_confirmation" class="form-label required">Confirmar Senha</label>
             <div class="password-container">
               <input type="password" name="user_password_confirmation" id="user_password_confirmation" class="form-control" required minlength="8" />
               <i class="toggle-password fas fa-eye" onclick="togglePassword('user_password_confirmation', this)"></i>
@@ -148,6 +157,7 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{{ asset('js/companies-create.js') }}"></script>
+
 </body>
 
 </html>

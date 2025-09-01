@@ -21,14 +21,13 @@ class AddressController extends Controller
                     'neighborhood' => $addrData['neighborhood'] ?? null,
                     'city' => $addrData['city'] ?? null,
                     'state' => $addrData['state'] ?? null,
+                    'details' => $addrData['details'] ?? null,
                 ]);
             }
         }
 
         return response()->json(['message' => 'Endereços salvos com sucesso']);
     }
-
-
 
     public function update(Request $request, $id)
     {
@@ -41,21 +40,22 @@ class AddressController extends Controller
             'neighborhood' => 'sometimes|required|string',
             'city' => 'sometimes|required|string',
             'state' => 'sometimes|required|string|max:2',
+            'details' => 'nullable|string',
         ]);
 
-        $address->update($validated);
+        $address->update([
+            'cep' => $validated['cep'] ?? $address->cep,
+            'place' => $validated['place'] ?? $address->place,
+            'number' => $validated['number'] ?? $address->number,
+            'neighborhood' => $validated['neighborhood'] ?? $address->neighborhood,
+            'city' => $validated['city'] ?? $address->city,
+            'state' => $validated['state'] ?? $address->state,
+            'details' => $validated['details'] ?? $address->details,
+        ]);
 
         return response()->json([
             'message' => 'Endereço atualizado com sucesso',
             'address' => $address
         ]);
-    }
-
-    public function destroy($id)
-    {
-        $address = Address::findOrFail($id);
-        $address->delete();
-
-        return response()->json(['message' => 'Endereço excluído com sucesso']);
     }
 }

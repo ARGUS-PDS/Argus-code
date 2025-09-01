@@ -29,9 +29,10 @@ class CompanyController extends Controller
             'businessName' => 'required|string|max:50',
             'tradeName' => 'required|string|max:50',
             'stateRegistration' => 'nullable|string|max:15',
-            'cep' => 'required|string|max:8',
+            'cep' => 'required|string|max:9',
             'place' => 'required|string|max:100',
             'number' => 'required|integer',
+            'details' => 'nullable|string|max:50',
             'neighborhood' => 'required|string|max:100',
             'city' => 'required|string|max:100',
             'state' => 'required|string|max:2',
@@ -50,6 +51,7 @@ class CompanyController extends Controller
             'neighborhood' => $validated['neighborhood'],
             'city' => $validated['city'],
             'state' => $validated['state'],
+            'details' => $validated['details'] ?? null,
         ]);
 
         $user = User::create([

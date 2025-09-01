@@ -68,6 +68,11 @@ body {
     font-size: 0.95rem;
 }
 
+.form-label.required::after {
+    content: " *";
+    color: #dc3545;
+}
+
 .form-control,
 .form-select {
     width: 100%;
@@ -236,40 +241,52 @@ body {
     margin-top: 3px;
 }
 
-    .cnpj-status {
-      margin-top: 5px;
-      font-size: 0.875rem;
-      display: flex;
-      align-items: center;
+.validation-status {
+    color: var(--color-vinho);
+    margin-top: 5px;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+}
+
+.validation-status.valid {
+    color: #198754;
+}
+
+.validation-status.invalid {
+    color: #ff0019;
+}
+
+.validation-loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #0d6efd;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 5px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
     }
-    
-    .cnpj-status.valid {
-      color: #198754;
+    100% {
+        transform: rotate(360deg);
     }
-    
-    .cnpj-status.invalid {
-      color: #dc3545;
-    }
-    
-    .cnpj-loading {
-      display: inline-block;
-      width: 16px;
-      height: 16px;
-      border: 2px solid #f3f3f3;
-      border-top: 2px solid #0d6efd;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-right: 5px;
-    }
-    
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    .validation-icon {
-      margin-right: 5px;
-    }
+}
+
+.validation-icon {
+    margin-right: 5px;
+}
+
+.required-note {
+    text-align: right;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #dc3545;
+}
 
 /* Responsividade */
 @media (max-width: 768px) {
