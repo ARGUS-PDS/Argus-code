@@ -2,6 +2,7 @@ let isCnpjValid = false;
 let isPasswordValid = false;
 let doPasswordsMatch = false;
 let isEmailValid = false;
+let cnpjApiTimeout = null;
 
 function showJsError(message, duration = 5000) {
     const container = document.getElementById("jsErrorContainer");
@@ -15,9 +16,162 @@ function showJsError(message, duration = 5000) {
     }, duration);
 }
 
+function formatCNPJ(cnpj) {
+    cnpj = cnpj.replace(/\D/g, "");
+    cnpj = cnpj.replace(/^(\d{2})(\d)/, "$1.$2");
+    cnpj = cnpj.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+    cnpj = cnpj.replace(/\.(\d{3})(\d)/, ".$1/$2");
+    cnpj = cnpj.replace(/(\d{4})(\d)/, "$1-$2");
+    return cnpj.substring(0, 18);
+}
+
+function isValidCNPJFormat(cnpj) {
+    return /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/.test(cnpj);
+}
+
+function isValidCNPJ(cnpj) {
+    cnpj = cnpj.replace(/[^\d]+/g, "");
+
+    if (cnpj.length !== 14 || /^(\d)\1+$/.test(cnpj)) return false;
+
+    let length = cnpj.length - 2;
+    let numbers = cnpj.substring(0, length);
+    let digits = cnpj.substring(length);
+    let sum = 0;
+    let pos = length - 7;
+
+    for (let i = length; i >= 1; i--) {
+        sum += numbers.charAt(length - i) * pos--;
+        if (pos < 2) pos = 9;
+    }
+
+    let result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
+    if (result !== parseInt(digits.charAt(0))) return false;
+
+    length = length + 1;
+    numbers = cnpj.substring(0, length);
+    sum = 0;
+    pos = length - 7;
+
+    for (let i = length; i >= 1; i--) {
+        sum += numbers.charAt(length - i) * pos--;
+        if (pos < 2) pos = 9;
+    }
+
+    result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
+    if (result !== parseInt(digits.charAt(1))) return false;
+
+    return true;
+}
+
+document.getElementById("cnpj").addEventListener("input", function () {
+    this.value = formatCNPJ(this.value);
+});
+
+document.getElementById("cnpj").addEventListener("blur", async function () {
+    const cnpjInput = this;
+    const cnpjStatus = document.getElementById("cnpjStatus");
+    const cnpj = cnpjInput.value;
+
+    cnpjStatus.className = "cnpj-status d-none";
+    isCnpjValid = false;
+
+    if (!cnpj.trim()) {
+        showJsError("Por favor, informe o CNPJ.");
+        cnpjInput.focus();
+        return;
+    }
+
+    if (!isValidCNPJFormat(cnpj)) {
+        showJsError(
+            "Formato de CNPJ inválido. Use o formato: 00.000.000/0000-00"
+        );
+        cnpjStatus.innerHTML =
+            '<i class="bi bi-x-circle validation-icon"></i> Formato inválido';
+        cnpjStatus.className = "cnpj-status invalid";
+        cnpjInput.focus();
+        return;
+    }
+
+    if (!isValidCNPJ(cnpj)) {
+        showJsError("CNPJ inválido. Verifique os dígitos.");
+        cnpjStatus.innerHTML =
+            '<i class="bi bi-x-circle validation-icon"></i> CNPJ inválido';
+        cnpjStatus.className = "cnpj-status invalid";
+        cnpjInput.focus();
+        return;
+    }
+
+    cnpjStatus.innerHTML =
+        '<div class="cnpj-loading"></div> Validando CNPJ na Receita Federal...';
+    cnpjStatus.className = "cnpj-status";
+
+    if (cnpjApiTimeout) {
+        clearTimeout(cnpjApiTimeout);
+    }
+
+    const timeoutPromise = new Promise((_, reject) => {
+        cnpjApiTimeout = setTimeout(
+            () => reject(new Error("Tempo excedido na consulta do CNPJ")),
+            10000
+        );
+    });
+
+    try {
+        const cnpjNumbers = cnpj.replace(/\D/g, "");
+        const apiPromise = fetch(
+            `https://brasilapi.com.br/api/cnpj/v1/${cnpjNumbers}`
+        );
+
+        const res = await Promise.race([apiPromise, timeoutPromise]);
+
+        if (!res.ok) throw new Error("CNPJ não encontrado na base de dados");
+
+        const data = await res.json();
+
+        document.getElementById("businessName").value = data.razao_social || "";
+        document.getElementById("tradeName").value = data.nome_fantasia || "";
+        document.getElementById("cep").value = data.cep
+            ? data.cep.replace(/\D/g, "")
+            : "";
+        document.getElementById("place").value = data.logradouro || "";
+        document.getElementById("neighborhood").value = data.bairro || "";
+        document.getElementById("city").value = data.municipio || "";
+        document.getElementById("state").value = data.uf || "";
+
+        cnpjStatus.innerHTML =
+            '<i class="bi bi-check-circle validation-icon"></i> CNPJ válido';
+        cnpjStatus.className = "cnpj-status valid";
+        isCnpjValid = true;
+    } catch (error) {
+        console.error("Erro na validação do CNPJ:", error);
+
+        if (error.message.includes("Tempo excedido")) {
+            showJsError(
+                "A consulta ao CNPJ está demorando muito. Você pode continuar, mas verifique os dados manualmente."
+            );
+            cnpjStatus.innerHTML =
+                '<i class="bi bi-exclamation-triangle validation-icon"></i> Verifique manualmente (timeout)';
+            cnpjStatus.className = "cnpj-status";
+            isCnpjValid = true;
+        } else {
+            showJsError(
+                "CNPJ não encontrado na base oficial. Verifique ou preencha os dados manualmente."
+            );
+            cnpjStatus.innerHTML =
+                '<i class="bi bi-exclamation-triangle validation-icon"></i> CNPJ não encontrado - verifique';
+            cnpjStatus.className = "cnpj-status";
+            isCnpjValid = true;
+        }
+    } finally {
+        clearTimeout(cnpjApiTimeout);
+    }
+});
+
 document.getElementById("cep").addEventListener("blur", function () {
     const cep = this.value.replace(/\D/g, "");
     if (cep.length !== 8) return;
+
     fetch(`https://viacep.com.br/ws/${cep}/json/`)
         .then((res) => res.json())
         .then((data) => {
@@ -34,27 +188,6 @@ document.getElementById("cep").addEventListener("blur", function () {
         .catch(() => {
             showJsError("Erro ao consultar CEP.");
         });
-});
-
-document.getElementById("cnpj").addEventListener("blur", async function () {
-    const cnpj = this.value.replace(/\D/g, "");
-    if (cnpj.length !== 14) return;
-    try {
-        const res = await fetch(`https://brasilapi.com.br/api/cnpj/v1/${cnpj}`);
-        if (!res.ok) throw new Error("CNPJ inválido");
-        const data = await res.json();
-        document.getElementById("businessName").value = data.razao_social || "";
-        document.getElementById("tradeName").value = data.nome_fantasia || "";
-        document.getElementById("cep").value = data.cep || "";
-        document.getElementById("place").value = data.logradouro || "";
-        document.getElementById("neighborhood").value = data.bairro || "";
-        document.getElementById("city").value = data.municipio || "";
-        document.getElementById("state").value = data.uf || "";
-        isCnpjValid = true;
-    } catch {
-        showJsError("CNPJ inválido ou não encontrado.");
-        isCnpjValid = false;
-    }
 });
 
 const userEmail = document.getElementById("user_email");
@@ -86,6 +219,7 @@ document.getElementById("companyForm").addEventListener("submit", function (e) {
     if (!isCnpjValid) {
         e.preventDefault();
         showJsError("CNPJ inválido. Verifique antes de salvar.");
+        document.getElementById("cnpj").focus();
         return;
     }
     if (!isEmailValid) {

@@ -19,7 +19,7 @@
   <div class="container-card">
     <div class="header-section">
       <h2>Cadastrar Nova Empresa</h2>
-      <x-btn-voltar/>
+      <x-btn-voltar />
     </div>
 
     @if ($errors->any())
@@ -48,6 +48,7 @@
           <div class="col-md-6">
             <label for="cnpj" class="form-label">CNPJ</label>
             <input type="text" name="cnpj" id="cnpj" class="form-control" required maxlength="18" placeholder="00.000.000/0000-00" />
+            <div id="cnpjStatus" class="cnpj-status d-none"></div>
           </div>
           <div class="col-md-6">
             <label for="businessName" class="form-label">Razão Social</label>
@@ -145,7 +146,6 @@
       </div>
     </form>
   </div>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{{ asset('js/companies-create.js') }}"></script>
 </body>

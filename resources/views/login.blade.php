@@ -100,14 +100,14 @@
       <form method="POST" action="{{ route('senha.vencida') }}">
         <div class="error-container">
           @if(session('contato_enviado'))
-              <div class="alert alert-success">Solicitação enviada com sucesso!</div>
+          <div class="alert alert-success">Solicitação enviada com sucesso!</div>
           @endif
           @if ($errors->suporte->any())
-            @foreach ($errors->suporte->all() as $error)
-                <div class="alert alert-danger">{{ $error }}</div>
-            @endforeach
-        @endif
-      </div>
+          @foreach ($errors->suporte->all() as $error)
+          <div class="alert alert-danger">{{ $error }}</div>
+          @endforeach
+          @endif
+        </div>
         @csrf
         <input type="email" name="email" placeholder="Seu Email" required>
         <input type="text" name="cartao_seg" placeholder="Final do cartão de segurança" required pattern="\d{4}">
@@ -129,27 +129,27 @@
   </script>
 
   <script>
-    @if ($errors->suporte->any() || session('contato_enviado'))
-        document.getElementById("modal-suporte").style.display = "flex";
-    @endif
+  @if($errors - > suporte - > any() || session('contato_enviado'))
+  document.getElementById("modal-suporte").style.display = "flex";
+  @endif
   </script>
 
   <script>
-    function abrirModal() {
-      document.getElementById("modal-suporte").style.display = "flex";
-    }
+  function abrirModal() {
+    document.getElementById("modal-suporte").style.display = "flex";
+  }
 
-    function fecharModal() {
-      document.getElementById("modal-suporte").style.display = "none";
-    }
+  function fecharModal() {
+    document.getElementById("modal-suporte").style.display = "none";
+  }
 
 
-    window.onclick = function(event) {
-      let modal = document.getElementById("modal-suporte");
-      if (event.target == modal) {
-        fecharModal();
-      }
+  window.onclick = function(event) {
+    let modal = document.getElementById("modal-suporte");
+    if (event.target == modal) {
+      fecharModal();
     }
+  }
   </script>
 
   <script src="{{ asset('js/login.js') }}"></script>
