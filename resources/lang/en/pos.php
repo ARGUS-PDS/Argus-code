@@ -3,7 +3,7 @@
 return [
     'titulo' => 'Point of Sale',
     'nova_venda_btn' => 'New Sale',
-    'placeholder_codigo_barras' => 'Scan or type the barcode',
+    'placeholder_codigo_barras' => 'Type the name or barcode of the product',
     'foto' => 'Photo',
     'produto' => 'Product',
     'valor' => 'Value',

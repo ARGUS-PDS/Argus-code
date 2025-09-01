@@ -3,7 +3,7 @@
 return [
     'titulo' => 'Frente de Caixa',
     'nova_venda_btn' => 'Nova Venda',
-    'placeholder_codigo_barras' => 'Escaneie ou digite o código de barras',
+    'placeholder_codigo_barras' => 'Digite o nome ou o código de barras do produto',
     'foto' => 'Foto',
     'produto' => 'Produto',
     'valor' => 'Valor',

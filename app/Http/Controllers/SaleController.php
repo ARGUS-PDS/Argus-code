@@ -19,12 +19,16 @@ class SaleController extends Controller
 
     public function findByBarcode(Request $request)
     {
-        $product = Product::where('barcode', $request->barcode)->first();
+        $query = $request->input('query');
 
+        $product = Product::where('barcode', $query)
+            ->orWhere('description', 'like', "%{$query}%")
+            ->first();
+    
         if (!$product) {
             return response()->json(['error' => 'Produto não encontrado'], 404);
         }
-
+    
         return response()->json($product);
     }
 

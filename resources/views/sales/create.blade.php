@@ -40,9 +40,6 @@
 </div>
 
 <style>
-    body {
-        padding-bottom: 80px;
-    }
 </style>
 
 <script>
@@ -150,8 +147,16 @@ function renderCart() {
         total += subtotal;
         tbody.innerHTML += `
             <tr>
-                <td><img src="${item.image_url ?? ''}" alt="" width="50"></td>
-                <td>${item.description ?? ''}</td>
+                <td class="text-center">
+                    ${
+                        item.image_url 
+                        ? `<img src="${item.image_url}" alt="Produto" class="img-thumb" loading="lazy">`
+                        : `<div class="img-thumb d-flex align-items-center justify-content-center" style="background: var(--color-bege-card-interno);">
+                            <i class="bi bi-image" style="font-size: 1.5rem; color: var(--color-vinho-fundo);"></i>
+                        </div>`
+                    }
+                </td>
+                <td class="descricao-produto">${item.description ?? ''}</td>
                 <td>
                     <input type="number" min="0" step="0.01" value="${item.unit_price.toFixed(2)}" onchange="updatePrice(${index}, this.value)">
                 </td>
@@ -202,7 +207,7 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
-            body: JSON.stringify({ barcode: codigo })
+            body: JSON.stringify({ query: codigo })
         })
         .then(res => res.json())
         .then(produto => {
@@ -212,6 +217,7 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
                 return;
             }
 
+            /*
             const existente = pedidoAtual.itens.find(item => item.id === produto.id);
             if (existente) {
                 existente.quantity += 1;
@@ -224,6 +230,15 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
                     image_url: produto.image_url ?? ''
                 });
             }
+            */
+
+            pedidoAtual.itens.unshift({
+                    id: produto.id,
+                    description: produto.description ?? '{{ __('pos.sem_descricao') }}',
+                    unit_price: parseFloat(produto.value ?? 0),
+                    quantity: 1,
+                    image_url: produto.image_url ?? ''
+                });
 
             renderCart();
             this.value = '';
