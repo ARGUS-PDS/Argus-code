@@ -406,7 +406,9 @@
                         @if (!empty($product->image_url))
                             <img src="{{ $product->image_url }}" alt="Imagem do produto" class="img-thumb" loading="lazy">
                         @else
-                            <i class="bi bi-image img-thumb" style="font-size: 2rem; padding: 15px 20px; color: var(--color-vinho-fundo);"></i>
+                            <div class="img-thumb d-flex align-items-center justify-content-center" style="background: var(--color-bege-card-interno);">
+                                <i class="bi bi-image" style="font-size: 2rem; color: var(--color-vinho-fundo);"></i>
+                            </div>
                         @endif
 
                     </td>
@@ -553,7 +555,7 @@ function renderProductsTable(products) {
         if (product.image_url && product.image_exists) {
             html += `<img src='${product.image_url}' alt='Imagem do produto' class='img-thumb' loading='lazy'>`;
         } else {
-            html += `<i class='bi bi-image img-thumb' style='font-size: 2rem; padding-top: 15px; padding-bottom: 15px; padding-left: 20px; padding-right: 20px; color: var(--color-vinho-fundo);'></i>`;
+            html += `<div class='img-thumb d-flex align-items-center justify-content-center' style='background: var(--color-bege-card-interno);'><i class='bi bi-image' style='font-size: 2rem; color: var(--color-vinho-fundo);'></i></div>`;
         }
         html += `</td>`;
         html += `<td>${product.description}</td>`;

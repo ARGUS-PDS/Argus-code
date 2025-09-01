@@ -12,6 +12,96 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     
     @include('layouts.css-variables')
+    
+    <style>
+        .navbar-nav .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            min-width: 200px;
+            background-color: var(--color-bege-claro);
+            border: none;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 0.75rem;
+            margin-top: 0;
+        }
+        
+        .navbar-nav .dropdown-menu.show {
+            display: block;
+        }
+        
+        .navbar-nav .dropdown-item {
+            color: var(--color-gray-escuro);
+            font-weight: 500;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .navbar-nav .dropdown-item:hover,
+        .navbar-nav .dropdown-item:focus {
+            background-color: var(--color-vinho-fundo) !important;
+            color: var(--color-vinho) !important;
+            transform: translateX(4px);
+        }
+        
+
+        
+        .user-menu-panel {
+            z-index: 2000;
+        }
+        
+        @media (max-width: 991.98px) {
+            .navbar-nav .dropdown-menu,
+            .lang-switch .dropdown-menu {
+                position: static;
+                float: none;
+                width: auto;
+                margin-top: 0;
+                background-color: var(--color-bege-claro);
+                border: 0;
+                box-shadow: none;
+            }
+        }
+        
+        .lang-switch .dropdown-menu {
+            display: none !important;
+            position: absolute !important;
+            top: 100% !important;
+            right: 0 !important;
+            z-index: 99999 !important;
+            min-width: 200px !important;
+            background-color: var(--color-bege-claro) !important;
+            border: none !important;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+            border-radius: 12px !important;
+            padding: 0.75rem !important;
+            margin-top: 0 !important;
+        }
+        
+        .lang-switch .dropdown-menu.show {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .lang-switch .dropdown-menu.show,
+        .lang-switch .dropdown.show .dropdown-menu {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            position: absolute !important;
+            top: 100% !important;
+            right: 0 !important;
+            z-index: 99999 !important;
+            pointer-events: auto !important;
+        }
+    </style>
+    
     @yield('styles')
 </head>
 
@@ -194,9 +284,67 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl);
+            });
+            
+            const langDropdown = document.querySelector('.lang-switch .dropdown-toggle');
+            console.log('Lang dropdown encontrado:', langDropdown);
+            
+            if (langDropdown) {
+                langDropdown.removeAttribute('data-bs-toggle');
+                
+                langDropdown.addEventListener('click', function(e) {
+                    console.log('Lang dropdown clicado');
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const dropdownMenu = this.nextElementSibling;
+                    console.log('Dropdown menu:', dropdownMenu);
+                    
+                    if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
+                        const isVisible = dropdownMenu.classList.contains('show');
+                        console.log('Dropdown visível:', isVisible);
+                        
+                        document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                            menu.classList.remove('show');
+                        });
+                        
+                        if (isVisible) {
+                            dropdownMenu.classList.remove('show');
+                            console.log('Dropdown fechado');
+                        } else {
+                            dropdownMenu.classList.add('show');
+                            console.log('Dropdown aberto');
+                        }
+                    }
+                });
+                
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.lang-switch')) {
+                        const dropdownMenu = langDropdown.nextElementSibling;
+                        if (dropdownMenu && dropdownMenu.classList.contains('dropdown-menu')) {
+                            dropdownMenu.classList.remove('show');
+                        }
+                    }
+                });
+            } else {
+                console.log('Lang dropdown não encontrado');
+            }
+        });
+    </script>
+    
     @yield('scripts')
     @include('layouts.carregamento')
-
     <script>
         // Função para toggle de visibilidade da senha
         function togglePassword(element) {
