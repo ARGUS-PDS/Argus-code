@@ -86,7 +86,7 @@
         <div class="painel-alternativo painel-direito">
           <h1>Olá!</h1>
           <p>Entre em contato conosco agora e simplifique sua gestão de estoque de maneira inteligente!</p>
-          <button class="botao-input" id="registrar">Registrar</button>
+          <button class="botao-input hidden" id="registrar">Registrar</button>
         </div>
       </div>
     </div>
@@ -111,7 +111,7 @@
         @csrf
         <input type="email" name="email" placeholder="Seu Email" required>
         <input type="text" name="cartao_seg" placeholder="Final do cartão de segurança" required pattern="\d{4}">
-        <button class="botao-input hidden" type="submit">Enviar</button>
+        <button class="botao-input" type="submit">Enviar</button>
       </form>
     </div>
   </div>
@@ -126,12 +126,6 @@
 
   <script>
   window.contatoEnviado = <?php echo json_encode(session('contato_enviado', false)); ?>;
-  </script>
-
-  <script>
-  @if($errors - > suporte - > any() || session('contato_enviado'))
-  document.getElementById("modal-suporte").style.display = "flex";
-  @endif
   </script>
 
   <script>

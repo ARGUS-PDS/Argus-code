@@ -116,6 +116,7 @@
           <div class="col-md-6">
             <label for="user_email" class="form-label required">Email</label>
             <input type="email" name="user_email" id="user_email" class="form-control" required maxlength="255" placeholder="exemplo@gmail.com" />
+            <div id="emailStatus" class="validation-status d-none"></div>
           </div>
 
           <div class="col-md-6">
@@ -155,6 +156,7 @@
       </div>
     </form>
   </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{{ asset('js/companies-create.js') }}"></script>
 
