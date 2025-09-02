@@ -135,6 +135,12 @@
   </script>
 
   <script>
+  @if($errors -> suporte -> any() || session('contato_enviado'))
+  document.getElementById("modal-suporte").style.display = "flex";
+  @endif
+  </script>
+
+  <script>
   function abrirModal() {
     document.getElementById("modal-suporte").style.display = "flex";
   }

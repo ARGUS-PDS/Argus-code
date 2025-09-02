@@ -79,7 +79,7 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="m-0">{{ __('order.pedidos_enviados') }}</h2> 
-        <x-btn-voltar/>
+        <x-btn-voltar url="{{ route('produtos.esgotando') }}" />
     </div>
 
     @if(session('success'))

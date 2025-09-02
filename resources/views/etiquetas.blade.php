@@ -342,7 +342,6 @@
 <div class="container-card">
     <div class="header-section">
         <h2>{{ __('labels.titulo_etiquetas') }}</h2>
-        <x-btn-voltar/>
     </div>
 
 
