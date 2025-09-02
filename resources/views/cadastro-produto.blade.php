@@ -337,7 +337,7 @@
     <div class="container-card">
         <div class="header-section">
             <h2 class="text-2xl">
-                {{ isset($product) ? 'Editar Produto' : 'Cadastrar Produto' }}
+                {{ isset($product) ? __('product_register.edit_product') : __('product_register.register_product') }}
             </h2>
             <x-btn-voltar/>
         </div>
@@ -365,21 +365,21 @@
             @endif
 
             <div class="col-12">
-                <h3 class="section-title">Dados do Produto</h3>
+                <h3 class="section-title">{{ __('product_register.product_data') }}</h3>
             </div>
 
             <div class="col-md-3">
                 <div class="image-upload-container">
-                    <label for="image_url" class="form-label mb-2">Imagem do Produto</label>
+                    <label for="image_url" class="form-label mb-2">{{ __('product_register.product_image') }}</label>
                     <input type="file" name="image_url" id="image_url" class="form-control" accept="image/*" onchange="previewImage(event)">
                     <div class="image-preview-area position-relative">
                         <button type="button" id="removeBtn" class="btn btn-danger btn-sm remove-image-btn">&times;</button>
                         @if(isset($product) && $product->image_url)
-                        <img id="preview" src="{{ asset($product->image_url) }}" alt="Imagem atual" class="image-preview">
-                        <div id="placeholder" class="image-placeholder-text">Imagem atual</div>
+                        <img id="preview" src="{{ asset($product->image_url) }}" alt="{{ __('product_register.current_image') }}" class="image-preview">
+                        <div id="placeholder" class="image-placeholder-text">{{ __('product_register.current_image') }}</div>
                         @else
-                        <img id="preview" src="#" alt="Pré-visualização" class="image-preview d-none">
-                        <div id="placeholder" class="image-placeholder-text">Nenhuma imagem selecionada</div>
+                        <img id="preview" src="#" alt="{{ __('product_register.preview') }}" class="image-preview d-none">
+                        <div id="placeholder" class="image-placeholder-text">{{ __('product_register.no_image_selected') }}</div>
                         @endif
                         <input type="hidden" name="remove_image" id="remove_image" value="0">
                     </div>
@@ -389,29 +389,24 @@
             <div class="col-md-9">
                 <div class="row g-4">
                     <div class="col-md-6 form-group">
-                        <label for="description" class="form-label">Nome</label>
-                        <input type="text" name="description" id="description" class="form-control" placeholder="Esmalte vermelho da marca Anita 8ml" value="{{ isset($product) ? $product->description : '' }}" required>
+                        <label for="description" class="form-label">{{ __('product_register.name') }}</label>
+                        <input type="text" name="description" id="description" class="form-control" placeholder="{{ __('product_register.name_placeholder') }}" value="{{ isset($product) ? $product->description : '' }}" required>
                     </div>
 
                     <div class="col-md-6 form-group">
-                        <label for="barcode" class="form-label">Código de barra</label>
-                        <input name="barcode" type="text" id="barcode" class="form-control" placeholder="Ex: 00608473184014" value="{{ isset($product) ? $product->barcode : '' }}" required>
+                        <label for="barcode" class="form-label">{{ __('product_register.barcode') }}</label>
+                        <input name="barcode" type="text" id="barcode" class="form-control" placeholder="{{ __('product_register.barcode_placeholder') }}" value="{{ isset($product) ? $product->barcode : '' }}" required>
                     </div>
 
                     <div class="col-md-6 form-group">
-                        <label for="code" class="form-label">Descrição</label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="Ex: esmalte_vermelho_anita" value="{{ isset($product) ? $product->code : '' }}">
+                        <label for="code" class="form-label">{{ __('product_register.description') }}</label>
+                        <input type="text" name="code" id="code" class="form-control" placeholder="{{ __('product_register.code_placeholder') }}" value="{{ isset($product) ? $product->code : '' }}">
                     </div>
-
-                    <!-- <div class="col-md-6 form-group">
-                        <label for="expiration_date" class="form-label">Data de validade</label>
-                        <input name="expiration_date" type="date" id="expiration_date" class="form-control" value="{{ isset($product) ? $product->expiration_date : '' }}">
-                    </div> -->
 
                     <div class="col-md-5 form-group">
-                        <label for="supplierId" class="form-label">Fornecedor</label>
+                        <label for="supplierId" class="form-label">{{ __('product_register.supplier') }}</label>
                         <select name="supplierId" id="supplierId" class="form-select">
-                            <option value="">Selecione um fornecedor</option>
+                            <option value="">{{ __('product_register.select_supplier') }}</option>
                             @foreach ($suppliers as $supplier)
                             <option value="{{ $supplier->id }}" {{ isset($product) && $product->supplierId == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
                             @endforeach
@@ -419,29 +414,24 @@
                     </div>
 
                     <div class="col-md-4 form-group">
-                        <label for="value" class="form-label">Valor de Venda (R$)</label>
-                        <input name="value" type="number" step="0.01" inputmode="decimal" class="form-control" placeholder="R$" value="{{ isset($product) ? $product->value : '' }}">
+                        <label for="value" class="form-label">{{ __('product_register.sale_value') }}</label>
+                        <input name="value" type="number" step="0.01" inputmode="decimal" class="form-control" placeholder="{{ __('product_register.value_placeholder') }}" value="{{ isset($product) ? $product->value : '' }}">
                     </div>
 
                 </div>
             </div>
 
-            <!--<div class="col-md-4 form-group">
-                <label for="profit" class="form-label">Lucro (R$)</label>
-                <input name="profit" type="number" step="0.01" inputmode="decimal" class="form-control" placeholder="R$" value="{{ isset($product) ? $product->profit : '' }}">
-            </div>-->
-
             <div class="col-md-6">
                 <div class="additional-info-card">
-                    <h4 class="section-title" style="margin-top: 0;">Informações Adicionais</h4>
+                    <h4 class="section-title" style="margin-top: 0;">{{ __('product_register.additional_info') }}</h4>
                     <div class="row g-3">
                         <div class="col-md-6 form-group">
-                            <label for="brand" class="form-label">Marca</label>
-                            <input name="brand" type="text" id="brand" class="form-control" placeholder="Ex: Anita" value="{{ isset($product) ? $product->brand : '' }}">
+                            <label for="brand" class="form-label">{{ __('product_register.brand') }}</label>
+                            <input name="brand" type="text" id="brand" class="form-control" placeholder="{{ __('product_register.brand_placeholder') }}" value="{{ isset($product) ? $product->brand : '' }}">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label for="model" class="form-label">Modelo</label>
-                            <input name="model" type="text" id="model" class="form-control" placeholder="Ex: Carnaval" value="{{ isset($product) ? $product->model : '' }}">
+                            <label for="model" class="form-label">{{ __('product_register.model') }}</label>
+                            <input name="model" type="text" id="model" class="form-control" placeholder="{{ __('product_register.model_placeholder') }}" value="{{ isset($product) ? $product->model : '' }}">
                         </div>
                     </div>
                 </div>
@@ -450,15 +440,15 @@
             @if (!isset($product))
             <div class="col-md-6">
                 <div class="stock-card">
-                    <h4 class="section-title" style="margin-top: 0;">Estoque</h4>
+                    <h4 class="section-title" style="margin-top: 0;">{{ __('product_register.stock') }}</h4>
                     <div class="row g-3">
                         <div class="col-md-6 form-group">
-                            <label for="currentStock" class="form-label">Estoque Atual</label>
-                            <input name="currentStock" type="number" id="currentStock" class="form-control" placeholder="Ex: 40" value="{{ isset($product) ? $product->currentStock : '' }}">
+                            <label for="currentStock" class="form-label">{{ __('product_register.current_stock') }}</label>
+                            <input name="currentStock" type="number" id="currentStock" class="form-control" placeholder="{{ __('product_register.current_stock_placeholder') }}" value="{{ isset($product) ? $product->currentStock : '' }}">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label for="minimumStock" class="form-label">Estoque Mínimo</label>
-                            <input name="minimumStock" type="number" id="minimumStock" class="form-control" placeholder="Ex: 150" value="{{ isset($product) ? $product->minimumStock : '' }}">
+                            <label for="minimumStock" class="form-label">{{ __('product_register.minimum_stock') }}</label>
+                            <input name="minimumStock" type="number" id="minimumStock" class="form-control" placeholder="{{ __('product_register.minimum_stock_placeholder') }}" value="{{ isset($product) ? $product->minimumStock : '' }}">
                         </div>
                     </div>
                 </div>
@@ -466,12 +456,12 @@
             @endif
 
             <div class="col-12 d-flex justify-content-between align-items-center mt-4">
-                <div class="form-group mb-0"> {{-- Removido margin-bottom do form-group para alinhamento --}}
-                    <label class="form-label">Situação</label>
+                <div class="form-group mb-0">
+                    <label class="form-label">{{ __('product_register.status') }}</label>
                     <label class="toggle-switch">
                         <input type="checkbox" name="status" value="1" {{ isset($product) ? ($product->status ? 'checked' : '') : 'checked' }} onchange="updateStatusText(this)">
                         <span class="slider"></span>
-                        <span class="status-text" id="statusText">{{ isset($product) ? ($product->status ? 'Ativo' : 'Inativo') : 'Ativo' }}</span>
+                        <span class="status-text" id="statusText">{{ isset($product) ? ($product->status ? __('product_register.active') : __('product_register.inactive')) : __('product_register.active') }}</span>
                     </label>
                 </div>
                 <div class="form-actions">
@@ -489,7 +479,7 @@
 
             if (minimumStock > currentStock) {
                 event.preventDefault();
-                alert('O estoque mínimo não pode ser maior que o estoque atual.');
+                alert('{{ __('product_register.minimum_stock_alert') }}');
                 document.getElementById('minimumStock').focus();
             }
         });
@@ -520,9 +510,9 @@
         function updateStatusText(checkbox) {
             const statusText = document.getElementById('statusText');
             if (checkbox.checked) {
-                statusText.textContent = 'Ativo';
+                statusText.textContent = '{{ __('product_register.active') }}';
             } else {
-                statusText.textContent = 'Inativo';
+                statusText.textContent = '{{ __('product_register.inactive') }}';
             }
         }
 
@@ -532,6 +522,8 @@
                 updateStatusText(statusCheckbox);
             }
         });
+    </script>
+
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {

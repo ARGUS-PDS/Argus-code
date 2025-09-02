@@ -111,7 +111,7 @@
         @csrf
         <input type="email" name="email" placeholder="Seu Email" required>
         <input type="text" name="cartao_seg" placeholder="Final do cartão de segurança" required pattern="\d{4}">
-        <button class="botao-input hidden" type="submit">Enviar</button>
+        <button class="botao-input" type="submit">Enviar</button>
       </form>
     </div>
   </div>
