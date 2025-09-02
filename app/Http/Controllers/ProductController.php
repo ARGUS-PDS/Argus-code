@@ -113,11 +113,9 @@ class ProductController extends Controller
 
             $validated = $request->validate([
                 'description' => 'required|string|max:255',
-                'barcode' => 'required|string|max:50',
-                'code' => 'nullable|string|max:255',
-                //'expiration_date' => 'nullable|date',
+                'barcode' => 'required|string|max:50|unique:products,barcode,' . $id,
+                'code' => 'nullable|string|max:255|unique:products,code,' . $id,
                 'value' => 'nullable|numeric',
-                //'profit' => 'nullable|numeric',
                 'supplierId' => 'nullable|exists:suppliers,id',
                 'brand' => 'nullable|string|max:100',
                 'model' => 'nullable|string|max:100',
@@ -126,6 +124,7 @@ class ProductController extends Controller
                 'status' => 'nullable|boolean',
                 'image_url' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             ]);
+
 
             \Log::info('Dados validados:', $validated);
 
@@ -262,11 +261,9 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
     {
         $validated = $request->validate([
             'description' => 'required|string|max:255',
-            'barcode' => 'required|string|max:50',
-            'code' => 'nullable|string|max:255',
-            //'expiration_date' => 'nullable|date',
+            'barcode' => 'required|string|max:50|unique:products,barcode',
+            'code' => 'nullable|string|max:255|unique:products,code',
             'value' => 'nullable|numeric',
-            //'profit' => 'nullable|numeric',
             'supplierId' => 'nullable|exists:suppliers,id',
             'brand' => 'nullable|string|max:100',
             'model' => 'nullable|string|max:100',
@@ -275,6 +272,7 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
             'status' => 'nullable|boolean',
             'image_url' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
+
 
         $validated['status'] = $request->has('status') ? true : false;
  
