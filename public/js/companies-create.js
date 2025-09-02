@@ -172,6 +172,16 @@ async function validateCEP() {
     }
 }
 
+   function validarNumero(input) {
+      if (input.value < 0) {
+        input.value = 0;
+      }
+    }
+
+    function validarNome(input) {
+      input.value = input.value.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
+    }
+
 async function validateEmail() {
     const emailInput = document.getElementById("user_email");
     const emailStatus = document.getElementById("emailStatus");
