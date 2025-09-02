@@ -84,9 +84,10 @@
           </div>
           <div class="col-md-6">
             <label for="number" class="form-label required">Número</label>
-            <input type="number" name="number" id="number" class="form-control" required />
+            <input type="number" name="number" id="number" class="form-control" required min="0" oninput="validarNumero(this)" />
+            <small class="text-muted">Apenas valores positivos</small>
           </div>
-          <div class="col-md-6">
+          <div class=" col-md-6">
             <label for="details" class="form-label">Complemento</label>
             <input type="text" name="details" id="details" class="form-control" maxlength="50" placeholder="Opcional" />
           </div>
@@ -111,7 +112,8 @@
         <div class="row g-3">
           <div class="col-md-6">
             <label for="user_name" class="form-label required">Nome</label>
-            <input type="text" name="user_name" id="user_name" class="form-control" required maxlength="255" />
+            <input type="text" name="user_name" id="user_name" class="form-control" required maxlength="255" oninput="validarNome(this)" />
+            <small class="text-muted">Apenas letras são permitidas</small>
           </div>
           <div class="col-md-6">
             <label for="user_email" class="form-label required">Email</label>
