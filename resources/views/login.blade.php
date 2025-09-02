@@ -46,9 +46,9 @@
           <input type="password" name="cartao_seg" id="cartao_seg" placeholder="Final do cartão de segurança" required pattern="\d{4}" />
           <i class="toggle-password fas fa-eye" onclick="togglePassword('cartao_seg', this)"></i>
         </div>
-
-        <a href="#" onclick="abrirModal()">Sua senha venceu?</a>
+      
         <button onclick="mostrarTelaCarregando()" class="botao-input" type="submit">Entrar</button>
+         <a href="#" onclick="abrirModal()" style="visibility: hidden;">Sua senha venceu?</a>
       </form>
     </div>
 
@@ -92,7 +92,8 @@
     </div>
   </div>
 
-  <!-- Modal de Suporte -->
+{{--
+<!-- Modal de Suporte 
   <div id="modal-suporte" class="modal" style="display: {{ $errors->any() && old('email') ? 'flex' : (session('contato_enviado') ? 'flex' : 'none') }}">
     <div class="modal-content formulario-container">
       <span class="close" onclick="fecharModal()">&times;</span>
@@ -114,11 +115,14 @@
         <button class="botao-input" type="submit">Enviar</button>
       </form>
     </div>
-  </div>
+  </div> 
+-->
+--}}
+
 
 
   <script>
-  @if($errors - > suporte - > any() || session('contato_enviado'))
+  @if($errors -> suporte -> any() || session('contato_enviado'))
   document.getElementById("modal-suporte").style.display = "flex";
   @endif
   </script>
