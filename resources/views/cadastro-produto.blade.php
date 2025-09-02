@@ -339,7 +339,7 @@
             <h2 class="text-2xl">
                 {{ isset($product) ? 'Editar Produto' : 'Cadastrar Produto' }}
             </h2>
-            <x-btn-voltar/>
+            <x-btn-voltar url="{{ route('products.index') }}" />
         </div>
 
         @if ($errors->any())
