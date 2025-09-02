@@ -26,8 +26,8 @@ class CompanyController extends Controller
         $validated = $request->validate([
             // Empresa
             'cnpj' => 'required|string|max:18',
-            'businessName' => 'required|string|max:50',
-            'tradeName' => 'required|string|max:50',
+            'businessName' => 'required|string|max:150',
+            'tradeName' => 'required|string|max:150',
             'stateRegistration' => 'nullable|string|max:15',
             'cep' => 'required|string|max:9',
             'place' => 'required|string|max:100',

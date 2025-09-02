@@ -117,6 +117,12 @@
   </div>
 
 
+  <script>
+  @if($errors - > suporte - > any() || session('contato_enviado'))
+  document.getElementById("modal-suporte").style.display = "flex";
+  @endif
+  </script>
+
 
   <script src="https://unpkg.com/vanilla-masker/build/vanilla-masker.min.js"></script>
 
