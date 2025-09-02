@@ -86,7 +86,7 @@
         <div class="painel-alternativo painel-direito">
           <h1>Olá!</h1>
           <p>Entre em contato conosco agora e simplifique sua gestão de estoque de maneira inteligente!</p>
-          <button class="botao-input" id="registrar">Registrar</button>
+          <button class="botao-input hidden" id="registrar">Registrar</button>
         </div>
       </div>
     </div>
@@ -117,6 +117,12 @@
   </div>
 
 
+  <script>
+  @if($errors - > suporte - > any() || session('contato_enviado'))
+  document.getElementById("modal-suporte").style.display = "flex";
+  @endif
+  </script>
+
 
   <script src="https://unpkg.com/vanilla-masker/build/vanilla-masker.min.js"></script>
 
@@ -129,7 +135,7 @@
   </script>
 
   <script>
-  @if($errors - > suporte - > any() || session('contato_enviado'))
+  @if($errors -> suporte -> any() || session('contato_enviado'))
   document.getElementById("modal-suporte").style.display = "flex";
   @endif
   </script>

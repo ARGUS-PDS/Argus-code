@@ -15,6 +15,8 @@ use App\Http\Controllers\ContatoController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\UserController;
+
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -131,6 +133,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/companies/create', [CompanyController::class, 'create'])->name('companies.create');
     Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
 });
+
+
+Route::get('/check-email', [UserController::class, 'checkEmail']);
 
 
 Route::get('lang/{locale}', function (string $locale) {
