@@ -129,7 +129,7 @@
   </script>
 
   <script>
-  @if($errors - > suporte - > any() || session('contato_enviado'))
+  @if($errors -> suporte -> any() || session('contato_enviado'))
   document.getElementById("modal-suporte").style.display = "flex";
   @endif
   </script>
