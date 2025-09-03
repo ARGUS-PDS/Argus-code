@@ -33,7 +33,7 @@
             display: block;
         }
         
-        .navbar-nav .dropdown-item {
+        .lang-btn, .navbar-nav .dropdown-item {
             color: var(--color-gray-escuro);
             font-weight: 500;
             padding: 0.6rem 1rem;
@@ -41,9 +41,20 @@
             transition: all 0.2s ease;
             text-decoration: none;
         }
+
+        .lang-btn{
+            color: var(--color-gray-escuro);
+            font-weight: 500;
+            padding: 0.4rem 0.7rem;
+            border-radius: 16px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
         
-        .navbar-nav .dropdown-item:hover,
-        .navbar-nav .dropdown-item:focus {
+        .navbar-nav .dropdown-item:hover, 
+        .navbar-nav .dropdown-item:focus, 
+        .lang-btn:hover, 
+        .lang-btn:focus {
             background-color: var(--color-vinho-fundo) !important;
             color: var(--color-vinho) !important;
             transform: translateX(4px);

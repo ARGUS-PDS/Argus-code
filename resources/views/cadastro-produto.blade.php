@@ -320,16 +320,21 @@
             height: 24px;
             padding: 0;
             font-size: 1.3rem;
-            line-height: 24px;
-            top: -12px;
-            left: 100px;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            background: var(--color-vinho-fundo);
-            border: none;
+            line-height: 20px;
+            top: -16px;
+            left: 110px;
+            background: var(--color-vinho);
+            border: 2px solid var(--color-vinho);
             color: var(--color-bege-claro);
             position: absolute;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s !important;
+        }
+
+        .remove-image-btn:hover{
+            background: var(--color-bege-claro);
+            border: 2px solid var(--color-vinho);
+            color: var(--color-vinho);
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -374,7 +379,7 @@
                     <label for="image_url" class="form-label mb-2">{{ __('product_register.product_image') }}</label>
                     <input type="file" name="image_url" id="image_url" class="form-control" accept="image/*" onchange="previewImage(event)">
                     <div class="image-preview-area position-relative">
-                        <button type="button" id="removeBtn" class="btn btn-danger btn-sm remove-image-btn">&times;</button>
+                        <button type="button" id="removeBtn" class="btn-sm remove-image-btn">&times;</button>
                         @if(isset($product) && $product->image_url)
                         <img id="preview" src="{{ $product->image_url }}" alt="{{ __('product_register.current_image') }}" class="image-preview">
                         <div id="placeholder" class="image-placeholder-text">{{ __('product_register.current_image') }}</div>
