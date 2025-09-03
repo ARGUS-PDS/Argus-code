@@ -21,14 +21,15 @@
         color: var(--color-bege-claro);
         border: 2px solid var(--color-vinho);
         border-radius: 8px;
-        transition: all 0.3s ease;
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
+        transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s !important;
     }
     .btn-primary-header-action:hover {
         background-color: var(--color-bege-claro);
         color: var(--color-vinho);
         border: 2px solid var(--color-vinho);
+        transform: translateY(-2px) !important;
     }
 
     .product-card {
@@ -97,7 +98,7 @@
     }
     .btn-outline-email:hover {
         background-color: var(--color-vinho);
-        color: #fff;
+        color: var(--color-bege-claro);
     }
 
     .btn-outline-whatsapp {
@@ -110,14 +111,14 @@
     }
     .btn-outline-whatsapp:hover {
         background-color: var(--color-green);
-        color: #fff;
+        color: var(--color-bege-claro);
     }
 
     .card-body-custom {
         padding: 1.5rem;
         background-color: var(--color-bege-claro); 
-        border-radius: 0 0 8px 8px; 
-        border-top: 1px solid var(--color-bege-claro);
+        border-radius: 8px;
+        border-color: var(--color-bege-claro);
     }
     .card-body-custom h6 {
         color: var(--color-vinho);
@@ -126,27 +127,29 @@
 
     .btn-primary-form {
         background-color: var(--color-vinho);
-        border-color: var(--color-vinho);
+        border: 2px solid var(--color-vinho);
+        color: var(--color-bege-claro);
         border-radius: 8px;
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
     }
     .btn-primary-form:hover {
-        background-color: rgb(136, 59, 67);
-        border-color: rgb(136, 59, 67);
+        background-color: var(--color-bege-claro);
+        color: var(--color-vinho);
+        border: 2px solid var(--color-vinho);
     }
     .btn-secondary-form {
-        background-color: var(--color-gray-claro);
-        border-color: var(--color-gray-claro);
-        color: var(--color-gray-escuro);
+        background-color: var(--color-bege-claro);
+        border: 2px solid var(--color-vinho);
+        color: var(--color-vinho);
         border-radius: 8px;
         padding: 0.5rem 1rem;
         font-size: 0.9rem;
     }
     .btn-secondary-form:hover {
-        background-color: darken(var(--color-gray-claro), 10%);
-        border-color: darken(var(--color-gray-claro), 10%);
-        color: var(--color-gray-escuro);
+        background-color: var(--color-vinho);
+        border: 2px solid var(--color-vinho);
+        color: var(--color-bege-claro);
     }
 
     .btn-selected {
