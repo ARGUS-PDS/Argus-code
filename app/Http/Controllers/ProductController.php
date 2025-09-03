@@ -106,8 +106,11 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            \Log::info('Dados recebidos para update:', $request->all());
-            
+            \Log::info('Tem arquivo?', [$request->hasFile('image_url')]);
+            if ($request->hasFile('image_url')) {
+                \Log::info('Arquivo recebido:', [$request->file('image_url')->getClientOriginalName()]);
+            }
+
             $product = Product::findOrFail($id);
             \Log::info('Produto encontrado:', $product->toArray());
 
@@ -144,7 +147,7 @@ class ProductController extends Controller
             \Log::info('Status definido:', ['status' => $validated['status']]);
 
             $product->update($validated);
-            
+
             foreach (range(1, 10) as $page) {
                 \Cache::forget('products_page_' . $page);
             }
@@ -156,7 +159,7 @@ class ProductController extends Controller
                 'message' => $e->getMessage(),
                 'data' => $request->all()
             ]);
-            
+
             return back()->withInput()->withErrors(['error' => 'Erro ao atualizar: ' . $e->getMessage()]);
         }
     }
@@ -168,7 +171,7 @@ class ProductController extends Controller
     }
 
     public function produtosEsgotando(Request $request)
-{
+    {
         $perPage = 5;
         $page = $request->get('page', 1);
 
@@ -200,59 +203,59 @@ class ProductController extends Controller
         $produtos = $query->paginate($perPage, ['*'], 'page', $page);
 
         return view('products.estoque-baixo', ['produtos' => $produtos]);
-}
+    }
 
-public function enviarPedido(Request $request)
-{
-    $request->validate([
-        'produto_id' => 'required|exists:products,id',
-        'quantidade' => 'required|integer|min:1',
-        'prazo_valor' => 'required|integer|min:1',
-        'prazo_unidade' => 'required|in:dia(s),semana(s),mês(es)',
-        'canal_envio' => 'required|in:email,whatsapp',
-    ]);
+    public function enviarPedido(Request $request)
+    {
+        $request->validate([
+            'produto_id' => 'required|exists:products,id',
+            'quantidade' => 'required|integer|min:1',
+            'prazo_valor' => 'required|integer|min:1',
+            'prazo_unidade' => 'required|in:dia(s),semana(s),mês(es)',
+            'canal_envio' => 'required|in:email,whatsapp',
+        ]);
 
-    $prazo = "{$request->prazo_valor} {$request->prazo_unidade}";
+        $prazo = "{$request->prazo_valor} {$request->prazo_unidade}";
 
-    $produto = Product::with('supplier')->findOrFail($request->produto_id);
-    $fornecedor = $produto->supplier;
+        $produto = Product::with('supplier')->findOrFail($request->produto_id);
+        $fornecedor = $produto->supplier;
 
-    $mensagem = "Olá, {$fornecedor->name}. Gostaria de solicitar {$request->quantidade} unidades do produto '{$produto->description}'. Prazo de entrega: {$prazo}.
+        $mensagem = "Olá, {$fornecedor->name}. Gostaria de solicitar {$request->quantidade} unidades do produto '{$produto->description}'. Prazo de entrega: {$prazo}.
 Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
 
-    if ($request->canal_envio === 'email') {
-        Mail::to($fornecedor->email)->send(
-            new PedidoReposicaoMail(
-                $fornecedor,
-                $produto,
-                $request->quantidade,
-                $prazo,
-                auth()->user()->email
-            )
-        );
+        if ($request->canal_envio === 'email') {
+            Mail::to($fornecedor->email)->send(
+                new PedidoReposicaoMail(
+                    $fornecedor,
+                    $produto,
+                    $request->quantidade,
+                    $prazo,
+                    auth()->user()->email
+                )
+            );
+        }
+
+        SupplierOrder::create([
+            'product_id' => $produto->id,
+            'supplier_id' => $fornecedor->id,
+            'quantidade' => $request->quantidade,
+            'prazo_entrega' => $prazo,
+            'canal_envio' => $request->canal_envio,
+            'mensagem_enviada' => $mensagem,
+        ]);
+
+        if ($request->canal_envio === 'whatsapp') {
+            $telefone = preg_replace('/[^0-9]/', '', $fornecedor->phone ?? $fornecedor->contactNumber1);
+            $responsavel = auth()->user()->name ?? 'Responsável pelo pedido';
+            $mensagemWhats = "Olá, {$fornecedor->name}! Gostaria de solicitar {$request->quantidade} unidades do produto '{$produto->description}'. Prazo de entrega: {$prazo}. Em caso de dúvidas, entre em contato com {$responsavel}.";
+            $mensagemURL = urlencode($mensagemWhats);
+            $url = "https://wa.me/55{$telefone}?text={$mensagemURL}";
+
+            return back()->with('whatsapp_url', $url)->with('success', 'Clique no link para enviar o pedido via WhatsApp.');
+        }
+
+        return redirect()->route('produtos.esgotando')->with('success', 'Pedido enviado com sucesso!');
     }
-
-    SupplierOrder::create([
-        'product_id' => $produto->id,
-        'supplier_id' => $fornecedor->id,
-        'quantidade' => $request->quantidade,
-        'prazo_entrega' => $prazo,
-        'canal_envio' => $request->canal_envio,
-        'mensagem_enviada' => $mensagem,
-    ]);
-
-    if ($request->canal_envio === 'whatsapp') {
-        $telefone = preg_replace('/[^0-9]/', '', $fornecedor->phone ?? $fornecedor->contactNumber1);
-        $responsavel = auth()->user()->name ?? 'Responsável pelo pedido';
-        $mensagemWhats = "Olá, {$fornecedor->name}! Gostaria de solicitar {$request->quantidade} unidades do produto '{$produto->description}'. Prazo de entrega: {$prazo}. Em caso de dúvidas, entre em contato com {$responsavel}.";
-        $mensagemURL = urlencode($mensagemWhats);
-        $url = "https://wa.me/55{$telefone}?text={$mensagemURL}";
-
-        return back()->with('whatsapp_url', $url)->with('success', 'Clique no link para enviar o pedido via WhatsApp.');
-    }
-
-    return redirect()->route('produtos.esgotando')->with('success', 'Pedido enviado com sucesso!');
-}
 
 
 
@@ -275,8 +278,8 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
 
 
         $validated['status'] = $request->has('status') ? true : false;
- 
-           // Faz upload para Cloudinary
+
+        // Faz upload para Cloudinary
         $uploadedFileUrl = null;
         if ($request->hasFile('image_url')) {
             $uploadResult = CloudinaryHelper::upload($request->file('image_url')->getRealPath());

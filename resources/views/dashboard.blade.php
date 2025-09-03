@@ -33,7 +33,7 @@
           <i class="bi bi-arrow-down-circle-fill text-danger me-1"></i>
           @endif
           ({{ $mov->quantity }}) - {{ $mov->product->description ?? '-' }}
-          <small class="text-muted">({{ \Carbon\Carbon::parse($mov->created_at)->format('d/m/Y H:i') }})</small>
+          ({{ \Carbon\Carbon::parse($mov->created_at)->format('d/m/Y H:i') }})
         </li>
         @endforeach
       </ul>

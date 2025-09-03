@@ -28,7 +28,8 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
             /* Sombra mais pronunciada e suave */
             margin: 40px auto;
-            max-width: 960px;f
+            max-width: 960px;
+            f
             /* Um pouco mais largo */
             border: 1px solid var(--color-gray-claro);
             /* Borda sutil para definir o card */
@@ -375,7 +376,7 @@
                     <div class="image-preview-area position-relative">
                         <button type="button" id="removeBtn" class="btn btn-danger btn-sm remove-image-btn">&times;</button>
                         @if(isset($product) && $product->image_url)
-                        <img id="preview" src="{{ asset($product->image_url) }}" alt="{{ __('product_register.current_image') }}" class="image-preview">
+                        <img id="preview" src="{{ $product->image_url }}" alt="{{ __('product_register.current_image') }}" class="image-preview">
                         <div id="placeholder" class="image-placeholder-text">{{ __('product_register.current_image') }}</div>
                         @else
                         <img id="preview" src="#" alt="{{ __('product_register.preview') }}" class="image-preview d-none">
@@ -479,7 +480,8 @@
 
             if (minimumStock > currentStock) {
                 event.preventDefault();
-                alert('{{ __('product_register.minimum_stock_alert') }}');
+                alert('{{ __('
+                    product_register.minimum_stock_alert ') }}');
                 document.getElementById('minimumStock').focus();
             }
         });
@@ -510,9 +512,11 @@
         function updateStatusText(checkbox) {
             const statusText = document.getElementById('statusText');
             if (checkbox.checked) {
-                statusText.textContent = '{{ __('product_register.active') }}';
+                statusText.textContent = '{{ __('
+                product_register.active ') }}';
             } else {
-                statusText.textContent = '{{ __('product_register.inactive') }}';
+                statusText.textContent = '{{ __('
+                product_register.inactive ') }}';
             }
         }
 
@@ -526,161 +530,163 @@
 
     </script>
     <script>
-    // ---- Helpers isolados ----
-    function updateStatusText(checkbox) {
-        const statusText = document.getElementById('statusText');
-        if (!statusText) return;
-        statusText.textContent = checkbox.checked
-        ? '{{ __('product_register.active') }}'
-        : '{{ __('product_register.inactive') }}';
-    }
-
-    function previewImage(event) {
-        const preview = document.getElementById('preview');
-        const placeholder = document.getElementById('placeholder');
-        const removeBtn = document.getElementById('removeBtn');
-        if (!preview || !placeholder || !removeBtn) return;
-
-        if (event.target.files && event.target.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            preview.src = e.target.result;
-            preview.classList.remove('d-none');
-            placeholder.classList.add('d-none');
-            removeBtn.style.display = 'block';
-            document.getElementById('remove_image').value = '0';
-        };
-        reader.readAsDataURL(event.target.files[0]);
-        } else {
-        preview.src = '#';
-        preview.classList.add('d-none');
-        placeholder.classList.remove('d-none');
-        removeBtn.style.display = 'none';
-        document.getElementById('remove_image').value = '0';
+        // ---- Helpers isolados ----
+        function updateStatusText(checkbox) {
+            const statusText = document.getElementById('statusText');
+            if (!statusText) return;
+            statusText.textContent = checkbox.checked ?
+                '{{ __('
+            product_register.active ') }}': '{{ __('
+            product_register.inactive ') }}';
         }
-    }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // ---- Validação estoque ----
-        const form = document.querySelector('form');
-        const currentStockEl = document.getElementById('currentStock');
-        const minimumStockEl = document.getElementById('minimumStock');
+        function previewImage(event) {
+            const preview = document.getElementById('preview');
+            const placeholder = document.getElementById('placeholder');
+            const removeBtn = document.getElementById('removeBtn');
+            if (!preview || !placeholder || !removeBtn) return;
 
-        if (form && currentStockEl && minimumStockEl) {
-        form.addEventListener('submit', function (event) {
-            const currentStock = parseInt(currentStockEl.value) || 0;
-            const minimumStock = parseInt(minimumStockEl.value) || 0;
-            if (minimumStock > currentStock) {
-            event.preventDefault();
-            alert('{{ __('product_register.minimum_stock_alert') }}');
-            minimumStockEl.focus();
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('d-none');
+                    placeholder.classList.add('d-none');
+                    removeBtn.style.display = 'block';
+                    document.getElementById('remove_image').value = '0';
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            } else {
+                preview.src = '#';
+                preview.classList.add('d-none');
+                placeholder.classList.remove('d-none');
+                removeBtn.style.display = 'none';
+                document.getElementById('remove_image').value = '0';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // ---- Validação estoque ----
+            const form = document.querySelector('form');
+            const currentStockEl = document.getElementById('currentStock');
+            const minimumStockEl = document.getElementById('minimumStock');
+
+            if (form && currentStockEl && minimumStockEl) {
+                form.addEventListener('submit', function(event) {
+                    const currentStock = parseInt(currentStockEl.value) || 0;
+                    const minimumStock = parseInt(minimumStockEl.value) || 0;
+                    if (minimumStock > currentStock) {
+                        event.preventDefault();
+                        alert('{{ __('
+                            product_register.minimum_stock_alert ') }}');
+                        minimumStockEl.focus();
+                    }
+                });
+            }
+
+            // ---- Status toggle ----
+            const statusCheckbox = document.querySelector('.toggle-switch input[name="status"]');
+            if (statusCheckbox) updateStatusText(statusCheckbox);
+
+            // ---- Campos / imagem ----
+            const barcodeInput = document.getElementById('barcode');
+            const nameInput = document.getElementById('description');
+            const codeInput = document.getElementById('code');
+            const brandInput = document.getElementById('brand');
+            const modelInput = document.getElementById('model');
+            const imageInput = document.getElementById('image_url');
+            const previewImg = document.getElementById('preview');
+            const placeholder = document.getElementById('placeholder');
+            const removeBtn = document.getElementById('removeBtn');
+
+            // Mostrar o "X" já no carregamento se houver imagem (edição)
+            if (removeBtn && previewImg) {
+                const hasImage =
+                    previewImg.getAttribute('src') &&
+                    previewImg.getAttribute('src') !== '#' &&
+                    !previewImg.classList.contains('d-none');
+
+                removeBtn.style.display = hasImage ? 'block' : 'none';
+
+                // Se tem imagem, garante que o placeholder fique oculto
+                if (hasImage && placeholder) {
+                    placeholder.classList.add('d-none');
+                }
+            }
+
+            // Atualiza "code" automaticamente a partir do "name" se code estiver vazio
+            function atualizarDescricao() {
+                if (nameInput && codeInput && !codeInput.value) {
+                    codeInput.value = nameInput.value.toLowerCase();
+                }
+            }
+            if (nameInput && codeInput) {
+                nameInput.addEventListener('input', atualizarDescricao);
+            }
+
+            // Consulta Cosmos ao pressionar Enter no barcode
+            async function consultarProdutoCosmos(codigo) {
+                if (!codigo || codigo.length < 6) return;
+                try {
+                    const res = await fetch(`https://api.cosmos.bluesoft.com.br/gtins/${codigo}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Accept: 'application/json',
+                            'X-Cosmos-Token': 'CYPxDw3T-3fmTBDk7bInsg',
+                            'User-Agent': 'Cosmos-API-Request',
+                        },
+                    });
+                    if (!res.ok) return;
+                    const data = await res.json();
+                    if (!data) return;
+
+                    if (data.description && nameInput) {
+                        nameInput.value = data.description;
+                        atualizarDescricao();
+                    }
+                    if (data.brand && brandInput) brandInput.value = data.brand.name;
+                    if (data.gpc && modelInput) modelInput.value = data.gpc.description;
+
+                    if (data.thumbnail && previewImg) {
+                        previewImg.src = data.thumbnail;
+                        previewImg.classList.remove('d-none');
+                        if (placeholder) placeholder.classList.add('d-none');
+                        if (removeBtn) removeBtn.style.display = 'block';
+                    } else if (removeBtn) {
+                        removeBtn.style.display = 'none';
+                    }
+                } catch (e) {
+                    // silencia erros de rede
+                }
+            }
+
+            if (barcodeInput) {
+                barcodeInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        consultarProdutoCosmos(barcodeInput.value.trim());
+                    }
+                });
+            }
+
+            // Clique no "X" para remover imagem
+            if (removeBtn) {
+                removeBtn.addEventListener('click', function() {
+                    if (previewImg) {
+                        previewImg.src = '#';
+                        previewImg.classList.add('d-none');
+                    }
+                    if (placeholder) {
+                        placeholder.textContent = 'Nenhuma imagem selecionada';
+                        placeholder.classList.remove('d-none');
+                    }
+                    removeBtn.style.display = 'none';
+                    if (imageInput) imageInput.value = '';
+                    document.getElementById('remove_image').value = '1';
+                });
             }
         });
-        }
-
-        // ---- Status toggle ----
-        const statusCheckbox = document.querySelector('.toggle-switch input[name="status"]');
-        if (statusCheckbox) updateStatusText(statusCheckbox);
-
-        // ---- Campos / imagem ----
-        const barcodeInput = document.getElementById('barcode');
-        const nameInput = document.getElementById('description');
-        const codeInput = document.getElementById('code');
-        const brandInput = document.getElementById('brand');
-        const modelInput = document.getElementById('model');
-        const imageInput = document.getElementById('image_url');
-        const previewImg = document.getElementById('preview');
-        const placeholder = document.getElementById('placeholder');
-        const removeBtn = document.getElementById('removeBtn');
-
-        // Mostrar o "X" já no carregamento se houver imagem (edição)
-        if (removeBtn && previewImg) {
-        const hasImage =
-            previewImg.getAttribute('src') &&
-            previewImg.getAttribute('src') !== '#' &&
-            !previewImg.classList.contains('d-none');
-
-        removeBtn.style.display = hasImage ? 'block' : 'none';
-
-        // Se tem imagem, garante que o placeholder fique oculto
-        if (hasImage && placeholder) {
-            placeholder.classList.add('d-none');
-        }
-        }
-
-        // Atualiza "code" automaticamente a partir do "name" se code estiver vazio
-        function atualizarDescricao() {
-        if (nameInput && codeInput && !codeInput.value) {
-            codeInput.value = nameInput.value.toLowerCase();
-        }
-        }
-        if (nameInput && codeInput) {
-        nameInput.addEventListener('input', atualizarDescricao);
-        }
-
-        // Consulta Cosmos ao pressionar Enter no barcode
-        async function consultarProdutoCosmos(codigo) {
-        if (!codigo || codigo.length < 6) return;
-        try {
-            const res = await fetch(`https://api.cosmos.bluesoft.com.br/gtins/${codigo}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                'X-Cosmos-Token': 'CYPxDw3T-3fmTBDk7bInsg',
-                'User-Agent': 'Cosmos-API-Request',
-            },
-            });
-            if (!res.ok) return;
-            const data = await res.json();
-            if (!data) return;
-
-            if (data.description && nameInput) {
-            nameInput.value = data.description;
-            atualizarDescricao();
-            }
-            if (data.brand && brandInput) brandInput.value = data.brand.name;
-            if (data.gpc && modelInput) modelInput.value = data.gpc.description;
-
-            if (data.thumbnail && previewImg) {
-            previewImg.src = data.thumbnail;
-            previewImg.classList.remove('d-none');
-            if (placeholder) placeholder.classList.add('d-none');
-            if (removeBtn) removeBtn.style.display = 'block';
-            } else if (removeBtn) {
-            removeBtn.style.display = 'none';
-            }
-        } catch (e) {
-            // silencia erros de rede
-        }
-        }
-
-        if (barcodeInput) {
-        barcodeInput.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') {
-            e.preventDefault();
-            consultarProdutoCosmos(barcodeInput.value.trim());
-            }
-        });
-        }
-
-        // Clique no "X" para remover imagem
-        if (removeBtn) {
-        removeBtn.addEventListener('click', function () {
-            if (previewImg) {
-            previewImg.src = '#';
-            previewImg.classList.add('d-none');
-            }
-            if (placeholder) {
-            placeholder.textContent = 'Nenhuma imagem selecionada';
-            placeholder.classList.remove('d-none');
-            }
-            removeBtn.style.display = 'none';
-            if (imageInput) imageInput.value = '';
-            document.getElementById('remove_image').value = '1';
-        });
-        }
-    });
     </script>
 
     <script>
