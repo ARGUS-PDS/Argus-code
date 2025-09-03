@@ -28,4 +28,11 @@ class Batch extends Model
             'product_id'  // local key em movements
         );
     }
+
+    protected static function booted()
+    {
+        static::deleting(function ($batch) {
+            $batch->movements()->delete();
+        });
+    }
 }

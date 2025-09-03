@@ -101,10 +101,15 @@ class BatchController extends Controller
         return redirect()->route('batches.index')->with('success', 'Lote atualizado com sucesso!');
     }
 
-    public function destroy(Batch $batches)
-    {
-        $batches->delete();
 
-        return redirect()->route('batches.index')->with('success', 'Lote excluído com sucesso!');
+    public function destroyByCode($batch_code)
+    {
+        try {
+            $batch = Batch::where('batch_code', $batch_code)->firstOrFail();
+            $batch->delete();
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Erro ao excluir lote!'], 500);
+        }
     }
 }
