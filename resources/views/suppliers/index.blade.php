@@ -8,6 +8,12 @@
         margin: 0;
     }
 
+    h2 {
+        color: var(--color-vinho);
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
     .search-bar {
         background: var(--color-vinho);
         border: 2px solid var(--color-vinho);
@@ -67,7 +73,6 @@
     }
 
     .table-responsive {
-        border-radius: 15px;
         overflow: visible;
     }
 
@@ -80,12 +85,62 @@
         background: var(--color-white);
     }
 
-    td p {
-        margin-bottom: 0;
-    }
-
     .dropdown-item, .tres-pontos{
         z-index: 1000;
+    }
+    
+    .table {
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        background: var(--color-bege-card-interno); /* Fundo bege para a tabela */
+        margin: 16px 0;
+    }
+
+    .table th {
+        vertical-align: middle;
+        background: var(--color-vinho);
+        color: var(--color-bege-claro);
+        border-bottom: none;
+        padding: 1rem 1rem;
+    }
+
+    .table td {
+        vertical-align: middle;
+        background: transparent;
+        color: var(--color-vinho);
+        border-top: none;
+        padding: 0.75rem 1rem;
+    }
+
+    .table thead th:first-child {
+        border-top-left-radius: 12px;
+    }
+
+    .table thead th:last-child {
+        border-top-right-radius: 12px;
+    }
+
+    .table tbody tr:last-child td:first-child {
+        border-bottom-left-radius: 12px;
+    }
+
+    .table tbody tr:last-child td:last-child {
+        border-bottom-right-radius: 12px;
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(119, 49, 56, 0.1);
+    }
+
+    .table tbody tr:last-child td {
+        border-bottom: none !important;
+    }
+
+    .bi-plus-circle-fill{
+        cursor: pointer;
     }
 
 </style>
@@ -114,10 +169,10 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table align-middle">
+        <table class="table">
             <thead>
                 <tr>
-                    <th style="width:32px"></th>
+                    <th style="width:40px"></th>
                     <th>{{ __('suppliers.name') }}</th>
                     <th>{{ __('suppliers.code') }}</th>
                     <th>{{ __('suppliers.document') }}</th>
@@ -137,17 +192,17 @@
                     <td>{{ $supplier->distributor }}</td>
                     <td>
                         {{ $supplier->fixedphone }}
-                        <i id="toggleIconC{{ $supplier->id }}" onclick="seemorecontat('{{ $supplier->id }}')" class="bi bi-plus-circle-fill" style="cursor: pointer;"></i>
+                        <i id="toggleIconC{{ $supplier->id }}" onclick="seemorecontat('{{ $supplier->id }}')" class="bi bi-plus-circle-fill"></i>
                     </td>
                     <td style="display: flex; align-items: center;">
-                        <p style="max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <p style="position: relative; max-width: 150px; white-space: nowrap; margin-top: 15px; overflow: hidden; text-overflow: ellipsis;">
                             @if($supplier->address)
                             {{ $supplier->address->place }}, Nº {{ $supplier->address->number }}, {{ $supplier->address->neighborhood }}
                             @else
                             {{ __('suppliers.not_informed') }}
                             @endif
                         </p>
-                        <i id="toggleIconA{{ $supplier->id }}" onclick="seemoreaddresses('{{ $supplier->id }}')" class="bi bi-plus-circle-fill" style="cursor: pointer;"></i>
+                        <i id="toggleIconA{{ $supplier->id }}" onclick="seemoreaddresses('{{ $supplier->id }}')" class="bi bi-plus-circle-fill"></i>
                     </td>
                     <td>
                         <x-btn-tres-pontos class="tres-pontos" id="dropdownMenuButton{{ $supplier->id }}">

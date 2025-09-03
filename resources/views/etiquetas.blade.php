@@ -42,8 +42,8 @@
 }
 
 .form-add-card {
-    background-color: var(--color-white);
-    border: 1px solid var(--color-gray-claro);
+    background-color: var(--color-vinho);
+    border: 1px solid var(--color-vinho-fundo);
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     padding: 25px;
@@ -53,36 +53,38 @@
 
 .form-add-card .form-control {
     border-radius: 10px;
-    border: 1px solid var(--color-gray-medio);
+    border: 1px solid var(--color-bege-medio);
     padding: 10px 15px;
     flex-grow: 1;
 }
 
 
 .form-add-card .form-control:focus {
-    border-color: var(--color-vinho);
-    box-shadow: 0 0 0 0.25rem var(--color-vinho-fundo-transparente);
+    border-color: var(--color-bege-claro);
+    box-shadow: 0 0 0 0.25rem var(--color-bege-claro-fundo);
 }
 
 
 .form-add-card .btn-primary {
     background-color: var(--color-vinho);
-    border-color: var(--color-vinho);
+    color: var(--color-bege-claro);
     border-radius: 10px;
     padding: 10px 20px;
+    border: 2px solid var(--color-bege-claro);
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 
 .form-add-card .btn-primary:hover {
-    background-color: #6b0f2c;
-    border-color: #6b0f2c;
+    background-color: var(--color-bege-claro);
     transform: translateY(-2px);
+    border: 2px solid var(--color-bege-claro);
+    color: var(--color-vinho);
 }
 
 
 .form-add-card .col-form-label {
-    color: var(--color-vinho);
+    color: var(--color-bege-claro);
     font-weight: 600;
     white-space: nowrap;
     margin-right: 10px;
@@ -114,31 +116,34 @@
 
 
 .action-buttons .btn-outline-danger {
-    color: var(--color-red);
-    border-color: var(--color-red);
-    border-radius: 10px;
+    background-color: var(--color-bege-claro);
+    border: 2px solid var(--color-vinho);
+    color: var(--color-vinho);
     transition: all 0.3s ease;
+    border-radius: 10px;
 }
 
 
 .action-buttons .btn-outline-danger:hover {
-    background-color: var(--color-red);
-    color: var(--color-white);
+    background-color: var(--color-vinho);
+    border: 2px solid var(--color-vinho);
+    transform: translateY(-2px);
+    color: var(--color-bege-claro);
 }
 
 
 .action-buttons .btn-success {
     background-color: var(--color-vinho);
-    border-color: var(--color-vinho);
+    border: 2px solid var(--color-vinho);
     border-radius: 10px;
-    color: var(--color-white);
     transition: all 0.3s ease;
 }
 
 
 .action-buttons .btn-success:hover {
-    background-color: #6b0f2c;
-    border-color: #6b0f2c;
+    background-color: var(--color-bege-claro);
+    color: var(--color-bege-color);
+    border: 2px solid var(--color-vinho);
     transform: translateY(-2px);
 }
 
@@ -153,8 +158,8 @@
 
 
 .etiqueta {
-    background-color: var(--color-white);
-    border: 1px solid var(--color-gray-claro);
+    background-color: var(--color-vinho);
+    border: 1px solid var(--color-vinho-fundo);
     border-radius: 8px;
     padding: 15px;
     text-align: center;
@@ -177,7 +182,7 @@
 .etiqueta h3 {
     font-size: 1.1rem;
     font-weight: bold;
-    color: var(--color-vinho);
+    color: var(--color-bege-claro);
     margin-bottom: 10px;
     white-space: normal;
     overflow: visible;
@@ -203,7 +208,7 @@
 .etiqueta .preco {
     font-size: 1.3rem;
     font-weight: bold;
-    color: var(--color-gray-escuro);
+    color: var(--color-bege-claro);
     margin-bottom: 5px;
 }
 
@@ -215,6 +220,7 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+
 }
 
 
@@ -376,7 +382,8 @@
                     <div class="preco-barcode">
                         <div class="preco">R$ {{ number_format((float) $et['preco'], 2, ',', '.') }}</div>
                         <div class="barcode">
-                            <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($et['codigo'], 'C128') }}" alt="{{ __('labels.alt_codigo_barras') }} {{ $et['codigo'] }}" />
+                        <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($et['codigo'], 'C128', 2, 60, [248, 240, 229], true) }}" 
+                            alt="{{ __('labels.alt_codigo_barras') }} {{ $et['codigo'] }}" />
                         </div>
                     </div>
                 </div>
