@@ -102,6 +102,7 @@
         padding: 0 15px;
         display: flex;
         align-items: center;
+        cursor: pointer;
     }
 
     .input-group .form-control {
@@ -109,47 +110,43 @@
         border-radius: 10px 0 0 10px;
     }
 
-    input[type="date"].form-control {
-        appearance: none;
-        -webkit-appearance: none;
+    .lot-list {
+        margin-top: 25px;
     }
 
-    @media (max-width: 768px) {
-        .container-card {
-            margin: 20px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
+    .lot-item {
+        background: var(--color-bege-card-interno);
+        border: 1px solid var(--color-gray-claro);
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        .header-section {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
+    .lot-info {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.95rem;
+    }
 
-        .header-section h2 {
-            font-size: 1.8rem;
-        }
+    .lot-info span {
+        margin: 2px 0;
+    }
 
-        .section-card {
-            padding: 20px;
-            margin-bottom: 20px;
-        }
+    .btn-delete {
+        background: none;
+        border: none;
+        color: var(--color-vinho);
+        font-size: 1.4rem;
+        cursor: pointer;
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
 
-        .section-card .card-title {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-
-        .form-label {
-            font-size: 0.9rem;
-        }
-
-        .form-control,
-        .form-select {
-            padding: 10px 15px;
-        }
+    .btn-delete:hover {
+        transform: scale(1.1);
+        color: #b30000;
     }
 </style>
 @endsection
@@ -168,7 +165,7 @@
                 <label for="lote" class="form-label">{{ __('lots.lote') }}</label>
                 <div class="input-group">
                     <input type="text" name="lote" id="lote" class="form-control" placeholder="{{ __('lots.digite_numero_lote') }}">
-                    <span class="input-group-text" style="cursor: pointer;">
+                    <span class="input-group-text">
                         <i class="bi bi-search"></i>
                     </span>
                 </div>
@@ -189,6 +186,9 @@
                 <input type="date" name="data_entrada" id="data_entrada" class="form-control" disabled>
             </div>
         </div>
+
+        <!-- Lista de lotes -->
+        <div id="lotList" class="lot-list"></div>
     </div>
 </div>
 @endsection
@@ -198,14 +198,10 @@
     document.addEventListener("DOMContentLoaded", function() {
         const searchBtn = document.querySelector(".input-group-text");
         const loteInput = document.getElementById("lote");
+        const lotList = document.getElementById("lotList");
 
         searchBtn.addEventListener("click", function() {
             let lote = loteInput.value.trim();
-
-            if (!lote) {
-                alert("Digite o código do lote!");
-                return;
-            }
 
             fetch("{{ route('batches.buscar') }}", {
                     method: "POST",
@@ -220,9 +216,57 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        document.getElementById("produto").value = data.data.produto;
-                        document.getElementById("data_validade").value = data.data.data_validade.split(" ")[0];
-                        document.getElementById("data_entrada").value = data.data.data_entrada.split(" ")[0];
+                        if (data.all) {
+                            lotList.innerHTML = "";
+
+                            data.data.forEach(item => {
+                                let lotItem = document.createElement("div");
+                                lotItem.classList.add("lot-item");
+                                lotItem.innerHTML = `
+                                    <div class="lot-info">
+                                        <span><strong>Lote:</strong> ${item.lote}</span>
+                                        <span><strong>Produto:</strong> ${item.produto}</span>
+                                        <span><strong>Validade:</strong> ${item.data_validade}</span>
+                                        <span><strong>Entrada:</strong> ${item.data_entrada}</span>
+                                    </div>
+                                    <button class="btn-delete" data-lote="${item.lote}">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                `;
+                                lotList.appendChild(lotItem);
+                            });
+
+                            document.querySelectorAll(".btn-delete").forEach(btn => {
+                                btn.addEventListener("click", function() {
+                                    let loteCode = this.getAttribute("data-lote");
+                                    if (confirm("Deseja realmente excluir o lote " + loteCode + "?")) {
+                                        fetch(`/batches/${loteCode}`, {
+                                                method: "DELETE",
+                                                headers: {
+                                                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                                                }
+                                            })
+                                            .then(res => res.json())
+                                            .then(resp => {
+                                                if (resp.success || resp.message) {
+                                                    this.closest(".lot-item").remove();
+                                                } else {
+                                                    alert("Erro ao excluir lote!");
+                                                }
+                                            })
+                                            .catch(err => {
+                                                console.error(err);
+                                                alert("Erro ao excluir lote!");
+                                            });
+                                    }
+                                });
+                            });
+
+                        } else {
+                            document.getElementById("produto").value = data.data.produto;
+                            document.getElementById("data_validade").value = data.data.data_validade.split(" ")[0];
+                            document.getElementById("data_entrada").value = data.data.data_entrada.split(" ")[0];
+                        }
                     } else {
                         alert(data.message);
                     }

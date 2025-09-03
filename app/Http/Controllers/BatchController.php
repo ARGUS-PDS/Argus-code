@@ -38,12 +38,27 @@ class BatchController extends Controller
 
     public function buscarPorCodigo(Request $request)
     {
-        $request->validate([
-            'batch_code' => 'required|string'
-        ]);
+        $batchCode = $request->batch_code ?? null;
+
+        if (!$batchCode) {
+            $batches = \App\Models\Batch::with('product')->get();
+
+            return response()->json([
+                'success' => true,
+                'all' => true,
+                'data' => $batches->map(function ($batch) {
+                    return [
+                        'lote' => $batch->batch_code,
+                        'produto' => $batch->product ? $batch->product->description : '-',
+                        'data_validade' => $batch->expiration_date,
+                        'data_entrada' => $batch->created_at->format('Y-m-d'),
+                    ];
+                })
+            ]);
+        }
 
         $batch = \App\Models\Batch::with('product')
-            ->where('batch_code', $request->batch_code)
+            ->where('batch_code', $batchCode)
             ->first();
 
         if (!$batch) {
@@ -62,9 +77,6 @@ class BatchController extends Controller
             ]
         ]);
     }
-
-
-
 
     public function show(Batch $batches)
     {
