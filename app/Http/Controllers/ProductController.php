@@ -324,17 +324,51 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
 
     public function massDelete(Request $request)
     {
-        $ids = explode(',', $request->input('ids'));
-        Product::whereIn('id', $ids)->delete();
+        try {
+            $ids = $request->input('ids', []);
+            
+            // Validar se há IDs
+            if (empty($ids) || empty(array_filter($ids))) {
+                return response()->json(['error' => 'Nenhum ID fornecido'], 400);
+            }
+            
+            // Validar se os IDs são números
+            $ids = array_filter($ids, function($id) {
+                return is_numeric($id) && $id > 0;
+            });
+            
+            if (empty($ids)) {
+                return response()->json(['error' => 'IDs inválidos'], 400);
+            }
+            
+            \Log::info('Tentando excluir produtos:', ['ids' => $ids]);
+            
+            $deleted = Product::whereIn('id', $ids)->delete();
+            
+            \Log::info('Produtos excluídos:', ['count' => $deleted]);
 
-        foreach (range(1, 10) as $page) {
-            \Cache::forget('products_page_' . $page);
+            foreach (range(1, 10) as $page) {
+                \Cache::forget('products_page_' . $page);
+            }
+
+            if ($request->ajax()) {
+                return response()->json(['success' => true, 'deleted' => $deleted]);
+            }
+
+            return redirect()->route('products.index')->with('success', 'Produtos excluídos com sucesso.');
+            
+        } catch (\Exception $e) {
+            \Log::error('Erro ao excluir produtos em massa:', [
+                'error' => $e->getMessage(),
+                'ids' => $request->input('ids'),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
+            if ($request->ajax()) {
+                return response()->json(['error' => 'Erro interno do servidor'], 500);
+            }
+            
+            return redirect()->route('products.index')->with('error', 'Erro ao excluir produtos.');
         }
-
-        if ($request->ajax()) {
-            return response()->json(['success' => true]);
-        }
-
-        return redirect()->route('products.index')->with('success', 'Produtos excluídos com sucesso.');
     }
 }

@@ -268,7 +268,6 @@
         display: inline-block;
         cursor: pointer;
     }
-    
     .btn-limpar:hover {
         background-color: transparent;
         color: var(--color-vinho);
@@ -276,6 +275,13 @@
         transform: translateY(-2px);
     }
 
+    .bi-printer, .bi-trash{
+        color: var(--color-vinho);
+    }
+
+    .bi-printer:hover, .bi-trash:hover{
+        color: var(--color-bege-claro);
+    }
     @media (max-width: 768px) {
         .search-bar {
             width: 100%;
@@ -360,7 +366,7 @@
             <span class="ms-4 fw-bold" style="color: var(--color-vinho);"> 
                 Produtos exibidos: {{ ($products->currentPage() * $products->perPage() > $products->total()) ? $products->total() : $products->currentPage() * $products->perPage() }} de {{ $products->total() }}
             </span>
-            <button type="button" class="btn p-0" title="{{ __('products.print') }}">
+            <button type="button" class="btn p-0" title="{{ __('products.print') }}" onclick="imprimirSelecionados();">
                 <i class="bi bi-printer fs-4"></i>
             </button>
             <form id="massDeleteForm" action="{{ route('products.massDelete') }}" method="POST" style="display:none;">
@@ -419,7 +425,7 @@
                     <td class="text-center">
                         <x-btn-tres-pontos id="dropdownMenuButton{{ $product->id }}">
                             <li>
-                                <a class="dropdown-item" href="">{{ __('products.print') }}</a>
+                                <a class="dropdown-item" href="#" onclick="imprimirProduto({{ $product->id }}, '{{ $product->barcode }}'); return false;">{{ __('products.print') }}</a>
                             </li>
                             <li>
                                 <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('{{ __('products.confirm_delete') }}');">
@@ -452,12 +458,77 @@
         const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
         const rowCheckboxes = Array.from(checkboxes).filter(cb => cb.id !== 'select-all-checkbox');
         const count = rowCheckboxes.filter(cb => cb.checked).length;
-        document.getElementById('selectedValue').textContent = count;
-        document.getElementById('selected-count').style.display = count > 0 ? 'block' : 'none';
+        
+        console.log('Atualizando contador:', count, 'de', rowCheckboxes.length);
+        
+        const selectedValue = document.getElementById('selectedValue');
+        const selectedCount = document.getElementById('selected-count');
+        
+        if (selectedValue) {
+            selectedValue.textContent = count;
+        }
+        
+        if (selectedCount) {
+            selectedCount.style.display = count > 0 ? 'block' : 'none';
+        }
+        
         // Sincronizar o checkbox do cabeçalho
         const selectAll = document.getElementById('select-all-checkbox');
         if (selectAll) {
             selectAll.checked = rowCheckboxes.length > 0 && rowCheckboxes.every(cb => cb.checked);
+        }
+        
+        // Salvar seleção no localStorage
+        saveSelectionToStorage();
+    }
+
+    // Salvar seleção no localStorage
+    function saveSelectionToStorage() {
+        const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+        const selectedData = Array.from(checkboxes)
+            .filter(cb => cb.checked && cb.dataset.id)
+            .map(cb => {
+                const row = cb.closest('tr');
+                const barcode = row ? row.querySelector('td:nth-child(4)').textContent.trim() : null;
+                return {
+                    id: cb.dataset.id,
+                    barcode: barcode
+                };
+            });
+        
+        if (selectedData.length > 0) {
+            localStorage.setItem('selectedProducts', JSON.stringify(selectedData));
+        } else {
+            localStorage.removeItem('selectedProducts');
+        }
+    }
+
+    // Carregar seleção do localStorage
+    function loadSelectionFromStorage() {
+        const savedSelection = localStorage.getItem('selectedProducts');
+        if (savedSelection) {
+            try {
+                const selectedData = JSON.parse(savedSelection);
+                const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+                
+                console.log('Carregando seleção do localStorage:', selectedData);
+                
+                checkboxes.forEach(cb => {
+                    if (cb.dataset.id && selectedData.some(item => item.id === cb.dataset.id)) {
+                        cb.checked = true;
+                        console.log('Checkbox selecionado:', cb.dataset.id);
+                    }
+                });
+                
+                // Atualizar contador após carregar seleção
+                setTimeout(() => {
+                    updateSelectedCount();
+                }, 100);
+                
+            } catch (e) {
+                console.error('Erro ao carregar seleção do localStorage:', e);
+                localStorage.removeItem('selectedProducts');
+            }
         }
     }
     function attachClearSelectionListener() {
@@ -466,6 +537,7 @@
             clearBtn.onclick = function() {
                 const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
                 checkboxes.forEach(cb => cb.checked = false);
+                localStorage.removeItem('selectedProducts');
                 updateSelectedCount();
             };
         }
@@ -485,7 +557,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
         checkboxes.forEach(cb => cb.addEventListener('change', updateSelectedCount));
-        updateSelectedCount();
+        
+        // Carregar seleção salva do localStorage
+        loadSelectionFromStorage();
+        
         attachClearSelectionListener();
         attachSelectAllListener();
     });
@@ -496,37 +571,53 @@
             .filter(cb => cb.checked && cb.dataset.id)
             .map(cb => cb.dataset.id);
 
+        console.log('IDs selecionados:', ids);
+
         if (ids.length === 0) {
             alert('Selecione pelo menos um produto para excluir.');
             return;
         }
 
-        if (!confirm('Tem certeza que deseja excluir os produtos selecionados?')) return;
+        if (!confirm(`Tem certeza que deseja excluir ${ids.length} produto(s) selecionado(s)?`)) return;
 
         mostrarTelaCarregando();
-        const form = document.getElementById('massDeleteForm');
-        const formData = new FormData(form);
+        
+        // Criar form data
+        const formData = new FormData();
+        formData.append('ids', ids.join(','));
+        formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
 
-        formData.set('ids', ids.join(','));
+        console.log('Enviando requisição para:', '/products/mass-delete');
+        console.log('IDs:', ids.join(','));
 
-        fetch(form.action, {
+        fetch('/products/mass-delete', {
             method: 'POST',
             body: formData,
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             }
         }).then(res => {
-            if (res.ok) {
-                return fetchProducts(); 
-            } else {
-                alert('Erro ao excluir os produtos.');
-                throw new Error('Erro ao excluir');
-            }
-        }).then(() => {
-            esconderTelaCarregando(); 
+            console.log('Resposta recebida:', res.status);
+            return res.json().then(data => {
+                if (res.ok) {
+                    return data;
+                } else {
+                    throw new Error(data.error || `Erro HTTP: ${res.status}`);
+                }
+            });
+        }).then(data => {
+            console.log('Dados recebidos:', data);
+            alert(`Produtos excluídos com sucesso! (${data.deleted || ids.length} produto(s))`);
+            // Limpar seleção do localStorage
+            localStorage.removeItem('selectedProducts');
+            // Recarregar a página
+            window.location.reload();
         }).catch(err => {
-            console.error(err);
-            esconderTelaCarregando(); 
+            console.error('Erro:', err);
+            alert('Erro ao excluir os produtos: ' + err.message);
+        }).finally(() => {
+            esconderTelaCarregando();
         });
     }
 
@@ -535,8 +626,54 @@
     document.getElementById('clear-selection').addEventListener('click', function() {
         const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
         checkboxes.forEach(cb => cb.checked = false);
+        localStorage.removeItem('selectedProducts');
         updateSelectedCount();
     });
+
+    // Função para imprimir um produto específico
+    function imprimirProduto(id, barcode) {
+        // Redirecionar para etiquetas com o produto já "bipado"
+        window.location.href = `/etiquetas?produto=${barcode}`;
+    }
+
+    // Função para imprimir produtos selecionados
+    function imprimirSelecionados() {
+        // Primeiro, tentar pegar da página atual
+        const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+        let selectedProducts = Array.from(checkboxes)
+            .filter(cb => cb.checked && cb.dataset.id)
+            .map(cb => {
+                const row = cb.closest('tr');
+                const barcode = row.querySelector('td:nth-child(4)').textContent.trim();
+                return barcode;
+            });
+
+        // Se não há produtos selecionados na página atual, verificar localStorage
+        if (selectedProducts.length === 0) {
+            const savedSelection = localStorage.getItem('selectedProducts');
+            if (savedSelection) {
+                const selectedData = JSON.parse(savedSelection);
+                console.log('Dados salvos no localStorage:', selectedData);
+                
+                // Extrair códigos de barras dos dados salvos
+                selectedProducts = selectedData
+                    .map(item => item.barcode)
+                    .filter(barcode => barcode !== null);
+                
+                console.log('Produtos encontrados:', selectedProducts);
+            }
+        }
+
+        if (selectedProducts.length === 0) {
+            alert('Selecione pelo menos um produto para imprimir.');
+            return;
+        }
+
+        console.log('Produtos para imprimir:', selectedProducts);
+        // Redirecionar para etiquetas com os produtos já "bipados"
+        const produtosParam = selectedProducts.join(',');
+        window.location.href = `/etiquetas?produtos=${produtosParam}`;
+    }
 </script>
 
 <script>
@@ -550,7 +687,7 @@ function renderProductsTable(products) {
     }
     products.forEach(product => {
         html += `<tr onclick="window.location='${product.edit_url}'" style="cursor:pointer;">`;
-        html += `<td class='text-center'><input type='checkbox' onclick='event.stopPropagation();'></td>`;
+        html += `<td class='text-center'><input type='checkbox' data-id='${product.id}' onclick='event.stopPropagation();'></td>`;
         html += `<td class='text-center'>`;
         if (product.image_url && product.image_exists) {
             html += `<img src='${product.image_url}' alt='Imagem do produto' class='img-thumb' loading='lazy'>`;
@@ -566,19 +703,25 @@ function renderProductsTable(products) {
         html += `<div class='dropdown'>`;
         html += `<i class='bi bi-three-dots-vertical' role='button' data-bs-toggle='dropdown' aria-expanded='false' onclick='event.stopPropagation();'></i>`;
         html += `<ul class='dropdown-menu' data-bs-boundary='viewport'>`;
-        html += `<li><a class='dropdown-item' href='#'>Imprimir</a></li>`;
+        html += `<li><a class='dropdown-item' href='#' onclick="imprimirProduto(${product.id}, '${product.barcode}'); return false;">Imprimir</a></li>`;
         html += `<li><form action='/products/${product.id}' method='POST' onsubmit="return confirm('Tem certeza que deseja excluir?');">`;
         html += `@csrf @method('DELETE')`;
         html += `<button class='dropdown-item text-danger' type='submit'>Excluir</button></form></li>`;
         html += `</ul></div></td></tr>`;
     });
     document.querySelector('.products-table tbody').innerHTML = html;
-    // Reanexar eventos após renderização dinâmica
-    const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
-    checkboxes.forEach(cb => cb.addEventListener('change', updateSelectedCount));
-    attachClearSelectionListener();
-    attachSelectAllListener();
-    updateSelectedCount();
+    
+    // Aguardar um pouco para garantir que o DOM foi atualizado
+    setTimeout(() => {
+        // Reanexar eventos após renderização dinâmica
+        const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+        checkboxes.forEach(cb => cb.addEventListener('change', updateSelectedCount));
+        attachClearSelectionListener();
+        attachSelectAllListener();
+        
+        // Carregar seleção do localStorage após renderizar
+        loadSelectionFromStorage();
+    }, 50);
 }
 
 // Função para renderizar a paginação

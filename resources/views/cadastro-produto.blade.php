@@ -337,18 +337,6 @@
             transform: translateY(-2px);
         }
 
-        .explicacao{
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--color-vinho);
-            color: var(--color-bege-claro);
-            font-size: 14px;
-            margin-left: 5px;
-        }
     </style>
 </head>
 
@@ -392,8 +380,8 @@
                     <label for="image_url" class="form-label mb-2">{{ __('product_register.product_image') }}</label>
                     <input type="file" name="image_url" id="image_url" class="form-control" accept="image/*" onchange="previewImage(event)">
                     <div class="image-preview-area position-relative">
-                        <button type="button" id="removeBtn" class="btn-sm remove-image-btn">&times;</button>
                         @if(isset($product) && $product->image_url)
+                        <button type="button" id="removeBtn" class="btn-sm remove-image-btn">&times;</button>
                         <img id="preview" src="{{ $product->image_url }}" alt="{{ __('product_register.current_image') }}" class="image-preview">
                         <div id="placeholder" class="image-placeholder-text">{{ __('product_register.current_image') }}</div>
                         @else
@@ -466,7 +454,7 @@
                             <input name="currentStock" type="number" id="currentStock" class="form-control" placeholder="{{ __('product_register.current_stock_placeholder') }}" value="{{ isset($product) ? $product->currentStock : '' }}">
                         </div>
                         <div class="col-md-6 form-group">
-                            <label for="minimumStock" class="form-label">{{ __('product_register.minimum_stock') }} <span title="Quantidade mínima do produto a ser mantida em estoque" class="explicacao"> ?</span></label>
+                            <label for="minimumStock" class="form-label">{{ __('product_register.minimum_stock') }} <x-explanation title="Quantidade mínima do produto a ser mantida em estoque"></x-explanation></label>
                             <input name="minimumStock" type="number" id="minimumStock" class="form-control" placeholder="{{ __('product_register.minimum_stock_placeholder') }}" value="{{ isset($product) ? $product->minimumStock : '' }}">
                         </div>
                     </div>

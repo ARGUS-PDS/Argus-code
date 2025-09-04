@@ -59,11 +59,16 @@
 
     .grafico-btn{
       color: var(--color-bege-claro) !important;
+      border: 2px solid transparent !important;
     }
 
     .grafico-btn.active{
       color: var(--color-vinho) !important;
       background: var(--color-bege-claro) !important;
+    }
+
+    .grafico-btn:hover{
+      border: 2px solid var(--color-bege-claro) !important;
     }
   }
 
@@ -84,7 +89,6 @@
   .grafico-btn {
     background: transparent !important;
     color: var(--color-vinho) !important;
-    border: none !important;
     font-weight: 600;
     padding: 0.3em 1.2em;
     border-radius: 999px;
@@ -97,9 +101,12 @@
   .grafico-toolbar .grafico-btn.active {
     background: var(--color-vinho) !important;
     color: var(--color-bege-claro) !important;
+    border: 2px solid transparent !important;
+    cursor: grab;
   }
 
   .grafico-toolbar .grafico-btn {
     color: var(--color-vinho) !important;
     background: transparent !important;
+    border: 2px solid transparent !important;
   }

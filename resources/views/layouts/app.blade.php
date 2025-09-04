@@ -33,7 +33,7 @@
             display: block;
         }
         
-        .lang-btn, .navbar-nav .dropdown-item {
+        .navbar-nav .dropdown-item{
             color: var(--color-gray-escuro);
             font-weight: 500;
             padding: 0.6rem 1rem;
@@ -54,7 +54,9 @@
         .navbar-nav .dropdown-item:hover, 
         .navbar-nav .dropdown-item:focus, 
         .lang-btn:hover, 
-        .lang-btn:focus {
+        .lang-btn:focus,
+        .lang-switch .dropdown-item:hover,
+        .lang-switch .dropdown-item:focus  {
             background-color: var(--color-vinho-fundo) !important;
             color: var(--color-vinho) !important;
             transform: translateX(4px);

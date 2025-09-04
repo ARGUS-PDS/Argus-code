@@ -10,6 +10,42 @@ class EtiquetaController extends Controller
     public function index(Request $request)
     {
         $etiquetas = json_decode($request->cookie('etiquetas', '[]'), true);
+        
+        if ($request->has('produto')) {
+            $codigo = $request->input('produto');
+            $produto = DB::table('products')
+                ->where('barcode', $codigo)
+                ->first();
+            
+            if ($produto) {
+                $etiquetas = [[
+                    'nome' => $produto->description,
+                    'codigo' => $codigo,
+                    'preco' => number_format($produto->value, 2, ',', '.')
+                ]];
+            }
+        }
+        
+        if ($request->has('produtos')) {
+            $codigos = explode(',', $request->input('produtos'));
+            $etiquetas = [];
+            
+            foreach ($codigos as $codigo) {
+                $codigo = trim($codigo);
+                $produto = DB::table('products')
+                    ->where('barcode', $codigo)
+                    ->first();
+                
+                if ($produto) {
+                    $etiquetas[] = [
+                        'nome' => $produto->description,
+                        'codigo' => $codigo,
+                        'preco' => number_format($produto->value, 2, ',', '.')
+                    ];
+                }
+            }
+        }
+        
         return view('etiquetas', compact('etiquetas'));
     }
 
