@@ -65,6 +65,11 @@
         .user-menu-panel {
             z-index: 2000;
         }
+
+        .user-menu-panel .d-flex {
+            align-items: center;
+            justify-content: center;
+        }
         
         @media (max-width: 991.98px) {
             .navbar-nav .dropdown-menu,
@@ -110,6 +115,69 @@
             right: 0 !important;
             z-index: 99999 !important;
             pointer-events: auto !important;
+        }
+
+        
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 20px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--color-bege-claro);
+            transition: 0.4s;
+            border-radius: 20px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 14px;
+            width: 14px;
+            left: 2px;
+            bottom: 3px;
+            background-color: var(--color-vinho);
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--color-bege-claro);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+        
+        .change-password{
+            color: var(--color-bege-claro) !important; 
+            padding-top: 20px; 
+            font-size: 1.1rem; 
+            text-decoration: none; 
+            background: none; 
+            border: none; 
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-radius: 50px;
+        }
+
+        .change-password i {
+            color: var(--color-bege-claro) !important;
+        }
+
+        .change-password:hover, .toggle-switch {
+            transform: translateY(-2px);
         }
     </style>
     
@@ -190,12 +258,21 @@
                             <div class="mt-3 fw-bold" style="font-size: 20px; color: var(--color-bege-claro);">{{ __('menu.ola_usuario', ['name' => Auth::user() ? Auth::user()->name : __('menu.usuario')]) }}</div>
                             
                             <a href="#"
-                                class="d-block align-items-center gap-2 mt-3"
-                                style="color: var(--color-bege-claro); font-weight: bold; font-size: 1.1rem; text-decoration: none; background: none; border: none; cursor: pointer;"
-                                data-bs-toggle="modal" data-bs-target="#modalAlterarSenha">
+                                class="change-password d-block align-items-center gap-2 mt-3"
+                                data-bs-toggle="modal" data-bs-target="#modalAlterarSenha"
+                                onclick="document.getElementById('userMenuPanel').style.display = 'none';">
                                 <i class="bi bi-key-fill nav-icon" style="font-size: 1.5rem; color: var(--color-bege-claro);"></i>
                                 <span style="color: var(--color-bege-claro);">{{ __('menu.alterar_senha') }}</span>
                             </a>
+
+                            <div class="d-flex align-items-center gap-2 mt-3">
+                                <span style="color: var(--color-bege-claro); font-size: 1.1rem;">Modo escuro</span>
+                                <label class="toggle-switch mb-0">
+                                    <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode(this)">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                 @csrf
@@ -297,7 +374,24 @@
     <script src="{{ asset('js/app.js') }}"></script>
     
     <script>
-        // scripts mantidos como estão (dropdown, toggle password, mensagens)
+       function toggleDarkMode(checkbox) {
+            if(checkbox.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'true');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'false');
+            }
+        }
+
+        // Carregar página: modo claro por padrão
+        window.addEventListener('DOMContentLoaded', () => {
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            const toggle = document.getElementById('darkModeToggle');
+            toggle.checked = darkMode;
+            toggleDarkMode(toggle);
+        });
+
     </script>
     
     @yield('scripts')
