@@ -48,6 +48,7 @@ class BatchController extends Controller
                 'all' => true,
                 'data' => $batches->map(function ($batch) {
                     return [
+                        'id' => $batch->id,
                         'lote' => $batch->batch_code,
                         'produto' => $batch->product ? $batch->product->description : '-',
                         'data_validade' => $batch->expiration_date,
@@ -102,29 +103,14 @@ class BatchController extends Controller
     }
 
 
-    public function destroyByCode($batch_code)
+    public function destroy($id)
     {
-        try {
-            $batch = Batch::where('batch_code', $batch_code)->first();
-
-            if (!$batch) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Lote não encontrado!'
-                ], 404);
-            }
-
-            $batch->delete();
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Lote excluído com sucesso!'
-            ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Erro ao excluir lote: ' . $e->getMessage()
-            ], 500);
+        $batch = Batch::findOrFail($id);
+        $batch->delete();
+        // Limpa o cache das páginas de produtos
+        foreach (range(1, 10) as $page) {
+            \Cache::forget('products_page_' . $page);
         }
+        return redirect('/detalhamento-lote')->with('success', 'Lote excluído com sucesso!');
     }
 }

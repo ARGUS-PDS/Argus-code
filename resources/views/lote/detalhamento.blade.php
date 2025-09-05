@@ -222,48 +222,25 @@
                             data.data.forEach(item => {
                                 let lotItem = document.createElement("div");
                                 lotItem.classList.add("lot-item");
+
                                 lotItem.innerHTML = `
-                                <div class="lot-info">
-                                    <span><strong>Lote:</strong> ${item.lote}</span>
-                                    <span><strong>Produto:</strong> ${item.produto}</span>
-                                    <span><strong>Validade:</strong> ${item.data_validade}</span>
-                                    <span><strong>Entrada:</strong> ${item.data_entrada}</span>
-                                </div>
-                                <button class="btn-delete" data-lote="${item.lote}">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            `;
+                                    <div class="lot-info">
+                                        <span><strong>Lote:</strong> ${item.lote}</span>
+                                        <span><strong>Produto:</strong> ${item.produto}</span>
+                                        <span><strong>Validade:</strong> ${item.data_validade}</span>
+                                        <span><strong>Entrada:</strong> ${item.data_entrada}</span>
+                                    </div>
+                                    <form action="/batches/${item.id}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button class="btn-delete" type="submit">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                `;
+
                                 lotList.appendChild(lotItem);
                             });
-
-                            document.querySelectorAll(".btn-delete").forEach(btn => {
-                                btn.addEventListener("click", function() {
-                                    let loteCode = this.getAttribute("data-lote");
-                                    if (confirm("Deseja realmente excluir o lote " + loteCode + "?")) {
-                                        console.log("Excluindo lote:", loteCode);
-                                        fetch("{{ route('batches.destroyByCode', '') }}/" + loteCode, {
-                                                method: "DELETE",
-                                                headers: {
-                                                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                                                }
-                                            })
-                                            .then(res => res.json())
-                                            .then(resp => {
-                                                if (resp.success) {
-                                                    this.closest(".lot-item").remove();
-                                                } else {
-                                                    alert(resp.message || "Erro ao excluir lote!");
-                                                }
-                                            })
-                                            .catch(err => {
-                                                console.error(err);
-                                                alert("Erro ao excluir lote!");
-                                            });
-
-                                    }
-                                });
-                            });
-
                         } else {
                             document.getElementById("produto").value = data.data.produto;
                             document.getElementById("data_validade").value = data.data.data_validade.split(" ")[0];
@@ -275,7 +252,7 @@
                 })
                 .catch(error => {
                     console.error("Erro:", error);
-                    alert("Erro ao buscar o lote!");
+                    alert("Nenhum lote existente!");
                 });
         });
     });
