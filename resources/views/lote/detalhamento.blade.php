@@ -125,6 +125,13 @@
         align-items: center;
     }
 
+    .button-item {
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .lot-info {
         display: flex;
         flex-direction: column;
@@ -158,7 +165,10 @@
     </div>
 
     <div class="section-card">
-        <h3 class="card-title">{{ __('lots.informacoes_lote') }}</h3>
+        <div class="d-flex justify-content-between">
+            <h3 class="card-title">{{ __('lots.informacoes_lote') }}</h3>
+            <div id="trash" class="button-list"></div>
+        </div>
 
         <div class="row g-4">
             <div class="col-md-6">
@@ -199,6 +209,7 @@
         const searchBtn = document.querySelector(".input-group-text");
         const loteInput = document.getElementById("lote");
         const lotList = document.getElementById("lotList");
+        const trashButton = document.getElementById("trash");
 
         searchBtn.addEventListener("click", function() {
             let lote = loteInput.value.trim();
@@ -242,10 +253,30 @@
                                 lotList.appendChild(lotItem);
                             });
                         } else {
+                            trashButton.innerHTML = "";
+                            let newButton = document.createElement("div");
+                            newButton.classList.add("button-item");
+
+                            // Monta a rota com batch_code
+                            let deleteUrl = `{{ route('batches.destroyByCode', '__CODE__') }}`.replace('__CODE__', data.data.lote);
+
+                            newButton.innerHTML = `
+                            <form action="${deleteUrl}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir?');">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn-delete" type="submit">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        `;
+
+                            trashButton.appendChild(newButton);
                             document.getElementById("produto").value = data.data.produto;
                             document.getElementById("data_validade").value = data.data.data_validade.split(" ")[0];
                             document.getElementById("data_entrada").value = data.data.data_entrada.split(" ")[0];
                         }
+
+
                     } else {
                         alert(data.message);
                     }

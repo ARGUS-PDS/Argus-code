@@ -113,4 +113,22 @@ class BatchController extends Controller
         }
         return redirect('/detalhamento-lote')->with('success', 'Lote excluído com sucesso!');
     }
+
+    public function destroyByCode($batch_code)
+    {
+        $batch = Batch::where('batch_code', $batch_code)->first();
+
+        if (!$batch) {
+            return redirect('/detalhamento-lote')->with('error', 'Lote não encontrado!');
+        }
+
+        $batch->delete();
+
+        // Limpa cache de produtos (mesma lógica do destroy normal)
+        foreach (range(1, 10) as $page) {
+            \Cache::forget('products_page_' . $page);
+        }
+
+        return redirect('/detalhamento-lote')->with('success', 'Lote excluído com sucesso!');
+    }
 }
