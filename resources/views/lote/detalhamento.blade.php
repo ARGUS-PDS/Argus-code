@@ -223,16 +223,16 @@
                                 let lotItem = document.createElement("div");
                                 lotItem.classList.add("lot-item");
                                 lotItem.innerHTML = `
-                                    <div class="lot-info">
-                                        <span><strong>Lote:</strong> ${item.lote}</span>
-                                        <span><strong>Produto:</strong> ${item.produto}</span>
-                                        <span><strong>Validade:</strong> ${item.data_validade}</span>
-                                        <span><strong>Entrada:</strong> ${item.data_entrada}</span>
-                                    </div>
-                                    <button class="btn-delete" data-lote="${item.lote}">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                `;
+                                <div class="lot-info">
+                                    <span><strong>Lote:</strong> ${item.lote}</span>
+                                    <span><strong>Produto:</strong> ${item.produto}</span>
+                                    <span><strong>Validade:</strong> ${item.data_validade}</span>
+                                    <span><strong>Entrada:</strong> ${item.data_entrada}</span>
+                                </div>
+                                <button class="btn-delete" data-lote="${item.lote}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            `;
                                 lotList.appendChild(lotItem);
                             });
 
@@ -240,7 +240,8 @@
                                 btn.addEventListener("click", function() {
                                     let loteCode = this.getAttribute("data-lote");
                                     if (confirm("Deseja realmente excluir o lote " + loteCode + "?")) {
-                                        fetch(`/batches/${loteCode}`, {
+                                        console.log("Excluindo lote:", loteCode);
+                                        fetch("{{ route('batches.destroyByCode', '') }}/" + loteCode, {
                                                 method: "DELETE",
                                                 headers: {
                                                     "X-CSRF-TOKEN": "{{ csrf_token() }}"
@@ -248,16 +249,17 @@
                                             })
                                             .then(res => res.json())
                                             .then(resp => {
-                                                if (resp.success || resp.message) {
+                                                if (resp.success) {
                                                     this.closest(".lot-item").remove();
                                                 } else {
-                                                    alert("Erro ao excluir lote!");
+                                                    alert(resp.message || "Erro ao excluir lote!");
                                                 }
                                             })
                                             .catch(err => {
                                                 console.error(err);
                                                 alert("Erro ao excluir lote!");
                                             });
+
                                     }
                                 });
                             });

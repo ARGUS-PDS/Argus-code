@@ -105,11 +105,26 @@ class BatchController extends Controller
     public function destroyByCode($batch_code)
     {
         try {
-            $batch = Batch::where('batch_code', $batch_code)->firstOrFail();
+            $batch = Batch::where('batch_code', $batch_code)->first();
+
+            if (!$batch) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Lote não encontrado!'
+                ], 404);
+            }
+
             $batch->delete();
-            return response()->json(['success' => true]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Lote excluído com sucesso!'
+            ]);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Erro ao excluir lote!'], 500);
+            return response()->json([
+                'success' => false,
+                'message' => 'Erro ao excluir lote: ' . $e->getMessage()
+            ], 500);
         }
     }
 }

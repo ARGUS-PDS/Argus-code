@@ -119,7 +119,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('batches', BatchController::class);
     Route::post('/batches/buscar', [App\Http\Controllers\BatchController::class, 'buscarPorCodigo'])
         ->name('batches.buscar');
-    Route::delete('/batches/delete-by-code/{batch_code}', [BatchController::class, 'destroyByCode'])->name('batches.destroyByCode');
+    Route::delete('/batches/{batch_code}', [BatchController::class, 'destroyByCode'])
+        ->name('batches.destroyByCode');
+
 
     Route::post('/senha-vencida', [SupportController::class, 'senhaVencida'])->name('senha.vencida');
 
