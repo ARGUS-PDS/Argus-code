@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+.img-thumb {
+    width: 60px; 
+    height: 60px; 
+    object-fit: cover; 
+    border-radius: 4px; 
+}
+</style>
+
 <div class="container mt-4" id="frente-container">
     <h2>{{ __('pos.titulo') }}</h2>
 
