@@ -397,17 +397,17 @@
                 <div class="row g-4">
                     <div class="col-md-6 form-group">
                         <label for="description" class="form-label">{{ __('product_register.name') }}</label>
-                        <input type="text" name="description" id="description" class="form-control" placeholder="{{ __('product_register.name_placeholder') }}" value="{{ isset($product) ? $product->description : '' }}" required>
+                        <input type="text" name="description" id="description" class="form-control" placeholder="{{ __('product_register.name_placeholder') }}" value="{{ isset($product) ? $product->description : '' }}" required maxlength="255" pattern=".*\D.*" title="Não pode ser apenas números">
                     </div>
 
                     <div class="col-md-6 form-group">
                         <label for="barcode" class="form-label">{{ __('product_register.barcode') }}</label>
-                        <input name="barcode" type="text" id="barcode" class="form-control" placeholder="{{ __('product_register.barcode_placeholder') }}" value="{{ isset($product) ? $product->barcode : '' }}" required>
+                        <input name="barcode" type="text" id="barcode" class="form-control" placeholder="{{ __('product_register.barcode_placeholder') }}" value="{{ isset($product) ? $product->barcode : '' }}" required maxlength="50">
                     </div>
 
                     <div class="col-md-6 form-group">
                         <label for="code" class="form-label">{{ __('product_register.description') }}</label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="{{ __('product_register.code_placeholder') }}" value="{{ isset($product) ? $product->code : '' }}">
+                        <input type="text" name="code" id="code" class="form-control" placeholder="{{ __('product_register.code_placeholder') }}" value="{{ isset($product) ? $product->code : '' }}" maxlength="255">
                     </div>
 
                     <div class="col-md-5 form-group">
@@ -422,7 +422,7 @@
 
                     <div class="col-md-4 form-group">
                         <label for="value" class="form-label">{{ __('product_register.sale_value') }}</label>
-                        <input name="value" type="number" step="0.01" inputmode="decimal" class="form-control" placeholder="{{ __('product_register.value_placeholder') }}" value="{{ isset($product) ? $product->value : '' }}">
+                        <input name="value" type="number" step="0.01" inputmode="decimal" class="form-control" placeholder="{{ __('product_register.value_placeholder') }}" value="{{ isset($product) ? $product->value : '' }}" min="0" max="999999.99">
                     </div>
 
                 </div>
@@ -434,11 +434,11 @@
                     <div class="row g-3">
                         <div class="col-md-6 form-group">
                             <label for="brand" class="form-label">{{ __('product_register.brand') }}</label>
-                            <input name="brand" type="text" id="brand" class="form-control" placeholder="{{ __('product_register.brand_placeholder') }}" value="{{ isset($product) ? $product->brand : '' }}">
+                            <input name="brand" type="text" id="brand" class="form-control" placeholder="{{ __('product_register.brand_placeholder') }}" value="{{ isset($product) ? $product->brand : '' }}" maxlength="100" pattern=".*\D.*" title="Não pode ser apenas números">
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="model" class="form-label">{{ __('product_register.model') }}</label>
-                            <input name="model" type="text" id="model" class="form-control" placeholder="{{ __('product_register.model_placeholder') }}" value="{{ isset($product) ? $product->model : '' }}">
+                            <input name="model" type="text" id="model" class="form-control" placeholder="{{ __('product_register.model_placeholder') }}" value="{{ isset($product) ? $product->model : '' }}" maxlength="100" pattern=".*\D.*" title="Não pode ser apenas números">
                         </div>
                     </div>
                 </div>
@@ -451,11 +451,11 @@
                     <div class="row g-3">
                         <div class="col-md-6 form-group">
                             <label for="currentStock" class="form-label">{{ __('product_register.current_stock') }}</label>
-                            <input name="currentStock" type="number" id="currentStock" class="form-control" placeholder="{{ __('product_register.current_stock_placeholder') }}" value="{{ isset($product) ? $product->currentStock : '' }}">
+                            <input name="currentStock" type="number" id="currentStock" class="form-control" placeholder="{{ __('product_register.current_stock_placeholder') }}" value="{{ isset($product) ? $product->currentStock : '' }}" min="0" max="999999">
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="minimumStock" class="form-label">{{ __('product_register.minimum_stock') }} <x-explanation title="Quantidade mínima do produto a ser mantida em estoque"></x-explanation></label>
-                            <input name="minimumStock" type="number" id="minimumStock" class="form-control" placeholder="{{ __('product_register.minimum_stock_placeholder') }}" value="{{ isset($product) ? $product->minimumStock : '' }}">
+                            <input name="minimumStock" type="number" id="minimumStock" class="form-control" placeholder="{{ __('product_register.minimum_stock_placeholder') }}" value="{{ isset($product) ? $product->minimumStock : '' }}" min="0" max="999999">
                         </div>
                     </div>
                 </div>
@@ -483,12 +483,69 @@
         document.querySelector('form').addEventListener('submit', function(event) {
             const currentStock = parseInt(document.getElementById('currentStock').value) || 0;
             const minimumStock = parseInt(document.getElementById('minimumStock').value) || 0;
+            const onlyDigits = /^\d+$/;
+            const maxLen = { description: 255, barcode: 50, code: 255, brand: 100, model: 100 };
+            const descriptionEl = document.getElementById('description');
+            const brandEl = document.getElementById('brand');
+            const modelEl = document.getElementById('model');
+            const barcodeEl = document.getElementById('barcode');
+            const codeEl = document.getElementById('code');
 
             if (minimumStock > currentStock) {
                 event.preventDefault();
-                alert('{{ __('
-                    product_register.minimum_stock_alert ') }}');
+                alert('{{ __('product_register.minimum_stock_alert') }}');
                 document.getElementById('minimumStock').focus();
+                return;
+            }
+
+            if (descriptionEl && onlyDigits.test(descriptionEl.value)) {
+                event.preventDefault();
+                alert('O nome não pode ser apenas números.');
+                descriptionEl.focus();
+                return;
+            }
+            if (brandEl && brandEl.value && onlyDigits.test(brandEl.value)) {
+                event.preventDefault();
+                alert('A marca não pode ser apenas números.');
+                brandEl.focus();
+                return;
+            }
+            if (modelEl && modelEl.value && onlyDigits.test(modelEl.value)) {
+                event.preventDefault();
+                alert('O modelo não pode ser apenas números.');
+                modelEl.focus();
+                return;
+            }
+
+            if (descriptionEl && descriptionEl.value.length > maxLen.description) {
+                event.preventDefault();
+                alert(`O nome excede ${maxLen.description} caracteres.`);
+                descriptionEl.focus();
+                return;
+            }
+            if (barcodeEl && barcodeEl.value.length > maxLen.barcode) {
+                event.preventDefault();
+                alert(`O código de barras excede ${maxLen.barcode} caracteres.`);
+                barcodeEl.focus();
+                return;
+            }
+            if (codeEl && codeEl.value.length > maxLen.code) {
+                event.preventDefault();
+                alert(`O código excede ${maxLen.code} caracteres.`);
+                codeEl.focus();
+                return;
+            }
+            if (brandEl && brandEl.value.length > maxLen.brand) {
+                event.preventDefault();
+                alert(`A marca excede ${maxLen.brand} caracteres.`);
+                brandEl.focus();
+                return;
+            }
+            if (modelEl && modelEl.value.length > maxLen.model) {
+                event.preventDefault();
+                alert(`O modelo excede ${maxLen.model} caracteres.`);
+                modelEl.focus();
+                return;
             }
         });
 
@@ -518,11 +575,9 @@
         function updateStatusText(checkbox) {
             const statusText = document.getElementById('statusText');
             if (checkbox.checked) {
-                statusText.textContent = '{{ __('
-                product_register.active ') }}';
+                statusText.textContent = '{{ __('product_register.active') }}';
             } else {
-                statusText.textContent = '{{ __('
-                product_register.inactive ') }}';
+                statusText.textContent = '{{ __('product_register.inactive') }}';
             }
         }
 
@@ -540,10 +595,7 @@
         function updateStatusText(checkbox) {
             const statusText = document.getElementById('statusText');
             if (!statusText) return;
-            statusText.textContent = checkbox.checked ?
-                '{{ __('
-            product_register.active ') }}': '{{ __('
-            product_register.inactive ') }}';
+            statusText.textContent = checkbox.checked ? '{{ __('product_register.active') }}' : '{{ __('product_register.inactive') }}';
         }
 
         function previewImage(event) {
@@ -557,9 +609,19 @@
                 reader.onload = function(e) {
                     preview.src = e.target.result;
                     preview.classList.remove('d-none');
-                    placeholder.classList.add('d-none');
-                    removeBtn.style.display = 'block';
                     document.getElementById('remove_image').value = '0';
+                    // Chama a função centralizada para atualizar visibilidade
+                    setTimeout(() => {
+                        const hasImage = preview.getAttribute('src') && 
+                                        preview.getAttribute('src') !== '#' && 
+                                        !preview.classList.contains('d-none');
+                        removeBtn.style.display = hasImage ? 'block' : 'none';
+                        if (hasImage) {
+                            placeholder.classList.add('d-none');
+                        } else {
+                            placeholder.classList.remove('d-none');
+                        }
+                    }, 10);
                 };
                 reader.readAsDataURL(event.target.files[0]);
             } else {
@@ -583,8 +645,7 @@
                     const minimumStock = parseInt(minimumStockEl.value) || 0;
                     if (minimumStock > currentStock) {
                         event.preventDefault();
-                        alert('{{ __('
-                            product_register.minimum_stock_alert ') }}');
+                        alert('{{ __('product_register.minimum_stock_alert') }}');
                         minimumStockEl.focus();
                     }
                 });
@@ -605,36 +666,38 @@
             const placeholder = document.getElementById('placeholder');
             const removeBtn = document.getElementById('removeBtn');
 
-            // Mostrar o "X" já no carregamento se houver imagem (edição)
-            if (removeBtn && previewImg) {
-                const hasImage =
-                    previewImg.getAttribute('src') &&
-                    previewImg.getAttribute('src') !== '#' &&
-                    !previewImg.classList.contains('d-none');
-
+            // Função para gerenciar visibilidade do botão X
+            function updateRemoveButtonVisibility() {
+                if (!removeBtn || !previewImg) return;
+                
+                const hasImage = previewImg.getAttribute('src') && 
+                                previewImg.getAttribute('src') !== '#' && 
+                                !previewImg.classList.contains('d-none');
+                
                 removeBtn.style.display = hasImage ? 'block' : 'none';
-
-                // Se tem imagem, garante que o placeholder fique oculto
+                
                 if (hasImage && placeholder) {
                     placeholder.classList.add('d-none');
+                } else if (placeholder) {
+                    placeholder.classList.remove('d-none');
                 }
             }
 
-            // Atualiza "code" automaticamente a partir do "name" se code estiver vazio
-            function atualizarDescricao() {
-                if (nameInput && codeInput && !codeInput.value) {
-                    codeInput.value = nameInput.value.toLowerCase();
-                }
-            }
-            if (nameInput && codeInput) {
-                nameInput.addEventListener('input', atualizarDescricao);
-            }
+            // Atualiza visibilidade no carregamento
+            updateRemoveButtonVisibility();
+
 
             // Consulta Cosmos ao pressionar Enter no barcode
             async function consultarProdutoCosmos(codigo) {
-                if (!codigo || codigo.length < 6) return;
+                if (!codigo) return;
+                // Mantém apenas dígitos (remover espaços/letras acidentais)
+                const cleaned = String(codigo).replace(/\D/g, '');
+                if (!cleaned || cleaned.length < 6) return;
+                if (barcodeInput && barcodeInput.value !== cleaned) {
+                    barcodeInput.value = cleaned;
+                }
                 try {
-                    const res = await fetch(`https://api.cosmos.bluesoft.com.br/gtins/${codigo}`, {
+                    const res = await fetch(`https://api.cosmos.bluesoft.com.br/gtins/${cleaned}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -649,30 +712,63 @@
 
                     if (data.description && nameInput) {
                         nameInput.value = data.description;
-                        atualizarDescricao();
                     }
-                    if (data.brand && brandInput) brandInput.value = data.brand.name;
-                    if (data.gpc && modelInput) modelInput.value = data.gpc.description;
+                    if (brandInput) {
+                        const brandCandidate =
+                            (data.brand && (data.brand.name || data.brand)) ||
+                            (Array.isArray(data.companies) && data.companies.length > 0 && (data.companies[0].name || data.companies[0].fantasy_name)) ||
+                            (data.manufacturer && data.manufacturer.name) ||
+                            (data.owner && data.owner.name) ||
+                            null;
+                        if (brandCandidate) brandInput.value = brandCandidate;
+                    }
+                    if (data.gpc && modelInput && data.gpc.description) modelInput.value = data.gpc.description;
 
                     if (data.thumbnail && previewImg) {
                         previewImg.src = data.thumbnail;
                         previewImg.classList.remove('d-none');
-                        if (placeholder) placeholder.classList.add('d-none');
-                        if (removeBtn) removeBtn.style.display = 'block';
-                    } else if (removeBtn) {
-                        removeBtn.style.display = 'none';
+                        updateRemoveButtonVisibility();
                     }
                 } catch (e) {
-                    // silencia erros de rede
                 }
             }
 
             if (barcodeInput) {
+                // Dispara consulta ao pressionar Enter (muitos leitores disparam Enter ao final)
                 barcodeInput.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter') {
                         e.preventDefault();
                         consultarProdutoCosmos(barcodeInput.value.trim());
                     }
+                });
+
+                // Dispara ao sair do campo (para leitores que não enviam Enter)
+                barcodeInput.addEventListener('blur', function() {
+                    const codigo = (barcodeInput.value || '').replace(/\D/g, '');
+                    if (codigo && codigo.length >= 6) {
+                        consultarProdutoCosmos(codigo);
+                    }
+                });
+
+                // Dispara após colar um valor
+                barcodeInput.addEventListener('paste', function() {
+                    setTimeout(() => {
+                        const codigo = (barcodeInput.value || '').replace(/\D/g, '');
+                        if (codigo && codigo.length >= 6) {
+                            consultarProdutoCosmos(codigo);
+                        }
+                    }, 50);
+                });
+
+                // Dispara durante a digitação com debounce (para quem digita manualmente)
+                let debounceTimer;
+                barcodeInput.addEventListener('input', function() {
+                    clearTimeout(debounceTimer);
+                    const codigo = (barcodeInput.value || '').replace(/\D/g, '');
+                    if (!codigo || codigo.length < 6) return;
+                    debounceTimer = setTimeout(() => {
+                        consultarProdutoCosmos(codigo);
+                    }, 500);
                 });
             }
 
@@ -685,11 +781,10 @@
                     }
                     if (placeholder) {
                         placeholder.textContent = 'Nenhuma imagem selecionada';
-                        placeholder.classList.remove('d-none');
                     }
-                    removeBtn.style.display = 'none';
                     if (imageInput) imageInput.value = '';
                     document.getElementById('remove_image').value = '1';
+                    updateRemoveButtonVisibility();
                 });
             }
         });

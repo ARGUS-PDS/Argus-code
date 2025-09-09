@@ -115,17 +115,21 @@ class ProductController extends Controller
             \Log::info('Produto encontrado:', $product->toArray());
 
             $validated = $request->validate([
-                'description' => 'required|string|max:255',
-                'barcode' => 'required|string|max:50|unique:products,barcode,' . $id,
-                'code' => 'nullable|string|max:255|unique:products,code,' . $id,
-                'value' => 'nullable|numeric',
-                'supplierId' => 'nullable|exists:suppliers,id',
-                'brand' => 'nullable|string|max:100',
-                'model' => 'nullable|string|max:100',
-                'currentStock' => 'nullable|integer',
-                'minimumStock' => 'nullable|integer',
-                'status' => 'nullable|boolean',
-                'image_url' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+                'description' => ['required','string','max:255','regex:/.*\D.*/'],
+                'barcode' => ['required','string','max:50','unique:products,barcode,' . $id],
+                'code' => ['nullable','string','max:255','unique:products,code,' . $id],
+                'value' => ['nullable','numeric','min:0'],
+                'supplierId' => ['nullable','exists:suppliers,id'],
+                'brand' => ['nullable','string','max:100','regex:/.*\D.*/'],
+                'model' => ['nullable','string','max:100','regex:/.*\D.*/'],
+                'currentStock' => ['nullable','integer','min:0'],
+                'minimumStock' => ['nullable','integer','min:0'],
+                'status' => ['nullable','boolean'],
+                'image_url' => ['nullable','image','mimes:jpg,jpeg,png,gif','max:2048'],
+            ], [
+                'description.regex' => 'O nome não pode ser apenas números.',
+                'brand.regex' => 'A marca não pode ser apenas números.',
+                'model.regex' => 'O modelo não pode ser apenas números.',
             ]);
 
 
@@ -263,17 +267,21 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'description' => 'required|string|max:255',
-            'barcode' => 'required|string|max:50|unique:products,barcode',
-            'code' => 'nullable|string|max:255|unique:products,code',
-            'value' => 'nullable|numeric',
-            'supplierId' => 'nullable|exists:suppliers,id',
-            'brand' => 'nullable|string|max:100',
-            'model' => 'nullable|string|max:100',
-            'currentStock' => 'nullable|integer',
-            'minimumStock' => 'nullable|integer',
-            'status' => 'nullable|boolean',
-            'image_url' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'description' => ['required','string','max:255','regex:/.*\D.*/'],
+            'barcode' => ['required','string','max:50','unique:products,barcode'],
+            'code' => ['nullable','string','max:255','unique:products,code'],
+            'value' => ['nullable','numeric','min:0'],
+            'supplierId' => ['nullable','exists:suppliers,id'],
+            'brand' => ['nullable','string','max:100','regex:/.*\D.*/'],
+            'model' => ['nullable','string','max:100','regex:/.*\D.*/'],
+            'currentStock' => ['nullable','integer','min:0'],
+            'minimumStock' => ['nullable','integer','min:0'],
+            'status' => ['nullable','boolean'],
+            'image_url' => ['nullable','image','mimes:jpg,jpeg,png,gif','max:2048'],
+        ], [
+            'description.regex' => 'O nome não pode ser apenas números.',
+            'brand.regex' => 'A marca não pode ser apenas números.',
+            'model.regex' => 'O modelo não pode ser apenas números.',
         ]);
 
 
