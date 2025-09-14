@@ -21,7 +21,7 @@
   <div class="container" id="container">
     <!-- Painel de Login -->
     <div class="formulario-container logar">
-      <form method="POST" action="/login">
+      <form method="POST" action="{{ route('login') }}">
         @csrf
         <h1>Entrar</h1>
 
@@ -46,6 +46,14 @@
           <input type="password" name="cartao_seg" id="cartao_seg" placeholder="Final do cartão de segurança" required pattern="\d{4}" />
           <i class="toggle-password fas fa-eye" onclick="togglePassword('cartao_seg', this)"></i>
         </div>
+
+        <div class="form-check">
+          <input type="checkbox" id="lembrar" name="remember" value="1">
+          <label for="lembrar">Lembrar de mim</label>
+        </div>
+
+
+        
       
         <button onclick="mostrarTelaCarregando()" class="botao-input" type="submit">Entrar</button>
         <a href="#" data-bs-toggle="modal" data-bs-target="#modalSenhaVencida">Sua senha venceu?</a>

@@ -21,5 +21,6 @@ class UserController extends Controller
 
         return back()->with('status', 'Seu pedido foi enviado. Em breve entraremos em contato.');
     }
+    
 }
 

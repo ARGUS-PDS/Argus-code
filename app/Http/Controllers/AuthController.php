@@ -23,8 +23,9 @@ class AuthController extends Controller
         ]);
 
         $cartao_seg = trim($request->input('cartao_seg'));
+        $remember = $request->has('remember'); 
 
-        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']])) {
+        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']], $remember)) {
             $user = Auth::user();
 
             if (trim($user->cartao_seg) !== $cartao_seg) {
@@ -43,7 +44,19 @@ class AuthController extends Controller
 
         return back()->withErrors([
             'email' => 'Credenciais inválidas.'
-        ])->withInput();
+        ])->withInput($request->only('email', 'remember'));
+    }
+
+    public function redirectToDashboard()
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            return $user->email === 'argus@adm.com.br'
+                ? redirect('/admin-dashboard')
+                : redirect('/dashboard');
+        }
+
+        return redirect()->route('login');
     }
 
     public function uploadPhoto(Request $request)
@@ -70,11 +83,12 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        Auth::logout(); 
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
+
 }

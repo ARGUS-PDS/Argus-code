@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'cartao_seg',
+        'remember_token',
     ];
 
     /**

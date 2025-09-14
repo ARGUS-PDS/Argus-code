@@ -17,9 +17,21 @@ use App\Http\Controllers\BatchController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserController;
 
+// Página de login (GET)
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 
-Route::get('/', [AuthController::class, 'showLogin'])->name('login');
+// Formulário de login (POST)
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/', function () {
+    if (Auth::check()) { // Verifica se está logado ou Remember Me válido
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('login');
+});
+
+
+Route::get('/home', [AuthController::class, 'redirectToDashboard'])->name('home');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/admin-dashboard', function () {
@@ -27,7 +39,7 @@ Route::get('/admin-dashboard', function () {
 })->middleware('auth');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard/vendas', [AdminController::class, 'vendas'])->name('dashboard.vendas');
     Route::get('/admin-dashboard', function () {
         return view('admin.admin-dashboard');
@@ -113,9 +125,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/vendas/finalizar', [SaleController::class, 'store'])->name('vendas.store');
     Route::post('/vendas/buscar-produto', [SaleController::class, 'findByBarcode'])->name('vendas.buscar-produto');
 
-
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
     Route::resource('batches', BatchController::class);
     Route::post('/batches/buscar', [App\Http\Controllers\BatchController::class, 'buscarPorCodigo'])
         ->name('batches.buscar');
@@ -147,3 +156,4 @@ Route::get('lang/{locale}', function (string $locale) {
     }
     return back();
 })->name('lang.switch');
+
