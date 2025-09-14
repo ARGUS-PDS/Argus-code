@@ -48,7 +48,8 @@
         </div>
       
         <button onclick="mostrarTelaCarregando()" class="botao-input" type="submit">Entrar</button>
-         <a href="#" onclick="abrirModal()" style="visibility: hidden;">Sua senha venceu?</a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modalSenhaVencida">Sua senha venceu?</a>
+
       </form>
     </div>
 
@@ -92,41 +93,39 @@
     </div>
   </div>
 
-{{--
-<!-- Modal de Suporte 
-  <div id="modal-suporte" class="modal" style="display: {{ $errors->any() && old('email') ? 'flex' : (session('contato_enviado') ? 'flex' : 'none') }}">
-    <div class="modal-content formulario-container">
-      <span class="close" onclick="fecharModal()">&times;</span>
-      <h2>Solicitar Suporte</h2>
-      <form method="POST" action="{{ route('senha.vencida') }}">
-        <div class="error-container">
-          @if(session('contato_enviado'))
-          <div class="alert alert-success">Solicitação enviada com sucesso!</div>
-          @endif
-          @if ($errors->suporte->any())
-          @foreach ($errors->suporte->all() as $error)
-          <div class="alert alert-danger">{{ $error }}</div>
-          @endforeach
-          @endif
-        </div>
-        @csrf
-        <input type="email" name="email" placeholder="Seu Email" required>
-        <input type="text" name="cartao_seg" placeholder="Final do cartão de segurança" required pattern="\d{4}">
-        <button class="botao-input" type="submit">Enviar</button>
-      </form>
+<div id="modalSenhaVencida" class="modal fade" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">Entrar em contato com a Argus</h5>
+        <!-- X pra sair, mas não esta funcionando -->
+        <!--<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button> -->
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{{ route('user.checkEmail') }}">
+          @csrf
+          <div class="mb-3">
+            <label for="emailRecuperar" class="form-label">E-mail</label>
+            <input type="email" id="emailRecuperar" name="email" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="cartaoRecuperar" class="form-label">Cartão de Segurança</label>
+            <input type="text" id="cartaoRecuperar" name="cartao_seg" class="form-control" required pattern="\d{4}">
+          </div>
+
+          <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-danger">Enviar</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </div> 
--->
---}}
+  </div>
+</div>
 
 
-
-  <script>
-  @if($errors -> suporte -> any() || session('contato_enviado'))
-  document.getElementById("modal-suporte").style.display = "flex";
-  @endif
-  </script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script src="https://unpkg.com/vanilla-masker/build/vanilla-masker.min.js"></script>
 
@@ -136,30 +135,6 @@
 
   <script>
   window.contatoEnviado = <?php echo json_encode(session('contato_enviado', false)); ?>;
-  </script>
-
-  <script>
-  @if($errors -> suporte -> any() || session('contato_enviado'))
-  document.getElementById("modal-suporte").style.display = "flex";
-  @endif
-  </script>
-
-  <script>
-  function abrirModal() {
-    document.getElementById("modal-suporte").style.display = "flex";
-  }
-
-  function fecharModal() {
-    document.getElementById("modal-suporte").style.display = "none";
-  }
-
-
-  window.onclick = function(event) {
-    let modal = document.getElementById("modal-suporte");
-    if (event.target == modal) {
-      fecharModal();
-    }
-  }
   </script>
 
   <script src="{{ asset('js/login.js') }}"></script>

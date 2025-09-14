@@ -137,7 +137,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::get('/check-email', [UserController::class, 'checkEmail']);
+Route::post('/check-email', [UserController::class, 'checkEmail'])->name('user.checkEmail');
 
 
 Route::get('lang/{locale}', function (string $locale) {

