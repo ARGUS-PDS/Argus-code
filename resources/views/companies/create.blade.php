@@ -126,6 +126,9 @@
             <div class="password-container">
               <input type="password" name="user_password" id="user_password" class="form-control" required minlength="8" />
               <i class="toggle-password fas fa-eye" onclick="togglePassword('user_password', this)"></i>
+              <button type="button" class="generate-password" title="Gerar senha forte" onclick="generateStrongPassword()"">
+                <i class=" fas fa-sync-alt"></i>
+              </button>
             </div>
             <div class="password-strength">
               <div class="progress">

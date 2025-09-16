@@ -172,15 +172,15 @@ async function validateCEP() {
     }
 }
 
-   function validarNumero(input) {
-      if (input.value < 0) {
+function validarNumero(input) {
+    if (input.value < 0) {
         input.value = 0;
-      }
     }
+}
 
-    function validarNome(input) {
-      input.value = input.value.replace(/[^A-Za-zÀ-ÿ\s]/g, '');
-    }
+function validarNome(input) {
+    input.value = input.value.replace(/[^A-Za-zÀ-ÿ\s]/g, "");
+}
 
 async function validateEmail() {
     const emailInput = document.getElementById("user_email");
@@ -375,7 +375,7 @@ document.getElementById("cep").addEventListener("blur", validateCEP);
 
 document.getElementById("user_email").addEventListener("input", function () {
     clearTimeout(emailCheckTimeout);
-    emailCheckTimeout = setTimeout(validateEmail, 700); 
+    emailCheckTimeout = setTimeout(validateEmail, 700);
 });
 
 document.getElementById("user_email").addEventListener("blur", validateEmail);
@@ -517,4 +517,41 @@ function checkPasswordMatch() {
         feedbackElement.style.display = "block";
         doPasswordsMatch = false;
     }
+}
+
+// Função para gerar senha forte
+function generateStrongPassword() {
+    const length = 12;
+    const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lowercase = "abcdefghijklmnopqrstuvwxyz";
+    const numbers = "0123456789";
+    const symbols = "!@#$%^&*()_+-=[]{}|;:,.<>?";
+
+    let password = "";
+    password += uppercase[Math.floor(Math.random() * uppercase.length)];
+    password += lowercase[Math.floor(Math.random() * lowercase.length)];
+    password += numbers[Math.floor(Math.random() * numbers.length)];
+    password += symbols[Math.floor(Math.random() * symbols.length)];
+
+    const allChars = uppercase + lowercase + numbers + symbols;
+    for (let i = password.length; i < length; i++) {
+        password += allChars[Math.floor(Math.random() * allChars.length)];
+    }
+
+    password = password
+        .split("")
+        .sort(() => Math.random() - 0.5)
+        .join("");
+
+    // Atualiza o campo de senha
+    const passwordField = document.getElementById("user_password");
+    passwordField.value = password;
+    passwordField.dispatchEvent(new Event("input"));
+
+    // Atualiza o campo de confirmação de senha
+    const confirmField = document.getElementById("user_password_confirmation");
+    confirmField.value = password;
+    confirmField.dispatchEvent(new Event("input"));
+
+    showJsError("Senha forte gerada com sucesso!", 3000);
 }

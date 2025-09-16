@@ -36,7 +36,7 @@
         <span class="email-error" style="color: #c62828; font-size: 12px; display: none;"></span>
 
         <div class="password-container">
-          <input type="password" id="password" name="password" placeholder="Senha" required minlength="8" maxlength="8" />
+          <input type="password" id="password" name="password" placeholder="Senha" required minlength="8" />
           <i class="toggle-password fas fa-eye" onclick="togglePassword('password', this)"></i>
         </div>
 

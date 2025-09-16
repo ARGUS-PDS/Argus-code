@@ -134,12 +134,12 @@ body {
 
 .password-container input {
     width: 100%;
-    padding-right: 40px;
+    padding-right: 85px;
 }
 
 .toggle-password {
     position: absolute;
-    right: 10px;
+    right: 45px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
@@ -147,7 +147,21 @@ body {
     transition: color 0.3s ease;
 }
 
-.toggle-password:hover {
+.generate-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #555;
+    transition: color 0.3s ease;
+    background: none;
+    border: none;
+    font-size: 16px;
+}
+
+.toggle-password:hover,
+.generate-password:hover {
     color: var(--color-vinho);
 }
 
@@ -230,7 +244,6 @@ body {
     color: #842029;
     border: 1px solid #f5c2c7;
 }
-
 
 .alert-danger-custom ul {
     margin: 0;
@@ -336,5 +349,9 @@ body {
 
     .action-buttons .btn {
         width: 100%;
+    }
+
+    .password-container input {
+        padding-right: 75px;
     }
 }
