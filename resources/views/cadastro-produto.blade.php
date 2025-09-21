@@ -341,6 +341,9 @@
 </head>
 
 <body>
+    {{-- Modal de mensagens globais --}}
+    @include('components.alert-modal')
+    
     <div class="container-card">
         <div class="header-section">
             <h2 class="text-2xl">

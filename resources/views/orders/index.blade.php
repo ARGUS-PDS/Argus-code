@@ -82,17 +82,8 @@
         <x-btn-voltar url="{{ route('produtos.esgotando') }}" />
     </div>
 
-    @if(session('success'))
-        <div class="alert alert-success text-center" role="alert">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger text-center" role="alert">
-            {{ session('error') }}
-        </div>
-    @endif
+    {{-- Modal de mensagens globais --}}
+    @include('components.alert-modal')
 
     <div class="table-responsive">
         <table class="table-custom">

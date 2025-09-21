@@ -112,28 +112,17 @@
 </style>
 @endsection
 
+
 @section('content')
+
+{{-- Modal de mensagens globais --}}
+@include('components.alert-modal')
+
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="m-0">{{ __('suppliersregister.title_create') }}</h2>
         <x-btn-voltar url="{{ route('suppliers.index') }}" />
     </div>
-
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-
-    @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
 
     <div class="card-custom">
         <form id="formFornecedor" method="POST" action="{{ route('suppliers.store') }}">

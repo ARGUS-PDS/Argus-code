@@ -147,12 +147,6 @@
 @endsection
 
 @section('content')
-@if(session('success'))
-<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-    {{ session('success') }}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{{ __('suppliers.close') }}"></button>
-</div>
-@endif
 
 <div class="container-fluid py-3">
     <div class="d-flex align-items-center justify-content-between mb-4">
