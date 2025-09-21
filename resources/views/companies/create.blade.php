@@ -141,7 +141,7 @@
         <div class="row g-3">
           <div class="col-md-6">
             <label for="user_name" class="form-label required">Nome</label>
-            <input type="text" name="user_name" id="user_name" class="form-control" required maxlength="255" oninput="validarNome(this)" />
+            <input type="text" name="user_name" id="user_name" class="form-control" required maxlength="255" />
             <small class="text-muted">Apenas letras são permitidas</small>
           </div>
           <div class="col-md-6">

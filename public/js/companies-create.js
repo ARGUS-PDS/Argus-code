@@ -422,24 +422,13 @@
         }
     }
 
-    document.getElementById("user_password").addEventListener("input", function () {
-        checkPasswordStrength(this.value);
-    });
-
-    document
-        .getElementById("user_password_confirmation")
-        .addEventListener("input", function () {
-            checkPasswordMatch();
-        });
-
+    // Função para verificar a força da senha
     function checkPasswordStrength(password) {
         const hasMinLength = password.length >= 8;
         const hasUpperCase = /[A-Z]/.test(password);
         const hasLowerCase = /[a-z]/.test(password);
         const hasNumber = /[0-9]/.test(password);
-        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(
-            password
-        );
+        const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
 
         updateRequirement("lengthReq", hasMinLength);
         updateRequirement("uppercaseReq", hasUpperCase);
@@ -447,13 +436,7 @@
         updateRequirement("numberReq", hasNumber);
         updateRequirement("specialReq", hasSpecialChar);
 
-        const strength =
-            (hasMinLength +
-                hasUpperCase +
-                hasLowerCase +
-                hasNumber +
-                hasSpecialChar) *
-            20;
+        const strength = (hasMinLength + hasUpperCase + hasLowerCase + hasNumber + hasSpecialChar) * 20;
         const strengthBar = document.getElementById("passwordStrengthBar");
         const feedbackElement = document.getElementById("passwordFeedback");
 
@@ -470,12 +453,10 @@
             strengthBar.className = "progress-bar bg-success";
         }
 
-        isPasswordValid =
-            hasMinLength &&
-            hasUpperCase &&
-            hasLowerCase &&
-            hasNumber &&
-            hasSpecialChar;
+        isPasswordValid = hasMinLength && hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+        
+        // Verificar também se as senhas coincidem quando a senha principal é alterada
+        checkPasswordMatch();
     }
 
     function updateRequirement(elementId, isValid) {
@@ -494,11 +475,10 @@
         }
     }
 
+    // Função para verificar se as senhas coincidem
     function checkPasswordMatch() {
         const password = document.getElementById("user_password").value;
-        const confirmPassword = document.getElementById(
-            "user_password_confirmation"
-        ).value;
+        const confirmPassword = document.getElementById("user_password_confirmation").value;
         const feedbackElement = document.getElementById("passwordMatchFeedback");
 
         if (confirmPassword === "") {
@@ -519,36 +499,54 @@
         }
     }
 
-// Função para gerar senha forte
-function generateStrongPassword() {
-    const length = 12;
-    const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const lowercase = 'abcdefghijklmnopqrstuvwxyz';
-    const numbers = '0123456789';
-    const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-    
-    let password = '';
-    password += uppercase[Math.floor(Math.random() * uppercase.length)];
-    password += lowercase[Math.floor(Math.random() * lowercase.length)];
-    password += numbers[Math.floor(Math.random() * numbers.length)];
-    password += symbols[Math.floor(Math.random() * symbols.length)];
-    
-    const allChars = uppercase + lowercase + numbers + symbols;
-    for (let i = password.length; i < length; i++) {
-        password += allChars[Math.floor(Math.random() * allChars.length)];
+    // Função para gerar senha forte
+    function generateStrongPassword() {
+        const length = 12;
+        const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+        const numbers = '0123456789';
+        const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+        
+        let password = '';
+        password += uppercase[Math.floor(Math.random() * uppercase.length)];
+        password += lowercase[Math.floor(Math.random() * lowercase.length)];
+        password += numbers[Math.floor(Math.random() * numbers.length)];
+        password += symbols[Math.floor(Math.random() * symbols.length)];
+        
+        const allChars = uppercase + lowercase + numbers + symbols;
+        for (let i = password.length; i < length; i++) {
+            password += allChars[Math.floor(Math.random() * allChars.length)];
+        }
+        
+        password = password.split('').sort(() => Math.random() - 0.5).join('');
+        
+        // Atualiza o campo de senha
+        const passwordField = document.getElementById('user_password');
+        passwordField.value = password;
+        passwordField.dispatchEvent(new Event('input'));
+        
+        // Atualiza o campo de confirmação de senha
+        const confirmField = document.getElementById('user_password_confirmation');
+        confirmField.value = password;
+        confirmField.dispatchEvent(new Event('input'));
+        
+        showJsError("Senha forte gerada com sucesso!", 3000);
     }
-    
-    password = password.split('').sort(() => Math.random() - 0.5).join('');
-    
-    // Atualiza o campo de senha
-    const passwordField = document.getElementById('user_password');
-    passwordField.value = password;
-    passwordField.dispatchEvent(new Event('input'));
-    
-    // Atualiza o campo de confirmação de senha
-    const confirmField = document.getElementById('user_password_confirmation');
-    confirmField.value = password;
-    confirmField.dispatchEvent(new Event('input'));
-    
-    showJsError("Senha forte gerada com sucesso!", 3000);
-}
+
+    // Event listeners para validação em tempo real das senhas
+    document.getElementById("user_password").addEventListener("input", function() {
+        checkPasswordStrength(this.value);
+    });
+
+    document.getElementById("user_password_confirmation").addEventListener("input", function() {
+        checkPasswordMatch();
+    });
+
+    // Inicializar a validação de senha ao carregar a página
+    document.addEventListener("DOMContentLoaded", function() {
+        const password = document.getElementById("user_password").value;
+        if (password) {
+            checkPasswordStrength(password);
+        }
+        checkPasswordMatch();
+    });
