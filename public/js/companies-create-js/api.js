@@ -4,15 +4,15 @@ async function validateCEP() {
     const cepStatus = document.getElementById("cepStatus");
     const cep = cepInput.value;
 
-    cepInput.classList.remove('is-valid', 'is-invalid');
+    cepInput.classList.remove("is-valid", "is-invalid");
     cepStatus.className = "validation-status d-none";
     isCepValid = false;
-    updateFieldState('cep', false);
+    updateFieldState("cep", false);
 
     if (!cep.trim()) {
         showJsError("Por favor, informe o CEP.");
         cepInput.focus();
-        cepInput.classList.add('is-invalid');
+        cepInput.classList.add("is-invalid");
         updateSubmitButton();
         return;
     }
@@ -22,7 +22,7 @@ async function validateCEP() {
         cepStatus.innerHTML =
             '<i class="bi bi-x-circle validation-icon"></i> Formato inválido';
         cepStatus.className = "validation-status invalid";
-        cepInput.classList.add('is-invalid');
+        cepInput.classList.add("is-invalid");
         cepInput.focus();
         updateSubmitButton();
         return;
@@ -65,23 +65,23 @@ async function validateCEP() {
         document.getElementById("state").value = data.uf || "";
 
         // Atualizar estados dos campos preenchidos automaticamente
-        updateFieldState('place', true);
-        updateFieldState('neighborhood', true);
-        updateFieldState('city', true);
-        updateFieldState('state', true);
+        updateFieldState("place", true);
+        updateFieldState("neighborhood", true);
+        updateFieldState("city", true);
+        updateFieldState("state", true);
 
         // Adicionar classes de validação nos campos preenchidos
-        document.getElementById("place").classList.add('is-valid');
-        document.getElementById("neighborhood").classList.add('is-valid');
-        document.getElementById("city").classList.add('is-valid');
-        document.getElementById("state").classList.add('is-valid');
+        document.getElementById("place").classList.add("is-valid");
+        document.getElementById("neighborhood").classList.add("is-valid");
+        document.getElementById("city").classList.add("is-valid");
+        document.getElementById("state").classList.add("is-valid");
 
         cepStatus.innerHTML =
             '<i class="bi bi-check-circle validation-icon"></i> CEP válido';
         cepStatus.className = "validation-status valid";
         isCepValid = true;
-        cepInput.classList.add('is-valid');
-        updateFieldState('cep', true);
+        cepInput.classList.add("is-valid");
+        updateFieldState("cep", true);
     } catch (error) {
         console.error("Erro na validação do CEP:", error);
 
@@ -93,8 +93,8 @@ async function validateCEP() {
                 '<i class="bi bi-exclamation-triangle validation-icon"></i> Verifique manualmente (timeout)';
             cepStatus.className = "validation-status";
             isCepValid = true;
-            cepInput.classList.add('is-valid');
-            updateFieldState('cep', true);
+            cepInput.classList.add("is-valid");
+            updateFieldState("cep", true);
         } else {
             showJsError(
                 "CEP não encontrado. Verifique ou preencha o endereço manualmente."
@@ -103,8 +103,8 @@ async function validateCEP() {
                 '<i class="bi bi-exclamation-triangle validation-icon"></i> CEP não encontrado';
             cepStatus.className = "validation-status";
             isCepValid = true;
-            cepInput.classList.add('is-valid');
-            updateFieldState('cep', true);
+            cepInput.classList.add("is-valid");
+            updateFieldState("cep", true);
         }
     } finally {
         clearTimeout(cepApiTimeout);
@@ -117,15 +117,15 @@ async function validateEmail() {
     const emailStatus = document.getElementById("emailStatus");
     const email = emailInput.value.trim();
 
-    emailInput.classList.remove('is-valid', 'is-invalid');
+    emailInput.classList.remove("is-valid", "is-invalid");
     emailStatus.className = "validation-status d-none";
     isEmailValid = false;
-    updateFieldState('user_email', false);
+    updateFieldState("user_email", false);
 
     if (!email) {
         showJsError("Por favor, informe o e-mail.");
         emailInput.focus();
-        emailInput.classList.add('is-invalid');
+        emailInput.classList.add("is-invalid");
         emailStatus.innerHTML =
             '<i class="bi bi-x-circle validation-icon"></i> O e-mail é obrigatório';
         emailStatus.className = "validation-status invalid";
@@ -140,7 +140,7 @@ async function validateEmail() {
         emailStatus.innerHTML =
             '<i class="bi bi-x-circle validation-icon"></i> Formato de e-mail inválido';
         emailStatus.className = "validation-status invalid";
-        emailInput.classList.add('is-invalid');
+        emailInput.classList.add("is-invalid");
         emailInput.focus();
         updateSubmitButton();
         return;
@@ -151,7 +151,9 @@ async function validateEmail() {
     emailStatus.className = "validation-status";
 
     try {
-        const response = await fetch(`/check-email?email=${encodeURIComponent(email)}`);
+        const response = await fetch(
+            `/check-email?email=${encodeURIComponent(email)}`
+        );
         const data = await response.json();
 
         if (!response.ok) {
@@ -161,7 +163,7 @@ async function validateEmail() {
                     '<i class="bi bi-x-circle validation-icon"></i> ' +
                     data.message;
                 emailStatus.className = "validation-status invalid";
-                emailInput.classList.add('is-invalid');
+                emailInput.classList.add("is-invalid");
                 emailInput.focus();
                 updateSubmitButton();
                 return;
@@ -175,8 +177,8 @@ async function validateEmail() {
                 data.message;
             emailStatus.className = "validation-status valid";
             isEmailValid = true;
-            emailInput.classList.add('is-valid');
-            updateFieldState('user_email', true);
+            emailInput.classList.add("is-valid");
+            updateFieldState("user_email", true);
         }
     } catch (err) {
         console.error("Erro na validação do e-mail:", err);
@@ -198,15 +200,15 @@ async function validateCNPJ() {
     const cnpjStatus = document.getElementById("cnpjStatus");
     const cnpj = cnpjInput.value;
 
-    cnpjInput.classList.remove('is-valid', 'is-invalid');
+    cnpjInput.classList.remove("is-valid", "is-invalid");
     cnpjStatus.className = "validation-status d-none";
     isCnpjValid = false;
-    updateFieldState('cnpj', false);
+    updateFieldState("cnpj", false);
 
     if (!cnpj.trim()) {
         showJsError("Por favor, informe o CNPJ.");
         cnpjInput.focus();
-        cnpjInput.classList.add('is-invalid');
+        cnpjInput.classList.add("is-invalid");
         updateSubmitButton();
         return;
     }
@@ -218,7 +220,7 @@ async function validateCNPJ() {
         cnpjStatus.innerHTML =
             '<i class="bi bi-x-circle validation-icon"></i> Formato inválido';
         cnpjStatus.className = "validation-status invalid";
-        cnpjInput.classList.add('is-invalid');
+        cnpjInput.classList.add("is-invalid");
         cnpjInput.focus();
         updateSubmitButton();
         return;
@@ -229,7 +231,7 @@ async function validateCNPJ() {
         cnpjStatus.innerHTML =
             '<i class="bi bi-x-circle validation-icon"></i> CNPJ inválido';
         cnpjStatus.className = "validation-status invalid";
-        cnpjInput.classList.add('is-invalid');
+        cnpjInput.classList.add("is-invalid");
         cnpjInput.focus();
         updateSubmitButton();
         return;
@@ -266,12 +268,12 @@ async function validateCNPJ() {
         document.getElementById("tradeName").value = data.nome_fantasia || "";
 
         // Atualizar estados dos campos preenchidos automaticamente
-        updateFieldState('businessName', true);
-        updateFieldState('tradeName', true);
+        updateFieldState("businessName", true);
+        updateFieldState("tradeName", true);
 
         // Adicionar classes de validação nos campos preenchidos
-        document.getElementById("businessName").classList.add('is-valid');
-        document.getElementById("tradeName").classList.add('is-valid');
+        document.getElementById("businessName").classList.add("is-valid");
+        document.getElementById("tradeName").classList.add("is-valid");
 
         if (data.cep) {
             const formattedCep = formatCEP(data.cep.replace(/\D/g, ""));
@@ -287,23 +289,23 @@ async function validateCNPJ() {
         document.getElementById("state").value = data.uf || "";
 
         // Atualizar estados dos campos preenchidos automaticamente
-        updateFieldState('place', true);
-        updateFieldState('neighborhood', true);
-        updateFieldState('city', true);
-        updateFieldState('state', true);
+        updateFieldState("place", true);
+        updateFieldState("neighborhood", true);
+        updateFieldState("city", true);
+        updateFieldState("state", true);
 
         // Adicionar classes de validação nos campos preenchidos
-        document.getElementById("place").classList.add('is-valid');
-        document.getElementById("neighborhood").classList.add('is-valid');
-        document.getElementById("city").classList.add('is-valid');
-        document.getElementById("state").classList.add('is-valid');
+        document.getElementById("place").classList.add("is-valid");
+        document.getElementById("neighborhood").classList.add("is-valid");
+        document.getElementById("city").classList.add("is-valid");
+        document.getElementById("state").classList.add("is-valid");
 
         cnpjStatus.innerHTML =
             '<i class="bi bi-check-circle validation-icon"></i> CNPJ válido';
         cnpjStatus.className = "validation-status valid";
         isCnpjValid = true;
-        cnpjInput.classList.add('is-valid');
-        updateFieldState('cnpj', true);
+        cnpjInput.classList.add("is-valid");
+        updateFieldState("cnpj", true);
     } catch (error) {
         console.error("Erro na validação do CNPJ:", error);
 
@@ -315,8 +317,8 @@ async function validateCNPJ() {
                 '<i class="bi bi-exclamation-triangle validation-icon"></i> Verifique manualmente (timeout)';
             cnpjStatus.className = "validation-status";
             isCnpjValid = true;
-            cnpjInput.classList.add('is-valid');
-            updateFieldState('cnpj', true);
+            cnpjInput.classList.add("is-valid");
+            updateFieldState("cnpj", true);
         } else {
             showJsError(
                 "CNPJ não encontrado na base oficial. Verifique ou preencha os dados manualmente."
@@ -325,8 +327,8 @@ async function validateCNPJ() {
                 '<i class="bi bi-exclamation-triangle validation-icon"></i> CNPJ não encontrado - verifique';
             cnpjStatus.className = "validation-status";
             isCnpjValid = true;
-            cnpjInput.classList.add('is-valid');
-            updateFieldState('cnpj', true);
+            cnpjInput.classList.add("is-valid");
+            updateFieldState("cnpj", true);
         }
     } finally {
         clearTimeout(cnpjApiTimeout);
