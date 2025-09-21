@@ -147,7 +147,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 Route::post('/check-email', [UserController::class, 'checkEmail'])->name('user.checkEmail');
-
+Route::get('/check-email', [UserController::class, 'checkEmailAvailability'])->name('check.email');
 
 Route::get('lang/{locale}', function (string $locale) {
     if (in_array($locale, ['pt_BR', 'en'])) {
@@ -156,4 +156,3 @@ Route::get('lang/{locale}', function (string $locale) {
     }
     return back();
 })->name('lang.switch');
-

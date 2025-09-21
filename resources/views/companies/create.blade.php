@@ -53,18 +53,23 @@
             <label for="cnpj" class="form-label required">CNPJ</label>
             <input type="text" name="cnpj" id="cnpj" class="form-control" required maxlength="18" placeholder="00.000.000/0000-00" />
             <div id="cnpjStatus" class="validation-status d-none"></div>
+            <div class="invalid-feedback">Por favor, informe um CNPJ válido.</div>
           </div>
           <div class="col-md-6">
             <label for="businessName" class="form-label required">Razão Social</label>
             <input type="text" name="businessName" id="businessName" class="form-control" required maxlength="50" />
+            <div class="invalid-feedback">Por favor, informe a razão social.</div>
           </div>
           <div class="col-md-6">
             <label for="tradeName" class="form-label required">Nome Fantasia</label>
             <input type="text" name="tradeName" id="tradeName" class="form-control" required maxlength="50" />
+            <div class="invalid-feedback">Por favor, informe o nome fantasia.</div>
           </div>
           <div class="col-md-6">
             <label for="stateRegistration" class="form-label required">Inscrição Estadual</label>
-            <input type="text" name="stateRegistration" id="stateRegistration" class="form-control" maxlength="15" />
+            <input type="text" name="stateRegistration" id="stateRegistration" class="form-control" required maxlength="30" oninput="this.value = formatStateRegistration(this.value)" />
+            <small class="text-muted">Permitido: números, pontos, barras e hífen</small>
+            <div class="invalid-feedback">Por favor, informe a inscrição estadual.</div>
           </div>
         </div>
       </div>
@@ -77,15 +82,18 @@
             <label for="cep" class="form-label required">CEP</label>
             <input type="text" name="cep" id="cep" class="form-control" required maxlength="9" placeholder="00000-000">
             <div id="cepStatus" class="validation-status d-none"></div>
+            <div class="invalid-feedback">Por favor, informe um CEP válido.</div>
           </div>
           <div class="col-md-6">
             <label for="place" class="form-label required">Logradouro</label>
             <input type="text" name="place" id="place" class="form-control" required maxlength="100" />
+            <div class="invalid-feedback">Por favor, informe o logradouro.</div>
           </div>
           <div class="col-md-6">
             <label for="number" class="form-label required">Número</label>
-            <input type="number" name="number" id="number" class="form-control" required min="0" oninput="validarNumero(this)" />
-            <small class="text-muted">Apenas valores positivos</small>
+            <input type="text" name="number" id="number" class="form-control" required oninput="formatNumber(this)" />
+            <small class="text-muted">Apenas números, máximo 10 dígitos</small>
+            <div class="invalid-feedback">Por favor, informe o número.</div>
           </div>
           <div class=" col-md-6">
             <label for="details" class="form-label">Complemento</label>
@@ -94,10 +102,12 @@
           <div class="col-md-6">
             <label for="neighborhood" class="form-label required">Bairro</label>
             <input type="text" name="neighborhood" id="neighborhood" class="form-control" required maxlength="100" />
+            <div class="invalid-feedback">Por favor, informe o bairro.</div>
           </div>
           <div class="col-md-6">
             <label for="city" class="form-label required">Cidade</label>
             <input type="text" name="city" id="city" class="form-control" required maxlength="100" />
+            <div class="invalid-feedback">Por favor, informe a cidade.</div>
           </div>
           <div class="col-md-6">
             <label for="state" class="form-label required">Estado</label>
@@ -131,6 +141,7 @@
               <option value="SE">Sergipe</option>
               <option value="TO">Tocantins</option>
             </select>
+            <div class="invalid-feedback">Por favor, selecione um estado.</div>
           </div>
         </div>
       </div>
@@ -141,8 +152,9 @@
         <div class="row g-3">
           <div class="col-md-6">
             <label for="user_name" class="form-label required">Nome</label>
-            <input type="text" name="user_name" id="user_name" class="form-control" required maxlength="255" />
+            <input type="text" name="user_name" id="user_name" class="form-control" required maxlength="255" oninput="this.value = formatName(this.value)" />
             <small class="text-muted">Apenas letras são permitidas</small>
+            <div class="invalid-feedback">Por favor, informe o nome.</div>
           </div>
           <div class="col-md-6">
             <label for="user_email" class="form-label required">Email</label>
@@ -172,6 +184,8 @@
               <div class="requirement invalid" id="numberReq"><i class="bi bi-x-circle"></i><span>Pelo menos um número</span></div>
               <div class="requirement invalid" id="specialReq"><i class="bi bi-x-circle"></i><span>Pelo menos um caractere especial (!@#$%^&* etc.)</span></div>
             </div>
+            <small id="passwordHelp" class="form-text">A senha deve atender a todos os requisitos acima</small>
+            <div class="invalid-feedback">Por favor, informe uma senha válida.</div>
           </div>
 
           <div class="col-md-6">
@@ -181,18 +195,29 @@
               <i class="toggle-password fas fa-eye" onclick="togglePassword('user_password_confirmation', this)"></i>
             </div>
             <div class="password-match-feedback invalid" id="passwordMatchFeedback">As senhas não coincidem</div>
+            <small id="passwordConfirmationHelp" class="form-text">Digite a mesma senha novamente para confirmação</small>
+            <div class="invalid-feedback">Por favor, confirme a senha.</div>
           </div>
         </div>
       </div>
 
       <div class="action-buttons">
-        <button type="submit" class="btn btn-primary">Salvar Empresa e Usuário</button>
+        <button type="submit" class="btn btn-primary" id="submitButton" disabled>Salvar Empresa e Usuário</button>
       </div>
     </form>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="{{ asset('js/companies-create.js') }}"></script>
 
+  <!-- Tela de carregamento -->
+  @include('layouts.carregamento')
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ asset('js/companies-create-js/globals.js') }}"></script>
+  <script src="{{ asset('js/companies-create-js/utils.js') }}"></script>
+  <script src="{{ asset('js/companies-create-js/ui.js') }}"></script>
+  <script src="{{ asset('js/companies-create-js/api.js') }}"></script>
+  <script src="{{ asset('js/companies-create-js/password.js') }}"></script>
+  <script src="{{ asset('js/companies-create-js/events.js') }}"></script>
 </body>
 
 </html>
