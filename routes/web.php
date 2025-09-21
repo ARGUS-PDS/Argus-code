@@ -134,10 +134,17 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/senha-vencida', [SupportController::class, 'senhaVencida'])->name('senha.vencida');
 
+    Route::post('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
+
     Route::get('/admin/dashboard', function () {
         return view('admin.admin-dashboard');
     })->name('admin.dashboard');
 });
+
+
+
+
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');

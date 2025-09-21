@@ -333,7 +333,7 @@
                     <h5 class="modal-title fw-bold">{{ __('menu.alterar_senha') }}</h5>
                 </div>
                 <div class="modal-body">
-                    <form id="formAlterarSenha" onsubmit="handleChangePassword(event)">
+                    <form id="formAlterarSenha" action="{{ route('change-password') }}" method="POST">
                         @csrf
                         
                         <div class="mb-3">
@@ -393,6 +393,8 @@
         });
 
     </script>
+
+   
     
     @yield('scripts')
     @include('layouts.carregamento')

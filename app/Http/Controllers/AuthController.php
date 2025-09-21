@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Helpers\CloudinaryHelper;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -79,6 +80,26 @@ class AuthController extends Controller
         }
 
         return redirect()->back()->with('success', 'Foto de perfil atualizada!');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->with('error', 'Senha atual incorreta.');
+        }
+        
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return redirect()->back()->with('success', 'Senha alterada com sucesso!');
     }
 
     public function logout(Request $request)
