@@ -100,6 +100,10 @@ Route::middleware(['auth'])->group(function () {
         return view('lote.detalhamento');
     });
 
+    Route::get('/acompanhamento-validade', function () {
+        return view('products.acompanhamento-validade');
+    });
+
     Route::get('/entrada-saida', function () {
         return view('entrada-saida');
     });
@@ -136,6 +140,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
 
+    Route::post('/validade/buscar', [BatchController::class, 'buscarPorProduto'])->name('validade.buscar');
+
+    Route::get('/produtos/lista', [ProductController::class, 'listaProdutos'])->name('products.lista');
+     
     Route::get('/admin/dashboard', function () {
         return view('admin.admin-dashboard');
     })->name('admin.dashboard');

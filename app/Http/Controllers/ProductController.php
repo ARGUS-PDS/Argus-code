@@ -209,6 +209,14 @@ class ProductController extends Controller
         return view('products.estoque-baixo', ['produtos' => $produtos]);
     }
 
+    public function listaProdutos()
+    {
+        $products = Product::select('id', 'description', 'code')->orderBy('description')->get();
+        return response()->json($products);
+    }
+
+
+
     public function enviarPedido(Request $request)
     {
         $request->validate([
