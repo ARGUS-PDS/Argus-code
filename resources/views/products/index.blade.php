@@ -322,19 +322,19 @@
                         <input type="hidden" name="q" value="{{ request('q') }}">
                         <div class="row g-3">
                             <div class="col-12">
-                                <label class="form-label">Preço mín.</label>
+                                <label class="form-label">{{ __('products.minprice') }}</label>
                                 <input type="number" step="0.01" min="0" class="form-control" name="price_min" value="{{ request('price_min') }}">
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Preço máx.</label>
+                                <label class="form-label">{{ __('products.maxprice') }}</label>
                                 <input type="number" step="0.01" min="0" class="form-control" name="price_max" value="{{ request('price_max') }}">
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Marca</label>
+                                <label class="form-label">{{ __('products.brand') }}</label>
                                 <input type="text" class="form-control" name="brand" placeholder="Ex.: Nestlé" value="{{ request('brand') }}">
                             </div>
                             <div class="col-12">
-                                <label class="form-label">Fornecedor</label>
+                                <label class="form-label">{{ __('products.supplier') }}</label>
                                 <select name="supplier_id" class="form-select">
                                     <option value="">Todos</option>
                                     @foreach(\App\Models\Supplier::orderBy('name')->get() as $supplier)
@@ -345,7 +345,7 @@
                             
                             <div class="col-12">
                                 <div class="filters-actions">
-                                    <button type="button" class="btn btn-limpar" onclick="limparFiltros()">Limpar</button>
+                                    <button type="button" class="btn btn-limpar" onclick="limparFiltros()">{{ __('products.clean') }}</button>
                                     <x-btn-salvar/>
                                 </div>
                             </div>
@@ -364,7 +364,7 @@
                 placeholder="{{ __('products.search_placeholder') }}"
             />
             <span class="ms-4 fw-bold" style="color: var(--color-vinho);"> 
-                Produtos exibidos: {{ ($products->currentPage() * $products->perPage() > $products->total()) ? $products->total() : $products->currentPage() * $products->perPage() }} de {{ $products->total() }}
+                {{ __('products.exibproducts') }}{{ ($products->currentPage() * $products->perPage() > $products->total()) ? $products->total() : $products->currentPage() * $products->perPage() }}{{ __('products.of') }}{{ $products->total() }}
             </span>
             <button type="button" class="btn p-0" title="{{ __('products.print') }}" onclick="imprimirSelecionados();">
                 <i class="bi bi-printer fs-4"></i>

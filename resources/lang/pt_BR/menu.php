@@ -28,4 +28,6 @@ return [
     'senha_atual' => 'Senha Atual',
     'nova_senha' => 'Nova Senha',
     'confirmar_nova_senha' => 'Confirmar Nova Senha',
+        'darkmode'=>'Modo Escuro',
+
 ];

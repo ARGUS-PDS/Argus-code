@@ -1,0 +1,29 @@
+
+<?php
+
+return [
+    'title' => 'Login & Register',
+    'english' => 'English',
+    'portuguese' => 'Portuguese',
+    'sign_in' => 'Sign In',
+    'email' => 'Email',
+    'password' => 'Password',
+    'card_last_digits' => 'Card Last Digits',
+    'remember_me' => 'Remember Me',
+    'password_expired' => 'Your password has expired?',
+    'contact_us' => 'Contact Us',
+    'your_name' => 'Your Name',
+    'your_company' => 'Your Company',
+    'email_for_contact' => 'Email for Contact',
+    'whatsapp' => '(00)00000-0000',
+    'send' => 'Send',
+    'contact_registered' => 'Contact Registered!',
+    'welcome_back' => 'Welcome Back!',
+    'login_description' => 'To stay connected, sign in with your personal information.',
+    'hello' => 'Hello!',
+    'contact_description' => 'Contact us now and simplify your inventory management smartly!',
+    'register' => 'Register',
+    'contact_argus' => 'Contact Argus',
+    'example_email' => 'example@domain.com',
+    'cancel' => 'Cancel',
+];

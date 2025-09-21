@@ -1,0 +1,28 @@
+<?php
+
+return [
+    'title' => 'Login & Registro',
+    'english' => 'English',
+    'portuguese' => 'Português',
+    'sign_in' => 'Entrar',
+    'email' => 'Email',
+    'password' => 'Senha',
+    'card_last_digits' => 'Final do cartão de segurança',
+    'remember_me' => 'Lembrar de mim',
+    'password_expired' => 'Sua senha venceu?',
+    'contact_us' => 'Entre em contato',
+    'your_name' => 'Seu Nome',
+    'your_company' => 'Sua Empresa',
+    'email_for_contact' => 'Email para contato',
+    'whatsapp' => '(00)00000-0000',
+    'send' => 'Enviar',
+    'contact_registered' => 'Contato registrado!',
+    'welcome_back' => 'Bem-vindo de volta!',
+    'login_description' => 'Para se manter conectado, faça login com suas informações pessoais.',
+    'hello' => 'Olá!',
+    'contact_description' => 'Entre em contato conosco agora e simplifique sua gestão de estoque de maneira inteligente!',
+    'register' => 'Registrar',
+    'contact_argus' => 'Entrar em contato com a Argus',
+    'example_email' => 'exemplo@dominio.com',
+    'cancel' => 'Cancelar',
+];

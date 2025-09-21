@@ -266,7 +266,7 @@
                             </a>
 
                             <div class="d-flex align-items-center gap-2 mt-3">
-                                <span style="color: var(--color-bege-claro); font-size: 1.1rem;">Modo escuro</span>
+                                <span style="color: var(--color-bege-claro); font-size: 1.1rem;">{{ __('menu.darkmode')}}</span>
                                 <label class="toggle-switch mb-0">
                                     <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode(this)">
                                     <span class="slider"></span>
@@ -290,11 +290,11 @@
                             <button class="btn lang-btn dropdown-toggle" type="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 <img class="lang-flag"
-                                    src="{{ asset($current == 'pt_BR' ? 'images/brazil.png' : 'images/us.png') }}"
+                                    src="{{ asset($current == 'en' ? 'images/us.png' : 'images/brazil.png') }}"
                                     width="20" alt="flag">
 
                                 <span class="lang-label">
-                                    {{ $current == 'pt_BR' ? 'Português' : 'English' }}
+                                    {{ $current == 'en' ? 'English' : 'Português' }}
                                 </span>
 
                                 <i class="bi bi-caret-down-fill"></i>
@@ -384,7 +384,7 @@
             }
         }
 
-        // Carregar página: modo claro por padrão
+
         window.addEventListener('DOMContentLoaded', () => {
             const darkMode = localStorage.getItem('darkMode') === 'true';
             const toggle = document.getElementById('darkModeToggle');

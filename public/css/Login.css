@@ -598,3 +598,88 @@ spline-viewer {
     margin-top: 5px;
     width: 100%;
 }
+
+
+
+.lang-selector-container {
+    background-color: #f5f0e6;
+    padding: 6px 8px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 999;
+
+    overflow: hidden;
+}
+
+
+.lang-selector {
+    display: flex;
+    align-items: center;
+}
+
+
+.lang-flag-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: width 0.6s ease;
+}
+
+
+.lang-flag-container .flag {
+    width: 24px;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+}
+
+
+.lang-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: opacity 0.4s ease, width 0.4s ease, margin 0.4s ease;
+}
+
+.lang-flag-container.pt {
+    flex-direction: row-reverse;
+}
+
+.lang-flag-container.pt .lang-label {
+    margin-right: 0;
+}
+
+
+.lang-flag-container.en {
+    flex-direction: row;
+}
+
+.lang-flag-container.en .lang-label {
+    margin-left: 0;
+}
+
+
+.lang-flag-container:hover .lang-label {
+    opacity: 1;
+    width: auto; 
+    margin-right: 6px;
+    margin-left: 6px; 
+}
+
+
+.lang-separator {
+    margin: 0 2px;
+    color: #999;
+    user-select: none;
+}
+

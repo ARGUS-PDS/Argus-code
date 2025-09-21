@@ -15,4 +15,10 @@ return [
     'delete' => 'Excluir',
     'no_products' => 'Nenhum produto cadastrado.',
     'confirm_delete' => 'Tem certeza que deseja excluir este produto?',
+    'exibproducts'=> 'Produtos exibidos: ',
+    'of' => ' de ',
+    'minprice' => 'Preço mínimo',
+    'maxprice' => 'Preço máximo',
+    'brand' => 'Marca',
+    'clean' => 'Limpar',
 ];

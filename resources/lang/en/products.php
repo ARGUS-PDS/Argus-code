@@ -15,4 +15,11 @@ return [
     'delete' => 'Delete',
     'no_products' => 'No products registered.',
     'confirm_delete' => 'Are you sure you want to delete this product?',
+    'exibproducts'=> 'Products Displayed: ',
+    'of' => ' of ',
+    'minprice' => 'Minimum Price',
+    'maxprice' => 'Maximum Price',
+    'brand' => 'Brand',
+    'clean' => 'Clean',
+
 ];

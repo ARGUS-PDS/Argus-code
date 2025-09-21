@@ -20,7 +20,8 @@
                     animation: spin 1s linear infinite;
                     margin: auto;
                 "></div>
-                <p style="margin-top: 10px;">Processando, aguarde...</p>
+                <p style="margin-top: 10px;">{{ __('warning.processing') }}
+</p>
             </div>
         </div>
 

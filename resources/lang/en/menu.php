@@ -31,4 +31,5 @@ return [
     'senha_atual' => 'Current Password',
     'nova_senha' => 'New Password',
     'confirmar_nova_senha' => 'Confirm New Password',
+    'darkmode'=>'Dark Mode',
 ];
