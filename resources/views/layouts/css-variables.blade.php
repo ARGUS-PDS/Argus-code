@@ -2,19 +2,19 @@
 :root {
   --color-bege-card-interno: #fcf5ee;
   --color-bege-claro: #f8f0e5;
-  --color-bege-claro-fundo:rgba(248, 240, 229, 0.5);
+  --color-bege-claro-fundo: rgba(248, 240, 229, 0.5);
   --color-bege-medio: #C6A578;
   --color-bege-escuro: #8d6b48;
-  
+
   --color-vinho: #773138;
   --color-vinho-claro: #490006;
-  --color-vinho-fundo:rgba(119, 49, 56, 0.5);
+  --color-vinho-fundo: rgba(119, 49, 56, 0.5);
   --color-vinho-fundo-transparente: rgba(119, 49, 56, 0.1);
 
   --bs-btn-hover-bg: #5f282e;
   --bs-alert-bg-success: #d4edda;
   --bs-alert-border-success: #c3e6cb;
-  --bs-alert-bg-danger: #f8d7da; 
+  --bs-alert-bg-danger: #f8d7da;
   --bs-alert-border-danger: #f5c6cb;
 
   --color-white: #FFFFFF;
@@ -27,7 +27,7 @@
   --color-gray-escuro: #202132;
   --color-border-table: rgba(221, 221, 221, 0.5);
 
-  
+
 
   --color-green: #198754;
   --color-blue: #0d6efd;
@@ -37,10 +37,10 @@
 
 .dark-mode {
   --color-bege-card-interno: #490006;
-  --color-bege-claro:  #773138;
+  --color-bege-claro: #773138;
   --color-bege-claro-fundo: rgba(119, 49, 56, 0.5);
-  --color-bege-medio:rgb(90, 36, 42);
-  --color-bege-escuro:rgb(56, 0, 5);
+  --color-bege-medio: rgb(90, 36, 42);
+  --color-bege-escuro: rgb(56, 0, 5);
 
   --color-vinho: #f8f0e5;
   --color-vinho-claro: #fcf5ee;
@@ -50,11 +50,11 @@
   --bs-btn-hover-bg: #f8f0e5;
   --bs-alert-bg-success: #d4edda;
   --bs-alert-border-success: #c3e6cb;
-  --bs-alert-bg-danger: #f8d7da; 
+  --bs-alert-bg-danger: #f8d7da;
   --bs-alert-border-danger: #f5c6cb;
 
   --color-white: #000000;
-  --color-black: #ffffff ;
+  --color-black: #ffffff;
   --color-gray: #767676;
   --color-gray-2: #5a6268;
   --color-gray-3: #545b62;
@@ -67,5 +67,4 @@
   --color-blue: #0d6efd;
   --color-red: #dc3545;
 }
-
-</style> 
+</style>
