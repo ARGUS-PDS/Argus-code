@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Batch;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class BatchController extends Controller
 {
@@ -68,6 +69,7 @@ class BatchController extends Controller
                 'message' => 'O código do lote não existe.'
             ], 404);
         }
+        
 
         return response()->json([
             'success' => true,
@@ -76,6 +78,34 @@ class BatchController extends Controller
                 'data_validade' => $batch->expiration_date,
                 'data_entrada' => $batch->created_at->format('Y-m-d'),
             ]
+        ]);
+    }
+
+
+    public function buscarPorProduto(Request $request)
+    {
+        $produto = $request->produto;
+
+        $batches = Batch::with('product')
+            ->whereHas('product', function($q) use ($produto) {
+                $q->where('description', 'like', "%$produto%")
+                ->orWhere('code', 'like', "%$produto%");
+            })->get();
+
+        if ($batches->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'Nenhum lote encontrado para este produto.']);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $batches->map(function($batch) {
+                return [
+                    'batch_code' => $batch->batch_code,
+                    'produto' => $batch->product->description ?? '-',
+                    'data_validade' => $batch->expiration_date ? Carbon::parse($batch->expiration_date)->format('d/m/Y') : '00/00/0000',
+                    'data_entrada' => optional($batch->created_at)->format('d/m/Y') ?? '00/00/0000',
+                ];
+            })
         ]);
     }
 
