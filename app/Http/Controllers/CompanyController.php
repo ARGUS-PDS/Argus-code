@@ -25,7 +25,7 @@ class CompanyController extends Controller
     {
         $validated = $request->validate([
             // Empresa
-            'cnpj' => 'required|string|max:18',
+            'cnpj' => 'required|string|max:18|unique:company,cnpj',
             'businessName' => 'required|string|max:150',
             'tradeName' => 'required|string|max:150',
             'stateRegistration' => 'nullable|string|max:15',
@@ -41,6 +41,7 @@ class CompanyController extends Controller
             'user_email' => 'required|string|email|max:255|unique:users,email',
             'user_password' => 'required|string|min:8',
         ], [
+            'cnpj.unique' => 'Este CNPJ já está cadastrado no sistema.',
             'user_email.unique' => 'Este e-mail já está em uso. Por favor, escolha outro.',
         ]);
 
