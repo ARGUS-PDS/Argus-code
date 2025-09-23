@@ -9,6 +9,65 @@
     object-fit: cover; 
     border-radius: 4px; 
 }
+
+#lista-pedidos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+}
+
+#lista-pedidos .list-group-item {
+    background-color: var(--color-bege-claro);
+    color: var(--color-vinho);
+    border: 2px solid var(--color-vinho);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    position: relative;
+    padding-top: 1.5rem;
+    cursor: pointer;
+    width: 150px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: bold;
+}
+
+#lista-pedidos .list-group-item .pedido-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    font-size: 1rem;
+}
+
+#lista-pedidos .list-group-item.active {
+    background-color: var(--color-vinho);
+    color: var(--color-bege-claro);
+}
+
+/* botão X no canto superior direito */
+#lista-pedidos .list-group-item button {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: transparent;
+    border: none;
+    color: var(--color-vinho);
+    font-size: 0.9rem;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+}
+
+#lista-pedidos .list-group-item.active button {
+    color: var(--color-bege-claro);
+}
+
 </style>
 
 <div class="container mt-4" id="frente-container">
@@ -38,7 +97,6 @@
         </div>
 
         <div class="col-md-4">
-            <h5>{{ __('pos.pedidos_titulo') }}</h5>
             <ul id="lista-pedidos" class="list-group"></ul>
         </div>
     </div>
@@ -102,15 +160,15 @@ function novaVenda() {
 function renderPedidos() {
     const lista = document.getElementById('lista-pedidos');
     lista.innerHTML = '';
-    // Exibe apenas pedidos não finalizados
     pedidos.filter(p => !p.finalizado).forEach(p => {
         const ativo = (pedidoAtual && pedidoAtual.id === p.id) ? 'active' : '';
         lista.innerHTML += `
-            <li class="list-group-item d-flex justify-content-between align-items-center ${ativo}">
-                <span onclick="selecionarPedido(${p.id})" style="cursor:pointer;">
-                    {{ __('pos.pedido_numero') }} ${p.id}
-                </span>
-                <button class="btn btn-sm btn-danger" onclick="apagarPedido(${p.id})">X</button>
+            <li class="list-group-item ${ativo}" onclick="selecionarPedido(${p.id})">
+                <div class="pedido-content">
+                    <span>Pedido</span>
+                    <span>${p.id}</span>
+                </div>
+                <button onclick="apagarPedido(${p.id}); event.stopPropagation()">X</button>
             </li>
         `;
     });
