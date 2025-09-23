@@ -134,6 +134,7 @@
 
         .image-preview-area {
             margin-top: 15px;
+            position: relative;
         }
 
         .image-preview {
@@ -314,6 +315,9 @@
         }
 
         .remove-image-btn {
+            position: absolute; /* mantém o botão absoluto dentro da div */
+            top: 5px;  /* ajuste fino */
+            right: 5px; /* ajuste fino */
             z-index: 2;
             border-radius: 50%;
             width: 24px;
@@ -341,6 +345,20 @@
 </head>
 
 <body>
+    <div id="mandatoryAlert" style="
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #773138;
+    color: #f8f0e5;
+    padding: 12px 18px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 9999;
+">
+    Faltam campos obrigatórios
+</div>
     {{-- Modal de mensagens globais --}}
     @include('components.alert-modal')
     
@@ -381,18 +399,20 @@
             <div class="col-md-3">
                 <div class="image-upload-container">
                     <label for="image_url" class="form-label mb-2">{{ __('product_register.product_image') }}</label>
-                    <input type="file" name="image_url" id="image_url" class="form-control" accept="image/*" onchange="previewImage(event)">
+                    <input type="file" name="image_url" id="image_url" class="form-control" accept=".jpg,.jpeg,.png" onchange="previewImage(event)">
                     <div class="image-preview-area position-relative">
+                        <button type="button" id="removeBtn" class="btn-sm remove-image-btn" style="display:none;">&times;</button>
                         @if(isset($product) && $product->image_url)
-                        <button type="button" id="removeBtn" class="btn-sm remove-image-btn">&times;</button>
-                        <img id="preview" src="{{ $product->image_url }}" alt="{{ __('product_register.current_image') }}" class="image-preview">
-                        <div id="placeholder" class="image-placeholder-text">{{ __('product_register.current_image') }}</div>
+                            <img id="preview" src="{{ $product->image_url }}" alt="{{ __('product_register.current_image') }}" class="image-preview">
+                            <div id="placeholder" class="image-placeholder-text">{{ __('product_register.current_image') }}</div>
                         @else
-                        <img id="preview" src="#" alt="{{ __('product_register.preview') }}" class="image-preview d-none">
-                        <div id="placeholder" class="image-placeholder-text">{{ __('product_register.no_image_selected') }}</div>
+                            <img id="preview" src="#" alt="{{ __('product_register.preview') }}" class="image-preview d-none">
+                            <div id="placeholder" class="image-placeholder-text">{{ __('product_register.no_image_selected') }}</div>
                         @endif
                         <input type="hidden" name="remove_image" id="remove_image" value="0">
                     </div>
+                    <div class="invalid-feedback">A URL deve terminar com .jpg, .jpeg ou .png </div>
+                    <div id="validMessage" class="valid-feedback">Imagem válida!</div>
                 </div>
             </div>
 
@@ -400,17 +420,23 @@
                 <div class="row g-4">
                     <div class="col-md-6 form-group">
                         <label for="description" class="form-label">{{ __('product_register.name') }}</label>
-                        <input type="text" name="description" id="description" class="form-control" placeholder="{{ __('product_register.name_placeholder') }}" value="{{ isset($product) ? $product->description : '' }}" required maxlength="255" pattern=".*\D.*" title="Não pode ser apenas números">
+                        <input type="text" name="description" id="description" class="form-control" placeholder="{{ __('product_register.name_placeholder') }}" value="{{ isset($product) ? $product->description : '' }}" required maxlength="100" pattern="^(?!\d+$).{1,100}$" title="Não pode ser apenas números">
+                        <div class="invalid-feedback">O nome não pode conter apenas números.</div>
+                        <div class="valid-feedback">Nome válido!</div>
                     </div>
 
                     <div class="col-md-6 form-group">
                         <label for="barcode" class="form-label">{{ __('product_register.barcode') }}</label>
-                        <input name="barcode" type="text" id="barcode" class="form-control" placeholder="{{ __('product_register.barcode_placeholder') }}" value="{{ isset($product) ? $product->barcode : '' }}" required maxlength="50">
+                        <input name="barcode" type="text" id="barcode" class="form-control" placeholder="{{ __('product_register.barcode_placeholder') }}" value="{{ isset($product) ? $product->barcode : '' }}" required maxlength="13" pattern="\d{8,13}" >
+                        <div class="invalid-feedback">O código de barras deve ter entre 8 e 13 números.</div>
+                        <div class="valid-feedback">Código de barras válido!</div>
                     </div>
 
                     <div class="col-md-6 form-group">
                         <label for="code" class="form-label">{{ __('product_register.description') }}</label>
-                        <input type="text" name="code" id="code" class="form-control" placeholder="{{ __('product_register.code_placeholder') }}" value="{{ isset($product) ? $product->code : '' }}" maxlength="255">
+                        <input type="text" name="code" id="code" class="form-control" placeholder="{{ __('product_register.code_placeholder') }}" value="{{ isset($product) ? $product->code : '' }}" required maxlength="20">
+                        <div class="invalid-feedback">O código é obrigatório.</div>
+                        <div class="valid-feedback">Código válido!</div>
                     </div>
 
                     <div class="col-md-5 form-group">
@@ -423,9 +449,11 @@
                         </select>
                     </div>
 
-                    <div class="col-md-4 form-group">
+                    <div class="col-md-5 form-group">
                         <label for="value" class="form-label">{{ __('product_register.sale_value') }}</label>
                         <input name="value" type="number" step="0.01" inputmode="decimal" class="form-control" placeholder="{{ __('product_register.value_placeholder') }}" value="{{ isset($product) ? $product->value : '' }}" min="0" max="999999.99">
+                        <div class="invalid-feedback">O preço deve ser maior que zero.</div>
+                        <div class="valid-feedback">Preço válido!</div>
                     </div>
 
                 </div>
@@ -437,11 +465,15 @@
                     <div class="row g-3">
                         <div class="col-md-6 form-group">
                             <label for="brand" class="form-label">{{ __('product_register.brand') }}</label>
-                            <input name="brand" type="text" id="brand" class="form-control" placeholder="{{ __('product_register.brand_placeholder') }}" value="{{ isset($product) ? $product->brand : '' }}" maxlength="100" pattern=".*\D.*" title="Não pode ser apenas números">
+                            <input name="brand" type="text" id="brand" class="form-control" placeholder="{{ __('product_register.brand_placeholder') }}" value="{{ isset($product) ? $product->brand : '' }}" maxlength="50" pattern="^(?!\d+$).{0,50}$"  title="Não pode ser apenas números">
+                            <div class="invalid-feedback">Marca não pode conter apenas números.</div>
+                            <div class="valid-feedback">Marca válida!</div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="model" class="form-label">{{ __('product_register.model') }}</label>
-                            <input name="model" type="text" id="model" class="form-control" placeholder="{{ __('product_register.model_placeholder') }}" value="{{ isset($product) ? $product->model : '' }}" maxlength="100" pattern=".*\D.*" title="Não pode ser apenas números">
+                            <input name="model" type="text" id="model" class="form-control" placeholder="{{ __('product_register.model_placeholder') }}" value="{{ isset($product) ? $product->model : '' }}" maxlength="50" pattern="^(?!\d+$).{0,50}$"  title="Não pode ser apenas números">
+                            <div class="invalid-feedback">Modelo não pode conter apenas números.</div>
+                            <div class="valid-feedback">Modelo válido!</div>
                         </div>
                     </div>
                 </div>
@@ -455,10 +487,14 @@
                         <div class="col-md-6 form-group">
                             <label for="currentStock" class="form-label">{{ __('product_register.current_stock') }}</label>
                             <input name="currentStock" type="number" id="currentStock" class="form-control" placeholder="{{ __('product_register.current_stock_placeholder') }}" value="{{ isset($product) ? $product->currentStock : '' }}" min="0" max="999999">
+                            <div class="invalid-feedback">Estoque deve ser igual ou maior que zero.</div>
+                            <div class="valid-feedback">Estoque válido!</div>
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="minimumStock" class="form-label">{{ __('product_register.minimum_stock') }} <x-explanation title="Quantidade mínima do produto a ser mantida em estoque"></x-explanation></label>
                             <input name="minimumStock" type="number" id="minimumStock" class="form-control" placeholder="{{ __('product_register.minimum_stock_placeholder') }}" value="{{ isset($product) ? $product->minimumStock : '' }}" min="0" max="999999">
+                            <div class="invalid-feedback">Estoque mínimo deve ser igual ou maior que zero.</div>
+                            <div class="valid-feedback">Estoque mínimo válido!</div>
                         </div>
                     </div>
                 </div>
@@ -601,40 +637,7 @@
             statusText.textContent = checkbox.checked ? '{{ __('product_register.active') }}' : '{{ __('product_register.inactive') }}';
         }
 
-        function previewImage(event) {
-            const preview = document.getElementById('preview');
-            const placeholder = document.getElementById('placeholder');
-            const removeBtn = document.getElementById('removeBtn');
-            if (!preview || !placeholder || !removeBtn) return;
-
-            if (event.target.files && event.target.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    preview.src = e.target.result;
-                    preview.classList.remove('d-none');
-                    document.getElementById('remove_image').value = '0';
-                    // Chama a função centralizada para atualizar visibilidade
-                    setTimeout(() => {
-                        const hasImage = preview.getAttribute('src') && 
-                                        preview.getAttribute('src') !== '#' && 
-                                        !preview.classList.contains('d-none');
-                        removeBtn.style.display = hasImage ? 'block' : 'none';
-                        if (hasImage) {
-                            placeholder.classList.add('d-none');
-                        } else {
-                            placeholder.classList.remove('d-none');
-                        }
-                    }, 10);
-                };
-                reader.readAsDataURL(event.target.files[0]);
-            } else {
-                preview.src = '#';
-                preview.classList.add('d-none');
-                placeholder.classList.remove('d-none');
-                removeBtn.style.display = 'none';
-                document.getElementById('remove_image').value = '0';
-            }
-        }
+        
 
         document.addEventListener('DOMContentLoaded', function() {
             // ---- Validação estoque ----
@@ -774,40 +777,11 @@
                     }, 500);
                 });
             }
-
-            // Clique no "X" para remover imagem
-            if (removeBtn) {
-                removeBtn.addEventListener('click', function() {
-                    if (previewImg) {
-                        previewImg.src = '#';
-                        previewImg.classList.add('d-none');
-                    }
-                    if (placeholder) {
-                        placeholder.textContent = 'Nenhuma imagem selecionada';
-                    }
-                    if (imageInput) imageInput.value = '';
-                    document.getElementById('remove_image').value = '1';
-                    updateRemoveButtonVisibility();
-                });
-            }
-        });
     </script>
 
-    <script>
-        function removeImage() {
-            const preview = document.getElementById('preview');
-            const placeholder = document.getElementById('placeholder');
-            const removeBtn = document.getElementById('removeBtn');
-            preview.src = '#';
-            preview.classList.add('d-none');
-            placeholder.textContent = 'Nenhuma imagem selecionada';
-            placeholder.classList.remove('d-none');
-            removeBtn.style.display = 'none';
-            document.getElementById('image_url').value = '';
-            document.getElementById('remove_image').value = '1';
-        }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/products-create-js/utils.js') }}"></script>
+    <script src="{{ asset('js/products-create-js/image.js') }}"></script>
 </body>
 
 </html>
