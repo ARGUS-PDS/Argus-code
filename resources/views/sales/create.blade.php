@@ -68,37 +68,187 @@
     color: var(--color-bege-claro);
 }
 
+.produto-destaque {
+    background-color: var(--color-bege-claro);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.destaque-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+#frente-layout {
+    display: flex;
+    gap: 16px;
+}
+
+.destaque-col {
+    flex: 2;
+}
+
+.produtos-col {
+    flex: 3;
+}
+
+.pedidos-col {
+    flex: 0 0 150px;
+}
+
+.destaque-inner {
+    border-radius: 6px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#destaque-nome {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+
+.table td.descricao-produto {
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    -webkit-box-orient: vertical;   /* orienta as linhas verticalmente */
+    -webkit-line-clamp: 2;          /* limita a 2 linhas */
+    overflow: hidden;               /* esconde o excesso */
+    text-overflow: ellipsis;        /* mostra ... no final */
+    word-break: break-word; 
+}
+
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    background: var(--color-bege-card-interno); /* Fundo bege para a tabela */
+    margin: 16px 0;
+}
+
+.table th {
+    vertical-align: middle;
+    background: var(--color-vinho);
+    color: var(--color-bege-claro);
+    border-bottom: none;
+    padding: 1rem 1rem;
+}
+
+.table td {
+    vertical-align: middle;
+    background: transparent;
+    color: var(--color-vinho);
+    border-top: 1px solid rgba(119, 49, 56, 0.1);
+    padding: 0.75rem 1rem;
+}
+
+.table thead th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.table thead th:last-child {
+    border-top-right-radius: 12px;
+}
+
+.table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+
+.table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+.table th.col-valor,
+.table td .col-valor {
+    width: 80px; /* ou outra largura desejada */
+}
+
+.table th.col-qtd,
+.table td .col-qtd {
+    width: 60px;
+}
+
+.table td input {
+    width: 80px;
+    border: 1px solid var(--color-vinho-fundo);
+    border-radius: 6px;
+}
+
+
+
 </style>
 
-<div class="container mt-4" id="frente-container">
-    <h2>{{ __('pos.titulo') }}</h2>
+<div class="row" id="frente-layout">
+    <!-- Coluna da esquerda: produto em destaque -->
+    <div class="col destaque-col">
+        <div id="produto-destaque" class="produto-destaque d-flex flex-column">
+            <!-- Linha da imagem e nome -->
+            <div class="d-flex align-items-center mb-2">
+                <!-- Imagem ou ícone -->
+                <div id="destaque-img-container" class="img-thumb d-flex align-items-center justify-content-center me-3" style="background: var(--color-bege-card-interno); width: 200px; height: 200px; border-radius: 8px; border: 2px solid var(--color-vinho-fundo); margin-bottom: 25px;">
+                    <i class="bi bi-image" style="font-size: 2rem; color: var(--color-vinho-fundo);"></i>
+                </div>
 
-    <div class="d-flex justify-content-start mb-3">
-        <button class="btn btn-primary" id="nova-venda">{{ __('pos.nova_venda_btn') }}</button>
+                <!-- Nome do produto -->
+                <h4 id="destaque-nome" class="fw-bold mb-0"></h4>
+            </div>
+
+            <!-- Quantidade e valor abaixo da imagem -->
+            <div class="d-flex gap-2" id="destaque-valores">
+                <div>
+                    <label class="form-label">Qtd.</label>
+                    <input type="number" id="destaque-quantidade" class="form-control" min="1" value="1">
+                </div>
+                <div>
+                    <label class="form-label">Valor</label>
+                    <input type="number" id="destaque-preco" class="form-control" min="0" step="0.01">
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-8">
-            <input type="text" id="barcode" class="form-control mb-3" placeholder="{{ __('pos.placeholder_codigo_barras') }}" autocomplete="off">
 
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>{{ __('pos.foto') }}</th>
-                        <th>{{ __('pos.produto') }}</th>
-                        <th>{{ __('pos.valor') }}</th>
-                        <th>{{ __('pos.quantidade_abreviado') }}</th>
-                        <th>{{ __('pos.total') }}</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="cart-body"></tbody>
-            </table>
-        </div>
 
-        <div class="col-md-4">
-            <ul id="lista-pedidos" class="list-group"></ul>
-        </div>
+
+
+    <!-- Coluna do meio: lista de produtos -->
+    <div class="col produtos-col">
+        <input type="text" id="barcode" class="form-control mb-3" placeholder="{{ __('pos.placeholder_codigo_barras') }}" autocomplete="off">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>{{ __('pos.foto') }}</th>
+                    <th>{{ __('pos.produto') }}</th>
+                    <th class="col-valor">{{ __('pos.valor') }}</th>
+                    <th class="col-qtd">{{ __('pos.quantidade_abreviado') }}</th>
+                    <th>{{ __('pos.total') }}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="cart-body"></tbody>
+        </table>
+    </div>
+
+    <!-- Coluna da direita: pedidos -->
+    <div class="col pedidos-col d-flex flex-column align-items-end">
+        <button class="btn btn-primary mb-2 w-100" id="nova-venda">{{ __('pos.nova_venda_btn') }}</button>
+        <ul id="lista-pedidos" class="list-group w-100"></ul>
     </div>
 </div>
 
@@ -301,15 +451,26 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
             */
 
             pedidoAtual.itens.unshift({
-                    id: produto.id,
-                    description: produto.description ?? '{{ __('pos.sem_descricao') }}',
-                    unit_price: parseFloat(produto.value ?? 0),
-                    quantity: 1,
-                    image_url: produto.image_url ?? ''
-                });
+                id: produto.id,
+                description: produto.description ?? '{{ __('pos.sem_descricao') }}',
+                unit_price: parseFloat(produto.value ?? 0),
+                quantity: 1,
+                image_url: produto.image_url ?? ''
+            });
 
+            // Atualiza o produto em destaque
+            window.produtoEmDestaque = {
+                id: produto.id,
+                description: produto.description ?? '{{ __('pos.sem_descricao') }}',
+                unit_price: parseFloat(produto.value ?? 0),
+                quantity: 1,
+                image_url: produto.image_url ?? ''
+            };
+
+            atualizarDestaque();
             renderCart();
             this.value = '';
+
         })
         .catch(err => {
             console.error(err);
@@ -318,6 +479,63 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
         });
     }
 });
+
+function atualizarDestaque() {
+    const container = document.getElementById("destaque-img-container");
+    const destaqueNome = document.getElementById("destaque-nome");
+    const destaqueQtd = document.getElementById("destaque-quantidade");
+    const destaquePreco = document.getElementById("destaque-preco");
+    const destaqueValores = document.getElementById("destaque-valores");
+
+    if (window.produtoEmDestaque) {
+        const produto = window.produtoEmDestaque;
+
+        // limpa container
+        container.innerHTML = "";
+        container.style.background = "var(--color-bege-card-interno)";
+
+        if (produto.image_url && produto.image_url.trim() !== "") {
+            // adiciona imagem
+            const img = document.createElement("img");
+            img.src = produto.image_url;
+            img.className = "destaque-img";
+            img.alt = "Produto";
+            img.style.objectFit = "cover";
+            container.appendChild(img);
+        } else {
+            // adiciona ícone
+            container.innerHTML = `<i class="bi bi-image" style="font-size: 2rem; color: var(--color-vinho-fundo);"></i>`;
+        }
+
+        destaqueNome.textContent = produto.description ?? "—";
+        destaqueQtd.value = produto.quantity ?? 1;
+        destaquePreco.value = produto.unit_price?.toFixed(2) ?? "0.00";
+        destaqueValores.style.display = "flex";
+
+    } else {
+        // nenhum produto: ícone padrão
+        container.innerHTML = `<i class="bi bi-image" style="font-size: 2rem; color: var(--color-vinho-fundo);"></i>`;
+        container.style.background = "var(--color-bege-card-interno)";
+        destaqueNome.textContent = "";
+        destaqueQtd.value = "";
+        destaquePreco.value = "";
+        destaqueValores.style.display = "none";
+    }
+}
+
+
+document.getElementById('destaque-quantidade').addEventListener('change', e => {
+    if (window.produtoEmDestaque) {
+        window.produtoEmDestaque.quantity = parseInt(e.target.value);
+    }
+});
+
+document.getElementById('destaque-preco').addEventListener('change', e => {
+    if (window.produtoEmDestaque) {
+        window.produtoEmDestaque.unit_price = parseFloat(e.target.value);
+    }
+});
+
 
 document.getElementById('finalizar').addEventListener('click', () => {
     if (!pedidoAtual) {
@@ -328,6 +546,11 @@ document.getElementById('finalizar').addEventListener('click', () => {
     if (pedidoAtual.itens.length === 0) {
         alert('{{ __('pos.alerta_adicionar_produto') }}');
         return;
+    }
+
+    if (window.produtoEmDestaque) {
+        pedidoAtual.itens.unshift(window.produtoEmDestaque);
+        window.produtoEmDestaque = null;
     }
 
     fetch('{{ route("vendas.store") }}', {

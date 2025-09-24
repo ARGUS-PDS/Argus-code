@@ -106,10 +106,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
       layout: {
         padding: {
-          top: 35,
-          right: 30,
-          bottom: 10,
-          left: 10
+          top: 50,
+          right: 70,
+          bottom: 5,
+          left: 50
         }
       },
 
