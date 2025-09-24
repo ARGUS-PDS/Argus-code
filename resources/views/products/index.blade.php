@@ -73,16 +73,25 @@
         border-bottom: none !important;
     }
 
-    .img-thumb {
+    .img-thumb, .img-placeholder {
         width: 80px;
         height: 80px;
-        object-fit: cover;
-        border: 3px solid var(--color-vinho);
         border-radius: 12px;
         background: var(--color-bege-card-interno);
-        /* Fundo bege para imagem/placeholder */
-        padding: 2px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        border: 3px solid var(--color-vinho);
+    }
+
+    .img-thumb {
+        object-fit: cover;
+    }
+
+    .img-placeholder {
+        font-size: 2rem;
+        color: var(--color-vinho-fundo);
     }
 
     .text-muted.small {
