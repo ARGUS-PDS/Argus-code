@@ -143,7 +143,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/validade/buscar', [BatchController::class, 'buscarPorProduto'])->name('validade.buscar');
 
     Route::get('/produtos/lista', [ProductController::class, 'listaProdutos'])->name('products.lista');
-     
+
     Route::get('/admin/dashboard', function () {
         return view('admin.admin-dashboard');
     })->name('admin.dashboard');

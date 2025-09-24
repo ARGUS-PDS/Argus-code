@@ -28,21 +28,18 @@ class CompanyController extends Controller
             'cnpj' => 'required|string|max:18|unique:company,cnpj',
             'businessName' => 'required|string|max:150',
             'tradeName' => 'required|string|max:150',
-            'stateRegistration' => 'nullable|string|max:15',
+            'stateRegistration' => 'nullable|string|max:30',
             'cep' => 'required|string|max:9',
             'place' => 'required|string|max:100',
-            'number' => 'required|integer',
+            'number' => 'required|string|max:10',
             'details' => 'nullable|string|max:50',
             'neighborhood' => 'required|string|max:100',
             'city' => 'required|string|max:100',
-            'state' => 'required|string|max:2',
+            'state' => 'required|string|size:2',
             // Usuário master
             'user_name' => 'required|string|max:255',
             'user_email' => 'required|string|email|max:255|unique:users,email',
-            'user_password' => 'required|string|min:8',
-        ], [
-            'cnpj.unique' => 'Este CNPJ já está cadastrado no sistema.',
-            'user_email.unique' => 'Este e-mail já está em uso. Por favor, escolha outro.',
+            'user_password' => 'required|string|min:8|confirmed',
         ]);
 
         $address = Address::create([

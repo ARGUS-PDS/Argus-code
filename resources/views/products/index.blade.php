@@ -2,7 +2,6 @@
 
 @section('styles')
 <style>
-    
     body {
         background-color: var(--color-bege-claro);
         padding: 0;
@@ -29,7 +28,8 @@
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        background: var(--color-bege-card-interno); /* Fundo bege para a tabela */
+        background: var(--color-bege-card-interno);
+        /* Fundo bege para a tabela */
         margin: 16px 0;
     }
 
@@ -79,7 +79,8 @@
         object-fit: cover;
         border: 3px solid var(--color-vinho);
         border-radius: 12px;
-        background: var(--color-bege-card-interno); /* Fundo bege para imagem/placeholder */
+        background: var(--color-bege-card-interno);
+        /* Fundo bege para imagem/placeholder */
         padding: 2px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
@@ -95,7 +96,8 @@
         text-align: center;
         font-size: 0.75rem;
         color: var(--color-gray-escuro) !important;
-        background-color: var(--color-bege-card-interno); /* Fundo bege para placeholder */
+        background-color: var(--color-bege-card-interno);
+        /* Fundo bege para placeholder */
         padding: 5px;
     }
 
@@ -135,7 +137,7 @@
         padding: 6px 8px;
         border-radius: 8px;
     }
-    
+
     h2 .filters-toggle {
         display: inline-flex;
         align-items: center;
@@ -148,11 +150,11 @@
         position: relative;
         top: 2px;
     }
-    
+
     .filters-toggle:focus {
         outline: none;
     }
-    
+
     .filters-panel {
         position: fixed;
         top: 90px;
@@ -164,33 +166,37 @@
         background: var(--color-bege-card-interno);
         border: 1px solid rgba(119, 49, 56, 0.15);
         border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
         padding: 16px;
         transform: translateX(-110%);
         transition: transform 0.25s ease;
         z-index: 1200;
     }
-    
+
     .filters-panel.show {
         transform: translateX(0);
     }
-    
+
     .filters-backdrop {
         position: fixed;
         inset: 0;
-        background: rgba(0,0,0,0.25);
+        background: rgba(0, 0, 0, 0.25);
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.2s ease;
         z-index: 1190;
     }
-    
-    .filters-backdrop.show { opacity: 1; visibility: visible; }
+
+    .filters-backdrop.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
     .filters-panel .form-label {
         color: var(--color-vinho);
         font-weight: 600;
     }
-    
+
     .filters-actions {
         display: flex;
         gap: 8px;
@@ -206,9 +212,9 @@
         border: 2px solid var(--color-vinho);
         background: var(--color-bege-claro);
         transition: box-shadow 0.2s;
-        box-shadow: 0 1px 3px rgba(119,49,56,0.07);
+        box-shadow: 0 1px 3px rgba(119, 49, 56, 0.07);
     }
-    
+
     .products-table tbody input[type="checkbox"]:hover {
         box-shadow: 0 0 0 2px var(--color-vinho-fundo);
     }
@@ -230,7 +236,7 @@
         border: 2px solid var(--color-bege-claro);
         background: var(--color-bege-claro);
         transition: box-shadow 0.2s;
-        box-shadow: 0 1px 3px rgba(119,49,56,0.07);
+        box-shadow: 0 1px 3px rgba(119, 49, 56, 0.07);
         position: relative;
     }
 
@@ -268,6 +274,7 @@
         display: inline-block;
         cursor: pointer;
     }
+
     .btn-limpar:hover {
         background-color: transparent;
         color: var(--color-vinho);
@@ -275,30 +282,37 @@
         transform: translateY(-2px);
     }
 
-    .bi-printer, .bi-trash{
+    .bi-printer,
+    .bi-trash {
         color: var(--color-vinho);
     }
 
-    .bi-printer:hover, .bi-trash:hover{
+    .bi-printer:hover,
+    .bi-trash:hover {
         color: var(--color-bege-claro);
     }
+
     @media (max-width: 768px) {
         .search-bar {
             width: 100%;
             margin-bottom: 1rem;
         }
+
         .d-flex.align-items-center.justify-content-between.mb-4 {
             flex-direction: column;
             align-items: flex-start !important;
         }
+
         .d-flex.align-items-center {
             margin-top: 1rem;
             width: 100%;
             justify-content: space-around;
         }
+
         .table-responsive {
             margin-top: 1rem;
         }
+
         .img-thumb {
             width: 50px;
             height: 50px;
@@ -338,15 +352,15 @@
                                 <select name="supplier_id" class="form-select">
                                     <option value="">Todos</option>
                                     @foreach(\App\Models\Supplier::orderBy('name')->get() as $supplier)
-                                        <option value="{{ $supplier->id }}" {{ request('supplier_id') == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
+                                    <option value="{{ $supplier->id }}" {{ request('supplier_id') == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            
+
                             <div class="col-12">
                                 <div class="filters-actions">
                                     <button type="button" class="btn btn-limpar" onclick="limparFiltros()">{{ __('products.clean') }}</button>
-                                    <x-btn-salvar/>
+                                    <x-btn-salvar />
                                 </div>
                             </div>
                         </div>
@@ -355,15 +369,14 @@
             </div>
         </h2>
         <div class="d-flex align-items-center" style="gap: 16px;">
-            <x-search-bar 
+            <x-search-bar
                 :datalist-options="collect($products->take(5))->map(fn($produto) => [
                     'value' => $produto->description,
                     'label' => $produto->barcode
                 ])->toArray()"
                 :value="request('q')"
-                placeholder="{{ __('products.search_placeholder') }}"
-            />
-            <span class="ms-4 fw-bold" style="color: var(--color-vinho);"> 
+                placeholder="{{ __('products.search_placeholder') }}" />
+            <span class="ms-4 fw-bold" style="color: var(--color-vinho);">
                 {{ __('products.exibproducts') }}{{ ($products->currentPage() * $products->perPage() > $products->total()) ? $products->total() : $products->currentPage() * $products->perPage() }}{{ __('products.of') }}{{ $products->total() }}
             </span>
             <button type="button" class="btn p-0" title="{{ __('products.print') }}" onclick="imprimirSelecionados();">
@@ -379,42 +392,42 @@
             <x-btn-mais href="{{ route('products.create') }}"></x-btn-mais>
         </div>
     </div>
-    
+
     <div id="selected-count" class="mb-2 ms-1" style="color: var(--color-vinho); font-weight: bold; display: none; position: absolute; left: 65px; top: 180px; z-index: 10;">
         <button id="clear-selection" type="button" style="background: none; border: none; color: var(--color-vinho); font-size: 1.2rem; margin-left: 10px; cursor: pointer; padding: 0; line-height: 1;">
             &times;
         </button>
-        Selecionados: <span id="selectedValue">0</span>
+        Selecionados: <span id="selectedValue"></span>
     </div>
     <div class="table-responsive">
         <table class="table align-middle products-table">
             <thead>
-    <tr>
-        <th class="text-center" style="width:32px;">
-            <input type="checkbox" id="select-all-checkbox" onclick="event.stopPropagation();">
-        </th>
-        <th class="text-center">{{ __('products.image') }}</th>
-        <th>{{ __('products.name') }}</th>
-        <th>{{ __('products.code') }}</th>
-        <th class="text-center">{{ __('products.supplier') }}</th>
-        <th class="text-center">{{ __('products.price') }}</th>
-        <th class="text-center"></th>
-    </tr>
-</thead>
-<tbody>
-    @forelse ($products as $product)
-    <tr onclick="window.location='{{ route('products.edit', $product->id) }}'" style="cursor:pointer;">
-        <td class="text-center"><input type="checkbox" data-id="{{ $product->id }}" onclick="event.stopPropagation();"></td>
+                <tr>
+                    <th class="text-center" style="width:32px;">
+                        <input type="checkbox" id="select-all-checkbox" onclick="event.stopPropagation();">
+                    </th>
+                    <th class="text-center">{{ __('products.image') }}</th>
+                    <th>{{ __('products.name') }}</th>
+                    <th>{{ __('products.code') }}</th>
+                    <th class="text-center">{{ __('products.supplier') }}</th>
+                    <th class="text-center">{{ __('products.price') }}</th>
+                    <th class="text-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($products as $product)
+                <tr onclick="window.location='{{ route('products.edit', $product->id) }}'" style="cursor:pointer;">
+                    <td class="text-center"><input type="checkbox" data-id="{{ $product->id }}" onclick="event.stopPropagation();"></td>
                     <td class="text-center">
                         @php
-                            $imgPath = public_path($product->image_url ?? '');
+                        $imgPath = public_path($product->image_url ?? '');
                         @endphp
                         @if (!empty($product->image_url))
-                            <img src="{{ $product->image_url }}" alt="Imagem do produto" class="img-thumb" loading="lazy">
+                        <img src="{{ $product->image_url }}" alt="Imagem do produto" class="img-thumb" loading="lazy">
                         @else
-                            <div class="img-thumb d-flex align-items-center justify-content-center" style="background: var(--color-bege-card-interno);">
-                                <i class="bi bi-image" style="font-size: 2rem; color: var(--color-vinho-fundo);"></i>
-                            </div>
+                        <div class="img-thumb d-flex align-items-center justify-content-center" style="background: var(--color-bege-card-interno);">
+                            <i class="bi bi-image" style="font-size: 2rem; color: var(--color-vinho-fundo);"></i>
+                        </div>
                         @endif
 
                     </td>
@@ -447,7 +460,7 @@
     </div>
     <x-paginacao :paginator="$products" />
     {{-- Links de paginação --}}
-    
+
     @include('layouts.carregamento')
 </div>
 @endsection
@@ -458,26 +471,26 @@
         const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
         const rowCheckboxes = Array.from(checkboxes).filter(cb => cb.id !== 'select-all-checkbox');
         const count = rowCheckboxes.filter(cb => cb.checked).length;
-        
+
         console.log('Atualizando contador:', count, 'de', rowCheckboxes.length);
-        
+
         const selectedValue = document.getElementById('selectedValue');
         const selectedCount = document.getElementById('selected-count');
-        
+
         if (selectedValue) {
             selectedValue.textContent = count;
         }
-        
+
         if (selectedCount) {
             selectedCount.style.display = count > 0 ? 'block' : 'none';
         }
-        
+
         // Sincronizar o checkbox do cabeçalho
         const selectAll = document.getElementById('select-all-checkbox');
         if (selectAll) {
             selectAll.checked = rowCheckboxes.length > 0 && rowCheckboxes.every(cb => cb.checked);
         }
-        
+
         // Salvar seleção no localStorage
         saveSelectionToStorage();
     }
@@ -495,7 +508,7 @@
                     barcode: barcode
                 };
             });
-        
+
         if (selectedData.length > 0) {
             localStorage.setItem('selectedProducts', JSON.stringify(selectedData));
         } else {
@@ -510,27 +523,28 @@
             try {
                 const selectedData = JSON.parse(savedSelection);
                 const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
-                
+
                 console.log('Carregando seleção do localStorage:', selectedData);
-                
+
                 checkboxes.forEach(cb => {
                     if (cb.dataset.id && selectedData.some(item => item.id === cb.dataset.id)) {
                         cb.checked = true;
                         console.log('Checkbox selecionado:', cb.dataset.id);
                     }
                 });
-                
+
                 // Atualizar contador após carregar seleção
                 setTimeout(() => {
                     updateSelectedCount();
                 }, 100);
-                
+
             } catch (e) {
                 console.error('Erro ao carregar seleção do localStorage:', e);
                 localStorage.removeItem('selectedProducts');
             }
         }
     }
+
     function attachClearSelectionListener() {
         const clearBtn = document.getElementById('clear-selection');
         if (clearBtn) {
@@ -542,6 +556,7 @@
             };
         }
     }
+
     function attachSelectAllListener() {
         const selectAll = document.getElementById('select-all-checkbox');
         if (selectAll) {
@@ -557,10 +572,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
         checkboxes.forEach(cb => cb.addEventListener('change', updateSelectedCount));
-        
+
         // Carregar seleção salva do localStorage
         loadSelectionFromStorage();
-        
+
         attachClearSelectionListener();
         attachSelectAllListener();
     });
@@ -581,7 +596,7 @@
         if (!confirm(`Tem certeza que deseja excluir ${ids.length} produto(s) selecionado(s)?`)) return;
 
         mostrarTelaCarregando();
-        
+
         // Criar form data
         const formData = new FormData();
         formData.append('ids', ids.join(','));
@@ -654,12 +669,12 @@
             if (savedSelection) {
                 const selectedData = JSON.parse(savedSelection);
                 console.log('Dados salvos no localStorage:', selectedData);
-                
+
                 // Extrair códigos de barras dos dados salvos
                 selectedProducts = selectedData
                     .map(item => item.barcode)
                     .filter(barcode => barcode !== null);
-                
+
                 console.log('Produtos encontrados:', selectedProducts);
             }
         }
@@ -677,123 +692,128 @@
 </script>
 
 <script>
-function renderProductsTable(products) {
-    let html = '';
-    if (!products || products.length === 0) {
-        html = `<tr><td colspan="7" class="py-4">&nbsp;</td></tr>`;
-        document.querySelector('.products-table tbody').innerHTML = html;
-        updateSelectedCount();
-        return;
-    }
-    products.forEach(product => {
-        html += `<tr onclick="window.location='${product.edit_url}'" style="cursor:pointer;">`;
-        html += `<td class='text-center'><input type='checkbox' data-id='${product.id}' onclick='event.stopPropagation();'></td>`;
-        html += `<td class='text-center'>`;
-        if (product.image_url && product.image_exists) {
-            html += `<img src='${product.image_url}' alt='Imagem do produto' class='img-thumb' loading='lazy'>`;
-        } else {
-            html += `<div class='img-thumb d-flex align-items-center justify-content-center' style='background: var(--color-bege-card-interno);'><i class='bi bi-image' style='font-size: 2rem; color: var(--color-vinho-fundo);'></i></div>`;
+    function renderProductsTable(products) {
+        let html = '';
+        if (!products || products.length === 0) {
+            html = `<tr><td colspan="7" class="py-4">&nbsp;</td></tr>`;
+            document.querySelector('.products-table tbody').innerHTML = html;
+            updateSelectedCount();
+            return;
         }
-        html += `</td>`;
-        html += `<td>${product.description}</td>`;
-        html += `<td>${product.barcode}</td>`;
-        html += `<td class='text-center'>${product.supplier ? product.supplier.name : 'Sem fornecedor'}</td>`;
-        html += `<td class='text-center'>R$ ${parseFloat(product.value).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>`;
-        html += `<td class='text-center'>`;
-        html += `<div class='dropdown'>`;
-        html += `<i class='bi bi-three-dots-vertical' role='button' data-bs-toggle='dropdown' aria-expanded='false' onclick='event.stopPropagation();'></i>`;
-        html += `<ul class='dropdown-menu' data-bs-boundary='viewport'>`;
-        html += `<li><a class='dropdown-item' href='#' onclick="imprimirProduto(${product.id}, '${product.barcode}'); return false;">Imprimir</a></li>`;
-        html += `<li><form action='/products/${product.id}' method='POST' onsubmit="return confirm('Tem certeza que deseja excluir?');">`;
-        html += `@csrf @method('DELETE')`;
-        html += `<button class='dropdown-item text-danger' type='submit'>Excluir</button></form></li>`;
-        html += `</ul></div></td></tr>`;
-    });
-    document.querySelector('.products-table tbody').innerHTML = html;
-    
-    // Aguardar um pouco para garantir que o DOM foi atualizado
-    setTimeout(() => {
-        // Reanexar eventos após renderização dinâmica
-        const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
-        checkboxes.forEach(cb => cb.addEventListener('change', updateSelectedCount));
-        attachClearSelectionListener();
-        attachSelectAllListener();
-        
-        // Carregar seleção do localStorage após renderizar
-        loadSelectionFromStorage();
-    }, 50);
-}
-
-// Função para renderizar a paginação
-function renderPagination(current, last) {
-    let html = '';
-    if (last > 1) {
-        html += `<div class='d-flex justify-content-center mt-4'>`;
-        if (current === 1) {
-            html += `<button class='btn btn-secondary me-2' disabled>Anterior</button>`;
-        } else {
-            html += `<button class='btn btn-primary me-2' onclick='fetchProducts(${current - 1})'>Anterior</button>`;
-        }
-        if (current < last) {
-            html += `<button class='btn btn-primary' onclick='fetchProducts(${current + 1})'>Próximo</button>`;
-        } else {
-            html += `<button class='btn btn-secondary' disabled>Próximo</button>`;
-        }
-        html += `</div>`;
-    }
-    document.getElementById('ajax-pagination').innerHTML = html;
-}
-
-// Função para buscar produtos via AJAX
-function fetchProducts(page = 1) {
-    const q = document.querySelector('.search-bar input[name="q"]').value;
-    const form = document.getElementById('filtersForm');
-    const params = new URLSearchParams();
-    params.set('q', q || '');
-    params.set('page', page);
-    if (form) {
-        const fd = new FormData(form);
-        for (const [key, value] of fd.entries()) {
-            if (key === 'q') continue; // já tratado
-            if (value !== null && value !== '') params.set(key, value);
-        }
-    }
-    return fetch(`{{ route('products.index') }}?${params.toString()}`, {
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
-    })
-    .then(res => res.json())
-    .then(data => {
-        renderProductsTable(data.data);
-        renderPagination(data.current_page, data.last_page);
-        document.querySelector('.ms-4.fw-bold').textContent = `Estoque atual: ${data.data.length}/${data.total}`;
-    });
-}
-
-// Evento de busca dinâmica
-const searchInput = document.querySelector('.search-bar input[name="q"]');
-if (searchInput) {
-    searchInput.addEventListener('input', function() {
-        fetchProducts(1);
-    });
-}
-// Substituir a paginação tradicional por um container para paginação AJAX
-const pagDiv = document.createElement('div');
-pagDiv.id = 'ajax-pagination';
-document.querySelector('.products-table').after(pagDiv);
-// Submeter filtros via AJAX
-const filtersForm = document.getElementById('filtersForm');
-if (filtersForm) {
-    filtersForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        fetchProducts(1).then(()=>{
-            try { const dd = bootstrap.Dropdown.getOrCreateInstance(document.getElementById('filtersToggleBtn')); dd.hide(); } catch(_){}
+        products.forEach(product => {
+            html += `<tr onclick="window.location='${product.edit_url}'" style="cursor:pointer;">`;
+            html += `<td class='text-center'><input type='checkbox' data-id='${product.id}' onclick='event.stopPropagation();'></td>`;
+            html += `<td class='text-center'>`;
+            if (product.image_url && product.image_exists) {
+                html += `<img src='${product.image_url}' alt='Imagem do produto' class='img-thumb' loading='lazy'>`;
+            } else {
+                html += `<div class='img-thumb d-flex align-items-center justify-content-center' style='background: var(--color-bege-card-interno);'><i class='bi bi-image' style='font-size: 2rem; color: var(--color-vinho-fundo);'></i></div>`;
+            }
+            html += `</td>`;
+            html += `<td>${product.description}</td>`;
+            html += `<td>${product.barcode}</td>`;
+            html += `<td class='text-center'>${product.supplier ? product.supplier.name : 'Sem fornecedor'}</td>`;
+            html += `<td class='text-center'>R$ ${parseFloat(product.value).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>`;
+            html += `<td class='text-center'>`;
+            html += `<div class='dropdown'>`;
+            html += `<i class='bi bi-three-dots-vertical' role='button' data-bs-toggle='dropdown' aria-expanded='false' onclick='event.stopPropagation();'></i>`;
+            html += `<ul class='dropdown-menu' data-bs-boundary='viewport'>`;
+            html += `<li><a class='dropdown-item' href='#' onclick="imprimirProduto(${product.id}, '${product.barcode}'); return false;">Imprimir</a></li>`;
+            html += `<li><form action='/products/${product.id}' method='POST' onsubmit="return confirm('Tem certeza que deseja excluir?');">`;
+            html += `@csrf @method('DELETE')`;
+            html += `<button class='dropdown-item text-danger' type='submit'>Excluir</button></form></li>`;
+            html += `</ul></div></td></tr>`;
         });
-    });
-    const autoInputs = filtersForm.querySelectorAll('select[name="supplier_id"]');
-    autoInputs.forEach(el => el.addEventListener('change', ()=> fetchProducts(1)));
-}
+        document.querySelector('.products-table tbody').innerHTML = html;
 
-function limparFiltros() {
-    window.location.href = "{{ route('products.index') }}";
-}
+        // Aguardar um pouco para garantir que o DOM foi atualizado
+        setTimeout(() => {
+            // Reanexar eventos após renderização dinâmica
+            const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.addEventListener('change', updateSelectedCount));
+            attachClearSelectionListener();
+            attachSelectAllListener();
+
+            // Carregar seleção do localStorage após renderizar
+            loadSelectionFromStorage();
+        }, 50);
+    }
+
+    // Função para renderizar a paginação
+    function renderPagination(current, last) {
+        let html = '';
+        if (last > 1) {
+            html += `<div class='d-flex justify-content-center mt-4'>`;
+            if (current === 1) {
+                html += `<button class='btn btn-secondary me-2' disabled>Anterior</button>`;
+            } else {
+                html += `<button class='btn btn-primary me-2' onclick='fetchProducts(${current - 1})'>Anterior</button>`;
+            }
+            if (current < last) {
+                html += `<button class='btn btn-primary' onclick='fetchProducts(${current + 1})'>Próximo</button>`;
+            } else {
+                html += `<button class='btn btn-secondary' disabled>Próximo</button>`;
+            }
+            html += `</div>`;
+        }
+        document.getElementById('ajax-pagination').innerHTML = html;
+    }
+
+    // Função para buscar produtos via AJAX
+    function fetchProducts(page = 1) {
+        const q = document.querySelector('.search-bar input[name="q"]').value;
+        const form = document.getElementById('filtersForm');
+        const params = new URLSearchParams();
+        params.set('q', q || '');
+        params.set('page', page);
+        if (form) {
+            const fd = new FormData(form);
+            for (const [key, value] of fd.entries()) {
+                if (key === 'q') continue; // já tratado
+                if (value !== null && value !== '') params.set(key, value);
+            }
+        }
+        return fetch(`{{ route('products.index') }}?${params.toString()}`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                renderProductsTable(data.data);
+                renderPagination(data.current_page, data.last_page);
+                document.querySelector('.ms-4.fw-bold').textContent = `Estoque atual: ${data.data.length}/${data.total}`;
+            });
+    }
+
+    // Evento de busca dinâmica
+    const searchInput = document.querySelector('.search-bar input[name="q"]');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            fetchProducts(1);
+        });
+    }
+    // Substituir a paginação tradicional por um container para paginação AJAX
+    const pagDiv = document.createElement('div');
+    pagDiv.id = 'ajax-pagination';
+    document.querySelector('.products-table').after(pagDiv);
+    // Submeter filtros via AJAX
+    const filtersForm = document.getElementById('filtersForm');
+    if (filtersForm) {
+        filtersForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            fetchProducts(1).then(() => {
+                try {
+                    const dd = bootstrap.Dropdown.getOrCreateInstance(document.getElementById('filtersToggleBtn'));
+                    dd.hide();
+                } catch (_) {}
+            });
+        });
+        const autoInputs = filtersForm.querySelectorAll('select[name="supplier_id"]');
+        autoInputs.forEach(el => el.addEventListener('change', () => fetchProducts(1)));
+    }
+
+    function limparFiltros() {
+        window.location.href = "{{ route('products.index') }}";
+    }
 </script>

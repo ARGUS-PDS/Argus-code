@@ -484,6 +484,10 @@ body:not(.modal-open) .navbar {
     }
 }
 
+.navbar-nav .nav-link.active, .navbar-nav .nav-link.show{
+    color: #9b9a9a;
+}
+
 .user-menu-panel {
     z-index: 2000;
 }

@@ -18,7 +18,6 @@ class Product extends Model
         'model',
         'currentStock',
         'minimumStock',
-        'status',
         'image_url',
     ];
 

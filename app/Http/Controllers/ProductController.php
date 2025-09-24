@@ -115,17 +115,16 @@ class ProductController extends Controller
             \Log::info('Produto encontrado:', $product->toArray());
 
             $validated = $request->validate([
-                'description' => ['required','string','max:255','regex:/.*\D.*/'],
-                'barcode' => ['required','string','max:50','unique:products,barcode,' . $id],
-                'code' => ['nullable','string','max:255','unique:products,code,' . $id],
-                'value' => ['nullable','numeric','min:0'],
-                'supplierId' => ['nullable','exists:suppliers,id'],
-                'brand' => ['nullable','string','max:100','regex:/.*\D.*/'],
-                'model' => ['nullable','string','max:100','regex:/.*\D.*/'],
-                'currentStock' => ['nullable','integer','min:0'],
-                'minimumStock' => ['nullable','integer','min:0'],
-                'status' => ['nullable','boolean'],
-                'image_url' => ['nullable','image','mimes:jpg,jpeg,png,gif','max:2048'],
+                'description' => ['required', 'string', 'max:255', 'regex:/.*\D.*/'],
+                'barcode' => ['required', 'string', 'max:50', 'unique:products,barcode,' . $id],
+                'code' => ['nullable', 'string', 'max:255', 'unique:products,code,' . $id],
+                'value' => ['nullable', 'numeric', 'min:0'],
+                'supplierId' => ['nullable', 'exists:suppliers,id'],
+                'brand' => ['nullable', 'string', 'max:100', 'regex:/.*\D.*/'],
+                'model' => ['nullable', 'string', 'max:100', 'regex:/.*\D.*/'],
+                'currentStock' => ['nullable', 'integer', 'min:0'],
+                'minimumStock' => ['nullable', 'integer', 'min:0'],
+                'image_url' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
             ], [
                 'description.regex' => 'O nome não pode ser apenas números.',
                 'brand.regex' => 'A marca não pode ser apenas números.',
@@ -146,9 +145,6 @@ class ProductController extends Controller
             if ($request->input('remove_image') == '1') {
                 $validated['image_url'] = null;
             }
-
-            $validated['status'] = $request->has('status') ? true : false;
-            \Log::info('Status definido:', ['status' => $validated['status']]);
 
             $product->update($validated);
 
@@ -275,25 +271,21 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'description' => ['required','string','max:255','regex:/.*\D.*/'],
-            'barcode' => ['required','string','max:50','unique:products,barcode'],
-            'code' => ['nullable','string','max:255','unique:products,code'],
-            'value' => ['nullable','numeric','min:0'],
-            'supplierId' => ['nullable','exists:suppliers,id'],
-            'brand' => ['nullable','string','max:100','regex:/.*\D.*/'],
-            'model' => ['nullable','string','max:100','regex:/.*\D.*/'],
-            'currentStock' => ['nullable','integer','min:0'],
-            'minimumStock' => ['nullable','integer','min:0'],
-            'status' => ['nullable','boolean'],
-            'image_url' => ['nullable','image','mimes:jpg,jpeg,png,gif','max:2048'],
+            'description' => ['required', 'string', 'max:255', 'regex:/.*\D.*/'],
+            'barcode' => ['required', 'string', 'max:50', 'unique:products,barcode'],
+            'code' => ['nullable', 'string', 'max:255', 'unique:products,code'],
+            'value' => ['nullable', 'numeric', 'min:0'],
+            'supplierId' => ['nullable', 'exists:suppliers,id'],
+            'brand' => ['nullable', 'string', 'max:100', 'regex:/.*\D.*/'],
+            'model' => ['nullable', 'string', 'max:100', 'regex:/.*\D.*/'],
+            'currentStock' => ['nullable', 'integer', 'min:0'],
+            'minimumStock' => ['nullable', 'integer', 'min:0'],
+            'image_url' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
         ], [
             'description.regex' => 'O nome não pode ser apenas números.',
             'brand.regex' => 'A marca não pode ser apenas números.',
             'model.regex' => 'O modelo não pode ser apenas números.',
         ]);
-
-
-        $validated['status'] = $request->has('status') ? true : false;
 
         // Faz upload para Cloudinary
         $uploadedFileUrl = null;
@@ -316,7 +308,6 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
             'model' => $request->input('model'),
             'currentStock' => $request->input('currentStock'),
             'minimumStock' => $request->input('minimumStock'),
-            'status' => $request->has('status') ? 1 : 0,
             'image_url' => $uploadedFileUrl,
         ]);
 
@@ -342,25 +333,25 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
     {
         try {
             $ids = $request->input('ids', []);
-            
+
             // Validar se há IDs
             if (empty($ids) || empty(array_filter($ids))) {
                 return response()->json(['error' => 'Nenhum ID fornecido'], 400);
             }
-            
+
             // Validar se os IDs são números
-            $ids = array_filter($ids, function($id) {
+            $ids = array_filter($ids, function ($id) {
                 return is_numeric($id) && $id > 0;
             });
-            
+
             if (empty($ids)) {
                 return response()->json(['error' => 'IDs inválidos'], 400);
             }
-            
+
             \Log::info('Tentando excluir produtos:', ['ids' => $ids]);
-            
+
             $deleted = Product::whereIn('id', $ids)->delete();
-            
+
             \Log::info('Produtos excluídos:', ['count' => $deleted]);
 
             foreach (range(1, 10) as $page) {
@@ -372,18 +363,17 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
             }
 
             return redirect()->route('products.index')->with('success', 'Produtos excluídos com sucesso.');
-            
         } catch (\Exception $e) {
             \Log::error('Erro ao excluir produtos em massa:', [
                 'error' => $e->getMessage(),
                 'ids' => $request->input('ids'),
                 'trace' => $e->getTraceAsString()
             ]);
-            
+
             if ($request->ajax()) {
                 return response()->json(['error' => 'Erro interno do servidor'], 500);
             }
-            
+
             return redirect()->route('products.index')->with('error', 'Erro ao excluir produtos.');
         }
     }

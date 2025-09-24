@@ -91,7 +91,7 @@
           </div>
           <div class="col-md-6">
             <label for="number" class="form-label required">Número</label>
-            <input type="text" name="number" id="number" class="form-control" required oninput="formatNumber(this)" />
+            <input type="number" name="number" id="number" class="form-control" required oninput="formatNumber(this)" />
             <small class="text-muted">Apenas números, máximo 10 dígitos</small>
             <div class="invalid-feedback">Por favor, informe o número.</div>
           </div>
@@ -202,7 +202,7 @@
       </div>
 
       <div class="action-buttons">
-        <button type="submit" class="btn btn-primary" id="submitButton" disabled>Salvar Empresa e Usuário</button>
+        <button type="submit" class="btn btn-primary" id="submitButton">Salvar Empresa e Usuário</button>
       </div>
     </form>
   </div>
