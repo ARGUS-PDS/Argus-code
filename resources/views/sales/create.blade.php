@@ -10,6 +10,18 @@
     border-radius: 4px; 
 }
 
+.btn-pedidos{
+    color: var(--color-bege-claro);
+    background-color: var(--color-vinho);
+    border: 2px solid var(--color-vinho);
+}
+
+.btn-pedidos:hover{
+    color: var(--color-vinho);
+    background-color: var(--color-bege-claro);
+    border: 2px solid var(--color-vinho);
+}
+
 #lista-pedidos {
     display: flex;
     flex-direction: column;
@@ -69,10 +81,9 @@
 }
 
 .produto-destaque {
-    background-color: var(--color-bege-claro);
     border-radius: 8px;
     padding: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
 
 .destaque-img {
@@ -120,10 +131,10 @@
     flex-direction: column;
     justify-content: center;
     height: 100%;
-    -webkit-box-orient: vertical;   /* orienta as linhas verticalmente */
-    -webkit-line-clamp: 2;          /* limita a 2 linhas */
-    overflow: hidden;               /* esconde o excesso */
-    text-overflow: ellipsis;        /* mostra ... no final */
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
     word-break: break-word; 
 }
 
@@ -134,7 +145,7 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    background: var(--color-bege-card-interno); /* Fundo bege para a tabela */
+    background: var(--color-bege-card-interno);
     margin: 16px 0;
 }
 
@@ -176,12 +187,32 @@
 
 .table th.col-valor,
 .table td .col-valor {
-    width: 80px; /* ou outra largura desejada */
+    width: 80px;
 }
 
 .table th.col-qtd,
 .table td .col-qtd {
     width: 60px;
+}
+
+.table th.col-x,
+.table td .col-x {
+    width: 60px;
+}
+
+.table th.col-photo,
+.table td .col-photo{
+    width: 85px;
+}
+
+.table th.col-name,
+.table td .col-name{
+    width: 100px;
+}
+
+.table th.col-value,
+.table td .col-value{
+    width: 90px;
 }
 
 .table td input {
@@ -190,6 +221,29 @@
     border-radius: 6px;
 }
 
+#finalizar {
+    color: var(--color-vinho);
+    background-color: var(--color-bege-claro);
+    border: 2px solid var(--color-vinho);
+    font-weight: bold;
+}
+
+#finalizar:hover {
+    color: var(--color-bege-claro);
+    background-color: var(--color-vinho);
+    border: 2px solid var(--color-vinho);
+}
+
+.table td button.btn-danger {
+    color: var(--color-bege-claro);
+    background-color: var(--color-vinho);
+    border: none;
+}
+
+.table td button.btn-danger:hover {
+    color: var(--color-bege-claro);
+    background-color: var(--color-vinho-fundo);
+}
 
 
 </style>
@@ -201,8 +255,8 @@
             <!-- Linha da imagem e nome -->
             <div class="d-flex align-items-center mb-2">
                 <!-- Imagem ou ícone -->
-                <div id="destaque-img-container" class="img-thumb d-flex align-items-center justify-content-center me-3" style="background: var(--color-bege-card-interno); width: 200px; height: 200px; border-radius: 8px; border: 2px solid var(--color-vinho-fundo); margin-bottom: 25px;">
-                    <i class="bi bi-image" style="font-size: 2rem; color: var(--color-vinho-fundo);"></i>
+                <div id="destaque-img-container" class="img-thumb d-flex align-items-center justify-content-center me-3" style="background: var(--color-bege-card-interno); width: 200px; height: 200px; border-radius: 8px; background: var(--color-vinho-fundo); margin-bottom: 25px;">
+                    <i class="bi bi-image" style="font-size: 60px; color: var(--color-bege-claro);"></i>
                 </div>
 
                 <!-- Nome do produto -->
@@ -233,12 +287,12 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>{{ __('pos.foto') }}</th>
-                    <th>{{ __('pos.produto') }}</th>
+                    <th class="col-photo">{{ __('pos.foto') }}</th>
+                    <th class="col-name">{{ __('pos.produto') }}</th>
                     <th class="col-valor">{{ __('pos.valor') }}</th>
                     <th class="col-qtd">{{ __('pos.quantidade_abreviado') }}</th>
-                    <th>{{ __('pos.total') }}</th>
-                    <th></th>
+                    <th class="col-value">{{ __('pos.total') }}</th>
+                    <th class="col-x"></th>
                 </tr>
             </thead>
             <tbody id="cart-body"></tbody>
@@ -247,7 +301,7 @@
 
     <!-- Coluna da direita: pedidos -->
     <div class="col pedidos-col d-flex flex-column align-items-end">
-        <button class="btn btn-primary mb-2 w-100" id="nova-venda">{{ __('pos.nova_venda_btn') }}</button>
+        <button class="btn btn-primary mb-2 w-100 btn-pedidos" id="nova-venda">{{ __('pos.nova_venda_btn') }}</button>
         <ul id="lista-pedidos" class="list-group w-100"></ul>
     </div>
 </div>

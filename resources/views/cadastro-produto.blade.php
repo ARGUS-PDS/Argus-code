@@ -420,18 +420,19 @@
 
             <div class="col-md-9">
                 <div class="row g-4">
-                    <div class="col-md-6 form-group">
-                        <label for="description" class="form-label">{{ __('product_register.name') }}</label>
-                        <input type="text" name="description" id="description" class="form-control" placeholder="{{ __('product_register.name_placeholder') }}" value="{{ isset($product) ? $product->description : '' }}" required maxlength="100" pattern="^(?!\d+$).{1,100}$" title="Não pode ser apenas números">
-                        <div class="invalid-feedback">O nome não pode conter apenas números.</div>
-                        <div class="valid-feedback">Nome válido!</div>
-                    </div>
-
+                    
                     <div class="col-md-6 form-group">
                         <label for="barcode" class="form-label">{{ __('product_register.barcode') }}</label>
                         <input name="barcode" type="text" id="barcode" class="form-control" placeholder="{{ __('product_register.barcode_placeholder') }}" value="{{ isset($product) ? $product->barcode : '' }}" required maxlength="13" pattern="\d{8,13}">
                         <div class="invalid-feedback">O código de barras deve ter entre 8 e 13 números.</div>
                         <div class="valid-feedback">Código de barras válido!</div>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label for="description" class="form-label">{{ __('product_register.name') }}</label>
+                        <input type="text" name="description" id="description" class="form-control" placeholder="{{ __('product_register.name_placeholder') }}" value="{{ isset($product) ? $product->description : '' }}" required maxlength="100" pattern="^(?!\d+$).{1,100}$" title="Não pode ser apenas números">
+                        <div class="invalid-feedback">O nome não pode conter apenas números.</div>
+                        <div class="valid-feedback">Nome válido!</div>
                     </div>
 
                     <div class="col-md-6 form-group">
