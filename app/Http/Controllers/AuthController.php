@@ -31,9 +31,8 @@ class AuthController extends Controller
 
             if (trim($user->cartao_seg) !== $cartao_seg) {
                 Auth::logout();
-                return back()->withErrors([
-                    'cartao_seg' => 'Cartão de segurança inválido.'
-                ])->withInput();
+                return back()->with('error', 'Cartão de segurança inválido.')
+                ->withInput();
             }
 
             $request->session()->regenerate();
@@ -43,9 +42,8 @@ class AuthController extends Controller
                 : redirect()->intended('/dashboard');
         }
 
-        return back()->withErrors([
-            'email' => 'Credenciais inválidas.'
-        ])->withInput($request->only('email', 'remember'));
+        return back()->with('error', 'Credenciais inválidas.')
+             ->withInput($request->only('email', 'remember'));
     }
 
     public function redirectToDashboard()

@@ -22,7 +22,7 @@
 @yield('styles')
 
 <body>
-  
+
 @php $current = app()->getLocale(); @endphp
 <div class="lang-selector-container">
     <div class="lang-selector">
@@ -39,23 +39,29 @@
 </div>
 
 
-
-
   <div class="container" id="container">
 
     <div class="formulario-container logar">
+
       <form method="POST" action="{{ route('login') }}" id="loginForm">
         @csrf
-        <h1>{{ __('login.sign_in') }}</h1>
+        <h1 style="margin-bottom: 20px;">{{ __('login.sign_in') }}</h1>
+
+        <div id="loginMessage" class="card text-bg-danger mb-3 mt-3" style="display:none; max-width: 400px; margin: 0 auto;">
+          <div class="card-body d-flex align-items-center gap-2">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="loginMessageText"></span>
+          </div>
+        </div>
 
         <div class="error-container" id="login-error-container">
         </div>
 
-        <input type="email" id="user_email_login" name="email" placeholder="{{ __('login.email') }}" required autofocus />
+        <input type="email" id="user_email_login" name="email" placeholder="{{ __('login.email') }}" required autofocus maxlength="80"/>
         <span class="email-error" style="color: #c62828; font-size: 12px; display: none;"></span>
 
         <div class="password-container">
-          <input type="password" id="password" name="password" placeholder="{{ __('login.password') }}" required minlength="8" />
+          <input type="password" id="password" name="password" placeholder="{{ __('login.password') }}" required minlength="8" maxlength="50"/>
           <i class="toggle-password fas fa-eye" onclick="togglePassword('password', this)"></i>
         </div>
 
@@ -155,6 +161,17 @@
   <div class="modal-backdrop hidden-modal" id="modalBackdrop"></div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/vanilla-masker@1.1.1/build/vanilla-masker.min.js"></script>
+
+  @if(session('error'))
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var msgDiv = document.getElementById('loginMessage');
+      var msgText = document.getElementById('loginMessageText');
+      msgText.textContent = "{{ session('error') }}";
+      msgDiv.style.display = "flex";
+    });
+  </script>
+  @endif
 
   <script>
   VMasker(document.querySelector("input[name='whatsapp']")).maskPattern("(99) 99999-9999");
