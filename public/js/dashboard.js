@@ -6,6 +6,54 @@ document.addEventListener('DOMContentLoaded', function () {
   const chartRow = document.getElementById('dashboard-chart-row');
   const dashboardGroups = document.querySelectorAll('.dashboard-group');
 
+  function saveGroupOrder() {
+    const container = document.body;
+    const groups = Array.from(document.querySelectorAll('.dashboard-group'));
+    const order = groups.map(g => g.id);
+    localStorage.setItem('dashboard:group-order', JSON.stringify(order));
+  }
+
+  function restoreGroupOrder() {
+    const containerParent = document.querySelector('#dashboard-row').parentNode; // parent of first group
+    const saved = localStorage.getItem('dashboard:group-order');
+    if (!saved) return;
+    try {
+      const order = JSON.parse(saved);
+      order.forEach(groupId => {
+        const el = document.getElementById(groupId);
+        if (el && el.parentNode === containerParent) {
+          containerParent.appendChild(el);
+        }
+      });
+    } catch (e) {}
+  }
+
+  function saveCardsOrder() {
+    const row = document.getElementById('dashboard-row');
+    if (!row) return;
+    const cards = Array.from(row.querySelectorAll('.col-md-4'));
+    const order = cards.map(c => c.id || c.dataset.cardId).filter(Boolean);
+    localStorage.setItem('dashboard:cards-order', JSON.stringify(order));
+  }
+
+  function restoreCardsOrder() {
+    const row = document.getElementById('dashboard-row');
+    const saved = localStorage.getItem('dashboard:cards-order');
+    if (!row || !saved) return;
+    try {
+      const order = JSON.parse(saved);
+      order.forEach(cardId => {
+        const el = document.getElementById(cardId);
+        if (el && el.parentNode === row) {
+          row.appendChild(el);
+        }
+      });
+    } catch (e) {}
+  }
+
+  restoreGroupOrder();
+  restoreCardsOrder();
+
   dashboardGroups.forEach(group => {
     group.addEventListener('dragstart', function (e) {
       draggedGroup = group;
@@ -27,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
           group.parentNode.insertBefore(draggedGroup, group.nextSibling);
         }
+        saveGroupOrder();
       }
     });
     group.addEventListener('dragend', function () {
@@ -63,6 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
           parent.insertBefore(draggedCard, card);
         }
+        saveCardsOrder();
       }
     });
     card.addEventListener('dragend', function () {

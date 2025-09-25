@@ -138,15 +138,38 @@
     word-break: break-word; 
 }
 
+.table-container {
+    position: relative;
+}
 
 .table {
+    position: relative;
+    z-index: 10;
     border-collapse: separate;
     border-spacing: 0;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px var(--color-shadow);
     background: var(--color-bege-card-interno);
     margin: 16px 0;
+}
+
+.cart-empty {
+    position: absolute;
+    top: 180px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.cart-empty img {
+    max-width: 40%;
+    height: auto;
+    filter: grayscale(100%);
 }
 
 .table th {
@@ -245,6 +268,15 @@
     background-color: var(--color-vinho-fundo);
 }
 
+#frente-footer{
+    background: var(--color-vinho) !important;
+    color: var(--color-bege-claro);
+    border-radius: 10px 10px 0 0;
+}
+
+#frente-footer h4{
+    color: var(--color-bege-claro);
+}
 
 </style>
 
@@ -284,19 +316,24 @@
     <!-- Coluna do meio: lista de produtos -->
     <div class="col produtos-col">
         <input type="text" id="barcode" class="form-control mb-3" placeholder="{{ __('pos.placeholder_codigo_barras') }}" autocomplete="off">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th class="col-photo">{{ __('pos.foto') }}</th>
-                    <th class="col-name">{{ __('pos.produto') }}</th>
-                    <th class="col-valor">{{ __('pos.valor') }}</th>
-                    <th class="col-qtd">{{ __('pos.quantidade_abreviado') }}</th>
-                    <th class="col-value">{{ __('pos.total') }}</th>
-                    <th class="col-x"></th>
-                </tr>
-            </thead>
-            <tbody id="cart-body"></tbody>
-        </table>
+        <div class="table-container">
+            <div id="cart-empty" class="cart-empty d-flex align-items-center justify-content-center">
+                <img src="{{ asset('images/logo.png') }}" alt="Argus">
+            </div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="col-photo">{{ __('pos.foto') }}</th>
+                        <th class="col-name">{{ __('pos.produto') }}</th>
+                        <th class="col-valor">{{ __('pos.valor') }}</th>
+                        <th class="col-qtd">{{ __('pos.quantidade_abreviado') }}</th>
+                        <th class="col-value">{{ __('pos.total') }}</th>
+                        <th class="col-x"></th>
+                    </tr>
+                </thead>
+                <tbody id="cart-body"></tbody>
+            </table>
+        </div>
     </div>
 
     <!-- Coluna da direita: pedidos -->
@@ -306,13 +343,11 @@
     </div>
 </div>
 
-<div id="frente-footer" class="d-flex justify-content-end align-items-center p-3 border-top bg-white position-fixed w-100" style="bottom:0; left:0; z-index: 1000;">
+<div id="frente-footer" class="d-flex justify-content-end align-items-center p-3 border-top position-fixed w-100" style="bottom:0; left:0; z-index: 1000;">
     <h4 class="me-3">{{ __('pos.total') }}: R$ <span id="total">0.00</span></h4>
     <button class="btn btn-success" id="finalizar">{{ __('pos.finalizar_venda_btn') }}</button>
 </div>
 
-<style>
-</style>
 
 <script>
 let pedidos = [];
@@ -407,9 +442,11 @@ function selecionarPedido(id) {
 
 function renderCart() {
     const tbody = document.getElementById('cart-body');
+    const emptyOverlay = document.getElementById('cart-empty');
     tbody.innerHTML = '';
     if (!pedidoAtual) {
         document.getElementById('total').innerText = '0.00';
+        if (emptyOverlay) emptyOverlay.style.display = 'flex';
         return;
     }
 
@@ -443,6 +480,13 @@ function renderCart() {
 
     pedidoAtual.total = total;
     document.getElementById('total').innerText = total.toFixed(2);
+    if (emptyOverlay) {
+        if (pedidoAtual.itens.length > 0) {
+            emptyOverlay.style.display = 'none';
+        } else {
+            emptyOverlay.style.display = 'flex';
+        }
+    }
     renderPedidos();
     salvarPedidos();
 }

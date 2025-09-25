@@ -5,9 +5,10 @@
 @section('content')
 
 <div class="row justify-content-center g-2 dashboard-group" id="dashboard-row" draggable="true">
-  <div class="col-md-4">
+  <div class="col-md-4" id="card-validade" data-card-id="card-validade">
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.prod_valid_title') }}</h5>
+      @if($produtos_lote->count())
       <ul class="mt-2 scrollable-list">
         @foreach($produtos_lote as $produto)
         <li>
@@ -17,10 +18,16 @@
         </li>
         @endforeach
       </ul>
+      @else
+      <div class="d-flex flex-column align-items-center justify-content-center card-vazio" style="min-height:180px;">
+        <i class="bi bi-card-checklist" style="font-size: 2.5rem; color: var(--color-vinho);"></i>
+        <span class="fw-bold text-center mt-2" style="color: var(--color-vinho);">{{ __('dashboard.no_news') }}</span>
+      </div>
+      @endif
     </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-4" id="card-movimentos" data-card-id="card-movimentos">
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.movement_title') }}</h5>
       @if($movimentacoes->count())
@@ -46,7 +53,7 @@
     </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-4" id="card-alertas" data-card-id="card-alertas">
     <div class="panel" draggable=true>
       <h5>{{ __('dashboard.alerts_title') }}</h5>
       @if($produtos_vencidos->count() || $produtos_estoque_minimo->count() || $produtos_estoque_baixo->count() || $produtos_estoque_zerado->count() || $lotes_validade_proximas->count() || $produtos_lote->count())

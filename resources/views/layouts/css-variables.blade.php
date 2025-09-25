@@ -27,6 +27,8 @@
   --color-gray-escuro: #202132;
   --color-border-table: rgba(221, 221, 221, 0.5);
 
+  --color-shadow:rgba(0, 0, 0, 0.1);
+
 
 
   --color-green: #198754;
@@ -58,10 +60,13 @@
   --color-gray: #767676;
   --color-gray-2: #5a6268;
   --color-gray-3: #545b62;
-  --color-gray-claro: #f8f9fa;
+  --color-gray-claro:  #202132;
   --color-gray-medio: #aaa;
-  --color-gray-escuro: #202132;
+  --color-gray-escuro: #f8f9fa;
   --color-border-table: rgba(221, 221, 221, 0.5);
+
+  --color-shadow:rgba(255, 255, 255, 0.1);
+
 
   --color-green: #198754;
   --color-blue: #0d6efd;

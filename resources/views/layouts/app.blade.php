@@ -25,6 +25,10 @@
     z-index: 1070;
   }
 
+  .navbar-logo{
+    box-shadow: 0 10px 25px var(--color-shadow);
+  }
+
   .navbar-nav .dropdown-menu {
     display: none;
     position: absolute;
@@ -34,7 +38,7 @@
     min-width: 200px;
     background-color: var(--color-bege-claro);
     border: none;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px var(--color-shadow);
     border-radius: 12px;
     padding: 0.75rem;
     margin-top: 0;
@@ -105,7 +109,7 @@
     min-width: 200px !important;
     background-color: var(--color-bege-claro) !important;
     border: none !important;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 10px 25px var(--color-shadow) !important;
     border-radius: 12px !important;
     padding: 0.75rem !important;
     margin-top: 0 !important;
@@ -210,7 +214,7 @@
     background: var(--color-bege-claro);
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 30px var(--color-shadow);
     border: none;
     transform: scale(0.9);
     transition: transform 0.3s ease;
@@ -418,7 +422,7 @@
     height: 10px;
     border-radius: 5px;
     background-color: #eee;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px var(--color-shadow);
   }
 
   .progress-bar {
@@ -493,7 +497,7 @@
     background: white;
     border-left: 5px solid #28a745;
     border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 20px var(--color-shadow);
     padding: 16px;
     display: flex;
     align-items: center;
@@ -625,7 +629,7 @@
   {{-- Modal de mensagens globais --}}
   @include('components.alert-modal')
 
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-logo">
     <div class="container-fluid">
       <a class="navbar-brand" href="/dashboard" onclick="mostrarTelaCarregando()">
         <img src="{{ asset('images/logo.png') }}" alt="{{ __('menu.argus') }}">
