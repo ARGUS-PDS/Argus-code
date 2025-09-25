@@ -776,7 +776,7 @@
             <div class="mb-3">
               <label class="form-label">Senha Atual</label>
               <div class="password-container single-icon position-relative">
-                <input type="password" name="current_password" class="form-control" required>
+                <input type="password" name="current_password" class="form-control"  maxlength="20" required>
                 <i class="bi bi-eye toggle-password" onclick="togglePassword(this)"></i>
               </div>
             </div>
@@ -784,7 +784,7 @@
             <div class="mb-3">
               <label class="form-label">Nova Senha</label>
               <div class="password-container position-relative" id="newPasswordContainer">
-                <input type="password" name="new_password" id="new_password" class="form-control" required minlength="8" oninput="checkPasswordStrength()">
+                <input type="password" name="new_password" id="new_password" class="form-control" required minlength="8" maxlength="20" oninput="checkPasswordStrength()">
                 <i class="bi bi-eye toggle-password" onclick="togglePassword(this)"></i>
                 <button type="button" class="generate-password" title="Gerar senha forte" onclick="generateStrongPassword()">
                   <i class="bi bi-arrow-repeat"></i>
@@ -810,7 +810,7 @@
             <div class="mb-3">
               <label class="form-label">Confirmar Nova Senha</label>
               <div class="password-container position-relative" id="confirmPasswordContainer">
-                <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="form-control" required minlength="8" oninput="checkPasswordMatch()">
+                <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="form-control" required minlength="8" maxlength="20" oninput="checkPasswordMatch()">
                 <i class="bi bi-eye toggle-password" onclick="togglePassword(this)"></i>
                 <span class="validation-icon" id="confirm_password_validation"></span>
               </div>

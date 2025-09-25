@@ -152,20 +152,20 @@
         <div class="row g-3">
           <div class="col-md-6">
             <label for="user_name" class="form-label required">Nome</label>
-            <input type="text" name="user_name" id="user_name" class="form-control" required maxlength="255" oninput="this.value = formatName(this.value)" />
+            <input type="text" name="user_name" id="user_name" class="form-control" required maxlength="50" oninput="this.value = formatName(this.value)" />
             <small class="text-muted">Apenas letras são permitidas</small>
             <div class="invalid-feedback">Por favor, informe o nome.</div>
           </div>
           <div class="col-md-6">
             <label for="user_email" class="form-label required">Email</label>
-            <input type="email" name="user_email" id="user_email" class="form-control" required maxlength="255" placeholder="exemplo@gmail.com" />
+            <input type="email" name="user_email" id="user_email" class="form-control" required maxlength="80" placeholder="exemplo@gmail.com" />
             <div id="emailStatus" class="validation-status d-none"></div>
           </div>
 
           <div class="col-md-6">
             <label for="user_password" class="form-label required">Senha</label>
             <div class="password-container">
-              <input type="password" name="user_password" id="user_password" class="form-control" required minlength="8" />
+              <input type="password" name="user_password" id="user_password" class="form-control" required minlength="8" maxlength="20" />
               <i class="toggle-password fas fa-eye" onclick="togglePassword('user_password', this)"></i>
               <button type="button" class="generate-password" title="Gerar senha forte" onclick="generateStrongPassword()">
                 <i class=" fas fa-sync-alt"></i>
@@ -191,7 +191,7 @@
           <div class="col-md-6">
             <label for="user_password_confirmation" class="form-label required">Confirmar Senha</label>
             <div class="password-container">
-              <input type="password" name="user_password_confirmation" id="user_password_confirmation" class="form-control" required minlength="8" />
+              <input type="password" name="user_password_confirmation" id="user_password_confirmation" class="form-control" required minlength="8" maxlength="20"/>
               <i class="toggle-password fas fa-eye" onclick="togglePassword('user_password_confirmation', this)"></i>
             </div>
             <div class="password-match-feedback invalid" id="passwordMatchFeedback">As senhas não coincidem</div>
