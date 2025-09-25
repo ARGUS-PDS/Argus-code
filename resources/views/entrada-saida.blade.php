@@ -114,7 +114,7 @@
             </div>
             <div class="col">
               <label class="form-label">{{ __('stock_movement.date_label') }}</label>
-              <input type="date" name="date" class="form-control" value="{{ date('Y-m-d') }}" required>
+              <input type="date" name="date" id="date-movement" class="form-control" value="{{ date('Y-m-d') }}" required>
             </div>
           </div>
 
@@ -180,7 +180,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">{{ __('stock_movement.expiration_date') }}</label>
-            <input type="date" class="form-control" name="expiration_date" required>
+            <input type="date" id="date-batch" class="form-control" name="expiration_date" required>
           </div>
           <div class="modal-footer">
             <x-btn-cancelar href="#" data-bs-dismiss="modal" />
@@ -196,6 +196,12 @@
 </div>
 
 <script>
+  const inputData = document.getElementById('date-movement');
+  const inputBatchData = document.getElementById('date-batch');
+  const hoje = new Date();
+  const dataFormatada = hoje.toISOString().split('T')[0];
+  inputData.max = dataFormatada;
+  inputBatchData.min = dataFormatada;
   document.getElementById("btnSalvarLote").addEventListener("click", function() {
     const form = document.getElementById("formLote");
     const formData = new FormData(form);
