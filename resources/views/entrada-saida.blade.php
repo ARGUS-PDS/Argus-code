@@ -55,7 +55,7 @@
             <td style="color: {{ $mov->type == 'inward' ? 'green' : ($mov->type == 'outward' ? 'red' : 'blue') }}">
               {{ $mov->type == 'inward' ? __('stock_movement.inward') : ($mov->type == 'outward' ? __('stock_movement.outward') : __('stock_movement.balance')) }}
             </td>
-            <td>{{ $mov->note ?? '-' }}</td>
+            <td style="max-width: 190px; overflow: hidden; white-space:nowrap; text-overflow:ellipsis">{{ $mov->note ?? '-' }}</td>
             <td>
               <form action="{{ route('movimentacao.destroy', $mov->id) }}" method="POST" onsubmit="return confirm('{{ __('stock_movement.confirm_delete') }}');">
                 @csrf
