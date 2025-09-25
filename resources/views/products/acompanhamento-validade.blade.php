@@ -2,6 +2,8 @@
 
 @section('styles')
 <style>
+
+<style>
 .container {
     margin-top: 20px;
 }
@@ -66,6 +68,8 @@ h2 {
     cursor: pointer;
 }
 </style>
+
+</style>
 @endsection
 
 @section('content')
@@ -74,19 +78,19 @@ h2 {
 @include('components.alert-modal')
 
 <div class="container">
-    <h2>Acompanhamento de Validade</h2>
+    <h2>{{ __('tracking.title') }}</h2>
 
-    <input type="text" id="produtoInput" placeholder="Pesquise o produto..." class="form-control mb-2">
+    <input type="text" id="produtoInput" placeholder="{{ __('tracking.search_placeholder') }}" class="form-control mb-2">
 
-    <button id="buscarBtn" class="btn btn-primary mb-3">Buscar</button>
+    <button id="buscarBtn" class="btn btn-primary mb-3">{{ __('tracking.search_button') }}</button>
 
     <table class="table table-bordered" id="tabelaLotes">
         <thead>
             <tr>
-                <th>Lote</th>
-                <th>Produto</th>
-                <th>Validade</th>
-                <th>Data de Entrada</th>
+                <th>{{ __('tracking.batch') }}</th>
+                <th>{{ __('tracking.product') }}</th>
+                <th>{{ __('tracking.expiration_date') }}</th>
+                <th>{{ __('tracking.entry_date') }}</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -97,15 +101,15 @@ h2 {
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalProdutosLabel">Selecione um Produto</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        <h5 class="modal-title" id="modalProdutosLabel">{{ __('tracking.select_product') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('tracking.close') }}"></button>
       </div>
       <div class="modal-body">
         <table class="table table-hover" id="tabelaProdutos">
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>Código</th>
+              <th>{{ __('tracking.name') }}</th>
+              <th>{{ __('tracking.code') }}</th>
             </tr>
           </thead>
           <tbody>
@@ -118,8 +122,16 @@ h2 {
 @endsection
 
 @section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+
+if (typeof bootstrap === 'undefined') {
+    var script = document.createElement('script');
+    script.src = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js";
+    document.head.appendChild(script);
+}
+</script>
+
 <script>
 $(document).ready(function() {
     const produtoInput = $("#produtoInput");
@@ -147,6 +159,7 @@ $(document).ready(function() {
 
     function carregarLotes(produto) {
         tabelaLotes.empty();
+        mostrarTelaCarregando();
         $.ajax({
             url: "{{ route('validade.buscar') }}",
             method: "POST",
@@ -155,6 +168,7 @@ $(document).ready(function() {
                 _token: "{{ csrf_token() }}"
             },
             success: function(res) {
+                esconderTelaCarregando();
                 if(res.success) {
                     res.data.forEach(item => {
                         const tr = $("<tr>").html(`
@@ -166,16 +180,16 @@ $(document).ready(function() {
                         tabelaLotes.append(tr);
                     });
                 } else {
-                    alert(res.message || "Nenhum lote encontrado.");
+                    alert(res.message || "{{ __('tracking.no_batches_found') }}");
                 }
             },
             error: function() {
-                alert("Erro ao buscar lotes.");
+                alert("{{ __('tracking.error_fetching_batches') }}");
             }
         });
     }
 
-        $("#buscarBtn").click(function() {
+    $("#buscarBtn").click(function() {
         const nomeProduto = produtoInput.val().trim();
         if(nomeProduto === "") return;
         carregarLotes(nomeProduto);

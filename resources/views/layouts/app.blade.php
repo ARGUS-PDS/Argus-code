@@ -755,81 +755,81 @@
   <div class="modal-backdrop-blur" id="modalBackdrop"></div>
 
   <!-- Toast de sucesso para senha gerada -->
-  <div class="password-toast" id="passwordSuccessToast">
-    <i class="bi bi-check-circle-fill toast-icon"></i>
-    <div class="toast-content">
-      <div class="toast-title">Sucesso!</div>
-      <div class="toast-message" id="toastMessage">Senha forte gerada com sucesso!</div>
-    </div>
-    <button class="toast-close" onclick="hideToast()">
-      <i class="bi bi-x"></i>
-    </button>
+<div class="password-toast" id="passwordSuccessToast">
+  <i class="bi bi-check-circle-fill toast-icon"></i>
+  <div class="toast-content">
+    <div class="toast-title">{{ __('menu.sucesso') }}!</div>
+    <div class="toast-message" id="toastMessage">{{ __('menu.senha_forte_gerada') }}</div>
   </div>
+  <button class="toast-close" onclick="hideToast()" title="{{ __('menu.fechar') }}">
+    <i class="bi bi-x"></i>
+  </button>
+</div>
 
   <!-- Modal de Alterar Senha -->
   <div class="modal fade" id="modalAlterarSenha" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title fw-bold">Alterar Senha</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="formAlterarSenha" action="{{ route('change-password') }}" method="POST">
-            @csrf
-            <div class="mb-3">
-              <label class="form-label">Senha Atual</label>
-              <div class="password-container single-icon position-relative">
-                <input type="password" name="current_password" class="form-control"  maxlength="20" required>
-                <i class="bi bi-eye toggle-password" onclick="togglePassword(this)"></i>
-              </div>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">{{ __('menu.alterar_senha') }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('menu.fechar') }}"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formAlterarSenha" action="{{ route('change-password') }}" method="POST">
+          @csrf
+          <div class="mb-3">
+            <label class="form-label">{{ __('menu.senha_atual') }}</label>
+            <div class="password-container single-icon position-relative">
+              <input type="password" name="current_password" class="form-control"  maxlength="20" required>
+              <i class="bi bi-eye toggle-password" onclick="togglePassword(this)" title="{{ __('menu.mostrar_ocultar_senha') }}"></i>
             </div>
+          </div>
 
-            <div class="mb-3">
-              <label class="form-label">Nova Senha</label>
-              <div class="password-container position-relative" id="newPasswordContainer">
-                <input type="password" name="new_password" id="new_password" class="form-control" required minlength="8" maxlength="20" oninput="checkPasswordStrength()">
-                <i class="bi bi-eye toggle-password" onclick="togglePassword(this)"></i>
-                <button type="button" class="generate-password" title="Gerar senha forte" onclick="generateStrongPassword()">
-                  <i class="bi bi-arrow-repeat"></i>
-                </button>
-                <span class="validation-icon" id="new_password_validation"></span>
-              </div>
-              <div class="password-strength">
-                <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: 0%" id="passwordStrengthBar"></div>
-                </div>
-                <div class="password-feedback" id="passwordFeedback">Força da senha: muito fraca</div>
-              </div>
-              <div class="password-requirements">
-                <div class="requirement invalid" id="lengthReq"><i class="bi bi-x-circle"></i><span>Mínimo de 8 caracteres</span></div>
-                <div class="requirement invalid" id="uppercaseReq"><i class="bi bi-x-circle"></i><span>Pelo menos uma letra maiúscula</span></div>
-                <div class="requirement invalid" id="lowercaseReq"><i class="bi bi-x-circle"></i><span>Pelo menos uma letra minúscula</span></div>
-                <div class="requirement invalid" id="numberReq"><i class="bi bi-x-circle"></i><span>Pelo menos um número</span></div>
-                <div class="requirement invalid" id="specialReq"><i class="bi bi-x-circle"></i><span>Pelo menos um caractere especial (!@#$%^&* etc.)</span></div>
-              </div>
-              <small id="passwordHelp" class="form-text text-muted">A senha deve atender a todos os requisitos acima</small>
+          <div class="mb-3">
+            <label class="form-label">{{ __('menu.nova_senha') }}</label>
+            <div class="password-container position-relative" id="newPasswordContainer">
+              <input type="password" name="new_password" id="new_password" class="form-control" required minlength="8" maxlength="20" oninput="checkPasswordStrength()">
+              <i class="bi bi-eye toggle-password" onclick="togglePassword(this)" title="{{ __('menu.mostrar_ocultar_senha') }}"></i>
+              <button type="button" class="generate-password" title="{{ __('menu.gerar_senha_forte') }}" onclick="generateStrongPassword()">
+                <i class="bi bi-arrow-repeat"></i>
+              </button>
+              <span class="validation-icon" id="new_password_validation"></span>
             </div>
+            <div class="password-strength">
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 0%" id="passwordStrengthBar"></div>
+              </div>
+              <div class="password-feedback" id="passwordFeedback">{{ __('menu.forca_senha_muito_fraca') }}</div>
+            </div>
+            <div class="password-requirements">
+              <div class="requirement invalid" id="lengthReq"><i class="bi bi-x-circle"></i><span>{{ __('menu.minimo_8_caracteres') }}</span></div>
+              <div class="requirement invalid" id="uppercaseReq"><i class="bi bi-x-circle"></i><span>{{ __('menu.letra_maiuscula') }}</span></div>
+              <div class="requirement invalid" id="lowercaseReq"><i class="bi bi-x-circle"></i><span>{{ __('menu.letra_minuscula') }}</span></div>
+              <div class="requirement invalid" id="numberReq"><i class="bi bi-x-circle"></i><span>{{ __('menu.numero') }}</span></div>
+              <div class="requirement invalid" id="specialReq"><i class="bi bi-x-circle"></i><span>{{ __('menu.caractere_especial') }}</span></div>
+            </div>
+            <small id="passwordHelp" class="form-text text-muted">{{ __('menu.senha_criterios') }}</small>
+          </div>
 
-            <div class="mb-3">
-              <label class="form-label">Confirmar Nova Senha</label>
-              <div class="password-container position-relative" id="confirmPasswordContainer">
-                <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="form-control" required minlength="8" maxlength="20" oninput="checkPasswordMatch()">
-                <i class="bi bi-eye toggle-password" onclick="togglePassword(this)"></i>
-                <span class="validation-icon" id="confirm_password_validation"></span>
-              </div>
-              <div class="password-match-feedback invalid" id="passwordMatchFeedback">As senhas não coincidem</div>
+          <div class="mb-3">
+            <label class="form-label">{{ __('menu.confirmar_nova_senha') }}</label>
+            <div class="password-container position-relative" id="confirmPasswordContainer">
+              <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="form-control" required minlength="8" maxlength="20" oninput="checkPasswordMatch()">
+              <i class="bi bi-eye toggle-password" onclick="togglePassword(this)" title="{{ __('menu.mostrar_ocultar_senha') }}"></i>
+              <span class="validation-icon" id="confirm_password_validation"></span>
             </div>
+            <div class="password-match-feedback invalid" id="passwordMatchFeedback">{{ __('menu.senhas_nao_coincidem') }}</div>
+          </div>
 
-            <div class="d-flex justify-content-end gap-2">
-              <button type="button" class="btn btn-secondary btn-custom" data-bs-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-primary btn-custom" id="submitButton" disabled>Salvar</button>
-            </div>
-          </form>
-        </div>
+          <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary btn-custom" data-bs-dismiss="modal">{{ __('menu.cancelar') }}</button>
+            <button type="submit" class="btn btn-primary btn-custom" id="submitButton" disabled>{{ __('menu.salvar') }}</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{{ asset('js/app-js/app.js') }}"></script>

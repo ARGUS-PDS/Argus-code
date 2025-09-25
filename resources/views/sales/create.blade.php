@@ -298,11 +298,11 @@
             <!-- Quantidade e valor abaixo da imagem -->
             <div class="d-flex gap-2" id="destaque-valores">
                 <div>
-                    <label class="form-label">Qtd.</label>
+                    <label class="form-label">{{ __('pos.quantidade_abreviado') }}</label>
                     <input type="number" id="destaque-quantidade" class="form-control" min="1" value="1">
                 </div>
                 <div>
-                    <label class="form-label">Valor</label>
+                    <label class="form-label">{{ __('pos.valor') }}</label>
                     <input type="number" id="destaque-preco" class="form-control" min="0" step="0.01">
                 </div>
             </div>
