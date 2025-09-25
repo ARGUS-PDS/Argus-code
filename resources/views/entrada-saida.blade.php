@@ -121,17 +121,17 @@
           <div class="row mb-3">
             <div class="col">
               <label class="form-label">{{ __('stock_movement.quantity_label') }}</label>
-              <input type="number" name="quantity" class="form-control" required>
+              <input type="text" inputmode="numeric" maxlength="4" name="quantity" class="form-control" required>
             </div>
             <div class="col">
               <label class="form-label">{{ __('stock_movement.cost_label') }}</label>
-              <input type="number" name="cost" class="form-control" step="0.01" min="0" required>
+              <input type="text" maxlength="10" placeholder="R$0,00" name="cost" class="form-control" step="0.01" min="0" oninput="formatarMoeda(this)" required>
             </div>
           </div>
 
           <div class="mb-3">
             <label class="form-label">{{ __('stock_movement.note_label') }}</label>
-            <input type="text" name="note" class="form-control">
+            <textarea maxlength="200" name="note" class="form-control"></textarea>
           </div>
 
           {{-- Seleção de Lote --}}
@@ -221,6 +221,22 @@
       })
       .catch(err => console.error("Erro ao salvar lote:", err));
   });
+
+  function formatarMoeda(campo) {
+    // Remove tudo que não for número
+    let valor = campo.value.replace(/\D/g, '');
+
+    // Converte para centavos
+    valor = (valor / 100).toFixed(2) + '';
+
+    // Troca ponto por vírgula
+    valor = valor.replace('.', ',');
+
+    // Coloca separador de milhar
+    valor = valor.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    campo.value = 'R$ ' + valor;
+  }
 </script>
 
 @endsection

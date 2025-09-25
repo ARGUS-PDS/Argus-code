@@ -57,6 +57,14 @@ class MovementController extends Controller
 
     public function store(Request $request)
     {
+        $valor = $request->cost;
+        $valor = str_replace(['R$', '.', ' '], '', $valor);
+        $valor = str_replace(',', '.', $valor);
+        $valor = (float) $valor;
+
+        // Substitui no request
+        $request->merge(['cost' => $valor]);
+
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'type'       => 'required|in:inward,outward,balance',
@@ -79,7 +87,8 @@ class MovementController extends Controller
 
         $produto = Product::find($request->product_id);
 
-        return redirect()->route('movimentacao.index', ['produto' => $produto ? $produto->description : null])
+        return redirect()
+            ->route('movimentacao.index', ['produto' => $produto ? $produto->description : null])
             ->with('success', 'Movimentação registrada com sucesso!');
     }
 

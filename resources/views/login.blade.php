@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <script src="https://unpkg.com/vanilla-masker@1.1.1/build/vanilla-masker.min.js"></script>
   <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.57/build/spline-viewer.js"></script>
-  
+
 </head>
 
 @include('layouts.css-variables')
@@ -23,20 +23,20 @@
 
 <body>
 
-@php $current = app()->getLocale(); @endphp
-<div class="lang-selector-container">
+  @php $current = app()->getLocale(); @endphp
+  <div class="lang-selector-container">
     <div class="lang-selector">
-        <a href="{{ route('lang.switch', 'pt_BR') }}" class="lang-flag-container pt">
-            <img src="{{ asset('images/brazil.png') }}" alt="pt" class="flag">
-            <span class="lang-label">Português</span>
-        </a>
-        <span class="lang-separator">|</span>
-        <a href="{{ route('lang.switch', 'en') }}" class="lang-flag-container en">
-            <img src="{{ asset('images/us.png') }}" alt="en" class="flag">
-            <span class="lang-label">English</span>
-        </a>
+      <a href="{{ route('lang.switch', 'pt_BR') }}" class="lang-flag-container pt">
+        <img src="{{ asset('images/brazil.png') }}" alt="pt" class="flag">
+        <span class="lang-label">Português</span>
+      </a>
+      <span class="lang-separator">|</span>
+      <a href="{{ route('lang.switch', 'en') }}" class="lang-flag-container en">
+        <img src="{{ asset('images/us.png') }}" alt="en" class="flag">
+        <span class="lang-label">English</span>
+      </a>
     </div>
-</div>
+  </div>
 
 
   <div class="container" id="container">
@@ -57,11 +57,11 @@
         <div class="error-container" id="login-error-container">
         </div>
 
-        <input type="email" id="user_email_login" name="email" placeholder="{{ __('login.email') }}" required autofocus maxlength="80"/>
+        <input type="email" id="user_email_login" name="email" placeholder="{{ __('login.email') }}" required autofocus maxlength="80" />
         <span class="email-error" style="color: #c62828; font-size: 12px; display: none;"></span>
 
         <div class="password-container">
-          <input type="password" id="password" name="password" placeholder="{{ __('login.password') }}" required minlength="8" maxlength="50"/>
+          <input type="password" id="password" name="password" placeholder="{{ __('login.password') }}" required minlength="8" maxlength="20" />
           <i class="toggle-password fas fa-eye" onclick="togglePassword('password', this)"></i>
         </div>
 
@@ -124,7 +124,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
 
-      <div class="modal-body">
+        <div class="modal-body">
           <div class="modal-header">
             <h5 class="modal-title">{{ __('login.contact_argus') }}</h5>
             <button type="button" class="btn-close" onclick="fecharModal()">×</button>
@@ -174,11 +174,11 @@
   @endif
 
   <script>
-  VMasker(document.querySelector("input[name='whatsapp']")).maskPattern("(99) 99999-9999");
+    VMasker(document.querySelector("input[name='whatsapp']")).maskPattern("(99) 99999-9999");
   </script>
 
   <script>
-  window.contatoEnviado = <?php echo json_encode(session('contato_enviado', false)); ?>;
+    window.contatoEnviado = <?php echo json_encode(session('contato_enviado', false)); ?>;
   </script>
 
   <script src="{{ asset('js/particulas.js') }}"></script>
