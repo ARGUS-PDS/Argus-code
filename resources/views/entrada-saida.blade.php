@@ -176,7 +176,7 @@
           <input type="hidden" name="produto" value="{{ request('produto') }}">
           <div class="mb-3">
             <label class="form-label">{{ __('stock_movement.batch_code') }}</label>
-            <input type="text" class="form-control" name="batch_code" required>
+            <input type="text" maxlength="20" class="form-control" name="batch_code" required>
           </div>
           <div class="mb-3">
             <label class="form-label">{{ __('stock_movement.expiration_date') }}</label>
