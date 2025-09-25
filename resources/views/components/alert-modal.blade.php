@@ -5,7 +5,7 @@
 
       {{-- Cabeçalho --}}
       <div class="modal-header" style="background-color:#773138; color:#f8f0e5;">
-        <h5 class="modal-title">
+        <h5 class="modal-title" style="color: #ffffff;">
           @if ($errors->any() || session('error'))
             Erro
           @elseif (session('success'))
@@ -51,10 +51,6 @@
   }
   .custom-btn:hover {
     background-color: #77313880;
-    color: #f8f0e5;
-  }
-
-  .modal-title{
     color: #f8f0e5;
   }
 </style>
