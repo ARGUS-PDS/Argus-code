@@ -191,7 +191,7 @@
           <div class="col-md-6">
             <label for="user_password_confirmation" class="form-label required">Confirmar Senha</label>
             <div class="password-container">
-              <input type="password" name="user_password_confirmation" id="user_password_confirmation" class="form-control" required minlength="8" maxlength="20"/>
+              <input type="password" name="user_password_confirmation" id="user_password_confirmation" class="form-control" required minlength="8" maxlength="20" />
               <i class="toggle-password fas fa-eye" onclick="togglePassword('user_password_confirmation', this)"></i>
             </div>
             <div class="password-match-feedback invalid" id="passwordMatchFeedback">As senhas não coincidem</div>
@@ -212,11 +212,13 @@
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{{ asset('js/companies-create-js/globals.js') }}"></script>
   <script src="{{ asset('js/companies-create-js/utils.js') }}"></script>
   <script src="{{ asset('js/companies-create-js/ui.js') }}"></script>
-  <script src="{{ asset('js/companies-create-js/api.js') }}"></script>
   <script src="{{ asset('js/companies-create-js/password.js') }}"></script>
+  <script src="{{ asset('js/companies-create-js/api.js') }}"></script>
   <script src="{{ asset('js/companies-create-js/events.js') }}"></script>
 </body>
 

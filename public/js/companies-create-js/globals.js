@@ -15,6 +15,7 @@ let requiredFieldsState = {
     cnpj: false,
     businessName: false,
     tradeName: false,
+    stateRegistration: false, // CAMPO ADICIONADO
     cep: false,
     place: false,
     number: false,

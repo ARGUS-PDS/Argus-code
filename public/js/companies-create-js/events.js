@@ -2,6 +2,7 @@
 function checkRequiredFields() {
     for (const field in requiredFieldsState) {
         if (!requiredFieldsState[field]) {
+            console.log(`Campo inválido: ${field}`, requiredFieldsState[field]);
             return false;
         }
     }
@@ -10,7 +11,7 @@ function checkRequiredFields() {
 
 // Função para verificar se todas as validações estão ok
 function isFormValid() {
-    return (
+    const allValid = (
         isCnpjValid &&
         isCepValid &&
         isEmailValid &&
@@ -18,6 +19,18 @@ function isFormValid() {
         doPasswordsMatch &&
         checkRequiredFields()
     );
+    
+    console.log('Validações:', {
+        isCnpjValid,
+        isCepValid,
+        isEmailValid,
+        isPasswordValid,
+        doPasswordsMatch,
+        requiredFields: checkRequiredFields(),
+        allValid
+    });
+    
+    return allValid;
 }
 
 // Função para atualizar o estado do botão de submit
@@ -48,6 +61,20 @@ function validateState() {
     }
 }
 
+// Função para validar inscrição estadual
+function validateStateRegistration() {
+    const ieInput = document.getElementById("stateRegistration");
+    ieInput.classList.remove("is-valid", "is-invalid");
+
+    if (ieInput.value.trim()) {
+        ieInput.classList.add("is-valid");
+        updateFieldState("stateRegistration", true);
+    } else {
+        ieInput.classList.add("is-invalid");
+        updateFieldState("stateRegistration", false);
+    }
+}
+
 // Inicializar a validação visual dos campos
 function initializeValidation() {
     // Validar todos os campos ao carregar a página
@@ -55,6 +82,7 @@ function initializeValidation() {
         "cnpj",
         "businessName",
         "tradeName",
+        "stateRegistration",
         "cep",
         "place",
         "number",
@@ -89,6 +117,9 @@ function initializeValidation() {
 
     // Validar estado
     validateState();
+    
+    // Validar inscrição estadual
+    validateStateRegistration();
 }
 
 // Atribuição de eventos e inicialização
@@ -113,11 +144,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Novos eventos de formatação
-    document
-        .getElementById("stateRegistration")
-        .addEventListener("input", function () {
-            this.value = formatStateRegistration(this.value);
-        });
+    document.getElementById("stateRegistration").addEventListener("input", function () {
+        this.value = formatStateRegistration(this.value);
+        this.classList.remove("is-valid", "is-invalid");
+        if (this.value.trim()) {
+            this.classList.add("is-valid");
+        }
+        updateFieldState("stateRegistration", this.value.trim().length > 0);
+    });
 
     document.getElementById("user_name").addEventListener("input", function () {
         this.value = formatName(this.value);
@@ -136,53 +170,44 @@ document.addEventListener("DOMContentLoaded", function () {
     // Eventos de blur para validação
     document.getElementById("cnpj").addEventListener("blur", validateCNPJ);
     document.getElementById("cep").addEventListener("blur", validateCEP);
-    document
-        .getElementById("user_email")
-        .addEventListener("blur", validateEmail);
+    document.getElementById("user_email").addEventListener("blur", validateEmail);
+    document.getElementById("stateRegistration").addEventListener("blur", validateStateRegistration);
 
     // Validação em tempo real do email
-    document
-        .getElementById("user_email")
-        .addEventListener("input", function () {
-            clearTimeout(emailCheckTimeout);
-            emailCheckTimeout = setTimeout(validateEmail, 700);
-            this.classList.remove("is-valid", "is-invalid");
-            if (this.value.length > 0) {
-                this.classList.add("is-valid");
-            }
-            updateFieldState("user_email", this.value.length > 0);
-        });
+    document.getElementById("user_email").addEventListener("input", function () {
+        clearTimeout(emailCheckTimeout);
+        emailCheckTimeout = setTimeout(validateEmail, 700);
+        this.classList.remove("is-valid", "is-invalid");
+        if (this.value.length > 0) {
+            this.classList.add("is-valid");
+        }
+        updateFieldState("user_email", this.value.length > 0);
+    });
 
     // Validação de senha em tempo real
-    document
-        .getElementById("user_password")
-        .addEventListener("input", function () {
-            checkPasswordStrength(this.value);
-            this.classList.remove("is-valid", "is-invalid");
-            if (this.value.length > 0) {
-                this.classList.add("is-valid");
-            }
-            updateFieldState("user_password", this.value.length > 0);
-        });
+    document.getElementById("user_password").addEventListener("input", function () {
+        checkPasswordStrength(this.value);
+        this.classList.remove("is-valid", "is-invalid");
+        if (this.value.length > 0) {
+            this.classList.add("is-valid");
+        }
+        updateFieldState("user_password", this.value.length > 0);
+    });
 
-    document
-        .getElementById("user_password_confirmation")
-        .addEventListener("input", function () {
-            checkPasswordMatch();
-            this.classList.remove("is-valid", "is-invalid");
-            if (this.value.length > 0) {
-                this.classList.add("is-valid");
-            }
-            updateFieldState(
-                "user_password_confirmation",
-                this.value.length > 0
-            );
-        });
+    document.getElementById("user_password_confirmation").addEventListener("input", function () {
+        checkPasswordMatch();
+        this.classList.remove("is-valid", "is-invalid");
+        if (this.value.length > 0) {
+            this.classList.add("is-valid");
+        }
+        updateFieldState("user_password_confirmation", this.value.length > 0);
+    });
 
     // Adicionar listeners para campos obrigatórios
     const requiredFields = [
         "businessName",
         "tradeName",
+        "stateRegistration",
         "place",
         "neighborhood",
         "city",
@@ -207,61 +232,87 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeValidation();
 
     // Modificar o evento de submit do formulário
-    document
-        .getElementById("companyForm")
-        .addEventListener("submit", function (e) {
-            // Forçar validação de todos os campos
-            validateCNPJ();
-            validateCEP();
-            validateEmail();
-            validateState();
+    document.getElementById("companyForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        
+        console.log("Iniciando validação do formulário...");
+        
+        // Forçar validação de todos os campos de forma síncrona primeiro
+        validateStateRegistration();
+        validateState();
 
-            // Validar campos de texto
-            const textFields = [
-                "businessName",
-                "tradeName",
-                "place",
-                "number",
-                "neighborhood",
-                "city",
-                "user_name",
-            ];
-            textFields.forEach((field) => {
-                const element = document.getElementById(field);
-                element.classList.remove("is-invalid", "is-valid");
-                if (element.value.trim()) {
-                    element.classList.add("is-valid");
-                    updateFieldState(field, true);
-                } else {
-                    element.classList.add("is-invalid");
-                    updateFieldState(field, false);
-                }
-            });
-
-            // Validar senha
-            checkPasswordStrength(
-                document.getElementById("user_password").value
-            );
-            checkPasswordMatch();
-
-            if (!isFormValid()) {
-                e.preventDefault();
-                showJsError(
-                    "Por favor, preencha todos os campos obrigatórios corretamente."
-                );
-
-                // Rolar até o primeiro campo inválido
-                const firstInvalid = document.querySelector(".is-invalid");
-                if (firstInvalid) {
-                    firstInvalid.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center",
-                    });
-                }
-                return;
+        // Validar campos de texto
+        const textFields = [
+            "businessName",
+            "tradeName",
+            "stateRegistration",
+            "place",
+            "number",
+            "neighborhood",
+            "city",
+            "user_name",
+        ];
+        
+        textFields.forEach((field) => {
+            const element = document.getElementById(field);
+            element.classList.remove("is-invalid", "is-valid");
+            if (element.value.trim()) {
+                element.classList.add("is-valid");
+                updateFieldState(field, true);
+            } else {
+                element.classList.add("is-invalid");
+                updateFieldState(field, false);
             }
-
-            // Mostrar tela de carregamento se tudo estiver válido
-            mostrarTelaCarregando();
         });
+
+        // Validar senha
+        checkPasswordStrength(document.getElementById("user_password").value);
+        checkPasswordMatch();
+
+        // CORREÇÃO: Só executar validações de API se os campos estiverem preenchidos
+        const cnpjValue = document.getElementById("cnpj").value.trim();
+        const cepValue = document.getElementById("cep").value.trim();
+        const emailValue = document.getElementById("user_email").value.trim();
+        
+        const apiValidations = [];
+        
+        if (cnpjValue) {
+            apiValidations.push(validateCNPJ());
+        }
+        if (cepValue) {
+            apiValidations.push(validateCEP());
+        }
+        if (emailValue) {
+            apiValidations.push(validateEmail());
+        }
+
+        // Executar validações assíncronas e aguardar
+        if (apiValidations.length > 0) {
+            try {
+                await Promise.all(apiValidations);
+            } catch (error) {
+                console.error('Erro nas validações assíncronas:', error);
+            }
+        }
+
+        // Verificar se o formulário está válido após todas as validações
+        if (!isFormValid()) {
+            showJsError("Por favor, preencha todos os campos obrigatórios corretamente.");
+
+            // Rolar até o primeiro campo inválido
+            const firstInvalid = document.querySelector(".is-invalid");
+            if (firstInvalid) {
+                firstInvalid.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center",
+                });
+            }
+            return;
+        }
+
+        // Se tudo estiver válido, submeter o formulário
+        console.log("Formulário válido, submetendo...");
+        mostrarTelaCarregando();
+        this.submit();
+    });
 });
