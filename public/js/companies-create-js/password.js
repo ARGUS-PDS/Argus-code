@@ -11,6 +11,11 @@ function togglePassword(inputId, iconElement) {
 }
 
 function checkPasswordStrength(password) {
+    const passwordField = document.getElementById("user_password");
+    if (!password) {
+        password = passwordField.value;
+    }
+
     const hasMinLength = password.length >= 8;
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);
@@ -37,18 +42,21 @@ function checkPasswordStrength(password) {
 
     strengthBar.style.width = strength + "%";
 
+    strengthBar.className = "progress-bar";
+    feedbackElement.classList.remove("weak", "medium", "strong");
+
     if (strength < 40) {
         feedbackElement.textContent = "Força da senha: fraca";
-        strengthBar.className = "progress-bar bg-danger";
-        feedbackElement.style.color = "#212529bf";
+        strengthBar.classList.add("bg-danger");
+        feedbackElement.classList.add("weak");
     } else if (strength < 100) {
         feedbackElement.textContent = "Força da senha: média";
-        strengthBar.className = "progress-bar bg-warning";
-        feedbackElement.style.color = "#212529bf";
+        strengthBar.classList.add("bg-warning");
+        feedbackElement.classList.add("medium");
     } else {
         feedbackElement.textContent = "Força da senha: forte";
-        feedbackElement.style.color = "#198754";
-        strengthBar.className = "progress-bar bg-success";
+        strengthBar.classList.add("bg-success");
+        feedbackElement.classList.add("strong");
     }
 
     isPasswordValid =
@@ -59,15 +67,14 @@ function checkPasswordStrength(password) {
         hasSpecialChar;
 
     // Atualizar a classe do campo de senha
-    const passwordField = document.getElementById("user_password");
-    passwordField.classList.remove('is-valid', 'is-invalid');
+    passwordField.classList.remove("is-valid", "is-invalid");
     if (isPasswordValid) {
-        passwordField.classList.add('is-valid');
+        passwordField.classList.add("is-valid");
     } else if (password.length > 0) {
-        passwordField.classList.add('is-invalid');
+        passwordField.classList.add("is-invalid");
     }
 
-    updateFieldState('user_password', isPasswordValid);
+    updateFieldState("user_password", isPasswordValid);
 
     // Verificar também se as senhas coincidem quando a senha principal é alterada
     checkPasswordMatch();
@@ -99,29 +106,48 @@ function checkPasswordMatch() {
 
     // Atualizar classes de validação
     const confirmField = document.getElementById("user_password_confirmation");
-    confirmField.classList.remove('is-valid', 'is-invalid');
+    confirmField.classList.remove("is-valid", "is-invalid");
 
     if (confirmPassword === "") {
         feedbackElement.style.display = "none";
         doPasswordsMatch = false;
-        updateFieldState('user_password_confirmation', false);
+        updateFieldState("user_password_confirmation", false);
     } else if (password === confirmPassword) {
         feedbackElement.textContent = "As senhas coincidem";
         feedbackElement.classList.remove("invalid");
         feedbackElement.classList.add("valid");
         feedbackElement.style.display = "block";
         doPasswordsMatch = true;
-        confirmField.classList.add('is-valid');
-        updateFieldState('user_password_confirmation', true);
+        confirmField.classList.add("is-valid");
+        updateFieldState("user_password_confirmation", true);
     } else {
         feedbackElement.textContent = "As senhas não coincidem";
         feedbackElement.classList.remove("valid");
         feedbackElement.classList.add("invalid");
         feedbackElement.style.display = "block";
         doPasswordsMatch = false;
-        confirmField.classList.add('is-invalid');
-        updateFieldState('user_password_confirmation', false);
+        confirmField.classList.add("is-invalid");
+        updateFieldState("user_password_confirmation", false);
     }
+}
+
+// Função para mostrar toast
+function showToast(message) {
+    const toast = document.getElementById("passwordSuccessToast");
+    const toastMessage = document.getElementById("toastMessage");
+    toastMessage.textContent = message;
+    toast.classList.add("show");
+
+    // Auto-esconder após 5 segundos
+    setTimeout(() => {
+        hideToast();
+    }, 5000);
+}
+
+// Função para esconder toast
+function hideToast() {
+    const toast = document.getElementById("passwordSuccessToast");
+    toast.classList.remove("show");
 }
 
 // Função para gerar senha forte
@@ -158,5 +184,6 @@ function generateStrongPassword() {
     confirmField.value = password;
     confirmField.dispatchEvent(new Event("input"));
 
-    showJsError("Senha forte gerada com sucesso!", 3000);
+    // Mostrar toast ao invés de alerta
+    showToast("Senha forte gerada com sucesso!");
 }

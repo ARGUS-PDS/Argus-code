@@ -164,11 +164,11 @@
 
           <div class="col-md-6">
             <label for="user_password" class="form-label required">Senha</label>
-            <div class="password-container">
+            <div class="password-container position-relative" id="user_password_container">
               <input type="password" name="user_password" id="user_password" class="form-control" required minlength="8" maxlength="20" />
               <i class="toggle-password fas fa-eye" onclick="togglePassword('user_password', this)"></i>
               <button type="button" class="generate-password" title="Gerar senha forte" onclick="generateStrongPassword()">
-                <i class=" fas fa-sync-alt"></i>
+                <i class="fas fa-sync-alt"></i>
               </button>
             </div>
             <div class="password-strength">
@@ -190,7 +190,7 @@
 
           <div class="col-md-6">
             <label for="user_password_confirmation" class="form-label required">Confirmar Senha</label>
-            <div class="password-container">
+            <div class="password-container position-relative" id="user_password_confirmation_container">
               <input type="password" name="user_password_confirmation" id="user_password_confirmation" class="form-control" required minlength="8" maxlength="20" />
               <i class="toggle-password fas fa-eye" onclick="togglePassword('user_password_confirmation', this)"></i>
             </div>
@@ -205,6 +205,17 @@
         <button type="submit" class="btn btn-primary" id="submitButton">Salvar Empresa e Usuário</button>
       </div>
     </form>
+    <!-- Toast de sucesso para senha gerada -->
+    <div class="password-toast" id="passwordSuccessToast">
+      <i class="bi bi-check-circle-fill toast-icon"></i>
+      <div class="toast-content">
+        <div class="toast-title">Sucesso!</div>
+        <div class="toast-message" id="toastMessage">Senha forte gerada com sucesso!</div>
+      </div>
+      <button class="toast-close" onclick="hideToast()">
+        <i class="bi bi-x"></i>
+      </button>
+    </div>
   </div>
 
   <!-- Tela de carregamento -->

@@ -68,7 +68,6 @@ body {
     font-size: 0.95rem;
 }
 
-
 .form-control,
 .form-select {
     width: 100%;
@@ -123,15 +122,6 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.password-container {
-    position: relative;
-    width: 100%;
-}
-
-.password-container input {
-    width: 100%;
-    padding-right: 85px;
-}
 
 .toggle-password {
     position: absolute;
@@ -251,7 +241,8 @@ body {
     margin-top: 3px;
 }
 
-.form-control.is-invalid, .form-select.is-invalid {
+.form-control.is-invalid,
+.form-select.is-invalid {
     border-color: #dc3545 !important;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
@@ -259,7 +250,8 @@ body {
     background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
 }
 
-.form-control.is-valid, .form-select.is-valid {
+.form-control.is-valid,
+.form-select.is-valid {
     border-color: #198754 !important;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
@@ -283,7 +275,6 @@ body {
     font-size: 0.875rem;
     margin-top: 0.25rem;
 }
-
 
 .validation-status {
     color: var(--color-vinho);
@@ -384,4 +375,221 @@ body {
     .password-container input {
         padding-right: 75px;
     }
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-container input {
+    padding-right: 100px;
+    transition: padding-right 0.3s ease;
+}
+
+.toggle-password,
+.generate-password,
+.validation-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+    z-index: 5;
+    transition: right 0.3s ease, opacity 0.3s ease;
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.toggle-password:hover,
+.generate-password:hover {
+    color: #490006;
+    background-color: rgba(73, 0, 6, 0.1);
+}
+
+.toggle-password {
+    right: 15px;
+}
+
+.generate-password {
+    right: 45px;
+}
+
+.validation-icon {
+    right: 15px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.password-container.validating .toggle-password {
+    right: 45px;
+}
+
+.password-container.validating .generate-password {
+    right: 75px;
+}
+
+.password-container.validating .validation-icon {
+    right: 15px;
+    opacity: 1;
+}
+
+.password-container.single-icon input {
+    padding-right: 45px;
+}
+
+.password-container.single-icon .toggle-password {
+    right: 15px;
+}
+
+.password-strength {
+    margin-top: 8px;
+}
+
+.progress {
+    height: 10px;
+    border-radius: 5px;
+    background-color: #eee;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    transition: width 0.3s ease;
+    border-radius: 5px;
+}
+
+.password-feedback {
+    font-size: 0.9rem;
+    margin-top: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.password-requirements {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    background-color: rgba(73, 0, 6, 0.05);
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 4px solid #490006;
+}
+
+.requirement {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.requirement.valid {
+    color: #2e7d32;
+}
+
+.requirement.invalid {
+    color: #757575;
+}
+
+.requirement i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.password-match-feedback {
+    font-size: 0.85rem;
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: none;
+    font-weight: 500;
+}
+
+.password-match-feedback.valid {
+    background-color: rgba(46, 125, 50, 0.1);
+    color: #2e7d32;
+    display: block;
+    border-left: 3px solid #2e7d32;
+}
+
+.password-match-feedback.invalid {
+    background-color: rgba(198, 40, 40, 0.1);
+    color: #c62828;
+    display: block;
+    border-left: 3px solid #c62828;
+}
+
+.password-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 300px;
+    background: white;
+    border-left: 5px solid #28a745;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    transform: translateX(400px);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.password-toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    font-size: 24px;
+    color: #28a745;
+    margin-right: 12px;
+}
+
+.toast-content {
+    flex: 1;
+}
+
+.toast-title {
+    font-weight: 600;
+    color: var(--color-gray-escuro);
+    margin-bottom: 4px;
+}
+
+.toast-message {
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #6c757d;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.form-text {
+    color: #666;
+    font-size: 0.85rem;
+    margin-top: 8px;
+}
+
+.password-feedback.weak {
+    color: #b71c1c;
+}
+
+.password-feedback.medium {
+    color: #f57f17;
+}
+
+.password-feedback.strong {
+    color: #2e7d32;
 }
