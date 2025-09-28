@@ -22,26 +22,26 @@
         border-spacing: 0;
         border-radius: 8px;
         overflow: hidden;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 4px var(--color-shadow);
         background-color: #fff;
     }
 
     .table-custom thead {
-        background-color: var(--color-vinho); 
-        color: var(--color-white);
+        background-color: #5f282e; 
+        color: #fff;
     }
 
     .table-custom th,
     .table-custom td {
         padding: 12px 15px;
-        border-bottom: 1px solid var(--color-bege);
-        border-right: 1px solid var(--color-bege);
+        border-bottom: 1px solid rgba(248, 240, 229, 0.5);
+        border-right: 1px solid rgba(248, 240, 229, 0.5);
         text-align: left;
-        color: var(--color-gray-escuro); 
+        color: #202132; 
     }
 
     .table-custom thead th {
-        color: var(--color-white); 
+        color: #fff; 
         font-weight: bold;
     }
 
@@ -55,14 +55,14 @@
     }
 
     .table-custom tbody tr:nth-child(odd) {
-        background-color: var(--color-bege);
+        background-color:  #f8f0e5;
     }
     .table-custom tbody tr:nth-child(even) {
-        background-color: var(--color-white);
+        background-color:  #f8f0e5;
     }
 
     .table-custom tbody tr:hover {
-        background-color: rgba(119, 49, 56, 0.05);
+        background-color: var(--color-shadow);
     }
 
     .table-custom td.prazo-column {

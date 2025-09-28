@@ -33,10 +33,10 @@
     }
 
     .product-card {
-        background-color: #fff;
-        border: 1px solid var(--color-white);
+        background-color: var(--color-vinho-fundo);
+        border: 1px solid var(--color-vinho-fundo);
         border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 4px var(--color-shadow);
         padding: 1.5rem;
         margin-bottom: 1rem; 
         transition: all 0.2s ease-in-out;
@@ -44,7 +44,7 @@
 
     .product-card:hover {
         transform: translateY(-3px); 
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 4px var(--color-shadow);
     }
 
     .product-card h5 {
@@ -77,15 +77,15 @@
 
     .form-control {
         border-radius: 8px;
-        border: 1px solid var(--color-gray-claro);
-        background-color: var(--color-white); 
+        border: 1px solid  #f8f9fa;
+        background-color: #fff; 
         color: var(--color-gray-escuro);
     }
 
     .form-control:focus {
         border-color: var(--color-vinho);
-        box-shadow: 0 0 0 0.25rem rgba(119, 49, 56, 0.25);
-        background-color: var(--color-white);
+        box-shadow: 0 0 0 0.25rem var(--color-shadow);
+        background-color: #fff;
     }
 
     .btn-outline-email {

@@ -15,10 +15,10 @@
         background-color: var(--color-bege-card-interno);
         border-radius: 18px;
         padding: 35px 40px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 10px 25px var(--color-shadow);
         margin: 0 auto;
         max-width: 960px;
-        border: 1px solid var(--color-gray-claro);
+        border: 1px solid var(--color-bege-card-interno);
     }
 
     .header-section {
@@ -27,7 +27,7 @@
         align-items: center;
         margin-bottom: 30px;
         padding-bottom: 15px;
-        border-bottom: 1px solid var(--color-gray-claro);
+        border-bottom: 1px solid var(--color-vinho);
         flex-wrap: wrap;
     }
 
@@ -41,25 +41,25 @@
 
     .section-card {
         background-color: #fff;
-        border: 1px solid var(--color-gray-claro);
+        border: 1px solid #f8f9fa;
         border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 4px 12px var(--color-shadow);
         padding: 25px;
         margin-bottom: 25px;
     }
 
     .section-card .card-title {
-        color: var(--color-vinho);
+        color: #773138;
         font-weight: bold;
         font-size: 1.3rem;
         margin-bottom: 20px;
         padding-bottom: 8px;
-        border-bottom: 1px solid var(--color-gray-claro);
+        border-bottom: 1px solid #773138;
     }
 
     .form-label {
         display: block;
-        color: var(--color-vinho);
+        color:  #773138;
         font-weight: 600;
         margin-bottom: 8px;
         font-size: 0.95rem;
@@ -72,8 +72,8 @@
         border: 1px solid var(--color-gray-medio);
         border-radius: 10px;
         font-size: 1rem;
-        color: var(--color-gray-escuro);
-        background-color: var(--color-white);
+        color: var(--color-black);
+        background-color: var(--color-bege-claro-fundo);
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
@@ -88,7 +88,7 @@
     .form-control[readonly] {
         background-color: var(--color-bege-card-interno);
         opacity: 1;
-        color: var(--color-gray-escuro);
+        color: var(--color-black);
         border-color: var(--color-gray-claro);
         cursor: not-allowed;
     }
@@ -153,7 +153,7 @@
 
     .btn-delete:hover {
         transform: scale(1.1);
-        color: #b30000;
+        color: var(--volor-red);
     }
 </style>
 @endsection

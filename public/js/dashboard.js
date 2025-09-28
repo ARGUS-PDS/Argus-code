@@ -122,12 +122,28 @@ document.addEventListener('DOMContentLoaded', function () {
   
 
   //variáveis CSS
-  const rootStyles = getComputedStyle(document.documentElement);
-  const vinho = rootStyles.getPropertyValue('--color-vinho').trim();
-  const vinhoFundo = rootStyles.getPropertyValue('--color-vinho-fundo').trim();
-  const begeClaro = rootStyles.getPropertyValue('--color-bege-claro').trim();
-  const begeClaroFundo = rootStyles.getPropertyValue('--color-bege-claro-fundo').trim();
-  const branco = rootStyles.getPropertyValue('--color-white').trim();;
+  // pega as cores do CSS
+const rootStyles = getComputedStyle(document.documentElement);
+
+// verifica se está no modo escuro
+const isDarkMode = document.body.classList.contains('dark-mode'); // ou outra lógica que você use
+
+let vinho, vinhoFundo, begeClaro, begeClaroFundo, branco;
+
+if (isDarkMode) {
+  vinho = rootStyles.getPropertyValue('--color-bege-claro').trim();
+  vinhoFundo = rootStyles.getPropertyValue('--color-bege-claro-fundo').trim();
+  begeClaro = rootStyles.getPropertyValue('--color-vinho').trim();
+  begeClaroFundo = rootStyles.getPropertyValue('--color-vinho-fundo').trim();
+  branco = rootStyles.getPropertyValue('--color-black').trim();
+} else {
+  vinho = rootStyles.getPropertyValue('--color-vinho').trim();
+  vinhoFundo = rootStyles.getPropertyValue('--color-vinho-fundo').trim();
+  begeClaro = rootStyles.getPropertyValue('--color-bege-claro').trim();
+  begeClaroFundo = rootStyles.getPropertyValue('--color-bege-claro-fundo').trim();
+  branco = rootStyles.getPropertyValue('--color-white').trim();
+}
+
 
   // cria o gráfico vazio logo no início
   const ctxTempo = document.getElementById('vendasTempoChart').getContext('2d');

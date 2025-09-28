@@ -267,14 +267,14 @@
 
   #modalAlterarSenha .form-label {
     font-weight: 600;
-    color: #490006;
+    color:var(--color-vinho-claro);
     margin-bottom: 10px;
     display: block;
     font-size: 1rem;
   }
 
   #modalAlterarSenha .form-control {
-    background-color: #fff;
+    background-color: white;
     border: 2px solid #ddd;
     padding: 14px 16px;
     font-size: 16px;
@@ -283,24 +283,24 @@
     outline: none;
     transition: all 0.3s ease;
     margin-bottom: 20px;
-    box-shadow: 0 4px 10px rgba(73, 0, 6, 0.08);
+    box-shadow: 0 4px 10px var(--color-shadow);
   }
 
   #modalAlterarSenha .form-control:focus {
     outline: none;
-    border-color: #490006;
-    box-shadow: 0 0 0 3px rgba(73, 0, 6, 0.25), 0 5px 15px rgba(73, 0, 6, 0.15);
+    border-color:var(--color-vinho-claro);
+    box-shadow: 0 0 0 3px var(--color-shadow), 0 5px 15px var(--color-shadow);
     transform: translateY(-2px);
   }
 
   #modalAlterarSenha .form-control.is-valid {
-    border-color: #2e7d32;
-    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.2);
+    border-color:var(--color-green);
+    box-shadow: 0 0 0 3px var(--color-shadow);
   }
 
   #modalAlterarSenha .form-control.is-invalid {
-    border-color: #c62828;
-    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.2);
+    border-color: var(--color-red);
+    box-shadow: 0 0 0 3px var(--color-shadow);
   }
 
   #modalAlterarSenha .btn-custom {
@@ -312,31 +312,33 @@
   }
 
   #modalAlterarSenha .btn-secondary {
-    background-color: #6c757d;
-    border: none;
-    color: white;
+    background-color: var(--color-vinho);
+    border: 2px solid var(--color-vinho);
+    color: var(--color-bege-claro);
   }
 
   #modalAlterarSenha .btn-secondary:hover {
-    background-color: #5a6268;
+    background-color: var(--color-bege-claro);
+    color: var(--color-vinho);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 8px var(--color-shadow);
   }
 
   #modalAlterarSenha .btn-primary {
-    background: linear-gradient(to right, #490006, #773138);
-    border: none;
-    color: white;
+    background: var(--color-bege-claro);
+    border: 2px solid var(--color-vinho);
+    color: var(--color-vinho);
   }
 
   #modalAlterarSenha .btn-primary:hover {
-    background: linear-gradient(to right, #3a0004, #662a30);
+    background: var(--color-vinho);
+    color: var(--color-bege-claro);
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(73, 0, 6, 0.25);
+    box-shadow: 0 6px 12px var(--color-shadow);
   }
 
   #modalAlterarSenha .btn-primary:disabled {
-    background: #cccccc;
+    background: var(--color-gray);
     transform: none;
     cursor: not-allowed;
     box-shadow: none;
@@ -370,13 +372,12 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.8);
   }
 
   .toggle-password:hover,
   .generate-password:hover {
-    color: #490006;
-    background-color: rgba(73, 0, 6, 0.1);
+    color: var(--color-vinho-claro);
+    background-color: var(--color-shadow);
   }
 
   .toggle-password {
@@ -440,10 +441,10 @@
   .password-requirements {
     margin-top: 15px;
     font-size: 0.85rem;
-    background-color: rgba(73, 0, 6, 0.05);
+    background-color: var(--color-shadow);
     padding: 12px 15px;
     border-radius: 8px;
-    border-left: 4px solid #490006;
+    border-left: 4px solid var(--color-vinho-claro);
   }
 
   .requirement {
@@ -453,11 +454,11 @@
   }
 
   .requirement.valid {
-    color: #2e7d32;
+    color: var(--color-green);
   }
 
   .requirement.invalid {
-    color: #757575;
+    color: var(--color-gray-escuro);
   }
 
   .requirement i {
@@ -475,17 +476,17 @@
   }
 
   .password-match-feedback.valid {
-    background-color: rgba(46, 125, 50, 0.1);
-    color: #2e7d32;
+    background-color: var(--color-shadow);
+    color: var(--color-green);
     display: block;
-    border-left: 3px solid #2e7d32;
+    border-left: 3px solid var(--color-green);
   }
 
   .password-match-feedback.invalid {
-    background-color: rgba(198, 40, 40, 0.1);
-    color: #c62828;
+    background-color: var(--color-shadow);
+    color: var(--color-red);
     display: block;
-    border-left: 3px solid #c62828;
+    border-left: 3px solid var(--color-red);
   }
 
   .password-toast {
@@ -495,7 +496,7 @@
     z-index: 9999;
     min-width: 300px;
     background: white;
-    border-left: 5px solid #28a745;
+    border-left: 5px solid var(--color-green);
     border-radius: 8px;
     box-shadow: 0 4px 20px var(--color-shadow);
     padding: 16px;
@@ -513,7 +514,7 @@
 
   .toast-icon {
     font-size: 24px;
-    color: #28a745;
+    color: var(--color-green);
     margin-right: 12px;
   }
 
@@ -523,12 +524,12 @@
 
   .toast-title {
     font-weight: 600;
-    color: var(--color-gray-escuro);
+    color: var(--color-gray);
     margin-bottom: 4px;
   }
 
   .toast-message {
-    color: #6c757d;
+    color: var(--color-gray);
     font-size: 14px;
   }
 
@@ -536,13 +537,13 @@
     background: none;
     border: none;
     font-size: 18px;
-    color: #6c757d;
+    color: var(--color-gray);
     cursor: pointer;
     margin-left: 10px;
   }
 
   .form-text {
-    color: #666;
+    color: var(--color-gray);
     font-size: 0.85rem;
     margin-top: 8px;
   }
@@ -553,7 +554,7 @@
   }
 
   #modalAlterarSenha .progress-bar.bg-danger {
-    background-color: #b71c1c !important;
+    background-color: var(--color-red) !important;
   }
 
   #modalAlterarSenha .progress-bar.bg-warning {
@@ -561,11 +562,11 @@
   }
 
   #modalAlterarSenha .progress-bar.bg-success {
-    background-color: #2e7d32 !important;
+    background-color: var(--color-green) !important;
   }
 
   #modalAlterarSenha .password-feedback.weak {
-    color: #b71c1c;
+    color: var(--color-red);
   }
 
   #modalAlterarSenha .password-feedback.medium {
@@ -573,7 +574,7 @@
   }
 
   #modalAlterarSenha .password-feedback.strong {
-    color: #2e7d32;
+    color: var(--color-green);
   }
 
   body.modal-open {

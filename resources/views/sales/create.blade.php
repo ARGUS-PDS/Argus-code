@@ -83,7 +83,7 @@
 .produto-destaque {
     border-radius: 8px;
     padding: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 6px var(--color-shadow);
 }
 
 .destaque-img {
@@ -254,7 +254,7 @@
 #finalizar:hover {
     color: var(--color-bege-claro);
     background-color: var(--color-vinho);
-    border: 2px solid var(--color-vinho);
+    border: 2px solid var(--color-bege-claro);
 }
 
 .table td button.btn-danger {
@@ -287,7 +287,7 @@
             <!-- Linha da imagem e nome -->
             <div class="d-flex align-items-center mb-2">
                 <!-- Imagem ou ícone -->
-                <div id="destaque-img-container" class="img-thumb d-flex align-items-center justify-content-center me-3" style="background: var(--color-bege-card-interno); width: 200px; height: 200px; border-radius: 8px; background: var(--color-vinho-fundo); margin-bottom: 25px;">
+                <div id="destaque-img-container" class="img-thumb d-flex align-items-center justify-content-center me-3" style="background: var(--color-bege-card-interno); width: 200px; height: 200px; border-radius: 8px; background: var(--color-vinho-fundo);">
                     <i class="bi bi-image" style="font-size: 60px; color: var(--color-bege-claro);"></i>
                 </div>
 
@@ -295,23 +295,9 @@
                 <h4 id="destaque-nome" class="fw-bold mb-0"></h4>
             </div>
 
-            <!-- Quantidade e valor abaixo da imagem -->
-            <div class="d-flex gap-2" id="destaque-valores">
-                <div>
-                    <label class="form-label">{{ __('pos.quantidade_abreviado') }}</label>
-                    <input type="number" id="destaque-quantidade" class="form-control" min="1" value="1">
-                </div>
-                <div>
-                    <label class="form-label">{{ __('pos.valor') }}</label>
-                    <input type="number" id="destaque-preco" class="form-control" min="0" step="0.01">
-                </div>
-            </div>
+            
         </div>
     </div>
-
-
-
-
 
     <!-- Coluna do meio: lista de produtos -->
     <div class="col produtos-col">
@@ -581,8 +567,6 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
 function atualizarDestaque() {
     const container = document.getElementById("destaque-img-container");
     const destaqueNome = document.getElementById("destaque-nome");
-    const destaqueQtd = document.getElementById("destaque-quantidade");
-    const destaquePreco = document.getElementById("destaque-preco");
     const destaqueValores = document.getElementById("destaque-valores");
 
     if (window.produtoEmDestaque) {
@@ -620,21 +604,6 @@ function atualizarDestaque() {
         destaqueValores.style.display = "none";
     }
 }
-
-
-document.getElementById('destaque-quantidade').addEventListener('change', e => {
-    if (window.produtoEmDestaque) {
-        window.produtoEmDestaque.quantity = parseInt(e.target.value);
-    }
-});
-
-document.getElementById('destaque-preco').addEventListener('change', e => {
-    if (window.produtoEmDestaque) {
-        window.produtoEmDestaque.unit_price = parseFloat(e.target.value);
-    }
-});
-
-
 document.getElementById('finalizar').addEventListener('click', () => {
     if (!pedidoAtual) {
         alert('{{ __('pos.alerta_nenhum_pedido') }}');

@@ -13,7 +13,7 @@
             <div style="color: white; font-size: 1.2rem; text-align: center;">
                 <div class="loader" style="
                     border: 8px solid var(--bs-alert-bg-danger);
-                    border-top: 8px solid var(--color-vinho);
+                    border-top: 8px solid #773138;
                     border-radius: 50%;
                     width: 60px;
                     height: 60px;

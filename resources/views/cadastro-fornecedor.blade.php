@@ -19,7 +19,7 @@
     .card-custom {
         background-color: var(--color-bege-card-interno);
         border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 4px 8px var(--color-shadow);
         padding: 2rem;
     }
 
@@ -52,7 +52,7 @@
 
     .form-control:focus, .form-select:focus {
         border-color: var(--color-vinho);
-        box-shadow: 0 0 0 0.25rem rgba(119, 49, 56, 0.25);
+        box-shadow: 0 4px 8px var(--color-shadow);
     }
 
     .btn-primary {

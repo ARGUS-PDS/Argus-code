@@ -25,7 +25,7 @@
             /* Mais arredondado */
             padding: 35px 40px;
             /* Mais padding */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 25px var(--color-shadow);
             /* Sombra mais pronunciada e suave */
             margin: 40px auto;
             max-width: 960px;
@@ -146,7 +146,7 @@
             border: 3px solid var(--color-vinho);
             /* Borda mais espessa */
             padding: 3px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px var(--color-shadow);
         }
 
         .image-placeholder-text {
@@ -162,7 +162,7 @@
             border: 1px solid var(--color-gray-claro);
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 12px var(--color-shadow);
             /* Sombra mais leve */
             margin-top: 25px;
             /* Espaçamento entre os cards */
@@ -221,7 +221,7 @@
             background-color: var(--color-white);
             top: 2px;
             left: 2px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 3px var(--color-white);
             transition: transform 0.3s;
         }
 
@@ -257,7 +257,7 @@
             .container-card {
                 margin: 20px;
                 padding: 25px;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 5px 15px var(--color-shadow);
             }
 
             .header-section {
@@ -351,11 +351,11 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #773138;
-    color: #f8f0e5;
+    background-color: var(--color-vinho);
+    color: var(--color-bege-claro);
     padding: 12px 18px;
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px var(--color-shadow);
     display: none;
     z-index: 9999;
 ">

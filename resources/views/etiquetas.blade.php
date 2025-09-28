@@ -11,7 +11,7 @@
     background-color: var(--color-bege-card-interno);
     border-radius: 18px;
     padding: 35px 40px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 25px var(--color-shadow);
     border: 1px solid var(--color-gray-claro);
     margin-top: 40px;
     margin-bottom: 80px;
@@ -45,7 +45,7 @@
     background-color: var(--color-vinho);
     border: 1px solid var(--color-vinho-fundo);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px var(--color-shadow);
     padding: 25px;
     margin-bottom: 25px;
 }
@@ -116,7 +116,7 @@
 
 
 .action-buttons .btn-outline-danger {
-    background-color: var(--color-bege-claro);
+    background-color: transparent;
     border: 2px solid var(--color-vinho);
     color: var(--color-vinho);
     transition: all 0.3s ease;
@@ -135,6 +135,7 @@
 .action-buttons .btn-success {
     background-color: var(--color-vinho);
     border: 2px solid var(--color-vinho);
+    color: var(--color-bege-card-interno);
     border-radius: 10px;
     transition: all 0.3s ease;
 }
@@ -142,7 +143,7 @@
 
 .action-buttons .btn-success:hover {
     background-color: var(--color-bege-claro);
-    color: var(--color-bege-color);
+    color: var(--color-vinho);
     border: 2px solid var(--color-vinho);
     transform: translateY(-2px);
 }
@@ -163,7 +164,7 @@
     border-radius: 8px;
     padding: 15px;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px var(--color-shadow);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -175,7 +176,7 @@
 
 .etiqueta:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    box-shadow: 0 4px 12px var(--color-shadow);
 }
 
 

@@ -68,8 +68,8 @@
   --color-shadow:rgba(255, 255, 255, 0.1);
 
 
-  --color-green: #198754;
-  --color-blue: #0d6efd;
-  --color-red: #dc3545;
+  --color-green:rgb(72, 223, 152);
+  --color-blue:rgb(71, 145, 255);
+  --color-red:rgb(255, 97, 113);
 }
 </style>

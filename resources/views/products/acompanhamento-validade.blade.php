@@ -9,7 +9,7 @@
 }
 
 h2 {
-    color: #773138;
+    color: var(--color-vinho);
     font-weight: bold;
     margin-bottom: 15px;
 }
@@ -19,12 +19,12 @@ h2 {
     border: 1px solid #ccc;
 }
 #buscarBtn {
-    background-color: #773138;
-    color: #f8f0e5;
+    background-color:var(--color-vinho);
+    color:var(--color-bege-claro);
     border: none;
 }
 #buscarBtn:hover {
-    background-color: #77313880;
+    background-color: var(--color-vinho);
 }
 
 .table-bordered {
@@ -32,15 +32,15 @@ h2 {
     overflow: hidden;
 }
 .table-bordered th {
-    background-color: #773138;
-    color: #f8f0e5;
+    background-color: var(--color-vinho);
+    color: var(--color-bege-claro);
     border: none;
 }
 .table-bordered td {
     border-top: 1px solid #ddd;
 }
 .table-bordered tbody tr:hover {
-    background-color: rgba(119, 49, 56, 0.1);
+    background-color: var(--color-shadow);
 }
 
 /* Modal */
@@ -48,8 +48,8 @@ h2 {
     border-radius: 12px;
 }
 #modalProdutos .modal-header {
-    background-color: #773138;
-    color: #f8f0e5;
+    background-color: var(--color-vinho);
+    color: var(--color-bege-claro);
     border-bottom: none;
 }
 #modalProdutos .btn-close {
@@ -60,11 +60,11 @@ h2 {
     overflow: hidden;
 }
 #modalProdutos table th {
-    background-color: #773138;
-    color: #f8f0e5;
+    background-color: var(--color-vinho);
+    color: var(--color-bege-claro);
 }
 #modalProdutos table tbody tr:hover {
-    background-color: rgba(119, 49, 56, 0.1);
+    background-color: var(--color-shadow);
     cursor: pointer;
 }
 </style>
