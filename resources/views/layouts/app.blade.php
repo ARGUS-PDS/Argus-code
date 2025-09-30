@@ -25,7 +25,14 @@
     z-index: 1070;
   }
 
+  .navbar-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .navbar-logo{
+    background: var(--color-vinho);
     box-shadow: 0 10px 25px var(--color-shadow);
   }
 
@@ -633,7 +640,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark navbar-logo">
     <div class="container-fluid">
       <a class="navbar-brand" href="/dashboard" onclick="mostrarTelaCarregando()">
-        <img src="{{ asset('images/logo.png') }}" alt="{{ __('menu.argus') }}">
+        <img src="{{ asset('images/favicon-dark.png') }}" alt="{{ __('menu.argus') }}">
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

@@ -12,6 +12,7 @@
         color: var(--color-bege-claro);
         font-size: 14px;
         margin-left: 5px;
+        cursor: pointer;
     }
 
 </style>

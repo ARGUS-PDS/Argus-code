@@ -5,7 +5,7 @@ body {
 
 .navbar {
     background-color: var(--color-bege-claro);
-    padding: 0.5rem 0 0.5rem 2rem;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
     box-shadow: 0 3px 8px rgba(119, 49, 56, 0.5);
     transform: translateY(-10px);
     border-radius: 15px;
@@ -15,11 +15,13 @@ body {
 
 .navbar-brand {
     margin-right: 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .navbar-brand img {
     height: 40px;
-    margin-left: 10px;
 }
 
 .navbar-collapse {
