@@ -122,27 +122,33 @@ document.addEventListener('DOMContentLoaded', function () {
   
 
   //variáveis CSS
-  // pega as cores do CSS
-const rootStyles = getComputedStyle(document.documentElement);
+  // Função para obter as cores baseadas no modo atual
+function getChartColors() {
+  const rootStyles = getComputedStyle(document.documentElement);
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  
+  let vinho, vinhoFundo, begeClaro, begeClaroFundo, branco;
 
-// verifica se está no modo escuro
-const isDarkMode = document.body.classList.contains('dark-mode'); // ou outra lógica que você use
-
-let vinho, vinhoFundo, begeClaro, begeClaroFundo, branco;
-
-if (isDarkMode) {
-  vinho = rootStyles.getPropertyValue('--color-bege-claro').trim();
-  vinhoFundo = rootStyles.getPropertyValue('--color-bege-claro-fundo').trim();
-  begeClaro = rootStyles.getPropertyValue('--color-vinho').trim();
-  begeClaroFundo = rootStyles.getPropertyValue('--color-vinho-fundo').trim();
-  branco = rootStyles.getPropertyValue('--color-black').trim();
-} else {
-  vinho = rootStyles.getPropertyValue('--color-vinho').trim();
-  vinhoFundo = rootStyles.getPropertyValue('--color-vinho-fundo').trim();
-  begeClaro = rootStyles.getPropertyValue('--color-bege-claro').trim();
-  begeClaroFundo = rootStyles.getPropertyValue('--color-bege-claro-fundo').trim();
-  branco = rootStyles.getPropertyValue('--color-white').trim();
+  if (isDarkMode) {
+    vinho = rootStyles.getPropertyValue('--color-bege-claro').trim();
+    vinhoFundo = rootStyles.getPropertyValue('--color-bege-claro-fundo').trim();
+    begeClaro = rootStyles.getPropertyValue('--color-vinho').trim();
+    begeClaroFundo = rootStyles.getPropertyValue('--color-vinho-fundo').trim();
+    branco = rootStyles.getPropertyValue('--color-black').trim();
+  } else {
+    vinho = rootStyles.getPropertyValue('--color-vinho').trim();
+    vinhoFundo = rootStyles.getPropertyValue('--color-vinho-fundo').trim();
+    begeClaro = rootStyles.getPropertyValue('--color-bege-claro').trim();
+    begeClaroFundo = rootStyles.getPropertyValue('--color-bege-claro-fundo').trim();
+    branco = rootStyles.getPropertyValue('--color-white').trim();
+  }
+  
+  return { vinho, vinhoFundo, begeClaro, begeClaroFundo, branco };
 }
+
+// Obtém as cores iniciais
+const colors = getChartColors();
+let { vinho, vinhoFundo, begeClaro, begeClaroFundo, branco } = colors;
 
 
   // cria o gráfico vazio logo no início
@@ -159,7 +165,7 @@ if (isDarkMode) {
         tension: 0.4,
         fill: true,
         pointBackgroundColor: vinho,
-        pointBorderColor: branco,
+        pointBorderColor: begeClaro,
         pointRadius: 8,
         pointHoverRadius: 10,
         pointBorderWidth: 3,
@@ -357,6 +363,50 @@ if (isDarkMode) {
     return labels[periodo] || periodo;
   }
   carregarDados('mes');
+  
+  // Função para atualizar as cores do gráfico
+  function updateChartColors() {
+    const newColors = getChartColors();
+    
+    // Atualiza as variáveis globais
+    vinho = newColors.vinho;
+    vinhoFundo = newColors.vinhoFundo;
+    begeClaro = newColors.begeClaro;
+    begeClaroFundo = newColors.begeClaroFundo;
+    branco = newColors.branco;
+    
+    // Atualiza as cores do gráfico
+    if (vendasTempoChart) {
+      vendasTempoChart.data.datasets[0].borderColor = vinho;
+      vendasTempoChart.data.datasets[0].backgroundColor = vinhoFundo;
+      vendasTempoChart.data.datasets[0].pointBackgroundColor = vinho;
+      vendasTempoChart.data.datasets[0].pointBorderColor = begeClaro;
+      vendasTempoChart.options.plugins.tooltip.backgroundColor = begeClaro;
+      vendasTempoChart.options.plugins.tooltip.titleColor = vinho;
+      vendasTempoChart.options.plugins.tooltip.bodyColor = vinho;
+      vendasTempoChart.options.plugins.tooltip.borderColor = begeClaroFundo;
+      vendasTempoChart.options.scales.x.ticks.color = vinho;
+      vendasTempoChart.options.scales.y.ticks.color = vinho;
+      vendasTempoChart.options.scales.x.grid.color = begeClaroFundo;
+      vendasTempoChart.options.scales.y.grid.color = begeClaroFundo;
+      vendasTempoChart.update();
+    }
+  }
+  
+  // Listener para mudanças no dark mode
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        updateChartColors();
+      }
+    });
+  });
+  
+  // Observa mudanças na classe do body
+  observer.observe(document.body, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
   
   // clique nos botões
   document.querySelectorAll('.grafico-btn').forEach(btn => {

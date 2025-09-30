@@ -71,5 +71,43 @@
   --color-green:rgb(72, 223, 152);
   --color-blue:rgb(71, 145, 255);
   --color-red:rgb(255, 97, 113);
+
+  /* Manter inputs com cores claras no dark mode */
+  --bs-body-bg: #ffffff;
+  --bs-body-color: #000000;
+  --bs-border-color: #ced4da;
+}
+
+/* Estilos específicos para inputs no dark mode - excluindo barra de pesquisa */
+.dark-mode .form-control:not(.search-bar input),
+.dark-mode .form-select,
+.dark-mode input[type="text"]:not(.search-bar input),
+.dark-mode input[type="number"],
+.dark-mode input[type="email"],
+.dark-mode input[type="password"],
+.dark-mode input[type="tel"],
+.dark-mode input[type="date"],
+.dark-mode textarea,
+.dark-mode select {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #ced4da !important;
+}
+
+.dark-mode .form-control:focus:not(.search-bar input),
+.dark-mode .form-select:focus,
+.dark-mode input:focus:not(.search-bar input),
+.dark-mode textarea:focus,
+.dark-mode select:focus {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #773138 !important;
+  box-shadow: 0 0 0 0.2rem rgba(119, 49, 56, 0.25) !important;
+}
+
+.dark-mode .form-control::placeholder:not(.search-bar input),
+.dark-mode input::placeholder:not(.search-bar input),
+.dark-mode textarea::placeholder {
+  color: #6c757d !important;
 }
 </style>

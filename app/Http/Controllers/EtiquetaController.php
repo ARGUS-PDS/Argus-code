@@ -70,7 +70,7 @@ class EtiquetaController extends Controller
             ->withCookie(cookie('etiquetas', json_encode($etiquetas), 60));
     }
 
-    return redirect('/')->with('error', 'Produto não encontrado.');
+    return redirect('/etiquetas')->with('error', 'Produto não encontrado.');
 }
 
 

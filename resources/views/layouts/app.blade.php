@@ -205,6 +205,27 @@
     transform: translateY(-2px);
   }
 
+  .profile-edit-icon-large {
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-bege-claro);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: all 0.2s ease;
+  }
+
+  .profile-edit-icon-large i {
+    color: var(--color-vinho);
+    font-size: 12px;
+    line-height: 1;
+  }
+
   #modalAlterarSenha {
     z-index: 1060;
   }
@@ -640,7 +661,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark navbar-logo">
     <div class="container-fluid">
       <a class="navbar-brand" href="/dashboard" onclick="mostrarTelaCarregando()">
-        <img src="{{ asset('images/favicon-dark.png') }}" alt="{{ __('menu.argus') }}">
+        <img id="navbar-logo" src="{{ asset('images/favicon-dark.png') }}" alt="{{ __('menu.argus') }}">
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -692,7 +713,12 @@
                 <input type="file" name="profile_photo_url" id="profilePicInput" accept="image/*" style="display:none" onchange="document.getElementById('profilePicForm').submit(); mostrarTelaCarregando();">
                 <label for="profilePicInput" style="cursor:pointer; display:inline-block; margin-top: 12px;">
                   @if(Auth::user() && Auth::user()->profile_photo_url)
-                  <img id="profilePicImg" src="{{ Auth::user()->profile_photo_url }}" alt="{{ __('menu.foto_perfil') }}" class="profile-pic-avatar">
+                  <div class="profile-pic-container-large" style="position: relative; display: inline-block;">
+                    <img id="profilePicImg" src="{{ Auth::user()->profile_photo_url }}" alt="{{ __('menu.foto_perfil') }}" class="profile-pic-avatar">
+                    <div class="profile-edit-icon-large">
+                      <i class="bi bi-pencil-fill"></i>
+                    </div>
+                  </div>
                   @else
                   <span id="profilePicImg" class="profile-pic-avatar d-flex align-items-center justify-content-center">
                     <i class="bi bi-person-circle"></i>
@@ -845,20 +871,35 @@
 
   <script>
   function toggleDarkMode(checkbox) {
+    const logo = document.getElementById('navbar-logo');
+    
     if (checkbox.checked) {
       document.body.classList.add('dark-mode');
       localStorage.setItem('darkMode', 'true');
+      // No dark mode, usar favicon-light
+      logo.src = "{{ asset('images/favicon-light.png') }}";
     } else {
       document.body.classList.remove('dark-mode');
       localStorage.setItem('darkMode', 'false');
+      // No light mode, usar favicon-dark
+      logo.src = "{{ asset('images/favicon-dark.png') }}";
     }
   }
 
   window.addEventListener('DOMContentLoaded', () => {
     const darkMode = localStorage.getItem('darkMode') === 'true';
     const toggle = document.getElementById('darkModeToggle');
+    const logo = document.getElementById('navbar-logo');
+    
     toggle.checked = darkMode;
     toggleDarkMode(toggle);
+    
+    // Garantir que a logo esteja correta na inicialização
+    if (darkMode) {
+      logo.src = "{{ asset('images/favicon-light.png') }}";
+    } else {
+      logo.src = "{{ asset('images/favicon-dark.png') }}";
+    }
   });
   </script>
 

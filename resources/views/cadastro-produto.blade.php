@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-@include('layouts.css-variables')
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ isset($product) ? 'Editar Produto' : 'Cadastrar Produto' }}</title>
-    <link rel="icon" href="{{ asset('images/favicon-light.png') }}" media="(prefers-color-scheme: light)" type="image/png">
-    <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+@section('title', isset($product) ? 'Editar Produto' : 'Cadastrar Produto')
 
-    <style>
+@section('styles')
+<style>
         body {
             background-color: var(--color-bege-claro);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -42,9 +34,6 @@
             margin-bottom: 30px;
             /* Mais espaçamento */
             padding-bottom: 15px;
-            /* Espaço antes da linha divisória */
-            border-bottom: 1px solid var(--color-gray-claro);
-            /* Linha divisória suave */
             flex-wrap: wrap;
         }
 
@@ -106,12 +95,13 @@
 
         /* Estilos específicos para o upload de imagem */
         .image-upload-container {
-            border: 2px dashed var(--color-gray-medio);
+            border: 2px dashed #aaa;
             /* Borda tracejada mais visível */
             border-radius: 12px;
             padding: 20px;
             /* Mais padding */
-            background-color: var(--color-white);
+            background-color: #ffffff;
+            /* Fundo branco fixo - não muda no dark mode */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -123,13 +113,13 @@
         }
 
         .image-upload-container:hover {
-            border-color: var(--color-vinho);
+            border-color: #773138;
             /* Destaca no hover */
         }
 
         .image-upload-container .form-label {
             font-weight: bold;
-            color: var(--color-vinho);
+            color: #773138;
         }
 
         .image-preview-area {
@@ -150,19 +140,19 @@
         }
 
         .image-placeholder-text {
-            color: var(--color-gray-escuro);
+            color: #202132;
             font-size: 0.9rem;
             margin-top: 10px;
         }
 
         .additional-info-card,
         .stock-card {
-            background-color: var(--color-white);
-            /* Fundo branco dentro dos cards */
-            border: 1px solid var(--color-gray-claro);
+            background-color: #ffffff;
+            /* Fundo branco fixo - não muda no dark mode */
+            border: 1px solid #f8f9fa;
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 4px 12px var(--color-shadow);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             /* Sombra mais leve */
             margin-top: 25px;
             /* Espaçamento entre os cards */
@@ -173,18 +163,20 @@
             font-size: 1.3rem;
             /* Títulos menores dentro dos cards */
             margin-bottom: 15px;
-            border-bottom: 1px solid var(--color-gray-claro);
+            border-bottom: 1px solid #f8f9fa;
             padding-bottom: 8px;
+            color: #773138;
         }
 
         .additional-info-card .form-label,
         .stock-card .form-label {
             font-size: 0.9rem;
             font-weight: 500;
+            color: #202132;
         }
 
-        /* Estilo para o toggle de Situação */
-        .toggle-switch {
+        /* Estilo para o toggle de Situação do produto */
+        .product-toggle-switch {
             display: flex;
             align-items: center;
             gap: 12px;
@@ -192,14 +184,14 @@
             cursor: pointer;
         }
 
-        .toggle-switch input[type="checkbox"] {
+        .product-toggle-switch input[type="checkbox"] {
             position: absolute;
             opacity: 0;
             width: 0;
             height: 0;
         }
 
-        .toggle-switch .slider {
+        .product-toggle-switch .slider {
             width: 50px;
             /* Slider maior */
             height: 26px;
@@ -210,7 +202,7 @@
             transition: background-color 0.3s;
         }
 
-        .toggle-switch .slider:before {
+        .product-toggle-switch .slider:before {
             content: "";
             position: absolute;
             width: 22px;
@@ -225,23 +217,23 @@
             transition: transform 0.3s;
         }
 
-        .toggle-switch input:checked+.slider {
+        .product-toggle-switch input:checked+.slider {
             background-color: var(--color-green);
         }
 
-        .toggle-switch input:checked+.slider:before {
+        .product-toggle-switch input:checked+.slider:before {
             transform: translateX(24px);
             /* Posição do thumb maior */
         }
 
-        .toggle-switch .status-text {
+        .product-toggle-switch .status-text {
             font-weight: bold;
             color: var(--color-vinho);
             transition: color 0.3s;
             font-size: 1rem;
         }
 
-        .toggle-switch input:checked~.status-text {
+        .product-toggle-switch input:checked~.status-text {
             color: var(--color-green);
         }
 
@@ -290,12 +282,12 @@
                 max-height: 100px;
             }
 
-            .toggle-switch .slider {
+            .product-toggle-switch .slider {
                 width: 40px;
                 height: 20px;
             }
 
-            .toggle-switch .slider:before {
+            .product-toggle-switch .slider:before {
                 width: 16px;
                 height: 16px;
                 transform: translateX(20px);
@@ -344,9 +336,9 @@
             transform: translateY(-2px);
         }
     </style>
-</head>
+@endsection
 
-<body>
+@section('content')
     <div id="mandatoryAlert" style="
     position: fixed;
     bottom: 20px;
@@ -625,7 +617,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            const statusCheckbox = document.querySelector('.toggle-switch input[name="status"]');
+            const statusCheckbox = document.querySelector('.product-toggle-switch input[name="status"]');
             if (statusCheckbox) {
                 updateStatusText(statusCheckbox);
             }
@@ -665,7 +657,7 @@
                     }
 
                     // ---- Status toggle ----
-                    const statusCheckbox = document.querySelector('.toggle-switch input[name="status"]');
+                    const statusCheckbox = document.querySelector('.product-toggle-switch input[name="status"]');
                     if (statusCheckbox) updateStatusText(statusCheckbox);
 
                     // ---- Campos / imagem ----
@@ -785,9 +777,9 @@
                     }
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+@endsection
+
+@section('scripts')
     <script src="{{ asset('js/products-create-js/utils.js') }}"></script>
     <script src="{{ asset('js/products-create-js/image.js') }}"></script>
-</body>
-
-</html>
+@endsection
