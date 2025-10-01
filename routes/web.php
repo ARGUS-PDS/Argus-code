@@ -16,6 +16,7 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\BatchController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\ForcePortugueseLocale;
 
 // Página de login (GET)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -36,16 +37,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/admin-dashboard', function () {
     return view('admin.admin-dashboard');
-})->middleware('auth');
+})->middleware(['auth', ForcePortugueseLocale::class]);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('/dashboard/vendas', [AdminController::class, 'vendas'])->name('dashboard.vendas');
     Route::get('/admin-dashboard', function () {
         return view('admin.admin-dashboard');
-    });
-    Route::get('/admin/gerar-cartao', [AdminController::class, 'formGerarCartao'])->name('admin.cartao');
-    Route::post('/admin/gerar-cartao', [AdminController::class, 'gerarCartao'])->name('admin.gerarCartao');
+    })->middleware(ForcePortugueseLocale::class);
+    Route::get('/admin/gerar-cartao', [AdminController::class, 'formGerarCartao'])->name('admin.cartao')->middleware(ForcePortugueseLocale::class);
+    Route::post('/admin/gerar-cartao', [AdminController::class, 'gerarCartao'])->name('admin.gerarCartao')->middleware(ForcePortugueseLocale::class);
 });
 
 
@@ -146,15 +147,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/admin/dashboard', function () {
         return view('admin.admin-dashboard');
-    })->name('admin.dashboard');
+    })->name('admin.dashboard')->middleware(ForcePortugueseLocale::class);
 });
 
-
-
-
-
-
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', ForcePortugueseLocale::class])->group(function () {
     Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
     Route::get('/companies/create', [CompanyController::class, 'create'])->name('companies.create');
     Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
