@@ -9,10 +9,7 @@
     }
 
     .container-fluid.py-3 {
-        padding-top: 1.5rem !important;
-        padding-bottom: 1.5rem !important;
-        padding-left: 1.5rem !important;
-        padding-right: 1.5rem !important;
+        padding: 1.5rem !important;
     }
 
     h2 {
@@ -73,7 +70,8 @@
         border-bottom: none !important;
     }
 
-    .img-thumb, .img-placeholder {
+    .img-thumb,
+    .img-placeholder {
         width: 80px;
         height: 80px;
         border-radius: 12px;
