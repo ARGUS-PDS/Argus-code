@@ -335,6 +335,10 @@
         color: var(--color-vinho);
         transform: translateY(-2px);
     }
+
+    .obrigatorio{
+        cursor: pointer;
+    }
 </style>
 @endsection
 
@@ -414,28 +418,28 @@
             <div class="row g-4">
 
                 <div class="col-md-6 form-group">
-                    <label for="barcode" class="form-label">{{ __('product_register.barcode') }}</label>
+                    <label for="barcode" class="form-label">{{ __('product_register.barcode') }}<span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                     <input name="barcode" type="text" id="barcode" class="form-control" placeholder="{{ __('product_register.barcode_placeholder') }}" value="{{ isset($product) ? $product->barcode : '' }}" required maxlength="13" pattern="\d{8,13}">
                     <div class="invalid-feedback">O código de barras deve ter entre 8 e 13 números.</div>
                     <div class="valid-feedback">Código de barras válido!</div>
                 </div>
 
                 <div class="col-md-6 form-group">
-                    <label for="description" class="form-label">{{ __('product_register.name') }}</label>
+                    <label for="description" class="form-label">{{ __('product_register.name') }}<span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                     <input type="text" name="description" id="description" class="form-control" placeholder="{{ __('product_register.name_placeholder') }}" value="{{ isset($product) ? $product->description : '' }}" required maxlength="100" pattern="^(?!\d+$).{1,100}$" title="Não pode ser apenas números">
                     <div class="invalid-feedback">O nome não pode conter apenas números.</div>
                     <div class="valid-feedback">Nome válido!</div>
                 </div>
 
                 <div class="col-md-6 form-group">
-                    <label for="code" class="form-label">{{ __('product_register.description') }}</label>
+                    <label for="code" class="form-label">{{ __('product_register.description') }}<span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                     <input type="text" name="code" id="code" class="form-control" placeholder="{{ __('product_register.code_placeholder') }}" value="{{ isset($product) ? $product->code : '' }}" required maxlength="20">
                     <div class="invalid-feedback">O código é obrigatório.</div>
                     <div class="valid-feedback">Código válido!</div>
                 </div>
 
                 <div class="col-md-5 form-group">
-                    <label for="supplierId" class="form-label">{{ __('product_register.supplier') }}</label>
+                    <label for="supplierId" class="form-label">{{ __('product_register.supplier') }}<span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                     <select name="supplierId" id="supplierId" class="form-select" required>
                         <option value="">{{ __('product_register.select_supplier') }}</option>
                         @foreach ($suppliers as $supplier)
@@ -445,7 +449,7 @@
                 </div>
 
                 <div class="col-md-5 form-group">
-                    <label for="value" class="form-label">{{ __('product_register.sale_value') }}</label>
+                    <label for="value" class="form-label">{{ __('product_register.sale_value') }}<span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                     <input name="value" type="number" step="0.01" inputmode="decimal" class="form-control" placeholder="{{ __('product_register.value_placeholder') }}" value="{{ isset($product) ? $product->value : '' }}" min="0" max="999999.99" required>
                     <div class="invalid-feedback">O preço deve ser maior que zero.</div>
                     <div class="valid-feedback">Preço válido!</div>
@@ -480,13 +484,13 @@
                 <h4 class="section-title" style="margin-top: 0;">{{ __('product_register.stock') }}</h4>
                 <div class="row g-3">
                     <div class="col-md-6 form-group">
-                        <label for="currentStock" class="form-label">{{ __('product_register.current_stock') }}</label>
+                        <label for="currentStock" class="form-label">{{ __('product_register.current_stock') }}<span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <input name="currentStock" type="number" id="currentStock" class="form-control" placeholder="{{ __('product_register.current_stock_placeholder') }}" value="{{ isset($product) ? $product->currentStock : '' }}" min="0" max="999999" required>
                         <div class="invalid-feedback">Estoque deve ser igual ou maior que zero.</div>
                         <div class="valid-feedback">Estoque válido!</div>
                     </div>
                     <div class="col-md-6 form-group">
-                        <label for="minimumStock" class="form-label">{{ __('product_register.minimum_stock') }} <x-explanation title="Quantidade mínima do produto a ser mantida em estoque"></x-explanation></label>
+                        <label for="minimumStock" class="form-label">{{ __('product_register.minimum_stock') }} <span class="obrigatorio" title="Campo obrigatório"> *</span> <x-explanation title="Quantidade mínima do produto a ser mantida em estoque"></x-explanation></label>
                         <input name="minimumStock" type="number" id="minimumStock" class="form-control" placeholder="{{ __('product_register.minimum_stock_placeholder') }}" value="{{ isset($product) ? $product->minimumStock : '' }}" min="0" max="999999" required>
                         <div class="invalid-feedback">Estoque mínimo deve ser igual ou maior que zero.</div>
                         <div class="valid-feedback">Estoque mínimo válido!</div>
@@ -737,44 +741,30 @@
                     } catch (e) {}
                 }
 
+                // Detecta Enter no campo de código de barras
                 if (barcodeInput) {
-                    // Dispara consulta ao pressionar Enter (muitos leitores disparam Enter ao final)
-                    barcodeInput.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                            consultarProdutoCosmos(barcodeInput.value.trim());
-                        }
-                    });
-
-                    // Dispara ao sair do campo (para leitores que não enviam Enter)
-                    barcodeInput.addEventListener('blur', function() {
-                        const codigo = (barcodeInput.value || '').replace(/\D/g, '');
-                        if (codigo && codigo.length >= 6) {
-                            consultarProdutoCosmos(codigo);
-                        }
-                    });
-
-                    // Dispara após colar um valor
-                    barcodeInput.addEventListener('paste', function() {
-                        setTimeout(() => {
-                            const codigo = (barcodeInput.value || '').replace(/\D/g, '');
-                            if (codigo && codigo.length >= 6) {
-                                consultarProdutoCosmos(codigo);
-                            }
-                        }, 50);
-                    });
-
-                    // Dispara durante a digitação com debounce (para quem digita manualmente)
-                    let debounceTimer;
-                    barcodeInput.addEventListener('input', function() {
-                        clearTimeout(debounceTimer);
-                        const codigo = (barcodeInput.value || '').replace(/\D/g, '');
-                        if (!codigo || codigo.length < 6) return;
-                        debounceTimer = setTimeout(() => {
-                            consultarProdutoCosmos(codigo);
-                        }, 500);
-                    });
+                barcodeInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                    e.preventDefault();
+                    consultarProdutoCosmos(barcodeInput.value);
+                    }
+                });
                 }
+
+                // Botão “X” para remover imagem
+                if (removeBtn) {
+                removeBtn.addEventListener('click', function () {
+                    if (previewImg) {
+                    previewImg.src = '#';
+                    previewImg.classList.add('d-none');
+                    }
+                    if (placeholder) placeholder.classList.remove('d-none');
+                    removeBtn.style.display = 'none';
+                    document.getElementById('image_url').value = '';
+                    document.getElementById('remove_image').value = '1';
+                });
+                }
+                });
 </script>
 
 @endsection

@@ -29,6 +29,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      border-radius: 12px;
     }
 
     .navbar-logo {
@@ -649,7 +650,17 @@
         width: 100%;
       }
     }
-  </style>
+    
+    .navbar .container-fluid {
+      padding-right: 0 !important;
+      padding-top: 0 !important;
+    }
+
+    .navbar,
+    .navbar .container-fluid {
+      border-radius: 0 0 15px 15px !important;
+    }
+</style>
 
   @yield('styles')
 </head>
