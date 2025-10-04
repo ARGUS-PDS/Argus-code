@@ -139,7 +139,7 @@
         border-bottom: none !important;
     }
 
-    .bi-plus-circle-fill{
+    .bi-plus-circle-fill, .bi-dash-circle-fill{
         cursor: pointer;
     }
 
@@ -166,7 +166,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th style="width:40px"></th>
+                    <th></th>
                     <th>{{ __('suppliers.name') }}</th>
                     <th>{{ __('suppliers.code') }}</th>
                     <th>{{ __('suppliers.document') }}</th>
@@ -179,7 +179,7 @@
             <tbody>
                 @forelse ($suppliers as $supplier)
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td></td>
                     <td>{{ $supplier->name }}</td>
                     <td>{{ $supplier->code }}</td>
                     <td>{{ $supplier->document }}</td>
