@@ -166,65 +166,46 @@ h2 {
 }
 
 @media print {
-    body,
-    html {
+    /* Esconde tudo primeiro */
+    body * {
+        visibility: hidden;
+    }
+
+    /* Mostra apenas o container das etiquetas */
+    .container-card, .container-card * {
+        visibility: visible;
+    }
+
+    /* Faz o container ocupar a página inteira */
+    .container-card {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         margin: 0;
         padding: 0;
-        width: 210mm;
-        height: 297mm;
     }
 
-    form,
-    button,
-    h2,
-    a {
-        display: none !important;
-    }
-
-    .container {
-        width: 200mm !important;
-        margin: 0 auto !important;
-        padding: 0 !important;
-    }
-    .etiquetas {
-        display: flex !important;
-        flex-wrap: wrap !important;
+    /* Grid das etiquetas */
+    .etiquetas-grid, .etiquetas {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
         gap: 4mm !important;
-        width: 200mm !important;
         justify-content: center !important;
-        align-items: flex-start !important;
     }
+
     .etiqueta {
-        flex: 0 0 98mm !important;
-        max-width: 98mm !important;
-        height: 38mm !important;
-        margin: 0 !important;
-        box-sizing: border-box !important;
+        background-color: #fff !important;
+        color: #000 !important;
         border: 2px solid #000 !important;
+        box-shadow: none !important;
     }
 
-    .etiqueta h3 {
-        margin: 0 !important;
-        font-size: 16px !important;
-        word-wrap: break-word !important;
-    }
-
-    .preco-barcode {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-        margin-top: 5px !important;
-    }
-
-    .preco {
-        font-size: 40px !important;
-        font-weight: bold !important;
-        white-space: nowrap !important;
+    .etiqueta h3, .preco {
+        color: #000 !important;
     }
 
     .barcode img {
-        height: 22px !important;
-        max-width: 120px !important;
-        margin-left: 10px !important;
+        filter: none !important;
     }
 }

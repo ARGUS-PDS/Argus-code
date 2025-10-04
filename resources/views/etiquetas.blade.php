@@ -383,8 +383,8 @@
                     <div class="preco-barcode">
                         <div class="preco">R$ {{ number_format((float) $et['preco'], 2, ',', '.') }}</div>
                         <div class="barcode">
-                        <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($et['codigo'], 'C128', 2, 60, [248, 240, 229], true) }}" 
-                            alt="{{ __('labels.alt_codigo_barras') }} {{ $et['codigo'] }}" />
+                        <img src="data:image/png;base64,{{ DNS1D::getBarcodePNG($et['codigo'], 'C128', 2, 60, [0,0,0], true) }}" 
+                        alt="{{ __('labels.alt_codigo_barras') }} {{ $et['codigo'] }}" />
                         </div>
                     </div>
                 </div>

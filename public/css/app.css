@@ -3,6 +3,12 @@ body {
     overflow-x: hidden;
 }
 
+@media print {
+    .navbar{
+        visibility: hidden;
+    }
+}
+
 .navbar {
     background-color: var(--color-bege-claro);
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
