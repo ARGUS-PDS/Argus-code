@@ -405,6 +405,7 @@ function apagarPedido(id) {
 
     if (!confirm(`{{ __('pos.confirmar_apagar_pedido') }}`.replace(':id', id))) return;
 
+    const pedidoRemovido = pedidos[index];
     pedidos.splice(index, 1);
 
     if (pedidoAtual && pedidoAtual.id === id) {
@@ -412,10 +413,20 @@ function apagarPedido(id) {
         pedidoAtual = aberto;
     }
 
+    if (pedidoRemovido.id === contadorPedidos - 1) {
+        contadorPedidos--;
+    }
+
+    if (pedidos.length === 0) {
+        novaVenda();
+        return;
+    }
+
     renderPedidos();
     renderCart();
     salvarPedidos();
 }
+
 
 function selecionarPedido(id) {
     const selecionado = pedidos.find(p => p.id === id);
