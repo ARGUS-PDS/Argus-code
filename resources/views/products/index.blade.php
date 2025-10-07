@@ -352,7 +352,7 @@
                             </div>
                             <div class="col-12">
                                 <label class="form-label">{{ __('products.brand') }}</label>
-                                <input type="text" class="form-control" name="brand" placeholder="Ex.: Nestlé" value="{{ request('brand') }}">
+                                <input type="text" class="form-control" name="brand" value="{{ request('brand') }}">
                             </div>
                             <div class="col-12">
                                 <label class="form-label">{{ __('products.supplier') }}</label>

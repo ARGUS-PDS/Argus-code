@@ -397,14 +397,18 @@
 
 @section('scripts')
 <script>
-    // Verificar se há um produto específico na URL para impressão automática
     document.addEventListener('DOMContentLoaded', function() {
         const urlParams = new URLSearchParams(window.location.search);
         const produto = urlParams.get('produto');
+        const produtos = urlParams.get('produtos');
         
-        // Se há um produto específico na URL, abrir impressão automaticamente
         if (produto && document.querySelector('.etiqueta')) {
-            // Aguardar um momento para garantir que a página carregou completamente
+            setTimeout(function() {
+                window.print();
+            }, 500);
+        }
+
+        if (produtos && document.querySelector('.etiqueta')) {
             setTimeout(function() {
                 window.print();
             }, 500);
