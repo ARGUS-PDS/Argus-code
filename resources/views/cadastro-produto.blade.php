@@ -338,6 +338,7 @@
 
     .obrigatorio{
         cursor: pointer;
+        color: var(--color-red);
     }
 </style>
 @endsection

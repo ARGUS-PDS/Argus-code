@@ -660,6 +660,25 @@
     .navbar .container-fluid {
       border-radius: 0 0 15px 15px !important;
     }
+
+    .darkmode-btn {
+      background: var(--color-bege-claro-fundo);
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: var(--color-black);      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -15px;
+      width: 100%;
+      height: 100%;
+    }
+
+    .darkmode-btn:hover {
+      color: var(--color-bege-claro);
+      background: var(--color-vinho-fundo);
+    }
 </style>
 
   @yield('styles')
@@ -744,14 +763,6 @@
                 <span style="color: var(--color-bege-claro);">{{ __('menu.alterar_senha') }}</span>
               </a>
 
-              <div class="d-flex align-items-center gap-2 mt-3">
-                <span style="color: var(--color-bege-claro); font-size: 1.1rem;">{{ __('menu.darkmode')}}</span>
-                <label class="toggle-switch mb-0">
-                  <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode(this)">
-                  <span class="slider"></span>
-                </label>
-              </div>
-
               <form id="logout-form" action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button type="submit" class="logout-container mt-3">
@@ -761,6 +772,13 @@
               </form>
             </div>
           </div>
+
+          <div class="d-flex align-items-center gap-2 mt-3">
+              <button id="darkModeToggle" class="btn darkmode-btn" onchange="toggleDarkMode(this)">
+                <i title="{{ __('menu.darkmode') }}" class="bi bi-moon-fill" id="darkModeToggleIcon"></i>
+              </button>
+          </div>
+
           <div class="d-flex gap-2 align-items-center">
             @php $current = app()->getLocale(); @endphp
 
@@ -881,32 +899,26 @@
   <script src="{{ asset('js/app-js/password.js') }}"></script>
 
   <script>
-    function toggleDarkMode(checkbox) {
-      const logo = document.getElementById('navbar-logo');
+    
+    const toggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+    const logo = document.getElementById('navbar-logo');
 
-      if (checkbox.checked) {
-        document.body.classList.add('dark-mode');
-        localStorage.setItem('darkMode', 'true');
-        // No dark mode, usar favicon-light
-        logo.src = "{{ asset('images/favicon-light.png') }}";
-      } else {
-        document.body.classList.remove('dark-mode');
-        localStorage.setItem('darkMode', 'false');
-        // No light mode, usar favicon-dark
-        logo.src = "{{ asset('images/favicon-dark.png') }}";
-      }
+    // Carrega o modo salvo (se existir)
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+      toggle.innerHTML = '<i class="bi bi-sun-fill" id="darkModeToggleIcon"></i>';
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      const darkMode = localStorage.getItem('darkMode') === 'true';
-      const toggle = document.getElementById('darkModeToggle');
-      const logo = document.getElementById('navbar-logo');
+    toggle.addEventListener('click', () => {
+      const isDark = body.classList.toggle('dark-mode');
+      toggle.innerHTML = isDark 
+        ? '<i class="bi bi-sun-fill" id="darkModeToggleIcon"></i>' 
+        : '<i class="bi bi-moon-fill"></i>';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
-      toggle.checked = darkMode;
-      toggleDarkMode(toggle);
 
-      // Garantir que a logo esteja correta na inicialização
-      if (darkMode) {
+      if (isDark) {
         logo.src = "{{ asset('images/favicon-light.png') }}";
       } else {
         logo.src = "{{ asset('images/favicon-dark.png') }}";

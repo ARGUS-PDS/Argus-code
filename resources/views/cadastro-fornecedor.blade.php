@@ -109,6 +109,11 @@
         color: var(--color-bege-claro) !important;
         border-color: var(--color-vinho) !important;
     }
+
+    .obrigatorio{
+        cursor: pointer;
+        color: var(--color-red);
+    }
 </style>
 @endsection
 
@@ -131,14 +136,14 @@
                 <legend>{{ __('suppliersregister.fieldset_initial_data') }}</legend>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="code" class="form-label">{{ __('suppliersregister.label_code') }} <span class="text-danger">*</span></label>
+                        <label for="code" class="form-label">{{ __('suppliersregister.label_code') }} <span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <input type="text" class="form-control" id="code" name="code" value="{{ old('code') }}" maxlength="20" required>
                         <div class="invalid-feedback">O código é obrigatório.</div>
                         <div class="valid-feedback">Código válido!</div>
                     </div>
 
                     <div class="col-md-2">
-                        <label for="type" class="form-label">{{ __('suppliersregister.label_person_type') }} <span class="text-danger">*</span></label>
+                        <label for="type" class="form-label">{{ __('suppliersregister.label_person_type') }}<span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <select id="type" name="type" class="form-select" required>
                             <option value="" selected disabled>{{ __('suppliersregister.option_select') }}</option>
                             <option value="FISICA" {{ old('type') == 'FISICA' ? 'selected' : '' }}>{{ __('suppliersregister.option_physical') }}</option>
@@ -149,7 +154,7 @@
                     </div>
 
                     <div class="col-md-4">
-                        <label id="label-doc" for="cpf_cnpj" class="form-label">{{ __('suppliersregister.label_document') }} <span class="text-danger">*</span></label>
+                        <label id="label-doc" for="cpf_cnpj" class="form-label">{{ __('suppliersregister.label_document') }} <span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <input type="text" class="form-control" id="cpf_cnpj" name="document" value="{{ old('document') }}" required>
                         <div class="invalid-feedback">Digite um CPF (11 dígitos) ou CNPJ (14 dígitos) válido.</div>
                         <div class="valid-feedback">Documento válido!</div>
@@ -158,7 +163,7 @@
 
                 <div class="row mb-3">
                     <div class="col-md-5">
-                        <label for="trade_name" class="form-label">{{ __('suppliersregister.label_trade_name') }} <span class="text-danger">*</span></label>
+                        <label for="trade_name" class="form-label">{{ __('suppliersregister.label_trade_name') }} <span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <input type="text" class="form-control" id="trade_name" name="name" value="{{ old('name') }}" maxlength="100" required>
                         <div class="invalid-feedback">Digite um fornecedor válido.</div>
                         <div class="valid-feedback">Fornecedor válido!</div>
@@ -178,7 +183,7 @@
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="zip_code" class="form-label">{{ __('suppliersregister.label_zip_code') }} <span class="text-danger">*</span></label>
+                        <label for="zip_code" class="form-label">{{ __('suppliersregister.label_zip_code') }} <span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <input type="text" class="form-control" id="zip_code" name="address[cep]" value="{{ old('address.cep') }}" required>
                         <div class="invalid-feedback">Digite um CEP válido com 8 dígitos.</div>
                         <div class="valid-feedback">CEP válido!</div>
@@ -187,33 +192,33 @@
 
                 <div class="row mb-3">
                     <div class="col-md-8">
-                        <label for="place" class="form-label">{{ __('suppliersregister.label_place') }} <span class="text-danger">*</span></label>
+                        <label for="place" class="form-label">{{ __('suppliersregister.label_place') }}<span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <input type="text" class="form-control" id="place" name="address[place]" value="{{ old('address.place') }}" required>
                         <div class="invalid-feedback">Digite um logradouro válido.</div>
                         <div class="valid-feedback">Logradouro válido!</div>
 
                     </div>
                     <div class="col-md-4">
-                        <label for="number" class="form-label">{{ __('suppliersregister.label_number') }} <span class="text-danger">*</span></label>
+                        <label for="number" class="form-label">{{ __('suppliersregister.label_number') }} <span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <input type="number" class="form-control" id="number" name="address[number]" value="{{ old('address.number') }}" required>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="neighborhood" class="form-label">{{ __('suppliersregister.label_neighborhood') }} <span class="text-danger">*</span></label>
+                        <label for="neighborhood" class="form-label">{{ __('suppliersregister.label_neighborhood') }} <span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <input type="text" class="form-control" id="neighborhood" name="address[neighborhood]" value="{{ old('address.neighborhood') }}" required>
                         <div class="invalid-feedback">Digite um bairro válido com apenas letras e espaços.</div>
                         <div class="valid-feedback">Bairro válido!</div>
                     </div>
                     <div class="col-md-4">
-                        <label for="city" class="form-label">{{ __('suppliersregister.label_city') }} <span class="text-danger">*</span></label>
+                        <label for="city" class="form-label">{{ __('suppliersregister.label_city') }} <span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <input type="text" class="form-control" id="city" name="address[city]" value="{{ old('address.city') }}" required>
                         <div class="invalid-feedback">Digite uma cidade válida com apenas letras e espaços.</div>
                         <div class="valid-feedback">Cidade válida!</div>
                     </div>
                     <div class="col-md-4">
-                        <label for="state" class="form-label">{{ __('suppliersregister.label_state') }} <span class="text-danger">*</span></label>
+                        <label for="state" class="form-label">{{ __('suppliersregister.label_state') }} <span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <select id="state" name="address[state]" class="form-select" required>
                             <option value="" selected disabled>{{ __('suppliersregister.option_select') }} </option>
                             <option value="AC" {{ old('address.state') == 'AC' ? 'selected' : '' }}>AC</option>
@@ -261,13 +266,13 @@
                         <div class="valid-feedback">Telefone válido!</div>                    
                     </div>
                     <div class="col-md-4">
-                        <label for="phone" class="form-label">{{ __('suppliersregister.label_phone') }} <span class="text-danger">*</span></label>
+                        <label for="phone" class="form-label">{{ __('suppliersregister.label_phone') }}<span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <input type="tel" class="form-control" id="phone" name="phone" value="{{ old('phone') }}" required>
                         <div class="invalid-feedback">Digite um número de telefone válido (com DDD).</div>
                         <div class="valid-feedback">Telefone válido!</div>
                     </div>
                     <div class="col-md-4">
-                        <label for="email" class="form-label">{{ __('suppliersregister.label_email') }} <span class="text-danger">*</span></label>
+                        <label for="email" class="form-label">{{ __('suppliersregister.label_email') }} <span class="obrigatorio" title="Campo obrigatório"> *</span></label>
                         <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
                         <div class="invalid-feedback">Digite um e-mail válido.</div>
                         <div class="valid-feedback">E-mail válido!</div>
