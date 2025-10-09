@@ -691,7 +691,7 @@
   <nav class="navbar navbar-expand-lg navbar-logo">
     <div class="container-fluid">
       <a class="navbar-brand" href="/dashboard" onclick="mostrarTelaCarregando()">
-        <img id="navbar-logo" src="{{ asset('images/favicon-dark.png') }}" alt="{{ __('menu.argus') }}">
+        <img id="navbar-logo" title="Dashboard" src="{{ asset('images/favicon-dark.png') }}" alt="{{ __('menu.argus') }}">
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
