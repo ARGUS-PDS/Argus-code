@@ -143,6 +143,91 @@
         cursor: pointer;
     }
 
+    .confirm-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--color-shadow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(3px);
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.25s ease, visibility 0.25s;
+        z-index: 1000;
+        }
+
+        .confirm-overlay.active {
+        visibility: visible;
+        opacity: 1;
+        }
+
+        .confirm-box {
+        background-color: var(--color-bege-claro);
+        border-radius: 14px;
+        padding: 1.8rem;
+        max-width: 360px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 8px 24px var(--color-shadow);
+        }
+
+        .confirm-title {
+        color: var(--color-vinho);
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 0.6rem;
+        }
+
+        .confirm-message {
+        color: var(--color-vinho-fundo);
+        margin-bottom: 1.5rem;
+        }
+
+        .confirm-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem;
+        }
+
+        .btn-cancelar,
+        .btn-confirmar {
+        padding: 0.5rem 1.3rem;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        }
+
+        .btn-cancelar {
+        background-color: var(--color-vinho);
+        color: var(--color-bege-claro);
+        border: 2px solid var(--color-vinho);
+        }
+
+        .btn-cancelar:hover {
+        background-color: var(--color-bege-claro);
+        color: var(--color-vinho);
+        border: 2px solid var(--color-vinho);
+        }
+
+        .btn-confirmar {
+        background-color: var(--color-bege-claro);
+        color: var(--color-vinho);
+        border: 2px solid var(--color-vinho);
+        }
+
+        .btn-confirmar:hover {
+        background-color: var(--color-vinho);
+        color: var(--color-bege-claro);
+        border: 2px solid var(--color-vinho);
+        }
+
+
 </style>
 @endsection
 
@@ -204,7 +289,7 @@
                                 <a class="dropdown-item" href="{{ route('suppliers.edit', $supplier->id) }}">{{ __('suppliers.edit') }}</a>
                             </li>
                             <li>
-                                <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" onsubmit="return confirm('{{ __('suppliers.confirm_delete') }}');">
+                                <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST" onsubmit="return confirmarExclusaoCustom(event, this);">
                                     @csrf
                                     @method('DELETE')
                                     <button class="dropdown-item text-danger" type="submit">{{ __('suppliers.delete') }}</button>
@@ -241,6 +326,36 @@
             </tbody>
         </table>
     </div>
+
+    <div id="confirmModal" class="confirm-overlay">
+        <div class="confirm-box">
+            <h3 class="confirm-title">Confirmar exclusão</h3>
+            <p class="confirm-message">Tem certeza que deseja excluir este fornecedor?</p>
+            <div class="confirm-buttons">
+            <button id="cancelDelete" class="btn-cancelar">Cancelar</button>
+            <button id="confirmDelete" class="btn-confirmar">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let formToDelete = null;
+
+        function confirmarExclusaoCustom(event, form) {
+            event.preventDefault();
+            formToDelete = form;
+            document.getElementById('confirmModal').classList.add('active');
+        }
+
+        document.getElementById('cancelDelete').addEventListener('click', () => {
+            document.getElementById('confirmModal').classList.remove('active');
+        });
+
+        document.getElementById('confirmDelete').addEventListener('click', () => {
+            if (formToDelete) formToDelete.submit();
+        });
+    </script>
+
     <x-paginacao :paginator="$suppliers" />
 </div>
 

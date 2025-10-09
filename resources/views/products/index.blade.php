@@ -326,6 +326,91 @@
             margin-left: 0;
         }
     }
+
+    .confirm-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--color-shadow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(3px);
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.25s ease, visibility 0.25s;
+        z-index: 1000;
+        }
+
+        .confirm-overlay.active {
+        visibility: visible;
+        opacity: 1;
+        }
+
+        .confirm-box {
+        background-color: var(--color-bege-claro);
+        border-radius: 14px;
+        padding: 1.8rem;
+        max-width: 360px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 8px 24px var(--color-shadow);
+        }
+
+        .confirm-title {
+        color: var(--color-vinho);
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 0.6rem;
+        }
+
+        .confirm-message {
+        color: var(--color-vinho-fundo);
+        margin-bottom: 1.5rem;
+        }
+
+        .confirm-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem;
+        }
+
+        .btn-cancelar,
+        .btn-confirmar {
+        padding: 0.5rem 1.3rem;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        }
+
+        .btn-cancelar {
+        background-color: var(--color-vinho);
+        color: var(--color-bege-claro);
+        border: 2px solid var(--color-vinho);
+        }
+
+        .btn-cancelar:hover {
+        background-color: var(--color-bege-claro);
+        color: var(--color-vinho);
+        border: 2px solid var(--color-vinho);
+        }
+
+        .btn-confirmar {
+        background-color: var(--color-bege-claro);
+        color: var(--color-vinho);
+        border: 2px solid var(--color-vinho);
+        }
+
+        .btn-confirmar:hover {
+        background-color: var(--color-vinho);
+        color: var(--color-bege-claro);
+        border: 2px solid var(--color-vinho);
+        }
+
 </style>
 @endsection
 
@@ -448,7 +533,7 @@
                                 <a class="dropdown-item" href="#" onclick="imprimirProduto({{ $product->id }}, '{{ $product->barcode }}'); return false;">{{ __('products.print') }}</a>
                             </li>
                             <li>
-                                <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('{{ __('products.confirm_delete') }}');">
+                                <form action="{{ route('products.destroy', $product->id) }}" method="POST" onsubmit="return confirmarExclusaoCustom(event, this);">
                                     @csrf
                                     @method('DELETE')
                                     <button class="dropdown-item text-danger" type="submit">{{ __('products.delete') }}</button>
@@ -465,6 +550,88 @@
             </tbody>
         </table>
     </div>
+
+    <div id="confirmModal" class="confirm-overlay">
+        <div class="confirm-box">
+            <h3 class="confirm-title">Confirmar exclusão</h3>
+            <p class="confirm-message">Tem certeza que deseja excluir este produto?</p>
+            <div class="confirm-buttons">
+            <button id="cancelDelete" class="btn-cancelar">Cancelar</button>
+            <button id="confirmDelete" class="btn-confirmar">Excluir</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let formToDelete = null;
+        let isMassDelete = false;
+        let isAvisoSemSelecao = false;
+
+        function confirmarExclusaoCustom(event, form) {
+            event.preventDefault();
+            formToDelete = form;
+            isMassDelete = false;
+            abrirModalConfirmacao('Tem certeza que deseja excluir este produto?', false);
+        }
+
+        function submitMassDelete() {
+            const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]:checked[data-id]');
+
+            if (checkboxes.length === 0) {
+                abrirModalConfirmacao('Selecione pelo menos um produto para excluir.', true);
+                isAvisoSemSelecao = true;
+                return;
+            }
+
+            const ids = Array.from(checkboxes).map(cb => cb.dataset.id);
+            document.getElementById('deleteIds').value = ids.join(',');
+
+            isMassDelete = true;
+            abrirModalConfirmacao(`Tem certeza que deseja excluir ${checkboxes.length} produto${checkboxes.length > 1 ? 's' : ''}?`, false);
+        }
+
+        function abrirModalConfirmacao(mensagem, aviso = false) {
+            const modal = document.getElementById('confirmModal');
+            const messageEl = document.querySelector('.confirm-message');
+            const btnConfirmar = document.getElementById('confirmDelete');
+            const btnCancelar = document.getElementById('cancelDelete');
+
+            messageEl.textContent = mensagem;
+            modal.classList.add('active');
+
+            if (aviso) {
+                btnConfirmar.style.display = 'none';
+                btnCancelar.textContent = 'Fechar';
+            } else {
+                btnConfirmar.style.display = '';
+                btnCancelar.textContent = 'Cancelar';
+            }
+        }
+
+        document.getElementById('cancelDelete').addEventListener('click', () => {
+            document.getElementById('confirmModal').classList.remove('active');
+            formToDelete = null;
+            isMassDelete = false;
+            isAvisoSemSelecao = false;
+        });
+
+        document.getElementById('confirmDelete').addEventListener('click', () => {
+            const modal = document.getElementById('confirmModal');
+            modal.classList.remove('active');
+
+            if (isMassDelete) {
+                document.getElementById('massDeleteForm').submit();
+            } else if (formToDelete) {
+                formToDelete.submit();
+            }
+
+            formToDelete = null;
+            isMassDelete = false;
+            isAvisoSemSelecao = false;
+        });
+    </script>
+
+
     <x-paginacao :paginator="$products" />
     {{-- Links de paginação --}}
 
@@ -586,64 +753,6 @@
         attachClearSelectionListener();
         attachSelectAllListener();
     });
-
-    function submitMassDelete() {
-        const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
-        const ids = Array.from(checkboxes)
-            .filter(cb => cb.checked && cb.dataset.id)
-            .map(cb => cb.dataset.id);
-
-        console.log('IDs selecionados:', ids);
-
-        if (ids.length === 0) {
-            alert('Selecione pelo menos um produto para excluir.');
-            return;
-        }
-
-        if (!confirm(`Tem certeza que deseja excluir ${ids.length} produto(s) selecionado(s)?`)) return;
-
-        mostrarTelaCarregando();
-
-        // Criar form data
-        const formData = new FormData();
-        formData.append('ids', ids.join(','));
-        formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
-
-        console.log('Enviando requisição para:', '/products/mass-delete');
-        console.log('IDs:', ids.join(','));
-
-        fetch('/products/mass-delete', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        }).then(res => {
-            console.log('Resposta recebida:', res.status);
-            return res.json().then(data => {
-                if (res.ok) {
-                    return data;
-                } else {
-                    throw new Error(data.error || `Erro HTTP: ${res.status}`);
-                }
-            });
-        }).then(data => {
-            console.log('Dados recebidos:', data);
-            alert(`Produtos excluídos com sucesso! (${data.deleted || ids.length} produto(s))`);
-            // Limpar seleção do localStorage
-            localStorage.removeItem('selectedProducts');
-            // Recarregar a página
-            window.location.reload();
-        }).catch(err => {
-            console.error('Erro:', err);
-            alert('Erro ao excluir os produtos: ' + err.message);
-        }).finally(() => {
-            esconderTelaCarregando();
-        });
-    }
-
-
 
     document.getElementById('clear-selection').addEventListener('click', function() {
         const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]');
