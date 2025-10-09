@@ -48,12 +48,12 @@ h2 {
     border-radius: 12px;
 }
 #modalProdutos .modal-header {
-    background-color: var(--color-vinho);
-    color: var(--color-bege-claro);
+    background-color: var(--color-bege-claro);
+    color: var(--color-vinho);
     border-bottom: none;
 }
 #modalProdutos .btn-close {
-    filter: invert(1);
+    color: var(--color-vinho);
 }
 #modalProdutos table {
     border-radius: 12px;
