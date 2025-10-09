@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'title' => 'Editar Fornecedor',
+    'initial_data' => 'Dados Iniciais',
+    'current_name' => 'Nome Atual',
+    'current_code' => 'Código Atual',
+    'current_distributor' => 'Distribuidora Atual',
+    'address' => 'Endereço',
+    'current_zip' => 'CEP Atual',
+    'current_street' => 'Logradouro Atual',
+    'current_number' => 'Número Atual',
+    'current_neighborhood' => 'Bairro Atual',
+    'current_city' => 'Cidade Atual',
+    'current_state' => 'Estado Atual',
+    'contact' => 'Contato',
+    'current_fixedphone' => 'Telefone Fixo Atual',
+    'current_mobile' => 'Celular Atual',
+    'current_email' => 'E-mail Atual',
+    'contact1_phone' => 'Contato 1 Telefone Atual',
+    'contact1_name' => 'Contato 1 Nome Atual',
+    'contact1_position' => 'Contato 1 Cargo Atual',
+    'contact2_phone' => 'Contato 2 Telefone Atual',
+    'contact2_name' => 'Contato 2 Nome Atual',
+    'contact2_position' => 'Contato 2 Cargo Atual',
+];

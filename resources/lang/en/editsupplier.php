@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'title' => 'Edit Supplier',
+    'initial_data' => 'Initial Data',
+    'current_name' => 'Current Name',
+    'current_code' => 'Current Code',
+    'current_distributor' => 'Current Distributor',
+    'address' => 'Address',
+    'current_zip' => 'Current ZIP Code',
+    'current_street' => 'Current Street',
+    'current_number' => 'Current Number',
+    'current_neighborhood' => 'Current Neighborhood',
+    'current_city' => 'Current City',
+    'current_state' => 'Current State',
+    'contact' => 'Contact',
+    'current_fixedphone' => 'Current Landline',
+    'current_mobile' => 'Current Mobile',
+    'current_email' => 'Current Email',
+    'contact1_phone' => 'Contact 1 Phone',
+    'contact1_name' => 'Contact 1 Name',
+    'contact1_position' => 'Contact 1 Position',
+    'contact2_phone' => 'Contact 2 Phone',
+    'contact2_name' => 'Contact 2 Name',
+    'contact2_position' => 'Contact 2 Position',
+];

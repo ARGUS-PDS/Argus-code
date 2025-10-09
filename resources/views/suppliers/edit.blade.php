@@ -106,7 +106,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h2 class="m-0">Editar Fornecedor</h2>
+    <h2 class="m-0">{{ __('editsupplier.title') }}</h2>
 
     {{-- Alerts de feedback --}}
     @if ($errors->any())
@@ -131,99 +131,99 @@
             @method('PUT')
 
             <fieldset class="mb-4">
-                <legend>Dados Iniciais</legend>
+                <legend>{{ __('editsupplier.initial_data') }}</legend>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="name" class="form-label">Nome Atual</label>
+                        <label for="name" class="form-label">{{ __('editsupplier.current_name') }}</label>
                         <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $supplier->name) }}" required>
                     </div>
                     <div class="col-md-4">
-                        <label for="code" class="form-label">Código Atual</label>
+                        <label for="code" class="form-label">{{ __('editsupplier.current_code') }}</label>
                         <input type="text" name="code" id="code" class="form-control" value="{{ old('code', $supplier->code) }}" required>
                     </div>
                     <div class="col-md-4">
-                        <label for="distributor" class="form-label">Distribuidora Atual</label>
+                        <label for="distributor" class="form-label">{{ __('editsupplier.current_distributor') }}</label>
                         <input type="text" name="distributor" id="distributor" class="form-control" value="{{ old('distributor', $supplier->distributor) }}" required>
                     </div>
                 </div>
             </fieldset>
 
             <fieldset class="mb-4">
-                <legend>Endereço</legend>
+                <legend>{{ __('editsupplier.address') }}</legend>
                 <div class="row mb-3">
                     <div class="col-md-3">
-                        <label for="zip_code" class="form-label">CEP Atual</label>
+                        <label for="zip_code" class="form-label">{{ __('editsupplier.current_zip') }}</label>
                         <input id="zip_code" type="text" name="address[cep]" class="form-control" value="{{ old('address.cep', optional($supplier->address ?? null)->cep) }}">
                     </div>
                     <div class="col-md-5">
-                        <label for="place" class="form-label">Logradouro Atual</label>
+                        <label for="place" class="form-label">{{ __('editsupplier.current_street') }}</label>
                         <input id="place" type="text" name="address[place]" class="form-control" value="{{ old('address.place', optional($supplier->address ?? null)->place) }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="number" class="form-label">Número Atual</label>
+                        <label for="number" class="form-label">{{ __('editsupplier.current_number') }}</label>
                         <input id="number" type="text" name="address[number]" class="form-control" value="{{ old('address.number', optional($supplier->address ?? null)->number) }}">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="neighborhood" class="form-label">Bairro Atual</label>
+                        <label for="neighborhood" class="form-label">{{ __('editsupplier.current_neighborhood') }}</label>
                         <input id="neighborhood" type="text" name="address[neighborhood]" class="form-control" value="{{ old('address.neighborhood', optional($supplier->address ?? null)->neighborhood) }}">
                     </div>
                     <div class="col-md-5">
-                        <label for="city" class="form-label">Cidade Atual</label>
+                        <label for="city" class="form-label">{{ __('editsupplier.current_city') }}</label>
                         <input id="city" type="text" name="address[city]" class="form-control" value="{{ old('address.city', optional($supplier->address ?? null)->city) }}">
                     </div>
                     <div class="col-md-3">
-                        <label for="state" class="form-label">Estado Atual</label>
+                        <label for="state" class="form-label">{{ __('editsupplier.current_state') }}</label>
                         <input id="state" type="text" name="address[state]" class="form-control" value="{{ old('address.state', optional($supplier->address ?? null)->state) }}">
                     </div>
                 </div>
             </fieldset>
 
             <fieldset class="mb-4">
-                <legend>Contato</legend>
+                <legend>{{ __('editsupplier.contact') }}</legend>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="fixedphone" class="form-label">Telefone Fixo Atual</label>
+                        <label for="fixedphone" class="form-label">{{ __('editsupplier.current_fixedphone') }}</label>
                         <input id="fixedphone" type="text" name="fixedphone" class="form-control" value="{{ old('fixedphone', $supplier->fixedphone) }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="phone" class="form-label">Celular Atual</label>
+                        <label for="phone" class="form-label">{{ __('editsupplier.current_mobile') }}</label>
                         <input id="phone" type="text" name="phone" class="form-control" value="{{ old('phone', $supplier->phone) }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="email" class="form-label">E-mail Atual</label>
+                        <label for="email" class="form-label">{{ __('editsupplier.current_email') }}</label>
                         <input id="email" type="email" name="email" class="form-control" value="{{ old('email', $supplier->email) }}">
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="contactNumber1" class="form-label">Contato 1 Telefone Atual</label>
+                        <label for="contactNumber1" class="form-label">{{ __('editsupplier.contact1_phone') }}</label>
                         <input id="contactNumber1" type="text" name="contactNumber1" class="form-control" value="{{ old('contactNumber1', $supplier->contactNumber1) }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="contactName1" class="form-label">Contato 1 Nome Atual</label>
+                        <label for="contactName1" class="form-label">{{ __('editsupplier.contact1_name') }}</label>
                         <input id="contactName1" type="text" name="contactName1" class="form-control" value="{{ old('contactName1', $supplier->contactName1) }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="contactPosition1" class="form-label">Contato 1 Cargo Atual</label>
+                        <label for="contactPosition1" class="form-label">{{ __('editsupplier.contact1_position') }}</label>
                         <input id="contactPosition1" type="text" name="contactPosition1" class="form-control" value="{{ old('contactPosition1', $supplier->contactPosition1) }}">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4">
-                        <label for="contactNumber2" class="form-label">Contato 2 Telefone Atual</label>
+                        <label for="contactNumber2" class="form-label">{{ __('editsupplier.contact2_phone') }}</label>
                         <input id="contactNumber2" type="text" name="contactNumber2" class="form-control" value="{{ old('contactNumber2', $supplier->contactNumber2) }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="contactName2" class="form-label">Contato 2 Nome Atual</label>
+                        <label for="contactName2" class="form-label">{{ __('editsupplier.contact2_name') }}</label>
                         <input id="contactName2" type="text" name="contactName2" class="form-control" value="{{ old('contactName2', $supplier->contactName2) }}">
                     </div>
                     <div class="col-md-4">
-                        <label for="contactPosition2" class="form-label">Contato 2 Cargo Atual</label>
+                        <label for="contactPosition2" class="form-label">{{ __('editsupplier.contact2_position') }}</label>
                         <input id="contactPosition2" type="text" name="contactPosition2" class="form-control" value="{{ old('contactPosition2', $supplier->contactPosition2) }}">
                     </div>
                 </div>
@@ -237,10 +237,16 @@
     </div>
 </div>
 
+
 {{-- Scripts JS no final do corpo para melhor performance --}}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+
 <script>
     $(document).ready(function() {
         // Máscaras para telefones (se aplicável, ajuste conforme o formato desejado)
