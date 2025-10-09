@@ -67,6 +67,12 @@ h2 {
     background-color: var(--color-shadow);
     cursor: pointer;
 }
+
+.modalSugestao{
+    margin-top: 50px;
+    padding-bottom: 50px;
+}
+
 </style>
 
 </style>
@@ -97,7 +103,7 @@ h2 {
     </table>
 </div>
 
-<div class="modal fade" id="modalProdutos" tabindex="-1" aria-labelledby="modalProdutosLabel" aria-hidden="true">
+<div class="modalSugestao modal fade" id="modalProdutos" tabindex="-1" aria-labelledby="modalProdutosLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
