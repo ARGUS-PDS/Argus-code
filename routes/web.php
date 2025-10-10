@@ -18,6 +18,11 @@ use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\ForcePortugueseLocale;
 
+
+Route::get('/', function () {
+    return view('landing');
+})->name('landing');
+
 // Página de login (GET)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 
@@ -28,8 +33,8 @@ Route::get('/', function () {
     if (Auth::check()) { // Verifica se está logado ou Remember Me válido
         return redirect()->route('dashboard');
     }
-    return redirect()->route('login');
-});
+    return view('landing');
+})->name('landing');
 
 
 Route::get('/home', [AuthController::class, 'redirectToDashboard'])->name('home');
