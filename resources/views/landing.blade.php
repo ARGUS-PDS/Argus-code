@@ -19,6 +19,7 @@
         body {
             background-color: var(--color-bege-claro);
             color: var(--color-vinho);
+            font-family: Arial, sans-serif;
         }
 
         header {
@@ -63,6 +64,12 @@
             border: 2px solid var(--color-bege-medio);
         }
 
+        .logo-text {
+            max-width: 700px;
+            margin: 0 auto 50px auto;
+            font-size: 20px;
+        }
+
         /* section de apresentacao */
 
         .presentition {
@@ -79,7 +86,6 @@
             gap: 60px;
             max-width: 1200px;
             width: 100%;
-            padding: 0 20px;
         }
 
         .presentition-left {
@@ -88,6 +94,13 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
+        }
+
+        .presentiation-text{
+            max-width: 700px;
+            margin: 0 auto 20px auto;
+            font-size: 25px;
+            text-align: justify;
         }
 
         .presentition-right {
@@ -118,13 +131,6 @@
             height: auto;
         }
 
-        .logo-text {
-            max-width: 700px;
-            margin: 0 auto 50px auto;
-            font-size: 20px;
-            text-align: justify;
-        }
-
         .topics {
             display: flex;
             justify-content: center;
@@ -146,9 +152,20 @@
             font-weight: bold;
         }
 
-        .btn-scroll {
-            display: inline-block; /* mudando de block para inline-block */
-            margin: 40px auto 0 auto;
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn-group .btn-scroll {
+            margin: 0;
+        }
+
+        .btn-scroll-plans {
+            margin: 0 auto 0 auto;
             background-color: var(--color-vinho);
             color: var(--color-bege-claro);
             border: 2px solid var(--color-vinho);
@@ -161,13 +178,31 @@
             text-align: center;
         }
 
-
-        .btn-scroll:hover {
-            background-color: var(--color-bege);
+        .btn-scroll-plans:hover {
+            background-color: var(--color-bege-claro);
             color: var(--color-vinho);
             border: 2px solid var(--color-vinho);
         }
 
+        .btn-scroll-start {
+            margin: 0 auto 0 auto;
+            background-color: var(--color-bege-claro);
+            color: var(--color-vinho);
+            border: 2px solid var(--color-vinho);
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 18px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn-scroll-start:hover {
+            background-color: var(--color-vinho);
+            color: var(--color-bege-claro);
+            border: 2px solid var(--color-vinho);
+        }
 
         /* section de planos */
 
@@ -196,7 +231,7 @@
 
         .plan-name {
             font-size: 30px;
-            font-weight: 700;
+            font-weight: bold;
             margin-bottom: 20px;
         }
 
@@ -268,17 +303,143 @@
             transform: scale(1.05);
         }
 
-        .member p {
-            margin-top: 10px;
-            font-weight: 500;
+        .team-title {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            margin-top: 25px;
             color: var(--color-vinho);
-        }        
-        </style>
+            justify-content: center;
+            text-align: center;
+        } 
+
+        /*section de como começar*/
+
+        .start {
+            background-color: var(--color-bege-claro);
+            color: var(--color-vinho);
+            padding: 40px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .start-container {
+            max-width: 700px;
+        }
+
+        .start-title {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: var(--color-vinho);
+        }
+
+        .start-steps {
+            list-style: decimal;
+            text-align: left;
+            margin: 0 auto 40px auto;
+            padding-left: 20px;
+            max-width: 500px;
+            font-size: 22px;
+            line-height: 1.6;
+        }
+
+        .start-steps li {
+            margin-bottom: 15px;
+        }
+
+        .btn-login-start {
+            background-color: var(--color-vinho);
+            color: var(--color-bege-claro);
+            border: 2px solid var(--color-vinho);
+            border-radius: 25px;
+            padding: 10px 22px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            font-size: 24px;
+        }
+
+        .btn-login-start:hover {
+            background-color: var(--color-bege-claro);
+            color: var(--color-vinho);
+            border: 2px solid var(--color-vinho);
+        }
+
+
+        /*section de como começar*/
+
+        .footer {
+            background-color: var(--color-vinho);
+            color: var(--color-bege-claro);
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 16px 16px 0 0;
+            box-shadow: 0 -2px 8px var(--color-shadow);
+            margin-top: 30px;
+        }
+
+        .footer-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .footer-contact {
+            font-size: 16px;
+        }
+
+        .footer-link {
+            color: var(--color-bege-claro);
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--color-bege-medio);
+        }
+
+        .side-panel {
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        background-color: var(--color-vinho-fundo);
+        padding: 10px 10px 10px 10px;
+        border-radius: 20px 0 0 20px;
+        box-shadow: 0 4px 12px var(--colo-shadow);
+        z-index: 100;
+    }
+
+    .panel-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+        color: var(--color-bege-claro);
+        transition: transform 0.2s ease, color 0.3s ease;
+    }
+
+    .flag {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        transition: transform 0.2s ease, border-color 0.3s ease;
+    }
+
+</style>
 </head>
 
 <body>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
     <header>
-        <img class="menu-logo" src="{{ asset('images/favicon-dark.png') }}" alt="{{ __('menu.argus') }}">
+        <img id="navbar-logo" class="menu-logo" src="{{ asset('images/favicon-dark.png') }}" alt="{{ __('menu.argus') }}">
         <a href="{{ route('login') }}" class="btn-login">Login</a>
     </header>
     
@@ -289,8 +450,8 @@
                 
                 <img src="{{ asset('images/logo2.png') }}" alt="Logo do projeto" class="logo2">
 
-                <p class="logo-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet justo non augue accumsan condimentum. Integer consequat, sapien eu suscipit ultricies, lorem sapien
+                <p class="presentiation-text">
+                    Pensado pra quem busca praticidade e eficiência, o sistema oferece uma gestão de estoque completa e intuitiva. Com ele, é possível acompanhar produtos, entradas, saídas e relatórios em tempo real, garantindo mais controle e menos preocupações. Um jeito simples de organizar seu negócio e manter tudo sob controle, sem complicações.
                 </p>
 
                 <div class="topics">
@@ -308,7 +469,10 @@
                     </div>
                 </div>
 
-                <a href="#plans" class="btn-scroll">Conheça o plano</a>
+                <div class="btn-group">
+                    <a href="#plans" class="btn-scroll-plans">Conheça o plano</a>
+                    <a href="#start" class="btn-scroll-start">Quero começar!</a>
+                </div>
             </div>
 
             <div class="presentition-right">
@@ -317,34 +481,30 @@
         </div>
     </section>
 
-
     <section class="argon">
-        <p class="logo-text">
-            <!--acho que poderia ter um textinho curto so pra apresentar a section ou coisa do tipo-->
-        </p>
+        <h2 class="team-title">Equipe Argon</h2>
 
         <div class="team">
             <div class="member">
-                <img src="{{ asset('images/Ana Maria.jpeg') }}">
+                <img title="Ana Maria Costa" src="{{ asset('images/Ana Maria.jpeg') }}">
             </div>
             <div class="member">
-                <img src="{{ asset('images/Felipe.jpeg') }}">
+                <img title="Felipe Witkowsky" src="{{ asset('images/Felipe.jpeg') }}">
             </div>
             <div class="member">
-                <img src="{{ asset('images/Gabriel.jpeg') }}">
+                <img title="Gabriel Luna" src="{{ asset('images/Gabriel.jpeg') }}">
             </div>
             <div class="member">
-                <img src="{{ asset('images/Gustavo.jpeg') }}">
+                <img title="Gustavo Emiliano" src="{{ asset('images/Gustavo.jpeg') }}">
             </div>
             <div class="member">
-                <img src="{{ asset('images/Isabela.jpg') }}">
+                <img title="Isabela Crestane" src="{{ asset('images/Isabela.jpg') }}">
             </div>
             <div class="member">
-                <img src="{{ asset('images/Brenda.jpg') }}">
+                <img title="Brenda Giron" src="{{ asset('images/Brenda.jpg') }}">
             </div>
         </div>
     </section>
-
 
     <section class="plans" id="plans">
         <div class="plans-container">
@@ -366,12 +526,76 @@
         </div>
     </section>
 
+    <section class="start" id="start">
+        <div class="start-container">
+            <h2 class="start-title">Comece agora!</h2>
+
+            <ol class="start-steps">
+                <li>Clique no botão <strong>“Login”</strong> no topo da página.</li>
+                <li>Selecione a opção <strong>“Registrar”</strong> caso ainda não tenha uma conta.</li>
+                <li>Preencha as informações solicitadas e entre em contato conosco para concluir o cadastro.</li>
+                <li>Pronto! Assim que sua conta for ativada, você já pode acessar o sistema normalmente.</li>
+            </ol>
+            <a href="{{ route('login') }}" class="btn-login-start">Login</a>
+        </div>
+    </section>
+
+    <div class="side-panel">
+        <button id="themeToggle" class="panel-btn" onchange="toggleDarkMode(this)">
+            <i class="bi bi-moon-fill"></i>
+        </button>
+
+        <button id="langToggle" class="panel-btn">
+            <img id="flagIcon" class="flag" src="{{ asset('images/brazil.png') }}" alt="BR">
+        </button>
+    </div>
     
-    <footer>
-        <!--seria legal colocar algum contato ou coisa do tipo-->
-        <p class="logo-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sit amet justo non augue accumsan condimentum. Integer consequat, sapien eu suscipit ultricies, lorem sapien
-        </p>
+    <footer class="footer">
+        <div class="footer-container">
+            <p class="footer-text">
+                © 2025 <strong>Equipe Argon</strong> — Todos os direitos reservados.
+            </p>
+            <p class="footer-contact">
+                Contato: <a href="mailto:contato@argon.com" class="footer-link">contato@argon.com</a>
+            </p>
+        </div>
     </footer>
+
+    <script>
+        const themeBtn = document.getElementById('themeToggle');
+        const langBtn = document.getElementById('langToggle');
+        const flagIcon = document.getElementById('flagIcon');
+        const body = document.body;
+        const logo = document.getElementById('navbar-logo');
+
+        let darkMode = localStorage.getItem('theme') === 'dark';
+        let isPT = true; // você pode salvar também no localStorage se quiser
+
+        // Inicializa ícones
+        themeBtn.innerHTML = darkMode ? '<i class="bi bi-sun-fill"></i>' : '<i class="bi bi-moon-fill"></i>';
+        body.classList.toggle('dark-mode', darkMode);
+
+        themeBtn.addEventListener('click', () => {
+            darkMode = !darkMode;
+            body.classList.toggle('dark-mode', darkMode);
+            themeBtn.innerHTML = darkMode ? '<i class="bi bi-sun-fill"></i>' : '<i class="bi bi-moon-fill"></i>';
+            localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+
+            // troca logo se quiser
+            if (logo) {
+                logo.src = darkMode 
+                    ? "{{ asset('images/favicon-light.png') }}" 
+                    : "{{ asset('images/favicon-dark.png') }}";
+            }
+        });
+
+        langBtn.addEventListener('click', () => {
+            isPT = !isPT;
+            flagIcon.src = isPT
+                ? '{{ asset('images/brazil.png') }}'
+                : '{{ asset('images/us.png') }}';
+            flagIcon.alt = isPT ? 'BR' : 'US';
+        });
+    </script>
 </body>
 </html>
