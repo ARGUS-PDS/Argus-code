@@ -369,7 +369,7 @@
         }
 
 
-        /*section de como começar*/
+        /*section rodape*/
 
         .footer {
             background-color: var(--color-vinho);
@@ -399,6 +399,8 @@
         .footer-link:hover {
             color: var(--color-bege-medio);
         }
+
+        /*menuzinho lateral*/
 
         .side-panel {
         position: fixed;
@@ -569,9 +571,8 @@
         const logo = document.getElementById('navbar-logo');
 
         let darkMode = localStorage.getItem('theme') === 'dark';
-        let isPT = true; // você pode salvar também no localStorage se quiser
+        let isPT = true;
 
-        // Inicializa ícones
         themeBtn.innerHTML = darkMode ? '<i class="bi bi-sun-fill"></i>' : '<i class="bi bi-moon-fill"></i>';
         body.classList.toggle('dark-mode', darkMode);
 
@@ -581,7 +582,6 @@
             themeBtn.innerHTML = darkMode ? '<i class="bi bi-sun-fill"></i>' : '<i class="bi bi-moon-fill"></i>';
             localStorage.setItem('theme', darkMode ? 'dark' : 'light');
 
-            // troca logo se quiser
             if (logo) {
                 logo.src = darkMode 
                     ? "{{ asset('images/favicon-light.png') }}" 
