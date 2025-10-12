@@ -27,4 +27,6 @@ return [
     'cancel' => 'Cancelar',
     'select_plan' => 'Selecione o plano',
     'basic_plan' => 'Plano Básico',
+    'password_expired_request_sent' => 'Seu pedido de senha vencida foi enviado.',
+    'password_expired_request_sent' => 'Your expired password request has been sent.',
 ];

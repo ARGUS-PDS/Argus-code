@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'log'),
+    'default' => env('MAIL_MAILER', 'sendgrid'),
 
     /*
     |--------------------------------------------------------------------------
@@ -47,6 +47,15 @@ return [
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url(env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
+        ],
+
+        'sendgrid' => [
+            'transport' => 'smtp',
+            'host' => 'smtp.sendgrid.net',
+            'port' => 587,
+            'username' => 'apikey',
+            'password' => env('SENDGRID_API_KEY'),
+            'encryption' => 'tls',
         ],
 
         'ses' => [
@@ -111,8 +120,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'argontechsolut@gmail.com'),
+        'name' => env('MAIL_FROM_NAME', 'Argus'),
     ],
 
 ];

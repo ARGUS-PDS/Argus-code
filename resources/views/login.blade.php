@@ -81,7 +81,7 @@
     </div>
 
     <div class="formulario-container registro">
-      <form method="POST" action="{{ route('contato.enviar') }}">
+      <form action="{{ route('contato.enviar') }}" method="POST">
         @csrf
         <h1>{{ __('login.contact_us') }}</h1>
 
@@ -104,10 +104,23 @@
       </form>
     </div>
 
-    <div id="toast-contato">
-      <strong>
-        <i class="fas fa-check-circle" style="margin-right: 8px;"></i>{{ __('login.contact_registered') }}
-      </strong>
+    <!-- Toast de sucesso para senha gerada -->
+    <div class="container-toast" id="containerSuccessToast">
+      <i class="bi bi-check-circle-fill toast-icon"></i>
+      <div class="toast-content">
+        <div class="toast-title">{{ __('menu.sucesso') }}!</div>
+        <div class="toast-message" id="toastMessage">{{ __('login.contact_registered') }}</div>
+      </div>
+      </button>
+    </div>
+
+    <!-- Toast de sucesso para senha vencida -->
+    <div class="container-toast" id="containerSenhaVencidaToast">
+      <i class="bi bi-check-circle-fill toast-icon"></i>
+      <div class="toast-content">
+        <div class="toast-title">{{ __('menu.sucesso') }}!</div>
+        <div class="toast-message">{{ __('login.password_expired_request_sent') }}</div>
+      </div>
     </div>
 
     <div class="container-alternativo">
@@ -152,7 +165,7 @@
             </div>
             <div class="d-flex justify-content-end gap-2">
               <button type="button" class="btn btn-secondary" onclick="fecharModal()">{{ __('login.cancel') }}</button>
-              <button type="submit" class="btn btn-danger" id="modalSubmitBtn" disabled>{{ __('login.send') }}</button>
+              <button type="submit"  class="btn btn-danger" onclick="mostrarTelaCarregando()" id="modalSubmitBtn" disabled>{{ __('login.send') }}</button>
             </div>
           </form>
         </div>
@@ -185,6 +198,11 @@
 
   <script>
   window.contatoEnviado = <?php echo json_encode(session('contato_enviado', false)); ?>;
+  console.log('Contato enviado?', window.contatoEnviado);
+
+  window.senhaVencidaEnviada = <?php echo json_encode(session('senha_vencida_enviada', false)); ?>;
+  window.statusMessage = <?php echo json_encode(session('status')); ?>;
+  window.errorMessage = <?php echo json_encode(session('error')); ?>;
   </script>
 
   <script src="{{ asset('js/login.js') }}"></script>

@@ -17,6 +17,7 @@ use App\Http\Controllers\BatchController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\ForcePortugueseLocale;
+use App\Services\SendGridService;
 
 
 Route::get('/', function () {
@@ -39,6 +40,11 @@ Route::get('/', function () {
 
 Route::get('/home', [AuthController::class, 'redirectToDashboard'])->name('home');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+ Route::post('/contato', [ContatoController::class, 'enviarContato'])->name('contato.enviar');
+
+ Route::post('/check-email', [UserController::class, 'checkEmail'])->name('user.checkEmail');
+
 
 Route::get('/admin-dashboard', function () {
     return view('admin.admin-dashboard');
@@ -129,8 +135,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/movimentacoes/{id}', [MovementController::class, 'update'])->name('movimentacao.update');
     Route::delete('/movimentacoes/{id}', [MovementController::class, 'destroy'])->name('movimentacao.destroy');
 
-    Route::post('/contato', [ContatoController::class, 'enviarContato'])->name('contato.enviar');
-
+    
     Route::get('/vendas', [SaleController::class, 'create'])->name('vendas.create');
     Route::post('/vendas/finalizar', [SaleController::class, 'store'])->name('vendas.store');
     Route::post('/vendas/buscar-produto', [SaleController::class, 'findByBarcode'])->name('vendas.buscar-produto');
@@ -162,7 +167,6 @@ Route::middleware(['auth', ForcePortugueseLocale::class])->group(function () {
 });
 
 
-Route::post('/check-email', [UserController::class, 'checkEmail'])->name('user.checkEmail');
 Route::get('/check-email', [UserController::class, 'checkEmailAvailability'])->name('check.email');
 
 Route::get('lang/{locale}', function (string $locale) {

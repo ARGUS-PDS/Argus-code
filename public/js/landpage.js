@@ -70,9 +70,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 "h3"
             ).textContent;
             const contactBtn = document.getElementById("contact-btn");
+
+            const subject = `Dúvidas sobre o plano - ${planName}`;
             contactBtn.href = `mailto:argontechsolut@gmail.com?subject=${encodeURIComponent(
-                window.translations.contact_us
-            )}%20${encodeURIComponent(planName)}`;
+                subject
+            )}`;
+
             modal.style.display = "flex";
         });
     });

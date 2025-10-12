@@ -27,4 +27,6 @@ return [
     'cancel' => 'Cancel',
     'select_plan' => 'Select plan',
     'basic_plan' => 'Basic Plan',
+    'password_expired_request_sent' => 'Your expired password request has been sent.',
+
 ];

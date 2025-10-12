@@ -10,11 +10,15 @@
         "cloudinary-labs/cloudinary-laravel": "^3.0",
         "cloudinary/cloudinary_php": "^3.1",
         "doctrine/dbal": "^4.2",
+        "guzzlehttp/guzzle": "^7.9",
         "intervention/image": "^3.11",
         "laravel-lang/lang": "*",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
-        "milon/barcode": "^12.0"
+        "mailgun/mailgun-php": "^4.3",
+        "milon/barcode": "^12.0",
+        "s-ichikawa/laravel-sendgrid-driver": "^4.0",
+        "sendgrid/sendgrid": "^8.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

@@ -22,6 +22,186 @@ const cartaoRecuperarError = document.getElementById("cartaoRecuperar_error");
 const loginSubmitBtn = document.getElementById("loginSubmitBtn");
 const modalSubmitBtn = document.getElementById("modalSubmitBtn");
 
+// Botão de submit do formulário de contato
+const contatoSubmitBtn = document.querySelector(
+    ".formulario-container.registro .botao-input"
+);
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (window.contatoEnviado) {
+        mostrarToastContato();
+    }
+});
+
+function mostrarToastContato() {
+    const toast = document.querySelector(".container-toast");
+    if (!toast) return;
+
+    toast.classList.add("show");
+
+    // Auto-esconder após 5 segundos
+    setTimeout(() => {
+        fecharToastContato();
+    }, 5000);
+}
+
+function fecharToastContato() {
+    const toast = document.querySelector(".container-toast");
+    if (!toast) return;
+
+    toast.classList.remove("show");
+}
+
+// Fechar toast ao pressionar ESC
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+        fecharToastContato();
+    }
+});
+
+// ========== FUNÇÕES DE VALIDAÇÃO DE FORMULÁRIO ==========
+
+// Função para verificar se todos os campos do formulário de login estão válidos
+function checkLoginFormValidity() {
+    const loginEmail = document.getElementById("user_email_login").value.trim();
+    const loginPassword = document.getElementById("password").value;
+    const loginCard = document.getElementById("cartao_seg").value.trim();
+
+    const isLoginValid =
+        isValidEmail(loginEmail) &&
+        loginPassword.length >= 8 &&
+        isValidCard(loginCard);
+
+    return isLoginValid;
+}
+
+// Função para verificar se todos os campos do formulário de contato estão válidos
+function checkContatoFormValidity() {
+    const contatoNome = document
+        .querySelector('input[name="nome"]')
+        .value.trim();
+    const contatoEmpresa = document
+        .querySelector('input[name="empresa"]')
+        .value.trim();
+    const contatoEmail = document
+        .getElementById("user_email_contato")
+        .value.trim();
+    const contatoWhatsapp = document.getElementById("whatsapp").value.trim();
+    const contatoPlano = document.querySelector('select[name="plano"]').value;
+
+    const isContatoValid =
+        validarNome(contatoNome).valido &&
+        validarEmpresa(contatoEmpresa).valido &&
+        isValidEmail(contatoEmail) &&
+        validarWhatsapp(contatoWhatsapp).valido &&
+        contatoPlano !== "";
+
+    return isContatoValid;
+}
+
+// Função para atualizar o estado do botão de login
+function updateLoginButtonState() {
+    const isLoginValid = checkLoginFormValidity();
+    if (loginSubmitBtn) {
+        loginSubmitBtn.disabled = !isLoginValid;
+    }
+}
+
+// Função para atualizar o estado do botão de contato
+function updateContatoButtonState() {
+    const isContatoValid = checkContatoFormValidity();
+    if (contatoSubmitBtn) {
+        contatoSubmitBtn.disabled = !isContatoValid;
+    }
+}
+
+// Configurar validação em tempo real para todos os campos
+function setupRealTimeFormValidation() {
+    // Campos do formulário de login
+    const loginFields = ["user_email_login", "password", "cartao_seg"];
+
+    // Campos do formulário de contato
+    const contatoFields = ["nome", "empresa", "user_email_contato", "whatsapp"];
+
+    // Adicionar listeners para campos de login
+    loginFields.forEach((fieldId) => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.addEventListener("input", updateLoginButtonState);
+            field.addEventListener("blur", updateLoginButtonState);
+        }
+    });
+
+    // Adicionar listeners para campos de contato
+    contatoFields.forEach((fieldId) => {
+        const field =
+            fieldId === "nome" || fieldId === "empresa"
+                ? document.querySelector(`input[name="${fieldId}"]`)
+                : document.getElementById(fieldId);
+
+        if (field) {
+            field.addEventListener("input", updateContatoButtonState);
+            field.addEventListener("blur", updateContatoButtonState);
+        }
+    });
+
+    // Listener para o select do plano
+    const planoSelect = document.querySelector('select[name="plano"]');
+    if (planoSelect) {
+        planoSelect.addEventListener("change", function () {
+            updateContatoButtonState();
+            if (this.value !== "") {
+                this.classList.add("input-success");
+                this.classList.remove("input-error");
+            } else {
+                this.classList.remove("input-success");
+                this.classList.add("input-error");
+            }
+        });
+    }
+}
+
+// Função modificada para mostrar tela de carregamento apenas se válido
+function mostrarTelaCarregando(event) {
+    if (event) {
+        event.preventDefault();
+    }
+
+    const isLoginForm =
+        event && event.target && event.target.id === "loginForm";
+    const isContatoForm =
+        event &&
+        event.target &&
+        event.target.closest(".formulario-container.registro form");
+
+    if (
+        (isLoginForm && !checkLoginFormValidity()) ||
+        (isContatoForm && !checkContatoFormValidity())
+    ) {
+        console.log("Formulário inválido - carregamento não iniciado");
+        return false;
+    }
+
+    const carregamento = document.querySelector(".carregamento");
+    if (carregamento) {
+        carregamento.style.display = "flex";
+
+        setTimeout(() => {
+            if (isLoginForm) {
+                document.getElementById("loginForm").submit();
+            } else if (isContatoForm) {
+                document
+                    .querySelector(".formulario-container.registro form")
+                    .submit();
+            }
+        }, 1000);
+    }
+
+    return true;
+}
+
+// ========== FUNÇÕES EXISTENTES (ATUALIZADAS) ==========
+
 // Funções para controle do modal
 function abrirModal() {
     // Resetar o formulário e limpar erros antes de abrir
@@ -81,7 +261,7 @@ document
 document.getElementById("modalBackdrop").addEventListener("click", fecharModal);
 
 function isValidEmail(email) {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
     return emailPattern.test(email);
 }
 
@@ -219,6 +399,12 @@ function setupRealTimeValidation(input, errorContainer, isLogin = true) {
                 clearError(errorContainer);
                 input.classList.remove("input-error");
                 input.classList.remove("input-success");
+                // Atualizar estado do botão
+                if (isLogin) {
+                    updateLoginButtonState();
+                } else {
+                    updateContatoButtonState();
+                }
                 return;
             }
 
@@ -238,6 +424,13 @@ function setupRealTimeValidation(input, errorContainer, isLogin = true) {
                 input.classList.remove("input-error");
                 input.classList.add("input-success");
             }
+
+            // Atualizar estado do botão
+            if (isLogin) {
+                updateLoginButtonState();
+            } else {
+                updateContatoButtonState();
+            }
         }, 800);
     });
 
@@ -248,6 +441,12 @@ function setupRealTimeValidation(input, errorContainer, isLogin = true) {
             clearError(errorContainer);
             input.classList.remove("input-error");
             input.classList.remove("input-success");
+            // Atualizar estado do botão
+            if (isLogin) {
+                updateLoginButtonState();
+            } else {
+                updateContatoButtonState();
+            }
             return;
         }
 
@@ -266,6 +465,13 @@ function setupRealTimeValidation(input, errorContainer, isLogin = true) {
             clearError(errorContainer);
             input.classList.remove("input-error");
             input.classList.add("input-success");
+        }
+
+        // Atualizar estado do botão
+        if (isLogin) {
+            updateLoginButtonState();
+        } else {
+            updateContatoButtonState();
         }
     });
 }
@@ -293,15 +499,33 @@ function setupCardValidation(
 
         timeout = setTimeout(() => {
             validateCardInput(input, errorElement, submitBtn, isModal);
+            // Atualizar estado do botão apropriado
+            if (isModal) {
+                // Para o modal, a validação já é tratada internamente
+            } else {
+                updateLoginButtonState();
+            }
         }, 500);
     });
 
     input.addEventListener("blur", function () {
         validateCardInput(input, errorElement, submitBtn, isModal);
+        // Atualizar estado do botão apropriado
+        if (isModal) {
+            // Para o modal, a validação já é tratada internamente
+        } else {
+            updateLoginButtonState();
+        }
     });
 
     input.addEventListener("keyup", function () {
         validateCardInput(input, errorElement, submitBtn, isModal);
+        // Atualizar estado do botão apropriado
+        if (isModal) {
+            // Para o modal, a validação já é tratada internamente
+        } else {
+            updateLoginButtonState();
+        }
     });
 }
 
@@ -440,6 +664,8 @@ function setupNomeValidation() {
                     this.classList.remove("input-success");
                 }
             }
+
+            updateContatoButtonState();
         }, 500);
     });
 
@@ -458,6 +684,8 @@ function setupNomeValidation() {
             this.classList.remove("input-error");
             this.classList.remove("input-success");
         }
+
+        updateContatoButtonState();
     });
 
     // Prevenir que o usuário digite caracteres inválidos
@@ -503,6 +731,8 @@ function setupEmpresaValidation() {
                     this.classList.remove("input-success");
                 }
             }
+
+            updateContatoButtonState();
         }, 500);
     });
 
@@ -521,6 +751,8 @@ function setupEmpresaValidation() {
             this.classList.remove("input-error");
             this.classList.remove("input-success");
         }
+
+        updateContatoButtonState();
     });
 
     // Prevenir caracteres inválidos
@@ -576,6 +808,8 @@ function setupWhatsappValidation() {
                     this.classList.remove("input-success");
                 }
             }
+
+            updateContatoButtonState();
         }, 500);
     });
 
@@ -594,6 +828,8 @@ function setupWhatsappValidation() {
             this.classList.remove("input-error");
             this.classList.remove("input-success");
         }
+
+        updateContatoButtonState();
     });
 
     // Permitir apenas números e teclas de controle
@@ -713,18 +949,26 @@ document.addEventListener("DOMContentLoaded", function () {
     setupEmpresaValidation();
     setupWhatsappValidation();
 
+    setupRealTimeFormValidation();
+
+    // Configurar event listeners para os formulários
+    document
+        .getElementById("loginForm")
+        .addEventListener("submit", mostrarTelaCarregando);
+    document
+        .querySelector(".formulario-container.registro form")
+        .addEventListener("submit", mostrarTelaCarregando);
+
+    // Inicializar estado dos botões
+    updateLoginButtonState();
+    updateContatoButtonState();
+
     btnRegistrar.addEventListener("click", () =>
         container.classList.add("active")
     );
     btnEntrar.addEventListener("click", () =>
         container.classList.remove("active")
     );
-
-    const toast = document.getElementById("toast-contato");
-    if (window.contatoEnviado) {
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 4000);
-    }
 
     // --- Selecionar automaticamente o plano vindo da landpage ---
     function stripAccents(str) {
