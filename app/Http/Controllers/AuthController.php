@@ -29,11 +29,10 @@ class AuthController extends Controller
         if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']], $remember)) {
             $user = Auth::user();
 
-            if (trim($user->cartao_seg) !== $cartao_seg) {
-                Auth::logout();
-                return back()->with('error', 'Cartão de segurança inválido.')
-                ->withInput();
-            }
+        if (trim($cartao_seg) !== trim($user->cartao_seg)) {
+            Auth::logout();
+            return back()->with('error', 'Cartão de segurança inválido.')->withInput();
+        }
 
             $request->session()->regenerate();
 
