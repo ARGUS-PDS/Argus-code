@@ -1,601 +1,440 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="{{ app()->getLocale() }}">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    @include('layouts.css-variables')
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background-color: var(--color-bege-claro);
-            color: var(--color-vinho);
-            font-family: Arial, sans-serif;
-        }
-
-        header {
-            width: 100%;
-            padding: 0 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: var(--color-vinho);
-            box-shadow: 0 2px 6px var(--color-shadow);
-            z-index: 100;
-            border-radius: 0 0 16px 16px;
-        }
-
-        section:not(.plans){
-            padding-bottom: 50px;
-        }
-
-        .menu-logo {
-            width: 70px;
-            height: auto;
-        }
-
-        .btn-login {
-            background-color: var(--color-bege-claro);
-            color: var(--color-vinho);
-            border: 2px solid var(--color-bege-claro);
-            border-radius: 25px;
-            padding: 10px 22px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color border 0.3s ease;
-            text-decoration: none;
-        }
-
-        .btn-login:hover {
-            background-color: var(--color-bege-medio);
-            color: var(--color-vinho);
-            border: 2px solid var(--color-bege-medio);
-        }
-
-        .logo-text {
-            max-width: 700px;
-            margin: 0 auto 50px auto;
-            font-size: 20px;
-        }
-
-        /* section de apresentacao */
-
-        .presentition {
-            margin-top: 120px;
-            display: flex;
-            justify-content: center;
-            text-align: left;
-        }
-
-        .presentition-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 60px;
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .presentition-left {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .presentiation-text{
-            max-width: 700px;
-            margin: 0 auto 20px auto;
-            font-size: 25px;
-            text-align: justify;
-        }
-
-        .presentition-right {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .illustration {
-            max-width: 100%;
-            height: auto;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .logo-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .logo2 {
-            display: block;
-            margin: 0 auto 50px auto;
-            max-width: auto;
-            height: auto;
-        }
-
-        .topics {
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            gap: 60px;
-            flex-wrap: wrap;
-        }
-
-        .topic {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .check {
-            font-size: 21px;
-            font-weight: bold;
-        }
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 40px;
-        }
-
-        .btn-group .btn-scroll {
-            margin: 0;
-        }
-
-        .btn-scroll-plans {
-            margin: 0 auto 0 auto;
-            background-color: var(--color-vinho);
-            color: var(--color-bege-claro);
-            border: 2px solid var(--color-vinho);
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 18px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .btn-scroll-plans:hover {
-            background-color: var(--color-bege-claro);
-            color: var(--color-vinho);
-            border: 2px solid var(--color-vinho);
-        }
-
-        .btn-scroll-start {
-            margin: 0 auto 0 auto;
-            background-color: var(--color-bege-claro);
-            color: var(--color-vinho);
-            border: 2px solid var(--color-vinho);
-            padding: 12px 28px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 18px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .btn-scroll-start:hover {
-            background-color: var(--color-vinho);
-            color: var(--color-bege-claro);
-            border: 2px solid var(--color-vinho);
-        }
-
-        /* section de planos */
-
-        .plans {
-            background: var(--color-vinho);
-            padding-top: 25px;
-            padding-bottom: 25px;
-        }
-
-        .plan-card {
-            background-color: var(--color-bege-claro);
-            color: var(--color-vinho);
-            border-radius: 16px;
-            padding: 40px 30px;
-            box-shadow: 0 4px 12px var(--color-shadow);
-            max-width: 350px;
-            margin: 0 auto;
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .plan-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 8px 18px var(--color-shadow);
-        }
-
-        .plan-name {
-            font-size: 30px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .plan-description {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 25px 0;
-            text-align: center;
-        }
-
-        .plan-description li {
-            position: relative;
-            padding-left: 0;
-            margin-bottom: 10px;
-            font-size: 18px;
-            line-height: 1.5;
-        }
-
-        .plan-description li::before {
-            content: "✔";
-            color: var(--color-vinho);
-            margin-right: 8px;
-            font-weight: bold;
-        }
-
-        .plan-price {
-            display: flex;
-            justify-content: center;
-            align-items: baseline;
-            gap: 8px;
-            font-size: 25px;
-            font-weight: bold;
-            color: var(--color-vinho);
-        }
-
-        .plan-price span {
-            font-size: 18px;
-            color: var(--color-vinho-fundo);
-        }
-
-        /* section da equipe */
-        
-        .team {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 50px;
-            margin-top: 40px;
-        }
-        
-        .member {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .member img {
-            width: 160px;
-            height: 160px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid var(--color-vinho);
-            box-shadow: 0 4px 8px var(--color-shadow);
-            transition: transform 0.3s ease;
-        }
-
-        .member img:hover {
-            transform: scale(1.05);
-        }
-
-        .team-title {
-            font-size: 42px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            margin-top: 25px;
-            color: var(--color-vinho);
-            justify-content: center;
-            text-align: center;
-        } 
-
-        /*section de como começar*/
-
-        .start {
-            background-color: var(--color-bege-claro);
-            color: var(--color-vinho);
-            padding: 40px 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .start-container {
-            max-width: 700px;
-        }
-
-        .start-title {
-            font-size: 42px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            color: var(--color-vinho);
-        }
-
-        .start-steps {
-            list-style: decimal;
-            text-align: left;
-            margin: 0 auto 40px auto;
-            padding-left: 20px;
-            max-width: 500px;
-            font-size: 22px;
-            line-height: 1.6;
-        }
-
-        .start-steps li {
-            margin-bottom: 15px;
-        }
-
-        .btn-login-start {
-            background-color: var(--color-vinho);
-            color: var(--color-bege-claro);
-            border: 2px solid var(--color-vinho);
-            border-radius: 25px;
-            padding: 10px 22px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            text-decoration: none;
-            font-size: 24px;
-        }
-
-        .btn-login-start:hover {
-            background-color: var(--color-bege-claro);
-            color: var(--color-vinho);
-            border: 2px solid var(--color-vinho);
-        }
-
-
-        /*section rodape*/
-
-        .footer {
-            background-color: var(--color-vinho);
-            color: var(--color-bege-claro);
-            text-align: center;
-            padding: 40px 20px;
-            border-radius: 16px 16px 0 0;
-            box-shadow: 0 -2px 8px var(--color-shadow);
-            margin-top: 30px;
-        }
-
-        .footer-text {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .footer-contact {
-            font-size: 16px;
-        }
-
-        .footer-link {
-            color: var(--color-bege-claro);
-            text-decoration: underline;
-            transition: color 0.3s ease;
-        }
-
-        .footer-link:hover {
-            color: var(--color-bege-medio);
-        }
-
-        /*menuzinho lateral*/
-
-        .side-panel {
-        position: fixed;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        background-color: var(--color-vinho-fundo);
-        padding: 10px 10px 10px 10px;
-        border-radius: 20px 0 0 20px;
-        box-shadow: 0 4px 12px var(--colo-shadow);
-        z-index: 100;
-    }
-
-    .panel-btn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 20px;
-        color: var(--color-bege-claro);
-        transition: transform 0.2s ease, color 0.3s ease;
-    }
-
-    .flag {
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        transition: transform 0.2s ease, border-color 0.3s ease;
-    }
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ __('landpage.title') }}</title>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('css/landpage.css') }}">
+  <link rel="icon" href="{{ asset('images/favicon-light.png') }}" media="(prefers-color-scheme: light)" type="image/png">
+  <link rel="icon" href="{{ asset('images/favicon-dark.png') }}" media="(prefers-color-scheme: dark)" type="image/png">
 </head>
 
 <body>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <nav class="navbar">
+    <div class="navbar-container">
+      <img class="logo" src="{{ asset('images/logo.png') }}" alt="logo">
 
-    <header>
-        <img id="navbar-logo" class="menu-logo" src="{{ asset('images/favicon-dark.png') }}" alt="{{ __('menu.argus') }}">
-        <a href="{{ route('login') }}" class="btn-login">Login</a>
-    </header>
-    
+      <!-- Botão para menu mobile -->
+      <button class="mobile-menu-btn" id="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
 
-    <section class="presentition">
-        <div class="presentition-content">
-            <div class="presentition-left">
-                
-                <img src="{{ asset('images/logo2.png') }}" alt="Logo do projeto" class="logo2">
+      <!-- Links de navegação -->
+      <div class="nav-links" id="nav-links">
+        <a href="#home">{{ __('landpage.home') }}</a>
+        <a href="#planos">{{ __('landpage.plans') }}</a>
+        <a href="#features">{{ __('landpage.features') }}</a>
+        <a href="#parceiros">{{ __('landpage.partners') }}</a>
+        <a href="#sobre">{{ __('landpage.about') }}</a>
+        <a href="#equipe">{{ __('landpage.team') }}</a>
+      </div>
 
-                <p class="presentiation-text">
-                    Pensado pra quem busca praticidade e eficiência, o sistema oferece uma gestão de estoque completa e intuitiva. Com ele, é possível acompanhar produtos, entradas, saídas e relatórios em tempo real, garantindo mais controle e menos preocupações. Um jeito simples de organizar seu negócio e manter tudo sob controle, sem complicações.
-                </p>
+      <!-- Botões e seletor de idioma -->
+      <div class="nav-actions">
+        <a href="{{ route('login') }}" class="btn-outline">{{ __('landpage.login') }}</a>
 
-                <div class="topics">
-                    <div class="topic">
-                        <span class="check">✔</span>
-                        <p>Qualidade</p>
-                    </div>
-                    <div class="topic">
-                        <span class="check">✔</span>
-                        <p>Facilidade</p>
-                    </div>
-                    <div class="topic">
-                        <span class="check">✔</span>
-                        <p>Inteligência</p>
-                    </div>
-                </div>
+        @php $current = app()->getLocale(); @endphp
+        <div class="lang-switch">
+          <button class="lang-btn" id="lang-btn">
+            <img class="lang-flag" src="{{ asset($current == 'en' ? 'images/us.png' : 'images/brazil.png') }}" width="20" alt="flag">
+            <span class="lang-label">
+              {{ $current == 'en' ? 'English' : 'Português' }}
+            </span>
+            <i class="fas fa-caret-down"></i>
+          </button>
 
-                <div class="btn-group">
-                    <a href="#plans" class="btn-scroll-plans">Conheça o plano</a>
-                    <a href="#start" class="btn-scroll-start">Quero começar!</a>
-                </div>
-            </div>
-
-            <div class="presentition-right">
-                <img src="{{ asset('images/mulher-alegre.jpg') }}"class="illustration">
-            </div>
+          <div class="lang-dropdown" id="lang-dropdown">
+            <a class="lang-option" href="{{ route('lang.switch', 'pt_BR') }}">
+              <img src="{{ asset('images/brazil.png') }}" width="20" alt="pt">
+              Português
+            </a>
+            <a class="lang-option" href="{{ route('lang.switch', 'en') }}">
+              <img src="{{ asset('images/us.png') }}" width="20" alt="en">
+              English
+            </a>
+          </div>
         </div>
-    </section>
-
-    <section class="argon">
-        <h2 class="team-title">Equipe Argon</h2>
-
-        <div class="team">
-            <div class="member">
-                <img title="Ana Maria Costa" src="{{ asset('images/Ana Maria.jpeg') }}">
-            </div>
-            <div class="member">
-                <img title="Felipe Witkowsky" src="{{ asset('images/Felipe.jpeg') }}">
-            </div>
-            <div class="member">
-                <img title="Gabriel Luna" src="{{ asset('images/Gabriel.jpeg') }}">
-            </div>
-            <div class="member">
-                <img title="Gustavo Emiliano" src="{{ asset('images/Gustavo.jpeg') }}">
-            </div>
-            <div class="member">
-                <img title="Isabela Crestane" src="{{ asset('images/Isabela.jpg') }}">
-            </div>
-            <div class="member">
-                <img title="Brenda Giron" src="{{ asset('images/Brenda.jpg') }}">
-            </div>
-        </div>
-    </section>
-
-    <section class="plans" id="plans">
-        <div class="plans-container">
-            <div class="plan-card">
-                <h3 class="plan-name">Plano base</h3>
-
-                <ul class="plan-description">
-                    <li>Controle de estoque</li>
-                    <li>Envio automatizado para fornecedores</li>
-                    <li>Emissão de etiquetas</li>
-                    <li>Controle de entrada e saída</li>
-                    <li>Ponto de venda (PDV)</li>
-                </ul>
-
-                <div class="plan-price">
-                    <strong>R$ 19,90</strong><span>mensais</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="start" id="start">
-        <div class="start-container">
-            <h2 class="start-title">Comece agora!</h2>
-
-            <ol class="start-steps">
-                <li>Clique no botão <strong>“Login”</strong> no topo da página.</li>
-                <li>Selecione a opção <strong>“Registrar”</strong> caso ainda não tenha uma conta.</li>
-                <li>Preencha as informações solicitadas e entre em contato conosco para concluir o cadastro.</li>
-                <li>Pronto! Assim que sua conta for ativada, você já pode acessar o sistema normalmente.</li>
-            </ol>
-            <a href="{{ route('login') }}" class="btn-login-start">Login</a>
-        </div>
-    </section>
-
-    <div class="side-panel">
-        <button id="themeToggle" class="panel-btn" onchange="toggleDarkMode(this)">
-            <i class="bi bi-moon-fill"></i>
-        </button>
-
-        <button id="langToggle" class="panel-btn">
-            <img id="flagIcon" class="flag" src="{{ asset('images/brazil.png') }}" alt="BR">
-        </button>
+      </div>
     </div>
-    
-    <footer class="footer">
-        <div class="footer-container">
-            <p class="footer-text">
-                © 2025 <strong>Equipe Argon</strong> — Todos os direitos reservados.
-            </p>
-            <p class="footer-contact">
-                Contato: <a href="mailto:contato@argon.com" class="footer-link">contato@argon.com</a>
-            </p>
+  </nav>
+
+  <section class="hero" id="home">
+    <img src="{{ asset('images/landpage-hero.png') }}" alt="Estoque organizado" class="hero-bg">
+    <div class="hero-content">
+      <h1>{{ __('landpage.hero_title') }} <span>ARGUS</span></h1>
+      <p>{{ __('landpage.hero_subtitle') }}</p>
+      <a href="#planos" class="btn">{{ __('landpage.see_plans') }}</a>
+    </div>
+  </section>
+
+  <section class="planos" id="planos">
+    <h2 data-aos="fade-up" data-aos-duration="800">{{ __('landpage.our_plans') }}</h2>
+    <p class="section-subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+      {{ __('landpage.plans_description') }}
+    </p>
+    <div class="cards-container">
+      <div class="card" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
+        <h3>{{ __('landpage.basic_plan') }}</h3>
+        <div class="preco">R$ 19,90<span>/mês</span></div>
+        <div class="periodo">{{ __('landpage.ideal_for_small_business') }}</div>
+        <ul>
+          <li>{{ __('landpage.feature_stock_control') }}</li>
+          <li>{{ __('landpage.feature_automated_supplier') }}</li>
+          <li>{{ __('landpage.feature_label_emission') }}</li>
+          <li>{{ __('landpage.feature_in_out_control') }}</li>
+          <li>{{ __('landpage.feature_pos') }}</li>
+        </ul>
+        <a class="btn-plano" href="{{ route('login') }}?plano=basico">{{ __('landpage.subscribe') }}</a>
+      </div>
+
+      <div class="card em-desenvolvimento" data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
+        <h3>{{ __('landpage.professional_plan') }}</h3>
+        <div class="em-dev-content">
+          <i class="fas fa-question-circle"></i>
+          <h4>{{ __('landpage.plan_under_development') }}</h4>
+          <p>{{ __('landpage.plan_development_description') }}</p>
+          <a href="#" class="btn-plano em-dev-btn">{{ __('landpage.learn_more') }}</a>
         </div>
-    </footer>
+      </div>
 
-    <script>
-        const themeBtn = document.getElementById('themeToggle');
-        const langBtn = document.getElementById('langToggle');
-        const flagIcon = document.getElementById('flagIcon');
-        const body = document.body;
-        const logo = document.getElementById('navbar-logo');
+      <div class="card em-desenvolvimento" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
+        <h3>{{ __('landpage.enterprise_plan') }}</h3>
+        <div class="em-dev-content">
+          <i class="fas fa-question-circle"></i>
+          <h4>{{ __('landpage.plan_under_development') }}</h4>
+          <p>{{ __('landpage.plan_development_description') }}</p>
+          <a href="#" class="btn-plano em-dev-btn">{{ __('landpage.learn_more') }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        let darkMode = localStorage.getItem('theme') === 'dark';
-        let isPT = true;
+  <div class="modal" id="dev-modal">
+    <div class="modal-content">
+      <span class="close-modal" id="close-modal">&times;</span>
+      <i class="fas fa-exclamation-triangle"></i>
+      <h3>{{ __('landpage.plan_under_development') }}</h3>
+      <p>{{ __('landpage.modal_development_text1') }}</p>
+      <p>{{ __('landpage.modal_development_text2') }}</p>
+      <a href="mailto:argontechsolut@gmail.com?subject=Informações%20sobre%20plano%20em%20desenvolvimento" class="btn" id="contact-btn">
+        {{ __('landpage.contact_us') }}
+      </a>
+    </div>
+  </div>
 
-        themeBtn.innerHTML = darkMode ? '<i class="bi bi-sun-fill"></i>' : '<i class="bi bi-moon-fill"></i>';
-        body.classList.toggle('dark-mode', darkMode);
+  <section class="features" id="features">
+    <div class="features-container">
+      <h2 data-aos="fade-up" data-aos-duration="800">{{ __('landpage.our_features') }}</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+        {{ __('landpage.features_description') }}
+      </p>
 
-        themeBtn.addEventListener('click', () => {
-            darkMode = !darkMode;
-            body.classList.toggle('dark-mode', darkMode);
-            themeBtn.innerHTML = darkMode ? '<i class="bi bi-sun-fill"></i>' : '<i class="bi bi-moon-fill"></i>';
-            localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+      <div class="features-grid">
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-icon">
+            <i class="fas fa-boxes"></i>
+          </div>
+          <h3>{{ __('landpage.feature1_title') }}</h3>
+          <p>{{ __('landpage.feature1_description') }}</p>
+        </div>
 
-            if (logo) {
-                logo.src = darkMode 
-                    ? "{{ asset('images/favicon-light.png') }}" 
-                    : "{{ asset('images/favicon-dark.png') }}";
-            }
-        });
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>{{ __('landpage.feature2_title') }}</h3>
+          <p>{{ __('landpage.feature2_description') }}</p>
+        </div>
 
-        langBtn.addEventListener('click', () => {
-            isPT = !isPT;
-            flagIcon.src = isPT
-                ? '{{ asset('images/brazil.png') }}'
-                : '{{ asset('images/us.png') }}';
-            flagIcon.alt = isPT ? 'BR' : 'US';
-        });
-    </script>
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-icon">
+            <i class="fas fa-bell"></i>
+          </div>
+          <h3>{{ __('landpage.feature3_title') }}</h3>
+          <p>{{ __('landpage.feature3_description') }}</p>
+        </div>
+
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-icon">
+            <i class="fas fa-paper-plane"></i>
+          </div>
+          <h3>{{ __('landpage.feature4_title') }}</h3>
+          <p>{{ __('landpage.feature4_description') }}</p>
+        </div>
+
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-icon">
+            <i class="fas fa-tags"></i>
+          </div>
+          <h3>{{ __('landpage.feature5_title') }}</h3>
+          <p>{{ __('landpage.feature5_description') }}</p>
+        </div>
+
+        <div class="feature-item" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h3>{{ __('landpage.feature6_title') }}</h3>
+          <p>{{ __('landpage.feature6_description') }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="parceiros" id="parceiros">
+    <div class="parceiros-container">
+      <h2 data-aos="fade-up" data-aos-duration="800">{{ __('landpage.our_partners') }}</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
+        {{ __('landpage.partners_description') }}
+      </p>
+
+      <div class="carrossel-parceiros">
+        <div class="carrossel-track">
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa1.png') }}" alt="Empresa 1">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa2.png') }}" alt="Empresa 2">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa3.png') }}" alt="Empresa 3">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa1.png') }}" alt="Empresa 1">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa2.png') }}" alt="Empresa 2">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa3.png') }}" alt="Empresa 3">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa1.png') }}" alt="Empresa 1">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa2.png') }}" alt="Empresa 2">
+          </div>
+
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa3.png') }}" alt="Empresa 3">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa1.png') }}" alt="Empresa 1">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa2.png') }}" alt="Empresa 2">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa3.png') }}" alt="Empresa 3">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa1.png') }}" alt="Empresa 1">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa2.png') }}" alt="Empresa 2">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa3.png') }}" alt="Empresa 3">
+          </div>
+          <div class="carrossel-item">
+            <img src="{{ asset('images/empresa1.png') }}" alt="Empresa 1">
+          </div>
+        </div>
+      </div>
+
+      <div class="carrossel-controls">
+        <button class="carrossel-btn" id="play-pause-btn">
+          <i class="fas fa-pause"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sobre-nos" id="sobre">
+    <div class="sobre-container" data-aos="fade-up" data-aos-duration="1000">
+      <h2>{{ __('landpage.about_us') }}</h2>
+      <p>{{ __('landpage.about_text1') }}</p>
+      <p>{{ __('landpage.about_text2') }}</p>
+      <p>{{ __('landpage.about_text3') }}</p>
+    </div>
+  </section>
+
+  <section class="equipe" id="equipe">
+    <div class="container">
+      <h2>{{ __('landpage.our_team') }}</h2>
+
+      <div class="integrante">
+        <div class="integrante-img">
+          <img src="{{ asset('images/ana.jpeg') }}" alt="Ana Maria Costa Lima">
+        </div>
+        <div class="integrante-info">
+          <h3>Ana Maria Costa Lima</h3>
+          <span class="cargo">{{ __('landpage.role_developer') }}</span>
+          <p>{{ __('landpage.ana_description') }}</p>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/anamaria-costalima/"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/Anawk"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="integrante">
+        <div class="integrante-img">
+          <img src="{{ asset('images/brenda.jpg') }}" alt="Brenda Giron Barbosa">
+        </div>
+        <div class="integrante-info">
+          <h3>Brenda Giron Barbosa</h3>
+          <span class="cargo">{{ __('landpage.role_developer') }}</span>
+          <p>{{ __('landpage.brenda_description') }}</p>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/brenda-giron/"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/brendagiron"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="integrante">
+        <div class="integrante-img">
+          <img src="{{ asset('images/felipe.jpeg') }}" alt="Felipe Witkowsky Conelheiro">
+        </div>
+        <div class="integrante-info">
+          <h3>Felipe Witkowsky Conelheiro</h3>
+          <span class="cargo">{{ __('landpage.role_developer') }}</span>
+          <p>{{ __('landpage.felipe_description') }}</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/feehzinhowit"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="integrante">
+        <div class="integrante-img">
+          <img src="{{ asset('images/gabriel.jpeg') }}" alt="Gabriel Luna Maia">
+        </div>
+        <div class="integrante-info">
+          <h3>Gabriel Lua Maia</h3>
+          <span class="cargo">{{ __('landpage.role_developer') }}</span>
+          <p>{{ __('landpage.gabriel_description') }}</p>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/gabriel-luna-2b20972a8/"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/Gabriellluna"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="integrante">
+        <div class="integrante-img">
+          <img src="{{ asset('images/gustavo.jpeg') }}" alt="Gustavo Emiliano de Jesus dos Santos">
+        </div>
+        <div class="integrante-info">
+          <h3>Gustavo Emiliano de Jesus dos Santos</h3>
+          <span class="cargo">{{ __('landpage.role_developer') }}</span>
+          <p>{{ __('landpage.gustavo_description') }}</p>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/gustavo-emiliano-936341294/"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/GustavoEmiliano"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="integrante">
+        <div class="integrante-img">
+          <img src="{{ asset('images/isabela.jpg') }}" alt="Isabela Crestane Cantaruti">
+        </div>
+        <div class="integrante-info">
+          <h3>Isabela Crestane Cantaruti</h3>
+          <span class="cargo">{{ __('landpage.role_developer') }}</span>
+          <p>{{ __('landpage.isabela_description') }}</p>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/in/isabela-crestane-7a1358304/"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/isacrestane"><i class="fab fa-github"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">ARGUS</div>
+    <div class="footer-links">
+      <a href="#home">{{ __('landpage.home') }}</a>
+      <a href="#planos">{{ __('landpage.plans') }}</a>
+      <a href="#features">{{ __('landpage.features') }}</a>
+      <a href="#parceiros">{{ __('landpage.partners') }}</a>
+      <a href="#sobre">{{ __('landpage.about') }}</a>
+      <a href="#equipe">{{ __('landpage.team') }}</a>
+      <a href="#" id="terms-link">{{ __('landpage.terms_of_use') }}</a>
+      <a href="#" id="privacy-link">{{ __('landpage.privacy_policy') }}</a>
+    </div>
+    <div class="social-links-footer">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+    <p class="copyright">&copy; Copyright 2025 - Argus Sistemas.</p>
+    <p class="copyright">{{ __('landpage.all_rights_reserved') }}</p>
+  </footer>
+
+  <div class="terms-modal" id="terms-modal">
+    <div class="terms-modal-content">
+      <span class="close-terms-modal" id="close-terms-modal">&times;</span>
+      <div class="terms-header">
+        <h2 id="modal-title">{{ __('landpage.terms_of_use') }}</h2>
+        <p class="subtitle" id="modal-subtitle">{{ __('landpage.last_update') }}</p>
+      </div>
+      <div class="terms-body" id="modal-text">
+        <h3>{{ __('landpage.terms_section1_title') }}</h3>
+        <p>{{ __('landpage.terms_section1_content') }}</p>
+
+        <h3>{{ __('landpage.terms_section2_title') }}</h3>
+        <p>{{ __('landpage.terms_section2_content') }}</p>
+        <ul>
+          <li>{{ __('landpage.terms_section2_item1') }}</li>
+          <li>{{ __('landpage.terms_section2_item2') }}</li>
+          <li>{{ __('landpage.terms_section2_item3') }}</li>
+          <li>{{ __('landpage.terms_section2_item4') }}</li>
+        </ul>
+
+        <h3>{{ __('landpage.terms_section3_title') }}</h3>
+        <p>{{ __('landpage.terms_section3_content') }}</p>
+
+        <h3>{{ __('landpage.terms_section4_title') }}</h3>
+        <p>{{ __('landpage.terms_section4_content') }}</p>
+
+        <h3>{{ __('landpage.terms_section5_title') }}</h3>
+        <p>{{ __('landpage.terms_section5_content') }}</p>
+
+        <h3>{{ __('landpage.terms_section6_title') }}</h3>
+        <p>{{ __('landpage.terms_section6_content') }}</p>
+
+        <h3>{{ __('landpage.terms_section7_title') }}</h3>
+        <p>{{ __('landpage.terms_section7_content') }}</p>
+      </div>
+      <div class="terms-footer">
+        <p>&copy; Copyright 2025 - Argus Sistemas.</p>
+        <p>{{ __('landpage.all_rights_reserved') }}</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ asset('js/landpage.js') }}"></script>
+  <script src="{{ asset('js/lang-script.js') }}"></script>
+  <script>
+  window.translations = {
+    'terms_of_use': "{{ __('landpage.terms_of_use') }}",
+    'privacy_policy': "{{ __('landpage.privacy_policy') }}",
+    'last_update': "{{ __('landpage.last_update') }}",
+    'contact_us': "{{ __('landpage.contact_us') }}",
+    'privacy_content': `{!! __('landpage.privacy_content') !!}`
+  };
+  </script>
 </body>
+
 </html>

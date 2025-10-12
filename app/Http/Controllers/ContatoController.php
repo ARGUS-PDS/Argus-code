@@ -13,22 +13,16 @@ class ContatoController extends Controller
             'nome' => 'required|string|max:255',
             'empresa' => 'required|string|max:255',
             'email' => 'required|email',
+            'plano' => 'required|string|max:255',
             'whatsapp' => 'required|string|max:20',
         ]);
 
         $destinatario = config('mail.from.address');
 
-        Mail::raw(
-            "Nova solicitação de contato:\n\n" .
-            "Representante: {$validated['nome']}\n" .
-            "Empresa: {$validated['empresa']}\n" .
-            "Email: {$validated['email']}\n" .
-            "WhatsApp: {$validated['whatsapp']}",
-            function ($message) use ($destinatario) {
-                $message->to($destinatario)
-                        ->subject('Novo contato via formulário');
-            }
-        );
+        Mail::send('emails.contato', $validated, function ($message) use ($destinatario, $validated) {
+            $message->to($destinatario)
+                    ->subject("Novo interesse no {$validated['plano']}");
+        });
 
         return redirect()->back()->with('contato_enviado', true);
     }

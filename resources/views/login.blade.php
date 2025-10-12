@@ -94,7 +94,13 @@
         <span class="email-error" style="color: #c62828; font-size: 12px; display: none;"></span>
 
         <input type="tel" name="whatsapp" id="whatsapp" placeholder="{{ __('login.whatsapp') }}" required value="">
+        <select name="plano" required class="form-select">
+          <option value="" disabled selected>{{ __('login.select_plan') }}</option>
+          <option value="Plano Básico">{{ __('login.basic_plan') }}</option>
+        </select>
+
         <button onclick="mostrarTelaCarregando()" class="botao-input" type="submit">{{ __('login.send') }}</button>
+
       </form>
     </div>
 
@@ -164,24 +170,23 @@
 
   @if(session('error'))
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      var msgDiv = document.getElementById('loginMessage');
-      var msgText = document.getElementById('loginMessageText');
-      msgText.textContent = "{{ session('error') }}";
-      msgDiv.style.display = "flex";
-    });
+  document.addEventListener("DOMContentLoaded", function() {
+    var msgDiv = document.getElementById('loginMessage');
+    var msgText = document.getElementById('loginMessageText');
+    msgText.textContent = "{{ session('error') }}";
+    msgDiv.style.display = "flex";
+  });
   </script>
   @endif
 
   <script>
-    VMasker(document.querySelector("input[name='whatsapp']")).maskPattern("(99) 99999-9999");
+  VMasker(document.querySelector("input[name='whatsapp']")).maskPattern("(99) 99999-9999");
   </script>
 
   <script>
-    window.contatoEnviado = <?php echo json_encode(session('contato_enviado', false)); ?>;
+  window.contatoEnviado = <?php echo json_encode(session('contato_enviado', false)); ?>;
   </script>
 
-  <script src="{{ asset('js/particulas.js') }}"></script>
   <script src="{{ asset('js/login.js') }}"></script>
 
   @include('layouts.carregamento')

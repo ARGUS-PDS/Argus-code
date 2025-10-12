@@ -1,4 +1,3 @@
-
 <?php
 
 return [
@@ -26,4 +25,6 @@ return [
     'contact_argus' => 'Contact Argus',
     'example_email' => 'example@domain.com',
     'cancel' => 'Cancel',
+    'select_plan' => 'Select plan',
+    'basic_plan' => 'Basic Plan',
 ];

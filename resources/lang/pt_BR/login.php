@@ -25,4 +25,6 @@ return [
     'contact_argus' => 'Entrar em contato com a Argus',
     'example_email' => 'exemplo@dominio.com',
     'cancel' => 'Cancelar',
+    'select_plan' => 'Selecione o plano',
+    'basic_plan' => 'Plano Básico',
 ];
