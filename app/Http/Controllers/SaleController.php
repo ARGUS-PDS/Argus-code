@@ -64,7 +64,7 @@ class SaleController extends Controller
 
                 Movement::create([
                     'product_id' => $product->id,
-                    'type' => 'outward', 
+                    'type' => 'saida', 
                     'date' => now()->toDateString(),
                     'quantity' => $item['quantity'],
                     'cost' => $item['unit_price'], 

@@ -35,11 +35,11 @@ class MovementController extends Controller
                 ->get();
 
             foreach ($allMovs as $mov) {
-                if ($mov->type === 'inward') {
+                if ($mov->type === 'entrada') {
                     $entradas_qtd += $mov->quantity;
                     $entradas_valor += $mov->cost;
                     $estoque_atual += $mov->quantity;
-                } elseif ($mov->type === 'outward') {
+                } elseif ($mov->type === 'saida') {
                     $saidas_qtd += $mov->quantity;
                     $saidas_valor += $mov->cost;
                     $estoque_atual -= $mov->quantity;
@@ -67,7 +67,7 @@ class MovementController extends Controller
 
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'type'       => 'required|in:inward,outward,balance',
+            'type'       => 'required|in:entrada,saida,balance',
             'date'       => 'required|date',
             'quantity'   => 'required|integer|min:1',
             'cost'       => 'required|numeric',

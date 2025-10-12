@@ -107,8 +107,8 @@
               <label class="form-label">{{ __('stock_movement.type_label') }}</label>
               <select class="form-select" name="type" required>
                 <option value="" disabled selected>{{ __('stock_movement.select') }}</option>
-                <option value="inward">{{ __('stock_movement.inward') }}</option>
-                <option value="outward">{{ __('stock_movement.outward') }}</option>
+                <option value="entrada">{{ __('stock_movement.inward') }}</option>
+                <option value="saida">{{ __('stock_movement.outward') }}</option>
                 <option value="balance">{{ __('stock_movement.balance') }}</option>
               </select>
             </div>

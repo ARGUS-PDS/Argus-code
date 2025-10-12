@@ -578,7 +578,6 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
 function atualizarDestaque() {
     const container = document.getElementById("destaque-img-container");
     const destaqueNome = document.getElementById("destaque-nome");
-    const destaqueValores = document.getElementById("destaque-valores");
 
     if (window.produtoEmDestaque) {
         const produto = window.produtoEmDestaque;
@@ -601,18 +600,12 @@ function atualizarDestaque() {
         }
 
         destaqueNome.textContent = produto.description ?? "—";
-        destaqueQtd.value = produto.quantity ?? 1;
-        destaquePreco.value = produto.unit_price?.toFixed(2) ?? "0.00";
-        destaqueValores.style.display = "flex";
 
     } else {
         // nenhum produto: ícone padrão
         container.innerHTML = `<i class="bi bi-image" style="font-size: 2rem; color: var(--color-vinho-fundo);"></i>`;
         container.style.background = "var(--color-bege-card-interno)";
         destaqueNome.textContent = "";
-        destaqueQtd.value = "";
-        destaquePreco.value = "";
-        destaqueValores.style.display = "none";
     }
 }
 document.getElementById('finalizar').addEventListener('click', () => {
