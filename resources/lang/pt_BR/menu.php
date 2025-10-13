@@ -17,6 +17,8 @@ return [
     'cotacao_fornecedores'=>'Cotação de Fornecedores',
     'historico_pedidos'=>'Histórico de Pedidos',
     'frente_caixa'=>'Ponto de venda',
+    'dashboard' => 'Dashboard',
+
 
     'meu_perfil' => 'Meu Perfil',
     'foto_perfil' => 'Foto de Perfil',

@@ -15,6 +15,7 @@ return [
     'acompanhamento_validade'=>'Shelf‑life Tracking',
     'etiquetas'=>'Labels',
     'detalhamento_lote'=>'Batch Details',
+    'dashboard' => 'Dashboard',
 
     'envio_pedido'=>'Send Order',
     'cotacao_fornecedores'=>'Supplier Quotation',
