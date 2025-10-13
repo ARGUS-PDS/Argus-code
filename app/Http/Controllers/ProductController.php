@@ -134,9 +134,10 @@ class ProductController extends Controller
             \Log::info('Dados validados:', $validated);
 
             if ($request->hasFile('image_url')) {
-                $uploadResult = \App\Helpers\CloudinaryHelper::upload($request->file('image_url')->getRealPath());
+                $uploadResult = CloudinaryHelper::upload($request->file('image_url')->getRealPath());
                 $validated['image_url'] = $uploadResult['secure_url'] ?? null;
-                \Log::info('Imagem enviada para Cloudinary:', ['url' => $validated['image_url']]);
+            } elseif ($request->filled('image_api_url')) {
+                $validated['image_url'] = $request->input('image_api_url');
             } else {
                 $validated['image_url'] = $product->image_url;
             }
@@ -304,11 +305,14 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
             'model.regex' => 'O modelo não pode ser apenas números.',
         ]);
 
-        // Faz upload para Cloudinary
+        // Faz upload para Cloudinary ou usa a imagem da API
         $uploadedFileUrl = null;
         if ($request->hasFile('image_url')) {
             $uploadResult = CloudinaryHelper::upload($request->file('image_url')->getRealPath());
             $uploadedFileUrl = $uploadResult['secure_url'] ?? null;
+        } elseif ($request->filled('image_api_url')) {
+            // Se veio da API, já pega a URL
+            $uploadedFileUrl = $request->input('image_api_url');
         }
 
         $product = Product::create([
@@ -321,7 +325,7 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
             'model' => $request->input('model'),
             'currentStock' => $request->input('currentStock'),
             'minimumStock' => $request->input('minimumStock'),
-            'image_url' => $uploadedFileUrl,
+            'image_url' => $uploadedFileUrl, // sempre salva nesse campo
         ]);
 
         // Se informou estoque inicial, cria movimentação de entrada automática

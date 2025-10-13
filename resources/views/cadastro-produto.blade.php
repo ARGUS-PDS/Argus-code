@@ -392,6 +392,7 @@ body {
       <div class="image-upload-container">
         <label for="image_url" class="form-label mb-2">{{ __('product_register.product_image') }}</label>
         <input type="file" name="image_url" id="image_url" class="form-control" accept=".jpg,.jpeg,.png" onchange="previewImage(event)">
+        <input type="hidden" name="image_api_url" id="image_api_url" value="">
         <div class="image-preview-area position-relative">
           <button type="button" id="removeBtn" class="btn-sm remove-image-btn" style="display:none;">&times;</button>
           @if(isset($product) && $product->image_url)
@@ -619,7 +620,16 @@ async function consultarProdutoCosmos(codigo) {
       previewImg.src = data.thumbnail;
       previewImg.classList.remove('d-none');
       updateRemoveButtonVisibility();
+
+      const imageApiInput = document.getElementById('image_api_url');
+    if (imageApiInput) {
+        imageApiInput.value = data.thumbnail;
     }
+
+    // Limpa o input file para evitar conflito
+    document.getElementById('image_url').value = '';
+    }
+    
 
     // Atualiza UI para estado de sucesso
     if (barcodeInput) {
