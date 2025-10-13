@@ -134,7 +134,6 @@
 
     <footer>
       🔒 Esta é uma solicitação de recuperação de senha gerada automaticamente pelo sistema.<br>
-      <img src="https://i.imgur.com/zPNz2fY.jpeg" alt="Argus" style="margin-top:12px; max-width:150px;">
     </footer>
   </div>
 </body>

@@ -104,7 +104,6 @@
 
     <footer>
       💡 Sugestão: entre em contato dentro de 24h para melhor conversão.<br>
-      <img src="https://i.imgur.com/zPNz2fY.jpeg" alt="Argus" style="margin-top:12px; max-width:150px;">
     </footer>
   </div>
 </body>

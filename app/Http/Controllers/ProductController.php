@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Supplier;
 use App\Models\SupplierOrder;
-use App\Mail\PedidoReposicaoMail;
-use Illuminate\Support\Facades\Mail;
+use App\Services\SendGridService;
 use App\Helpers\CloudinaryHelper;
 
 class ProductController extends Controller
@@ -211,8 +210,6 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-
-
     public function enviarPedido(Request $request)
     {
         $request->validate([
@@ -232,15 +229,38 @@ class ProductController extends Controller
 Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
 
         if ($request->canal_envio === 'email') {
-            Mail::to($fornecedor->email)->send(
-                new PedidoReposicaoMail(
-                    $fornecedor,
-                    $produto,
-                    $request->quantidade,
-                    $prazo,
-                    auth()->user()->email
-                )
-            );
+            try {
+                $sendGridService = new SendGridService();
+                
+                $emailData = [
+                    'to' => $fornecedor->email,
+                    'subject' => 'Pedido de Reposição - ' . $produto->description,
+                    'fornecedor_nome' => $fornecedor->name,
+                    'produto_descricao' => $produto->description,
+                    'produto_codigo' => $produto->code ?? 'N/A',
+                    'produto_barcode' => $produto->barcode,
+                    'produto_marca' => $produto->brand ?? 'N/A',
+                    'quantidade' => $request->quantidade,
+                    'prazo' => $prazo,
+                    'email_usuario' => auth()->user()->email,
+                    'nome_usuario' => auth()->user()->name ?? 'Usuário do Sistema',
+                ];
+
+                $success = $sendGridService->sendEmail(
+                    $emailData['to'],
+                    $emailData['subject'],
+                    'emails.pedido_reposicao',
+                    $emailData
+                );
+
+                if (!$success) {
+                    \Log::error('Falha no envio do e-mail via SendGrid para: ' . $fornecedor->email);
+                    return back()->with('error', 'Falha no envio do e-mail. O pedido foi registrado, mas o e-mail não foi enviado.');
+                }
+            } catch (\Exception $e) {
+                \Log::error('Erro ao enviar e-mail via SendGrid: ' . $e->getMessage());
+                return back()->with('error', 'Erro ao enviar e-mail: ' . $e->getMessage());
+            }
         }
 
         SupplierOrder::create([
@@ -264,9 +284,6 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
 
         return redirect()->route('produtos.esgotando')->with('success', 'Pedido enviado com sucesso!');
     }
-
-
-
 
     public function store(Request $request)
     {
@@ -294,15 +311,11 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
             $uploadedFileUrl = $uploadResult['secure_url'] ?? null;
         }
 
-
         $product = Product::create([
-            'image_url' => $imagePath ?? null,
             'code' => $request->input('code'),
             'description' => $request->input('description'),
             'barcode' => $request->input('barcode'),
-            //'expiration_date' => $request->input('expiration_date'),
             'value' => $request->input('value'),
-            //'profit' => $request->input('profit'),
             'supplierId' => $request->input('supplierId'),
             'brand' => $request->input('brand'),
             'model' => $request->input('model'),
