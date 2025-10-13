@@ -65,13 +65,20 @@
     text-decoration: none;
   }
 
-  .lang-btn {
+  .lang-btn,
+  .logout-btn {
     color: var(--color-gray-escuro);
     font-weight: 500;
     padding: 0.4rem 0.7rem;
     border-radius: 16px;
     transition: all 0.2s ease;
     text-decoration: none;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
   }
 
   .navbar-nav .dropdown-item:hover,
@@ -79,6 +86,8 @@
   .navbar-nav .dropdown-item:focus,
   .lang-btn:hover,
   .lang-btn:focus,
+  .logout-btn:hover,
+  .logout-btn:focus,
   .lang-switch .dropdown-item:hover,
   .lang-switch .dropdown-item:focus {
     background-color: var(--color-vinho-fundo) !important;
@@ -106,6 +115,10 @@
       background-color: var(--color-bege-claro);
       border: 0;
       box-shadow: none;
+    }
+
+    .logout-btn {
+      margin-top: 0.5rem;
     }
   }
 
@@ -810,6 +823,15 @@
                 </li>
               </ul>
             </div>
+
+            <!-- Botão de Logout -->
+            <form id="logout-form-side" action="{{ route('logout') }}" method="POST" style="display: inline;">
+              @csrf
+              <button type="submit" class="btn logout-btn" title="{{ __('menu.sair') }}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>{{ __('menu.sair') }}</span>
+              </button>
+            </form>
           </div>
         </div>
       </div>
@@ -904,17 +926,17 @@
   <script src="{{ asset('js/app-js/app.js') }}"></script>
 
   <script>
-    window.translations = {
-        password_generated: "{{ __('password.password_generated') }}",
-        password_strength_very_weak: "{{ __('password.password_strength_very_weak') }}",
-        password_strength_weak: "{{ __('password.password_strength_weak') }}",
-        password_strength_medium: "{{ __('password.password_strength_medium') }}",
-        password_strength_strong: "{{ __('password.password_strength_strong') }}",
-        password_match: "{{ __('password.password_match') }}",
-        password_mismatch: "{{ __('password.password_mismatch') }}",
-        password_invalid: "{{ __('password.password_invalid') }}"
-    };
-</script>
+  window.translations = {
+    password_generated: "{{ __('password.password_generated') }}",
+    password_strength_very_weak: "{{ __('password.password_strength_very_weak') }}",
+    password_strength_weak: "{{ __('password.password_strength_weak') }}",
+    password_strength_medium: "{{ __('password.password_strength_medium') }}",
+    password_strength_strong: "{{ __('password.password_strength_strong') }}",
+    password_match: "{{ __('password.password_match') }}",
+    password_mismatch: "{{ __('password.password_mismatch') }}",
+    password_invalid: "{{ __('password.password_invalid') }}"
+  };
+  </script>
 
   <script src="{{ asset('js/app-js/password.js') }}"></script>
 
