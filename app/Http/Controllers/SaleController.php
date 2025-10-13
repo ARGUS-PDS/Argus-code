@@ -24,11 +24,11 @@ class SaleController extends Controller
         $product = Product::where('barcode', $query)
             ->orWhere('description', 'like', "%{$query}%")
             ->first();
-    
+
         if (!$product) {
             return response()->json(['error' => 'Produto não encontrado'], 404);
         }
-    
+
         return response()->json($product);
     }
 
@@ -64,10 +64,10 @@ class SaleController extends Controller
 
                 Movement::create([
                     'product_id' => $product->id,
-                    'type' => 'saida', 
+                    'type' => 'outward',
                     'date' => now()->toDateString(),
                     'quantity' => $item['quantity'],
-                    'cost' => $item['unit_price'], 
+                    'cost' => $item['unit_price'],
                     'note' => 'Venda ID: ' . $venda->id
                 ]);
             }
@@ -75,7 +75,6 @@ class SaleController extends Controller
             DB::commit();
 
             return response()->json(['success' => true]);
-
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json(['error' => $e->getMessage()], 500);
@@ -92,23 +91,23 @@ class SaleController extends Controller
         switch ($periodo) {
             case 'ano':
                 $query->addSelect(DB::raw('YEAR(created_at) as label'))
-                      ->groupBy('label');
+                    ->groupBy('label');
                 break;
 
             case 'mes':
                 $query->addSelect(DB::raw('DATE_FORMAT(created_at, "%Y-%m") as label'))
-                      ->groupBy('label');
+                    ->groupBy('label');
                 break;
 
             case 'semana':
                 $query->addSelect(DB::raw('YEARWEEK(created_at, 1) as label'))
-                      ->groupBy('label');
+                    ->groupBy('label');
                 break;
 
             case 'dia':
             default:
                 $query->addSelect(DB::raw('DATE(created_at) as label'))
-                      ->groupBy('label');
+                    ->groupBy('label');
                 break;
         }
 

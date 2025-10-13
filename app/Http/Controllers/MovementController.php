@@ -67,7 +67,7 @@ class MovementController extends Controller
 
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'type'       => 'required|in:entrada,saida,balance',
+            'type'       => 'required|in:inward,outward,balance',
             'date'       => 'required|date',
             'quantity'   => 'required|integer|min:1',
             'cost'       => 'required|numeric',
@@ -102,7 +102,7 @@ class MovementController extends Controller
     {
         $request->validate([
             'product_id' => 'required|exists:products,id',
-            'type'       => 'required|in:entrada,saida,balanco',
+            'type'       => 'required|in:inward,outward,balance',
             'date'       => 'required|date',
             'quantity'   => 'required|integer|min:0',
             'cost'       => 'required|numeric|min:0',

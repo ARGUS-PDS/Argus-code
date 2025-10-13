@@ -315,7 +315,7 @@ Em caso de dúvidas, entre em contato pelo e-mail: " . auth()->user()->email;
         if ($request->filled('currentStock') && (int)$request->input('currentStock') > 0) {
             \App\Models\Movement::create([
                 'product_id' => $product->id,
-                'type' => 'entrada',
+                'type' => 'inward',
                 'date' => now(),
                 'quantity' => (int)$request->input('currentStock'),
                 'cost' => $request->input('value') ?? 0,
