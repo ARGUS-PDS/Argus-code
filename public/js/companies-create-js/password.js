@@ -74,7 +74,7 @@ function checkPasswordStrength(password) {
         passwordField.classList.add("is-invalid");
     }
 
-    updateFieldState("user_password", isPasswordValid);
+    updatePasswordValidationIcon("user_password", isPasswordValid);
 
     // Verificar também se as senhas coincidem quando a senha principal é alterada
     checkPasswordMatch();
@@ -111,15 +111,15 @@ function checkPasswordMatch() {
     if (confirmPassword === "") {
         feedbackElement.style.display = "none";
         doPasswordsMatch = false;
-        updateFieldState("user_password_confirmation", false);
-    } else if (password === confirmPassword) {
+        updatePasswordValidationIcon("user_password_confirmation", false);
+    } else if (password === confirmPassword && isPasswordValid) {
         feedbackElement.textContent = "As senhas coincidem";
         feedbackElement.classList.remove("invalid");
         feedbackElement.classList.add("valid");
         feedbackElement.style.display = "block";
         doPasswordsMatch = true;
         confirmField.classList.add("is-valid");
-        updateFieldState("user_password_confirmation", true);
+        updatePasswordValidationIcon("user_password_confirmation", true);
     } else {
         feedbackElement.textContent = "As senhas não coincidem";
         feedbackElement.classList.remove("valid");
@@ -127,7 +127,32 @@ function checkPasswordMatch() {
         feedbackElement.style.display = "block";
         doPasswordsMatch = false;
         confirmField.classList.add("is-invalid");
-        updateFieldState("user_password_confirmation", false);
+        updatePasswordValidationIcon("user_password_confirmation", false);
+    }
+}
+
+// Função para atualizar ícone de validação dos campos de senha
+function updatePasswordValidationIcon(inputId, isValid) {
+    const container = document.getElementById(`${inputId}_container`);
+    let validationIcon = container.querySelector('.validation-icon');
+    
+    if (isValid) {
+        // Adicionar classe has-validation para mostrar o ícone
+        container.classList.add('has-validation');
+        
+        if (!validationIcon) {
+            validationIcon = document.createElement('i');
+            validationIcon.className = 'validation-icon bi bi-check-circle-fill text-success';
+            container.appendChild(validationIcon);
+        } else {
+            validationIcon.className = 'validation-icon bi bi-check-circle-fill text-success';
+        }
+    } else {
+        // Remover classe has-validation e ícone
+        container.classList.remove('has-validation');
+        if (validationIcon) {
+            validationIcon.remove();
+        }
     }
 }
 
@@ -187,3 +212,28 @@ function generateStrongPassword() {
     // Mostrar toast ao invés de alerta
     showToast("Senha forte gerada com sucesso!");
 }
+
+// Inicialização quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', function() {
+    // Adicionar event listeners para os campos de senha
+    const passwordInput = document.getElementById('user_password');
+    const confirmInput = document.getElementById('user_password_confirmation');
+    
+    if (passwordInput) {
+        passwordInput.addEventListener('input', function() {
+            checkPasswordStrength();
+        });
+    }
+    
+    if (confirmInput) {
+        confirmInput.addEventListener('input', function() {
+            checkPasswordMatch();
+        });
+    }
+    
+    // Adicionar classe single-icon para o container de confirmação
+    const confirmContainer = document.getElementById('user_password_confirmation_container');
+    if (confirmContainer) {
+        confirmContainer.classList.add('single-icon');
+    }
+});

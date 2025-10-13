@@ -51,23 +51,23 @@
         <div class="row g-3">
           <div class="col-md-6">
             <label for="cnpj" class="form-label required">CNPJ</label>
-            <input type="text" name="cnpj" id="cnpj" class="form-control" required maxlength="18" placeholder="00.000.000/0000-00" />
+            <input type="text" name="cnpj" id="cnpj" class="form-control no-bootstrap-validation" required maxlength="18" placeholder="00.000.000/0000-00" />
             <div id="cnpjStatus" class="validation-status d-none"></div>
             <div class="invalid-feedback">Por favor, informe um CNPJ válido.</div>
           </div>
           <div class="col-md-6">
             <label for="businessName" class="form-label required">Razão Social</label>
-            <input type="text" name="businessName" id="businessName" class="form-control" required maxlength="50" />
+            <input type="text" name="businessName" id="businessName" class="form-control no-bootstrap-validation" required maxlength="50" />
             <div class="invalid-feedback">Por favor, informe a razão social.</div>
           </div>
           <div class="col-md-6">
             <label for="tradeName" class="form-label required">Nome Fantasia</label>
-            <input type="text" name="tradeName" id="tradeName" class="form-control" required maxlength="50" />
+            <input type="text" name="tradeName" id="tradeName" class="form-control no-bootstrap-validation" required maxlength="50" />
             <div class="invalid-feedback">Por favor, informe o nome fantasia.</div>
           </div>
           <div class="col-md-6">
             <label for="stateRegistration" class="form-label required">Inscrição Estadual</label>
-            <input type="text" name="stateRegistration" id="stateRegistration" class="form-control" required maxlength="30" oninput="this.value = formatStateRegistration(this.value)" />
+            <input type="text" name="stateRegistration" id="stateRegistration" class="form-control no-bootstrap-validation" required maxlength="30" oninput="this.value = formatStateRegistration(this.value)" />
             <small class="text-muted">Permitido: números, pontos, barras e hífen</small>
             <div class="invalid-feedback">Por favor, informe a inscrição estadual.</div>
           </div>
@@ -80,38 +80,38 @@
         <div class="row g-3">
           <div class="col-md-6">
             <label for="cep" class="form-label required">CEP</label>
-            <input type="text" name="cep" id="cep" class="form-control" required maxlength="9" placeholder="00000-000">
+            <input type="text" name="cep" id="cep" class="form-control no-bootstrap-validation" required maxlength="9" placeholder="00000-000">
             <div id="cepStatus" class="validation-status d-none"></div>
             <div class="invalid-feedback">Por favor, informe um CEP válido.</div>
           </div>
           <div class="col-md-6">
             <label for="place" class="form-label required">Logradouro</label>
-            <input type="text" name="place" id="place" class="form-control" required maxlength="100" />
+            <input type="text" name="place" id="place" class="form-control no-bootstrap-validation" required maxlength="100" />
             <div class="invalid-feedback">Por favor, informe o logradouro.</div>
           </div>
           <div class="col-md-6">
             <label for="number" class="form-label required">Número</label>
-            <input type="number" name="number" id="number" class="form-control" required oninput="formatNumber(this)" />
+            <input type="number" name="number" id="number" class="form-control no-bootstrap-validation" required oninput="formatNumber(this)" />
             <small class="text-muted">Apenas números, máximo 10 dígitos</small>
             <div class="invalid-feedback">Por favor, informe o número.</div>
           </div>
           <div class=" col-md-6">
             <label for="details" class="form-label">Complemento</label>
-            <input type="text" name="details" id="details" class="form-control" maxlength="50" placeholder="Opcional" />
+            <input type="text" name="details" id="details" class="form-control no-bootstrap-validation" maxlength="50" placeholder="Opcional" />
           </div>
           <div class="col-md-6">
             <label for="neighborhood" class="form-label required">Bairro</label>
-            <input type="text" name="neighborhood" id="neighborhood" class="form-control" required maxlength="100" />
+            <input type="text" name="neighborhood" id="neighborhood" class="form-control no-bootstrap-validation" required maxlength="100" />
             <div class="invalid-feedback">Por favor, informe o bairro.</div>
           </div>
           <div class="col-md-6">
             <label for="city" class="form-label required">Cidade</label>
-            <input type="text" name="city" id="city" class="form-control" required maxlength="100" />
+            <input type="text" name="city" id="city" class="form-control no-bootstrap-validation" required maxlength="100" />
             <div class="invalid-feedback">Por favor, informe a cidade.</div>
           </div>
           <div class="col-md-6">
             <label for="state" class="form-label required">Estado</label>
-            <select name="state" id="state" class="form-select" required>
+            <select name="state" id="state" class="form-select no-bootstrap-validation" required>
               <option value="">Selecione um estado</option>
               <option value="AC">Acre</option>
               <option value="AL">Alagoas</option>
@@ -141,7 +141,6 @@
               <option value="SE">Sergipe</option>
               <option value="TO">Tocantins</option>
             </select>
-            <div class="invalid-feedback">Por favor, selecione um estado.</div>
           </div>
         </div>
       </div>
@@ -152,24 +151,25 @@
         <div class="row g-3">
           <div class="col-md-6">
             <label for="user_name" class="form-label required">Nome</label>
-            <input type="text" name="user_name" id="user_name" class="form-control" required maxlength="50" oninput="this.value = formatName(this.value)" />
+            <input type="text" name="user_name" id="user_name" class="form-control no-bootstrap-validation" required maxlength="50" oninput="this.value = formatName(this.value)" />
             <small class="text-muted">Apenas letras são permitidas</small>
             <div class="invalid-feedback">Por favor, informe o nome.</div>
           </div>
           <div class="col-md-6">
             <label for="user_email" class="form-label required">Email</label>
-            <input type="email" name="user_email" id="user_email" class="form-control" required maxlength="80" placeholder="exemplo@gmail.com" />
+            <input type="email" name="user_email" id="user_email" class="form-control no-bootstrap-validation" required maxlength="80" placeholder="exemplo@gmail.com" />
             <div id="emailStatus" class="validation-status d-none"></div>
           </div>
 
           <div class="col-md-6">
             <label for="user_password" class="form-label required">Senha</label>
             <div class="password-container position-relative" id="user_password_container">
-              <input type="password" name="user_password" id="user_password" class="form-control" required minlength="8" maxlength="20" />
+              <input type="password" name="user_password" id="user_password" class="form-control no-bootstrap-validation" required minlength="8" maxlength="20" />
               <i class="toggle-password fas fa-eye" onclick="togglePassword('user_password', this)"></i>
               <button type="button" class="generate-password" title="Gerar senha forte" onclick="generateStrongPassword()">
                 <i class="fas fa-sync-alt"></i>
               </button>
+              <!-- Ícone de validação será adicionado dinamicamente pelo JavaScript -->
             </div>
             <div class="password-strength">
               <div class="progress">
@@ -190,9 +190,10 @@
 
           <div class="col-md-6">
             <label for="user_password_confirmation" class="form-label required">Confirmar Senha</label>
-            <div class="password-container position-relative" id="user_password_confirmation_container">
-              <input type="password" name="user_password_confirmation" id="user_password_confirmation" class="form-control" required minlength="8" maxlength="20" />
+            <div class="password-container position-relative single-icon" id="user_password_confirmation_container">
+              <input type="password" name="user_password_confirmation" id="user_password_confirmation" class="form-control no-bootstrap-validation" required minlength="8" maxlength="20" />
               <i class="toggle-password fas fa-eye" onclick="togglePassword('user_password_confirmation', this)"></i>
+              <!-- Ícone de validação será adicionado dinamicamente pelo JavaScript -->
             </div>
             <div class="password-match-feedback invalid" id="passwordMatchFeedback">As senhas não coincidem</div>
             <small id="passwordConfirmationHelp" class="form-text">Digite a mesma senha novamente para confirmação</small>
@@ -218,7 +219,9 @@
     </div>
   </div>
 
+
   <!-- Tela de carregamento -->
+
   @include('layouts.carregamento')
 
   <!-- Scripts -->

@@ -10,12 +10,17 @@ let cnpjApiTimeout = null;
 let cepApiTimeout = null;
 let emailCheckTimeout = null;
 
+// Timeouts para validação em tempo real
+let cnpjInputTimeout = null;
+let cepInputTimeout = null;
+let emailInputTimeout = null;
+
 // Estado dos campos obrigatórios
 let requiredFieldsState = {
     cnpj: false,
     businessName: false,
     tradeName: false,
-    stateRegistration: false, // CAMPO ADICIONADO
+    stateRegistration: false,
     cep: false,
     place: false,
     number: false,
@@ -25,5 +30,8 @@ let requiredFieldsState = {
     user_name: false,
     user_email: false,
     user_password: false,
-    user_password_confirmation: false
+    user_password_confirmation: false,
 };
+
+// Configurações
+const VALIDATION_DELAY = 2000; // ms para delay na validação em tempo real

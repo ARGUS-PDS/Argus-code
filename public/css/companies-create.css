@@ -60,6 +60,13 @@ body {
     border-bottom: 1px solid var(--color-gray-claro);
 }
 
+/* Adicionar asterisco nos campos obrigatórios */
+.form-label.required::after {
+    content: " *";
+    color: #dc3545;
+    margin-left: 4px;
+}
+
 .form-label {
     display: block;
     color: var(--color-vinho);
@@ -122,33 +129,137 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* Remover ícones de validação do Bootstrap para todos os campos */
+.no-bootstrap-validation.is-valid,
+.no-bootstrap-validation.is-invalid {
+    background-image: none !important;
+    padding-right: 18px !important;
+}
 
+/* Container de senha - estrutura reorganizada */
+.password-container {
+    position: relative;
+}
+
+.password-container input {
+    padding-right: 120px; /* Espaço para múltiplos ícones */
+    transition: padding-right 0.3s ease;
+}
+
+/* Manter o padding especial apenas para campos de senha */
+.password-container input.no-bootstrap-validation {
+    padding-right: 120px !important;
+}
+
+.password-container.single-icon input.no-bootstrap-validation {
+    padding-right: 80px !important;
+}
+
+/* Posicionamento dos ícones na ordem correta */
 .toggle-password {
     position: absolute;
-    right: 45px;
+    right: 15px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     color: #555;
-    transition: color 0.3s ease;
+    z-index: 3;
+    background: none;
+    border: none;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
 }
 
 .generate-password {
     position: absolute;
-    right: 10px;
+    right: 50px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     color: #555;
-    transition: color 0.3s ease;
+    z-index: 3;
     background: none;
     border: none;
     font-size: 16px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
 }
 
+/* Ícone de validação - posicionado DEPOIS do toggle-password */
+.validation-icon {
+    position: absolute;
+    right: 85px; /* Posicionado à esquerda do generate-password */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Estados dos ícones */
 .toggle-password:hover,
 .generate-password:hover {
-    color: var(--color-vinho);
+    color: #490006;
+    background-color: rgba(73, 0, 6, 0.1);
+}
+
+/* Quando há validação, ajustar posições */
+.password-container.has-validation .validation-icon {
+    right: 85px;
+    opacity: 1;
+}
+
+/* Para containers com apenas um ícone (confirmação de senha) */
+.password-container.single-icon input {
+    padding-right: 80px;
+}
+
+.password-container.single-icon .toggle-password {
+    right: 15px;
+}
+
+.password-container.single-icon.has-validation input {
+    padding-right: 80px;
+}
+
+.password-container.single-icon.has-validation .toggle-password {
+    right: 15px;
+}
+
+.password-container.single-icon.has-validation .validation-icon {
+    right: 50px;
+    opacity: 1;
+}
+
+/* Feedback de validação */
+.validation-status.valid .validation-icon {
+    color: #198754;
+}
+
+.validation-status.invalid .validation-icon {
+    color: #dc3545;
 }
 
 .password-strength {
@@ -241,22 +352,17 @@ body {
     margin-top: 3px;
 }
 
+/* Remover completamente os ícones de validação do Bootstrap */
 .form-control.is-invalid,
 .form-select.is-invalid {
     border-color: #dc3545 !important;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right calc(0.375em + 0.1875rem) center;
-    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+    background-image: none !important;
 }
 
 .form-control.is-valid,
 .form-select.is-valid {
     border-color: #198754 !important;
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right calc(0.375em + 0.1875rem) center;
-    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+    background-image: none !important;
 }
 
 .form-control:invalid:not(:focus):not(:placeholder-shown),
@@ -310,10 +416,6 @@ body {
     100% {
         transform: rotate(360deg);
     }
-}
-
-.validation-icon {
-    margin-right: 5px;
 }
 
 .required-note {
@@ -373,80 +475,41 @@ body {
     }
 
     .password-container input {
-        padding-right: 75px;
+        padding-right: 100px;
     }
-}
 
-.password-container {
-    position: relative;
-}
+    .password-container.single-icon input {
+        padding-right: 60px;
+    }
 
-.password-container input {
-    padding-right: 100px;
-    transition: padding-right 0.3s ease;
-}
+    .toggle-password {
+        right: 15px;
+    }
 
-.toggle-password,
-.generate-password,
-.validation-icon {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #555;
-    z-index: 5;
-    transition: right 0.3s ease, opacity 0.3s ease;
-    font-size: 18px;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.8);
-}
+    .generate-password {
+        right: 50px;
+    }
 
-.toggle-password:hover,
-.generate-password:hover {
-    color: #490006;
-    background-color: rgba(73, 0, 6, 0.1);
-}
+    .validation-icon {
+        right: 85px;
+    }
 
-.toggle-password {
-    right: 15px;
-}
+    .password-container.single-icon .toggle-password {
+        right: 15px;
+    }
 
-.generate-password {
-    right: 45px;
-}
+    .password-container.single-icon.has-validation .validation-icon {
+        right: 50px;
+    }
 
-.validation-icon {
-    right: 15px;
-    opacity: 0;
-    pointer-events: none;
-}
+    /* Ajustes para mobile com a classe no-bootstrap-validation */
+    .password-container input.no-bootstrap-validation {
+        padding-right: 100px !important;
+    }
 
-.password-container.validating .toggle-password {
-    right: 45px;
-}
-
-.password-container.validating .generate-password {
-    right: 75px;
-}
-
-.password-container.validating .validation-icon {
-    right: 15px;
-    opacity: 1;
-}
-
-.password-container.single-icon input {
-    padding-right: 45px;
-}
-
-.password-container.single-icon .toggle-password {
-    right: 15px;
+    .password-container.single-icon input.no-bootstrap-validation {
+        padding-right: 60px !important;
+    }
 }
 
 .password-strength {
