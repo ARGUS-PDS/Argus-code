@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <nav class="navbar">
+  <nav class="navbar" style="background-color: rgb(0 0 0 / 39%);">
     <div class="navbar-container">
       <img class="logo" src="{{ asset('images/logo.png') }}" alt="logo">
 
@@ -427,13 +427,13 @@
   <script src="{{ asset('js/landpage.js') }}"></script>
   <script src="{{ asset('js/lang-script.js') }}"></script>
   <script>
-  window.translations = {
-    'terms_of_use': "{{ __('landpage.terms_of_use') }}",
-    'privacy_policy': "{{ __('landpage.privacy_policy') }}",
-    'last_update': "{{ __('landpage.last_update') }}",
-    'contact_us': "{{ __('landpage.contact_us') }}",
-    'privacy_content': `{!! __('landpage.privacy_content') !!}`
-  };
+    window.translations = {
+      'terms_of_use': "{{ __('landpage.terms_of_use') }}",
+      'privacy_policy': "{{ __('landpage.privacy_policy') }}",
+      'last_update': "{{ __('landpage.last_update') }}",
+      'contact_us': "{{ __('landpage.contact_us') }}",
+      'privacy_content': `{!! __('landpage.privacy_content') !!}`
+    };
   </script>
 </body>
 

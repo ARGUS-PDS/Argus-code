@@ -45,11 +45,14 @@ class SupplierController extends Controller
             // Endereço
             'address.cep' => 'required|string',
             'address.place' => 'required|string',
-            'address.number' => 'required|integer',
+            'address.number' => 'required|regex:/^[0-9]+$/',
             'address.neighborhood' => 'required|string',
             'address.city' => 'required|string',
             'address.state' => 'required|string|max:2',
         ]);
+
+        // ✅ Conversão para inteiro antes de salvar no banco
+        $validated['address']['number'] = (int) $validated['address']['number'];
 
         DB::beginTransaction();
 
@@ -147,7 +150,7 @@ class SupplierController extends Controller
             'address' => 'nullable|array',
             'address.cep' => 'nullable|string',
             'address.place' => 'nullable|string',
-            'address.number' => 'nullable|integer',
+            'address.number' => 'required|regex:/^[0-9]+$/',
             'address.neighborhood' => 'nullable|string',
             'address.city' => 'nullable|string',
             'address.state' => 'nullable|string|max:2',

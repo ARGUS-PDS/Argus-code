@@ -52,14 +52,16 @@
         margin-bottom: 0.5rem;
     }
 
-    .form-control, .form-select {
+    .form-control,
+    .form-select {
         border-radius: 8px;
         border: 1px solid var(--color-gray-claro);
         padding: 0.75rem 1rem;
         color: var(--color-gray-escuro);
     }
 
-    .form-control:focus, .form-select:focus {
+    .form-control:focus,
+    .form-select:focus {
         border-color: var(--color-vinho);
         box-shadow: 0 0 0 0.25rem rgba(119, 49, 56, 0.25);
     }
@@ -92,15 +94,17 @@
     }
 
     .btn-secondary:hover {
-        background-color: var(--color-gray-2); /* Cinza mais escuro para hover */
+        background-color: var(--color-gray-2);
+        /* Cinza mais escuro para hover */
         border-color: var(--color-gray-2);
     }
 
     /* Removendo estilos antigos para os botões "Cancelar" e "Salvar" */
-    .btn-cancel, .btn-send { /* Isso irá sobrescrever seus estilos antigos, se houver */
+    .btn-cancel,
+    .btn-send {
+        /* Isso irá sobrescrever seus estilos antigos, se houver */
         /* Remova ou ajuste aqui se você tiver um estilo específico para estes botões que não é o do Bootstrap */
     }
-
 </style>
 @endsection
 
@@ -110,19 +114,19 @@
 
     {{-- Alerts de feedback --}}
     @if ($errors->any())
-        <div class="alert alert-danger mt-3">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="alert alert-danger mt-3">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
     @if (session('success'))
-        <div class="alert alert-success mt-3">
-            {{ session('success') }}
-        </div>
+    <div class="alert alert-success mt-3">
+        {{ session('success') }}
+    </div>
     @endif
 
     <div class="card-custom">
