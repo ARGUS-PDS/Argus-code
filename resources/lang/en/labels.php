@@ -9,4 +9,13 @@ return [
     'limpar_tudo' => 'Clear All',
     'imprimir_etiquetas' => 'Print Labels',
     'alt_codigo_barras' => 'Barcode:',
+    'excluir_etiqueta' => 'Delete Label',
+    'confirmar_exclusao' => 'Are you sure you want to delete this label?',
+    'cancelar' => 'Cancel',
+    'excluir' => 'Delete',
+    'sucesso' => 'Success!',
+    'etiqueta_excluida_sucesso' => 'Label deleted successfully.',
+    'erro' => 'Error!',
+    'erro_excluir_etiqueta' => 'Could not delete the label.',
+    'erro_desconhecido' => 'An error occurred while deleting the label.',
 ];

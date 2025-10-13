@@ -123,6 +123,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/etiquetas', [EtiquetaController::class, 'index']);
     Route::post('/adicionar', [EtiquetaController::class, 'adicionar'])->name('etiquetas.adicionar');
     Route::get('/limpar', [EtiquetaController::class, 'limpar'])->name('etiquetas.limpar');
+    Route::post('/etiquetas/excluir', [EtiquetaController::class, 'excluir'])->name('etiquetas.excluir');
 
 
     Route::get('/alerta-estoque', [ProductController::class, 'produtosEsgotando'])->name('produtos.esgotando');
