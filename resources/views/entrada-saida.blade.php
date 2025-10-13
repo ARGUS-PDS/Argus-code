@@ -219,14 +219,17 @@
         const option = new Option(`Cód.: ${lote.batch_code} - Val.: ${lote.expiration_date}`, lote.id, true, true);
         select.add(option);
 
-        // Fecha o modal
-        const modal = bootstrap.Modal.getInstance(document.getElementById("modalLote"));
-        modal.hide();
+        const modalLote = bootstrap.Modal.getInstance(document.getElementById("modalLote"));
+        modalLote.hide();
+
+        const modalLancamento = new bootstrap.Modal(document.getElementById("modalLancamento"));
+        setTimeout(() => modalLancamento.show(), 400);
 
         form.reset();
       })
       .catch(err => console.error("Erro ao salvar lote:", err));
   });
+
 
   function formatarMoeda(campo) {
     // Remove tudo que não for número
