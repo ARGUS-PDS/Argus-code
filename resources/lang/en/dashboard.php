@@ -1,14 +1,11 @@
 <?php
+// resources/lang/en/dashboard.php
 
 return [
-    'prod_valid_title' => 'Product/Expiry',
-    'movement_title' => 'Latest movements',
+    // === DASHBOARD CARDS ===
+    'prod_valid_title' => 'Product/Expiration',
+    'movement_title' => 'Latest Movements',
     'alerts_title' => 'Alerts',
-    'year' => 'Year',
-    'month' => 'Month',
-    'week' => 'Week',
-    'day' => 'Day',
-    'sales' => 'Sales',
     'no_news' => 'No updates here',
     'expires_in' => 'Expires in',
     'days' => 'days',
@@ -17,8 +14,18 @@ return [
     'out_of_stock' => 'Out of Stock',
     'batch' => 'Batch',
     'expiration' => 'Expiration',
+
+    // === PERIODS (Chart Buttons) ===
     'year' => 'Year',
     'month' => 'Month',
+    'week' => 'Week',
     'day' => 'Day',
+
+    // === KEYS FOR CHART (JS I18N - NEW ADDITIONS) ===
     'sales' => 'Sales',
+    'currency' => '$',            // Used for the label 'Sales ($)'
+    'currency_label' => '$ ',     // Used to prefix values (e.g., $ 10.00)
+    'no_sales' => 'No sales',
+    'loading' => 'Loading',
+    'loading_error' => 'Error loading',
 ];

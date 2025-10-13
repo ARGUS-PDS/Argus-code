@@ -369,24 +369,24 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalProdutosLabel">Selecionar Produto</h5>
+        <h5 class="modal-title" id="modalProdutosLabel">{{ __('pos.selecionar_produto') }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
       </div>
       <div class="modal-body">
         <table class="table table-hover" id="tabelaProdutos">
           <thead>
             <tr>
-              <th>Nome</th>
-              <th>Código de Barras</th>
+              <th>{{ __('pos.nome') }}</th>
+              <th>{{ __('pos.codigodebarras') }}</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
         <div id="loadingProdutos" class="text-center my-3" style="display:none;">
             <div class="spinner-border text-danger" role="status">
-                <span class="visually-hidden">Carregando...</span>
+                <span class="visually-hidden">{{ __('pos.carregando') }}</span>
             </div>
-            <p class="mt-2" style="color: var(--color-vinho); font-weight: bold;">Carregando produtos...</p>
+            <p class="mt-2" style="color: var(--color-vinho); font-weight: bold;">{{ __('pos.carregando_produtos') }}</p>
         </div>
       </div>
     </div>
@@ -395,11 +395,11 @@
 
 <div id="posConfirmModal" class="confirm-overlay">
     <div class="confirm-box">
-        <h3 class="confirm-title">Aviso</h3>
-        <p class="confirm-message">Mensagem</p>
+        <h3 class="confirm-title">{{ __('pos.aviso') }}</h3>
+        <p class="confirm-message">{{ __('pos.mensagem') }}</p>
         <div class="confirm-buttons">
-            <button id="posCancel" class="btn-cancelar">Fechar</button>
-            <button id="posConfirm" class="btn-confirmar">Confirmar</button>
+            <button id="posCancel" class="btn-cancelar">{{ __('pos.fechar') }}</button>
+            <button id="posConfirm" class="btn-confirmar">{{ __('pos.confirmar') }}</button>
         </div>
     </div>
     <style>
@@ -422,9 +422,9 @@
             background:rgba(255,255,255,0.8); z-index:9999; 
             text-align:center; padding-top:20%; font-weight:bold; color:var(--color-vinho);">
     <div class="spinner-border text-danger" role="status">
-        <span class="visually-hidden">Carregando...</span>
+        <span class="visually-hidden">{{ __('pos.carregando') }}</span>
     </div>
-    <p class="mt-3">Carregando produto, aguarde...</p>
+    <p class="mt-3">{{ __('pos.carregando_produtos_aguarde') }}</p>
 </div>
 
 <script>
@@ -445,7 +445,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(data => {
                 loading.style.display = "none";
                 if (!data.length) {
-                    tbody.innerHTML = `<tr><td colspan="2" class="text-center text-muted">Nenhum produto encontrado.</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="2" class="text-center text-muted">{{ __('pos.nenhum_produto_encontrado') }}</td></tr>`;
                     return;
                 }
 
@@ -463,7 +463,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(() => {
                 loading.style.display = "none";
-                tbody.innerHTML = `<tr><td colspan="2" class="text-center text-danger">Erro ao carregar produtos.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="2" class="text-center text-danger">{{ __('pos.erro_carregar_produtos') }}</td></tr>`;
             });
     });
 });
@@ -477,11 +477,11 @@ function abrirConfirmacaoPDV(mensagem) {
         const messageEl = modal.querySelector('.confirm-message');
         const btnConfirm = document.getElementById('posConfirm');
         const btnCancel = document.getElementById('posCancel');
-        modal.querySelector('.confirm-title').textContent = 'Confirmar ação';
+        modal.querySelector('.confirm-title').textContent = '{{ __('pos.confirmar_acao') }}';
         messageEl.textContent = mensagem;
         modal.classList.add('active');
         btnConfirm.style.display = '';
-        btnCancel.textContent = 'Cancelar';
+        btnCancel.textContent = '{{ __('pos.cancelar') }}';
 
         const cleanup = () => {
             btnConfirm.onclick = null;
@@ -498,11 +498,11 @@ function abrirAvisoPDV(mensagem) {
     const messageEl = modal.querySelector('.confirm-message');
     const btnConfirm = document.getElementById('posConfirm');
     const btnCancel = document.getElementById('posCancel');
-    modal.querySelector('.confirm-title').textContent = 'Aviso';
+    modal.querySelector('.confirm-title').textContent = '{{ __('pos.aviso') }}';
     messageEl.textContent = mensagem;
     modal.classList.add('active');
     btnConfirm.style.display = 'none';
-    btnCancel.textContent = 'Fechar';
+    btnCancel.textContent = '{{ __('pos.fechar') }}';
     btnCancel.onclick = () => { modal.classList.remove('active'); };
 }
 
@@ -560,7 +560,7 @@ function renderPedidos() {
         lista.innerHTML += `
             <li class="list-group-item ${ativo}" onclick="selecionarPedido(${p.id})">
                 <div class="pedido-content">
-                    <span>Pedido</span>
+                    <span>{{ __('pos.pedido') }}</span>
                     <span>${p.id}</span>
                 </div>
                 <button onclick="apagarPedido(${p.id}); event.stopPropagation()">X</button>
@@ -690,8 +690,8 @@ function renderCart() {
             <tr>
                 <td class="text-center">
                     ${
-                        item.image_url 
-                        ? `<img src="${item.image_url}" alt="Produto" class="img-thumb" loading="lazy">`
+                        item.image_url
+                        ? `<img src="${item.image_url}" alt="{{ __('pos.produto_imagem_alt') }}" class="img-thumb" loading="lazy">`
                         : `<div class="img-thumb d-flex align-items-center justify-content-center" style="background: var(--color-bege-card-interno);">
                             <i class="bi bi-image" style="font-size: 1.5rem; color: var(--color-vinho-fundo);"></i>
                         </div>`
@@ -747,7 +747,7 @@ function updatePrice(index, value) {
 }
 
 function removerItem(index) {
-    abrirConfirmacaoPDV('Tem certeza que deseja remover este item?')
+    abrirConfirmacaoPDV('{{ __('pos.confirmar_remover_item') }}')
         .then((confirmado) => {
             if (!confirmado) return;
             pedidoAtual.itens.splice(index, 1);
@@ -761,7 +761,7 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
         const codigo = this.value.trim();
         if (!codigo) return;
         if (!pedidoAtual) {
-            alert('{{ __('pos.alerta_nenhum_pedido') }}');
+            abrirAvisoPDV('{{ __('pos.alerta_nenhum_pedido') }}');
             this.value = '';
             return;
         }
@@ -790,7 +790,7 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
                 if (loading) loading.style.display = 'none';
             }
             if (!produto || !produto.id) {
-                alert('{{ __('pos.alerta_produto_nao_encontrado') }}');
+                abrirAvisoPDV('{{ __('pos.alerta_produto_nao_encontrado') }}');
                 this.value = '';
                 return;
             }
@@ -825,7 +825,7 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
         })
         .catch(err => {
             console.error(err);
-            alert('{{ __('pos.alerta_erro_servidor') }}');
+            abrirAvisoPDV('{{ __('pos.alerta_erro_servidor') }}');
             this.value = '';
             if (typeof esconderTelaCarregando === 'function') {
                 try { esconderTelaCarregando(); } catch(_) {}
@@ -853,7 +853,7 @@ function atualizarDestaque() {
             const img = document.createElement("img");
             img.src = produto.image_url;
             img.className = "destaque-img";
-            img.alt = "Produto";
+            img.alt = "{{ __('pos.produto_imagem_alt') }}";
             img.style.objectFit = "cover";
             container.appendChild(img);
         } else {
@@ -861,7 +861,7 @@ function atualizarDestaque() {
             container.innerHTML = `<i class="bi bi-image" style="font-size: 2rem; color: var(--color-vinho-fundo);"></i>`;
         }
 
-        destaqueNome.textContent = produto.description ?? "—";
+        destaqueNome.textContent = produto.description ?? "{{ __('pos.sem_descricao') }}";
 
     } else {
         container.innerHTML = `<i class="bi bi-image" style="font-size: 2rem; color: var(--color-bege-claro);"></i>`;
@@ -871,7 +871,7 @@ function atualizarDestaque() {
 }
 document.getElementById('finalizar').addEventListener('click', () => {
     if (!pedidoAtual) {
-        alert('{{ __('pos.alerta_nenhum_pedido') }}');
+        abrirAvisoPDV('{{ __('pos.alerta_nenhum_pedido') }}');
         return;
     }
 
@@ -917,7 +917,7 @@ document.getElementById('finalizar').addEventListener('click', () => {
             renderPedidos();
             renderCart();
         } else {
-            alert(`{{ __('pos.alerta_erro_registro') }}: ${res.error}`);
+            abrirAvisoPDV(`{{ __('pos.alerta_erro_registro') }}: ${res.error}`);
         }
     })
     .catch(err => abrirAvisoPDV('{{ __('pos.alerta_erro_servidor') }}'))

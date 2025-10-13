@@ -26,7 +26,8 @@ class SaleController extends Controller
             ->first();
 
         if (!$product) {
-            return response()->json(['error' => 'Produto não encontrado'], 404);
+            // Internacionalização: Produto não encontrado
+            return response()->json(['error' => __('sales.product_not_found')], 404);
         }
 
         return response()->json($product);
@@ -45,11 +46,15 @@ class SaleController extends Controller
                 $product = Product::find($item['product_id']);
 
                 if (!$product) {
-                    throw new \Exception('Produto não encontrado: ID ' . $item['product_id']);
+                    // Internacionalização: Produto não encontrado: ID
+                    $errorMessage = __('sales.product_not_found_id', ['id' => $item['product_id']]);
+                    throw new \Exception($errorMessage);
                 }
 
                 if ($product->currentStock < $item['quantity']) {
-                    throw new \Exception('Estoque insuficiente para o produto: ' . $product->description);
+                    // Internacionalização: Estoque insuficiente para o produto:
+                    $errorMessage = __('sales.insufficient_stock', ['product' => $product->description]);
+                    throw new \Exception($errorMessage);
                 }
 
                 $product->currentStock -= $item['quantity'];
@@ -62,13 +67,16 @@ class SaleController extends Controller
                     'unit_price' => $item['unit_price']
                 ]);
 
+                // Internacionalização: Nota do movimento
+                $note = __('sales.sale_id_note', ['id' => $venda->id]);
+
                 Movement::create([
                     'product_id' => $product->id,
                     'type' => 'outward',
                     'date' => now()->toDateString(),
                     'quantity' => $item['quantity'],
                     'cost' => $item['unit_price'],
-                    'note' => 'Venda ID: ' . $venda->id
+                    'note' => $note
                 ]);
             }
 

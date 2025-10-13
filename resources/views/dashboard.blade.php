@@ -144,6 +144,30 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+
+<script>
+    const i18n = {
+        sales: {
+            // Strings da legenda/tooltip
+            salesLabel: "{{ __('dashboard.sales_label') }}",
+            noSales: "{{ __('dashboard.no_sales') }}",
+            loading: "{{ __('dashboard.loading') }}",
+            loadingError: "{{ __('dashboard.loading_error') }}",
+            currencyLabel: "{{ __('dashboard.currency_label') }}",
+
+            // Labels para os botões do período
+            periodLabels: {
+                'dia': "{{ __('dashboard.day') }}",
+                'semana': "{{ __('dashboard.week') }}",
+                'mes': "{{ __('dashboard.month') }}",
+                'ano': "{{ __('dashboard.year') }}"
+            }
+        }
+    };
+</script>
+
+<script src="/js/dashboard.js"></script>
+
 <script src="{{ asset('js/dashboard.js') }}"></script>
 
 @endsection

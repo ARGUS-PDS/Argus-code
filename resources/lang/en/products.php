@@ -22,4 +22,19 @@ return [
     'brand' => 'Brand',
     'clean' => 'Clean',
 
+    'all_suppliers' => 'All',
+    'selected' => 'Selected',
+    'product_image_alt' => 'Product image',
+    'confirm_deletion' => 'Confirm Deletion',
+    'confirm_single_delete' => 'Are you sure you want to delete this product?',
+    'select_one_to_delete' => 'Select at least one product to delete.',
+    'confirm_mass_delete' => 'Are you sure you want to delete :count product:plural?', 
+    'warning' => 'Warning',
+    'close' => 'Close',
+    'cancel' => 'Cancel',
+    'select_one_to_print' => 'Select at least one product to print.',
+    'previous' => 'Previous',
+    'next' => 'Next',
+    'current_stock' => 'Current Stock: :current/:total',
+
 ];

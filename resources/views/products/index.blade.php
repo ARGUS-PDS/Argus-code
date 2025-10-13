@@ -442,7 +442,7 @@
                             <div class="col-12">
                                 <label class="form-label">{{ __('products.supplier') }}</label>
                                 <select name="supplier_id" class="form-select">
-                                    <option value="">Todos</option>
+                                    <option value="">{{ __('products.all_suppliers') }}</option>
                                     @foreach(\App\Models\Supplier::orderBy('name')->get() as $supplier)
                                     <option value="{{ $supplier->id }}" {{ request('supplier_id') == $supplier->id ? 'selected' : '' }}>{{ $supplier->name }}</option>
                                     @endforeach
@@ -489,7 +489,7 @@
         <button id="clear-selection" type="button" style="background: none; border: none; color: var(--color-vinho); font-size: 1.2rem; margin-left: 10px; cursor: pointer; padding: 0; line-height: 1;">
             &times;
         </button>
-        Selecionados: <span id="selectedValue"></span>
+        {{ __('products.selected') }}: <span id="selectedValue"></span>
     </div>
     <div class="table-responsive">
         <table class="table align-middle products-table">
@@ -515,7 +515,7 @@
                         $imgPath = public_path($product->image_url ?? '');
                         @endphp
                         @if (!empty($product->image_url))
-                        <img src="{{ $product->image_url }}" alt="Imagem do produto" class="img-thumb" loading="lazy">
+                        <img src="{{ $product->image_url }}" alt="{{ __('products.product_image_alt') }}" class="img-thumb" loading="lazy">
                         @else
                         <div class="img-thumb d-flex align-items-center justify-content-center" style="background: var(--color-bege-card-interno);">
                             <i class="bi bi-image" style="font-size: 2rem; color: var(--color-vinho-fundo);"></i>
@@ -553,11 +553,11 @@
 
     <div id="confirmModal" class="confirm-overlay">
         <div class="confirm-box">
-            <h3 class="confirm-title">Confirmar exclusão</h3>
-            <p class="confirm-message">Tem certeza que deseja excluir este produto?</p>
+            <h3 class="confirm-title">{{ __('products.confirm_deletion') }}</h3>
+            <p class="confirm-message">{{ __('products.confirm_single_delete') }}</p>
             <div class="confirm-buttons">
-            <button id="cancelDelete" class="btn-cancelar">Cancelar</button>
-            <button id="confirmDelete" class="btn-confirmar">Excluir</button>
+            <button id="cancelDelete" class="btn-cancelar">{{ __('products.cancel') }}</button>
+            <button id="confirmDelete" class="btn-confirmar">{{ __('products.delete') }}</button>
             </div>
         </div>
     </div>
@@ -571,14 +571,16 @@
             event.preventDefault();
             formToDelete = form;
             isMassDelete = false;
-            abrirModalConfirmacao('Tem certeza que deseja excluir este produto?', false);
+            // Usando chaves de tradução no JS (passando a string)
+            abrirModalConfirmacao('{{ __('products.confirm_single_delete') }}', false);
         }
 
         function submitMassDelete() {
             const checkboxes = document.querySelectorAll('.products-table input[type="checkbox"]:checked[data-id]');
 
             if (checkboxes.length === 0) {
-                abrirModalConfirmacao('Selecione pelo menos um produto para excluir.', true);
+                // Usando chaves de tradução no JS (passando a string)
+                abrirModalConfirmacao('{{ __('products.select_one_to_delete') }}', true);
                 isAvisoSemSelecao = true;
                 return;
             }
@@ -587,24 +589,31 @@
             document.getElementById('deleteIds').value = ids.join(',');
 
             isMassDelete = true;
-            abrirModalConfirmacao(`Tem certeza que deseja excluir ${checkboxes.length} produto${checkboxes.length > 1 ? 's' : ''}?`, false);
+            
+            // Usando chaves de tradução no JS (passando a string com substituição dinâmica)
+            const message = `{{ __('products.confirm_mass_delete') }}`.replace(':count', checkboxes.length).replace(':plural', checkboxes.length > 1 ? 's' : '');
+            abrirModalConfirmacao(message, false);
         }
 
         function abrirModalConfirmacao(mensagem, aviso = false) {
             const modal = document.getElementById('confirmModal');
+            const titleEl = document.querySelector('.confirm-title');
             const messageEl = document.querySelector('.confirm-message');
             const btnConfirmar = document.getElementById('confirmDelete');
             const btnCancelar = document.getElementById('cancelDelete');
-
+            
+            // Define o título do modal dinamicamente (aviso vs. confirmação)
+            titleEl.textContent = aviso ? '{{ __('products.warning') }}' : '{{ __('products.confirm_deletion') }}';
+            
             messageEl.textContent = mensagem;
             modal.classList.add('active');
 
             if (aviso) {
                 btnConfirmar.style.display = 'none';
-                btnCancelar.textContent = 'Fechar';
+                btnCancelar.textContent = '{{ __('products.close') }}';
             } else {
                 btnConfirmar.style.display = '';
-                btnCancelar.textContent = 'Cancelar';
+                btnCancelar.textContent = '{{ __('products.cancel') }}';
             }
         }
 
@@ -781,22 +790,7 @@
 
         // Se não há produtos selecionados na página atual, verificar localStorage
         if (selectedProducts.length === 0) {
-            const savedSelection = localStorage.getItem('selectedProducts');
-            if (savedSelection) {
-                const selectedData = JSON.parse(savedSelection);
-                console.log('Dados salvos no localStorage:', selectedData);
-
-                // Extrair códigos de barras dos dados salvos
-                selectedProducts = selectedData
-                    .map(item => item.barcode)
-                    .filter(barcode => barcode !== null);
-
-                console.log('Produtos encontrados:', selectedProducts);
-            }
-        }
-
-        if (selectedProducts.length === 0) {
-            alert('Selecione pelo menos um produto para imprimir.');
+            alert('{{ __('products.select_one_to_print') }}');
             return;
         }
 
@@ -823,21 +817,24 @@
             if (product.image_url && product.image_exists) {
                 html += `<img src='${product.image_url}' alt='Imagem do produto' class='img-thumb' loading='lazy'>`;
             } else {
+                // Traduzindo 'Sem fornecedor' e parte do HTML dinâmico
                 html += `<div class='img-thumb d-flex align-items-center justify-content-center' style='background: var(--color-bege-card-interno);'><i class='bi bi-image' style='font-size: 2rem; color: var(--color-vinho-fundo);'></i></div>`;
             }
             html += `</td>`;
             html += `<td>${product.description}</td>`;
             html += `<td>${product.barcode}</td>`;
-            html += `<td class='text-center'>${product.supplier ? product.supplier.name : 'Sem fornecedor'}</td>`;
+            html += `<td class='text-center'>${product.supplier ? product.supplier.name : '{{ __('products.no_supplier') }}'}</td>`;
             html += `<td class='text-center'>R$ ${parseFloat(product.value).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>`;
             html += `<td class='text-center'>`;
             html += `<div class='dropdown'>`;
             html += `<i class='bi bi-three-dots-vertical' role='button' data-bs-toggle='dropdown' aria-expanded='false' onclick='event.stopPropagation();'></i>`;
             html += `<ul class='dropdown-menu' data-bs-boundary='viewport'>`;
-            html += `<li><a class='dropdown-item' href='#' onclick="imprimirProduto(${product.id}, '${product.barcode}'); return false;">Imprimir</a></li>`;
-            html += `<li><form action='/products/${product.id}' method='POST' onsubmit="return confirm('Tem certeza que deseja excluir?');">`;
+            // Traduzindo 'Imprimir'
+            html += `<li><a class='dropdown-item' href='#' onclick="imprimirProduto(${product.id}, '${product.barcode}'); return false;">{{ __('products.print') }}</a></li>`;
+            // Traduzindo 'Tem certeza que deseja excluir?' e 'Excluir'
+            html += `<li><form action='/products/${product.id}' method='POST' onsubmit="return confirm('{{ __('products.confirm_single_delete') }}');">`;
             html += `@csrf @method('DELETE')`;
-            html += `<button class='dropdown-item text-danger' type='submit'>Excluir</button></form></li>`;
+            html += `<button class='dropdown-item text-danger' type='submit'>{{ __('products.delete') }}</button></form></li>`;
             html += `</ul></div></td></tr>`;
         });
         document.querySelector('.products-table tbody').innerHTML = html;
@@ -861,14 +858,18 @@
         if (last > 1) {
             html += `<div class='d-flex justify-content-center mt-4'>`;
             if (current === 1) {
-                html += `<button class='btn btn-secondary me-2' disabled>Anterior</button>`;
+                // Traduzindo 'Anterior' e desabilitando
+                html += `<button class='btn btn-secondary me-2' disabled>{{ __('products.previous') }}</button>`;
             } else {
-                html += `<button class='btn btn-primary me-2' onclick='fetchProducts(${current - 1})'>Anterior</button>`;
+                // Traduzindo 'Anterior'
+                html += `<button class='btn btn-primary me-2' onclick='fetchProducts(${current - 1})'>{{ __('products.previous') }}</button>`;
             }
             if (current < last) {
-                html += `<button class='btn btn-primary' onclick='fetchProducts(${current + 1})'>Próximo</button>`;
+                // Traduzindo 'Próximo'
+                html += `<button class='btn btn-primary' onclick='fetchProducts(${current + 1})'>{{ __('products.next') }}</button>`;
             } else {
-                html += `<button class='btn btn-secondary' disabled>Próximo</button>`;
+                // Traduzindo 'Próximo' e desabilitando
+                html += `<button class='btn btn-secondary' disabled>{{ __('products.next') }}</button>`;
             }
             html += `</div>`;
         }
@@ -898,7 +899,10 @@
             .then(data => {
                 renderProductsTable(data.data);
                 renderPagination(data.current_page, data.last_page);
-                document.querySelector('.ms-4.fw-bold').textContent = `Estoque atual: ${data.data.length}/${data.total}`;
+                
+                // Traduzindo "Estoque atual"
+                const stockText = `{{ __('products.current_stock') }}`.replace(':current', data.data.length).replace(':total', data.total);
+                document.querySelector('.ms-4.fw-bold').textContent = stockText;
             });
     }
 
