@@ -334,6 +334,86 @@
     <button class="btn btn-success" id="finalizar">{{ __('pos.finalizar_venda_btn') }}</button>
 </div>
 
+<div class="modal fade" id="modalProdutos" tabindex="-1" aria-labelledby="modalProdutosLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalProdutosLabel">Selecionar Produto</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover" id="tabelaProdutos">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Código de Barras</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="loadingProdutos" class="text-center my-3" style="display:none;">
+            <div class="spinner-border text-danger" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+            <p class="mt-2" style="color: var(--color-vinho); font-weight: bold;">Carregando produtos...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="loadingMessage" 
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+            background:rgba(255,255,255,0.8); z-index:9999; 
+            text-align:center; padding-top:20%; font-weight:bold; color:var(--color-vinho);">
+    <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Carregando...</span>
+    </div>
+    <p class="mt-3">Carregando produto, aguarde...</p>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const inputPesquisa = document.getElementById("barcode");
+    const modalElement = document.getElementById("modalProdutos");
+    const modalProdutos = new bootstrap.Modal(modalElement);
+    const tbody = document.querySelector("#tabelaProdutos tbody");
+    const loading = document.getElementById("loadingProdutos");
+
+    inputPesquisa.addEventListener("dblclick", function() {
+        modalProdutos.show();
+        tbody.innerHTML = "";
+        loading.style.display = "block";
+
+        fetch("{{ route('products.lista') }}")
+            .then(res => res.json())
+            .then(data => {
+                loading.style.display = "none";
+                if (!data.length) {
+                    tbody.innerHTML = `<tr><td colspan="2" class="text-center text-muted">Nenhum produto encontrado.</td></tr>`;
+                    return;
+                }
+
+                data.forEach(prod => {
+                    const tr = document.createElement("tr");
+                    tr.style.cursor = "pointer";
+                    tr.innerHTML = `<td>${prod.description}</td><td>${prod.barcode || "-"}</td>`;
+                    tr.addEventListener("click", () => {
+                        inputPesquisa.value = prod.barcode;
+                        modalProdutos.hide();
+                        inputPesquisa.focus();
+                    });
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(() => {
+                loading.style.display = "none";
+                tbody.innerHTML = `<tr><td colspan="2" class="text-center text-danger">Erro ao carregar produtos.</td></tr>`;
+            });
+    });
+});
+</script>
+
 
 <script>
 let pedidos = [];
@@ -514,6 +594,9 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
             return;
         }
 
+        const loading = document.getElementById('loadingMessage');
+        loading.style.display = 'block'; 
+
         fetch('{{ route("vendas.buscar-produto") }}', {
             method: 'POST',
             headers: {
@@ -524,6 +607,7 @@ document.getElementById('barcode').addEventListener('keypress', function(e) {
         })
         .then(res => res.json())
         .then(produto => {
+            loading.style.display = 'none';
             if (!produto || !produto.id) {
                 alert('{{ __('pos.alerta_produto_nao_encontrado') }}');
                 this.value = '';
