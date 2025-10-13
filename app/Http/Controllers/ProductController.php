@@ -206,7 +206,7 @@ class ProductController extends Controller
 
     public function listaProdutos()
     {
-        $products = Product::select('id', 'description', 'code')->orderBy('description')->get();
+        $products = Product::select('id', 'description', 'code', 'barcode')->orderBy('description')->get();
         return response()->json($products);
     }
 
