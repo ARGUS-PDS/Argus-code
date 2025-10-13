@@ -7,7 +7,7 @@ const modal = document.getElementById("modalAlterarSenha");
 const backdrop = document.getElementById("modalBackdrop");
 
 // Função para mostrar o toast de sucesso
-function showToast(message = "Senha forte gerada com sucesso!") {
+function showToast(message = window.translations.password_generated) {
     const toast = document.getElementById('passwordSuccessToast');
     const toastMessage = document.getElementById('toastMessage');
     
@@ -84,15 +84,15 @@ function checkPasswordStrength() {
 
     if (feedbackElement) {
         if (strength < 40) {
-            feedbackElement.textContent = "Força da senha: fraca";
+            feedbackElement.textContent = window.translations.password_strength_weak;
             feedbackElement.className = "password-feedback weak";
             if (strengthBar) strengthBar.className = "progress-bar bg-danger";
         } else if (strength < 100) {
-            feedbackElement.textContent = "Força da senha: média";
+            feedbackElement.textContent = window.translations.password_strength_medium;
             feedbackElement.className = "password-feedback medium";
             if (strengthBar) strengthBar.className = "progress-bar bg-warning";
         } else {
-            feedbackElement.textContent = "Força da senha: forte";
+            feedbackElement.textContent = window.translations.password_strength_strong;
             feedbackElement.className = "password-feedback strong";
             if (strengthBar) strengthBar.className = "progress-bar bg-success";
         }
@@ -176,7 +176,7 @@ function checkPasswordMatch() {
             doPasswordsMatch = false;
         } else if (password === confirmPassword) {
             if (matchFeedback) {
-                matchFeedback.textContent = "As senhas coincidem";
+                matchFeedback.textContent = window.translations.password_match;
                 matchFeedback.classList.remove("invalid");
                 matchFeedback.classList.add("valid");
                 matchFeedback.style.display = "block";
@@ -185,7 +185,7 @@ function checkPasswordMatch() {
             validationIcon.innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
         } else {
             if (matchFeedback) {
-                matchFeedback.textContent = "As senhas não coincidem";
+                matchFeedback.textContent = window.translations.password_mismatch;
                 matchFeedback.classList.remove("valid");
                 matchFeedback.classList.add("invalid");
                 matchFeedback.style.display = "block";
@@ -257,7 +257,7 @@ if (formAlterarSenha) {
     formAlterarSenha.addEventListener("submit", function(e) {
         if (!isPasswordValid || !doPasswordsMatch) {
             e.preventDefault();
-            showToast("Por favor, verifique se a senha atende a todos os requisitos e se as senhas coincidem.");
+            showToast(window.translations.password_invalid);
         }
     });
 }
@@ -289,7 +289,7 @@ if (modal) {
         if (confirmPasswordContainer) confirmPasswordContainer.classList.remove("validating");
         if (strengthBar) strengthBar.style.width = "0%";
         if (feedbackElement) {
-            feedbackElement.textContent = "Força da senha: muito fraca";
+            feedbackElement.textContent = window.translations.password_strength_very_weak;
             feedbackElement.className = "password-feedback";
         }
         if (matchFeedback) matchFeedback.style.display = "none";

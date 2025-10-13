@@ -71,7 +71,7 @@ return [
     
     'gustavo_description' => 'Gustavo works with full stack responsibility, both in front-end and back-end, also being responsible for deploying and maintaining applications on the server. His work ensures that the entire system works in an integrated, efficient and secure way. With training in the Computer Technician course and experience in web development, Gustavo creates scalable and high-performance solutions, ensuring stability, security and a fluid experience for users.',
     
-    'isabela_description' => 'Isabela develops strategies that connect Argus with companies that need intelligent solutions for inventory management. Her data-driven approach ensures that our messages reach the right audience at the right time. With an MBA in Digital Marketing and experience in SaaS product launches, Isabela builds campaigns that highlight the differentials of our platform and generate qualified business opportunities.',
+    'isabela_description' => "Isabela, in addition to playing a fundamental role in the initial stages of the core ideas of the Argus system, has been fully responsible for the architecture and data management of the platform. With her experience as a technical support specialist in ERP systems, she actively contributes to the adaptation and streamlining of inventory management, key differentiators of the platform. At the same time, she designs efficient database schemas, optimizes complex queries, ensures data integrity and security, and implements scalable solutions that support the platform's growth.",
     
     'terms_of_use' => 'Terms of Use',
     'privacy_policy' => 'Privacy Policy',
