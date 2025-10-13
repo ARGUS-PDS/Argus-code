@@ -747,8 +747,12 @@ function updatePrice(index, value) {
 }
 
 function removerItem(index) {
-    pedidoAtual.itens.splice(index, 1);
-    renderCart();
+    abrirConfirmacaoPDV('Tem certeza que deseja remover este item?')
+        .then((confirmado) => {
+            if (!confirmado) return;
+            pedidoAtual.itens.splice(index, 1);
+            renderCart();
+        });
 }
 
 document.getElementById('barcode').addEventListener('keypress', function(e) {
