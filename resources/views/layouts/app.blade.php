@@ -716,7 +716,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link" href="{{ route('dashboard') }}" onclick="mostrarTelaCarregando()">
-             <!-- <i class="bi bi-speedometer2 me-1"></i>-->
+              <!-- <i class="bi bi-speedometer2 me-1"></i>-->
               {{ __('menu.dashboard') }}
             </a>
           </li>
@@ -824,8 +824,6 @@
                 </li>
               </ul>
             </div>
-
-            <!-- Botão de Logout 
             <form id="logout-form-side" action="{{ route('logout') }}" method="POST" style="display: inline;">
               @csrf
               <button type="submit" class="btn logout-btn" title="{{ __('menu.sair') }}">
@@ -833,7 +831,6 @@
                 <span>{{ __('menu.sair') }}</span>
               </button>
             </form>
-            -->
           </div>
         </div>
       </div>
