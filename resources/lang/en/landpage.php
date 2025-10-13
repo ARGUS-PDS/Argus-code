@@ -61,7 +61,8 @@ return [
     'our_team' => 'Our Team',
     'role_developer' => 'Full Stack Developer',
     
-    'ana_description' => 'With over 15 years of experience in logistics and supply chain management, Ana founded Argus to solve the problems she experienced firsthand. Her vision is to create solutions that simplify the complexity of inventory management for companies of all sizes. Graduated in Production Engineering with a specialization in Operations Management, Ana leads the team with a focus on innovation and operational excellence.',
+    'ana_description' => 'Ana holds a degree in Computer Science and has extensive experience in web development, focusing on backend and database maintenance. She is responsible for ensuring that Argus systems deliver results, are secure, and scalable, always seeking efficient solutions to everyday challenges.
+In addition to her technical responsibilities, Ana coordinates and leads the team, assigning tasks, monitoring the progress of each project, and ensuring everyone works in a controlled and collaborative manner. Her approach combines technical expertise and strategic vision, enabling Argus to deliver quality solutions that truly meet customer needs.',
     
     'brenda_description' => 'Brenda is the mind behind the technical architecture of the Argus platform. With extensive experience in developing business systems, she ensures that our solution is robust, scalable and secure. Master in Computer Science, Brenda leads our development team focusing on implementing best practices and modern technologies. Her commitment to code quality and user experience is fundamental to the success of our product.',
     

@@ -61,7 +61,8 @@ return [
     'our_team' => 'Nosso Time',
     'role_developer' => 'Desenvolvedor Full Stack',
     
-    'ana_description' => 'Com mais de 15 anos de experiência em logística e gestão de cadeia de suprimentos, Ana fundou a Argus para resolver os problemas que vivenciou em primeira mão. Sua visão é criar soluções que simplifiquem a complexidade da gestão de estoque para empresas de todos os portes. Formada em Engenharia de Produção com especialização em Gestão de Operações, Ana lidera a equipe com foco em inovação e excelência operacional.',
+    'ana_description' => 'Ana é formada em Técnico em Informática e possui experiência consolidada em desenvolvimento web, com foco em backend e manutenção de bancos de dados. Ela é responsável por garantir que os sistemas da Argus sejam estáveis, seguros e escaláveis, sempre buscando soluções eficientes para os desafios do dia a dia.
+Além de suas atividades técnicas, Ana coordena e lidera a equipe, distribuindo tarefas, acompanhando o progresso de cada projeto e garantindo que todos trabalhem de forma alinhada e colaborativa. Sua abordagem combina conhecimento técnico e visão estratégica, permitindo que a Argus entregue soluções de qualidade, que realmente atendam às necessidades dos clientes.',
     
     'brenda_description' => 'Brenda é a mente por trás da arquitetura técnica da plataforma Argus. Com ampla experiência em desenvolvimento de sistemas empresariais, ela garante que nossa solução seja robusta, escalável e segura. Mestre em Ciência da Computação, Brenda lidera nossa equipe de desenvolvimento com foco em implementar as melhores práticas e tecnologias modernas. Seu compromisso com a qualidade do código e experiência do usuário é fundamental para o sucesso do nosso produto.',
     
