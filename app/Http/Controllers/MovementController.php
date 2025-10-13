@@ -35,11 +35,11 @@ class MovementController extends Controller
                 ->get();
 
             foreach ($allMovs as $mov) {
-                if ($mov->type === 'entrada') {
+                if ($mov->type === 'inward') {
                     $entradas_qtd += $mov->quantity;
                     $entradas_valor += $mov->cost;
                     $estoque_atual += $mov->quantity;
-                } elseif ($mov->type === 'saida') {
+                } elseif ($mov->type === 'outward') {
                     $saidas_qtd += $mov->quantity;
                     $saidas_valor += $mov->cost;
                     $estoque_atual -= $mov->quantity;
