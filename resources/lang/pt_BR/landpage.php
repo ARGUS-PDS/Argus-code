@@ -71,7 +71,7 @@ return [
     
     'gustavo_description' => 'Gustavo atua com responsabilidade full stack, tanto no front-end quanto no back-end, sendo também responsável pelo deploy e manutenção das aplicações em servidor. Seu trabalho assegura que todo o sistema funcione de forma integrada, eficiente e segura. Com formação no curso Técnico em Informática e experiência em desenvolvimento web, Gustavo cria soluções escaláveis e de alto desempenho, garantindo estabilidade, segurança e uma experiência fluida para os usuários.',
     
-    'isabela_description' => 'Isabela desenvolve estratégias que conectam a Argus com empresas que precisam de soluções inteligentes para gestão de estoque. Sua abordagem data-driven garante que nossas mensagens cheguem ao público certo no momento certo. Com MBA em Marketing Digital e experiência em lançamento de produtos SaaS, Isabela constrói campanhas que destacam os diferenciais da nossa plataforma e geram oportunidades de negócios qualificadas.',
+    'isabela_description' => 'Isabela, além de atuar fundamentalmente nos primeiros passos das ideias primordiais do sistema Argus, se responsabilizou fielmente pela arquitetura e pelo gerenciaamento de dados da plataforma. Com sua experiência como suporte técnico em sistemas de ERP, atua ativamente na adaptação e desburocratização do gerenciamento de estoques, diferenciais fundamentais da plataforma. Paralelamente, projetou esquemas de banco eficientes, otimiza consultas complexas, garante integridade e segurança dos dados e implementa soluções escaláveis que suportam o crescimento da plataforma.',
     
     'terms_of_use' => 'Termos de Uso',
     'privacy_policy' => 'Política de Privacidade',
