@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Shelf-Life Tracking',
-    'search_placeholder' => 'Search for the product...',
+    'search_placeholder' => 'Double click to search for the product...',
     'search_button' => 'Search',
     'batch' => 'Batch',
     'product' => 'Product',

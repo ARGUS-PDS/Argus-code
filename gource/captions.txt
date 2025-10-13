@@ -1,3 +1,48 @@
+1746117504|Início do projeto Argus com Laravel
+1746117735|Estrutura inicial e rota de teste criada
+1746120552|Conexão com banco de dados configurada
+1746121111|Testando a conexão com o railway
+1746121231|Testando a conexão com o railway
+1746121364|Testando a conexão com o railway
+1746121553|Testando a conexão com o railway
+1746121703|Testando a conexão com o railway
+1747085517|Arquivos do gource
+1747181513|Tela de login implementada
+1747321046|Tela inicial e cadastro via EAN criados
+1747335267|Ajuste no cadastro de produto
+1747434609|Adicionando rotina de imagem do produto
+1747445348|Cadastro de fornecedor e funcionário adicionado
+1747490534|Adicionada rota de cadastro de fornecedor
+1747493177|Criação da tela de administrador
+1747525151|Criação da tela de detalhamento de lote
+1747530676|Ajustes na tela de produtos
+1747618443|Ajustes na tela de fornecedor e produto
+1747689504|Listagem e edição de produtos implementadas
+1747766072|Ajuste na tabela de endereço e fornecedor
+1747869818|Ajuste na tabela de endereço e fornecedor
+1747874815|Ajuste na edição de produto
+1747874864|Finalizado o salvamento de imagem no cadastro de produto
+1748007318|Ajuste na listagem de produto e fornecedor
+1748025824|Refatorada a tela de fornecedor
+1748025904|Edição de fornecedor finalizada
+1748286091|Adicionado css para todas as telas
+1748372841|Ajuste na tela de cadastro por código de barras
+1748375692|Revisando o css da tela de produtos
+1748540696|Ajuste na tela de fornecedor e produto
+1748558659|Fazendo tela de etiquetas
+1748561406|Tentando subir projeto no railway
+1748561858|Adicionando dockerfile
+1748562012|Refazendo o dockerfile
+1748562388|Ajusto no composer.json
+1748562673|Removido o dockerfile e o render.yaml
+1748563013|Tela de entrada e saída de produtos adicionada
+1748799869|Fazendo um menu fixo no app.blade
+1748809166|Ajuste no menu
+1748878963|Subindo configurações do gource do 1bim
+1748891489|Ajuste na edição de fornecedores
+1750559048|Estilizando o dashboard
+
+-------
 1750734228|Cards agora tem drag and drop e hover
 1750774864|Problema de nao conseguir arrastar os cards da direita pra esquerda arrumado
 1751760969|Grafico mockado no dashboard e inicio do design da entrada-saida
@@ -13,3 +58,180 @@
 1752324538|Implementação da alternância entre painéis de login e entre em contato.
 1752325383|Correção da mensagem do commit anterior - feat: implementação da formatação automática para campo WhatsApp.
 1752325495|Implementação toggle de visibilidade para a senha na tela de Login.
+1752333130|Implementação de loyaut de carregamento e aplicando no formulário de login
+1752334661|Aplicando animação de loading na dashboard.
+1752340482|Ana Maria|Adicionando funcionalidade de enviar pedido ao fornecedor via email e whatsapp
+1752341326|Gustavo|Modularizando o front-end com arquivos CSS/JS dedicados
+1752343655|Adicionando tela de lista de pedidos enviados
+1752346646|Ajustes no envio de pedidos via whatsapp
+1752348730|Implementação de logout
+1752350517|Melhorando o carregamento da tela de produtos e login
+1752424015|Padroniza estilo visual da tela de estoque baixo
+1752427272|Estilização da página 'Pedidos Enviados' para alinhamento com o padrão visual da aplicação.
+1752429036|Estilização completa da tela do Painel do Administrador (Admin Dashboard)
+1752429244|Tabela de entrada e saida melhorada
+1752429690|Estilização da tela 'Gerar Cartão de Segurança'
+1752433450|Correcao de cores de placeholder e manutencao da tabela movements
+1752433645|Correcao de cores de placeholder e manutencao da tabela movements
+1752434181|Ajusta fundo da tela de fornecedores e visibilidade da barra de pesquisa
+1752435026|Adicionando criação da empresa e do usuário master no menu dos donos do sistema
+1752435450|Alterações antes do pull
+1752435545|Alterações depois do pull
+1752435614|Alterações depois do pull
+1752436374|Estilização completa da página de cadastro de fornecedor
+1752437812|Alterações antes do pull
+1752442904|Listagem de movimentacoes e insercao de dados na tabela movements concluídos
+1752448080|Forma de dar entrada e saida no produto
+1752451558|Edicao de produtos funcionando
+1752451687|Adicionando lista de pedidos enviados ao menu
+1752452965|Pesquisa e botoes de cancelar, atualizar e salvar funcionando
+1752454251|Internacionalizacao produtos e entradas/saídas
+1752455361|Padroniza layout de cadastro de funcionário e corrige layout/conflito em fornecedores
+1752455780|Padroniza layout da tela de edição de fornecedores
+1752456441|Adicionada a funcionalidade de enviar um email de contato na tela de registro
+1752452965|Pesquisa e botoes de cancelar, atualizar e salvar funcionando
+1752454251|Internacionalizacao produtos e entradas/saidas
+1752455361|Padroniza layout de cadastro de funcionário e corrige layout/conflito em fornecedores
+1752455780|Padroniza layout da tela de edição de fornecedores
+1752456441|Adicionada a funcionalidade de enviar um email de contato na tela de registro
+1752457065|Padroniza o layout da listagem de produtos
+1752457166|Cards do dashboard nao estao mais mockados
+1752458364|Aprimora e padroniza o layout da tela de cadastro de produtos
+1752461291|Cadastro, edicao e listagem de produtos modificados
+1752504685|Vendas traduzidas
+1752506883|Ajustando rotas da tela de adm
+1752508835|Correcoes feitas na tela de entrada e saida de estoque
+1752509876|Definição da linguagem padrão e internacionalização das mensagens no dashboard
+1752510170|Padroniza e aprimora o layout das telas de Detalhamento de Lote e Etiquetas
+1752512395|Correcao do campo de estoque atual dos produtos
+1752513390|Insercao de icones de entrada ou saida no dashboard
+1752514460|Estilização das telas de cadastro e listagem de empresas
+1752514603|Teste de insercao de imagem
+1752521946|Foto nao é mais obrigatorio
+1752523138|Cadastro com bipador ok
+1752523375|Adição de scroll em painéis do dashboard
+1752524451|Estoque atual lista de produtos
+
+-----
+
+1752581104|Tentativa 1 de deixar mais rápido
+1752582292|Paginacao na movimentacao e rotas atualizada + tentativa 2 de deixar mais rapido
+1752591251|Remocao de estoque da lista de produtos: dessa forma fica mais rápido
+1752596936|Estoque do cadastro esta entrando como entrada no estoque
+1752627971|Unificacao produtos e produto via ean + inicio da componentizacao
+1752758021|Root retiradas, componentiza acredito que finalizada e botao de selecionado quase pronto
+1752796850|Paginacao de funcionrio e envio de pedido e componentizacao da paginação
+1755259477|Salvando as imagens dos produtos no servidor Cloudinary
+1755272037|Protegendo as rotas contra acesso sem autorização usando middleware de autenticação
+1755274864|Tirando os campos de validade e lucro do cadastro de produtos
+1755276549|Criada função para salvar a foto de perfil do usuário na tela e no servidor Cloudinary
+1755277027|Tirando o cadastro de funcionario do menu
+1755278889|Adicionados icones nos cards do dashboard
+1755303636|Delete de produtos via ajax funcionando
+1755304579|Adicionada verificação no cadastro de produto, para que o estoque minimo não seja maior que o atual
+1755377186|Funcionalidade de vendas adicionada
+1755379989|Produtos com estoque zerado, não apareciam na tela de produtos com estoque baixo
+1755381321|Frente de caixa com funcoes novas
+1755393146|Adicionando data e hora as movimentações no dashboard
+1755394748|Ajuste no formulário de pedidos, para padronizar o prazo de entrega
+1755462459|Frente de caixa sem abrir/fechar caixa, comeco do grafico do dashboard
+1755469994|Modelagem da tabela batch para criação de lotes
+1755476095|Correcao de arquivos
+1755478621|Resolve erros de formato, botões, UI e impressão na página de etiquetas
+1755478977|Restaura o layout e a padronização da tela de lista de empresas
+1755480156|Listagem de lotes na criacao de movimentação
+1755482691|Apagar pedido da frente de caixa e balanco na movimentação
+1755485338|Internacionalização de todas as telas restantes do sistema
+1755486450|Ajuste na internacionalização da tela de cadastro de fornecedores
+1755559544|Botao de voltar tela de gerar etiqueta
+1755701518|Internacionalização do campo de lote no cadastro de movimentação
+1755713166|Criacao de lotes concluída
+1755713576|Tradução errada
+1755803934|Listagem de lotes proximos do vencimento
+1755976553|Implementação da validação de segurança na senha e email no cadastro da empresa
+1755989113|Implementação da validação de segurança na senha e email no cadastro da empresa
+1756079150|Alterar senha, ajustes no componente de cancelar e remocao do icone de informações
+1756084463|Implementação do toggle da senha e placeholders
+1756086375|Grafico do dashboard funcionando
+1756086733|Tirando o 'carregando...' do chip do gráfico
+1756138265|Implementação da força da senha e alertas visuais
+1756139033|Validação de e-mail no cadastro
+1756144885|Listagem de produtos proximos do vencimento sendo feita em outra box no dashboard
+1756150352|Correcao de rotas ao enviar formulario de criacao de lote
+1756150485|Validações no formulário de login e entre em contato
+1756150567|Removendo comentários
+1756159626|Grafico voltando a aparecer
+1756162320|Dropdown de tres pontinhos nao estava sendo exibido e descricao nao esta mais sendo automática
+1756162373|FDropdown de tres pontinhos nao estava sendo exibido e descricao nao esta mais sendo automatica
+1756164460|Iniciado o ajuste no botão 'sua senha venceu?'
+1756168946|Inicio do desenvolvimento do detalhamento de lotes
+1756245126|Correcao na tela de detalhamento de lotes
+1756248046|Correcao no modal de criacao de lote
+1756250859|Botao de voltar nao estava funcionando em algumas telas
+1756253652|Inconsistencia do estilo do botao de voltar
+1756257247|Inconsistencias nos botoes e hover e melhor aproveitamento de componentes
+1756389488|Filtro para busca de produtos
+1756733545|Dropdown de internacionalizacao nao estava aparecendo em algumas telas e o menu nao estava unificado em todas as telas do sistema
+1756736002|Na frente de caixa, é possivel fazer pesquisa pelo nome do produto
+1756746068|Validação de cnpj no formulário de registro
+1756758583|Validação em tempo real do CEP com máscara e inclusão do campo 'complemento' no registro, já persistindo no banco de dados
+1756761725|Internacionalização dos components e de novos elementos do dashboard
+1756770324|Validação do campo email na tela de registro
+1756771703|O login estava com erro ao acessar
+1756772494|Validação dos campos de endereço (impede números negativos em 'número' e não permite dígitos em 'nome')
+1756773006|Componente botao voltar passando url
+1756773043|Ajuste no tamanho do nome
+1756774406|Internacionalização do cadastro de produto
+1756846573|Retirado o 'Sua senha venceu?' do login, temporariamente
+1756848246|Correção no botão de exclusão de imagem, na edição de produto
+1756849574|Ajuste na mensagem de erro de um produto
+1756923021|X da foto do produto e dropdown de internacionalização
+1756923791|Correcao na tela de edicao do produto
+1756925991|Listagem de todos os lotes na tela de detalhamento de lotes
+1756927533|Inicio do desenvolvimento da funcionalidade de excluir o lote
+1756927975|Arrumando botoes da tela de etiquetas e tabela de fornecedores
+1756929029|Estilizacao dos botoes na tela de etiquetas
+1756930720|Icone de explicacao no estoque mínimo
+1757030191|Botao de imprimir na lista de produtos funcionando e explicacao componentizada
+1757036479|Comeco do modo escuro
+1757081725|Funcionalidade de exclusao de lotes
+1757094190|Correcao feita na exclusao de lotes
+1757113684|Inicio do desevolvimento da funcionalidade de exclusao de lote especifico
+1757372946|Alteração na imagem do ponto de venda
+1757438988|Utilizando api no cadastro do produto
+1757857895|Feito a tela de 'sua senha está vencida?'
+1757864492|Adicionando checkbox lembrar de mim
+1757986130|Estilização do modal de senha vencida - tela login, além disso foi implementado algumas verificações e mensagens de erro
+1757990252|Gerador de senha no cadastro de usuario - seguindo os requisitos de força de senha
+1758419320|Internacionalização dos itens restantes e ajuste da linguagem inicial
+1758422079|Substituição de input por dropdown para seleção de estados, evitando erros e padronizando opções
+1758423901|Validação da senha em tempo real para ver se os campos coincidem
+1758425065|Melhora visual referente a força da senha
+1758425746|Js code
+1758438197|Refatoração dos códigos .js em arquivos separados, além de aplicar uma validação mais robusta
+1758446049|Melhoria na responsividade da dashboard-admin
+1758458656|Adicionada a rotina de alteração de senha
+1758463154|Adicionando modal para mensagens de erro
+1758475180|Adicionada a tela de acompanhamento de validade
+1758503056|Aplicando força de senha e estilização no modal de alterar senha
+1758571851|Correcao de cadastro de empresa com cnpj duplicado
+1758587375|Resolve merge conflicts
+1758592688|Finalizando validação dos campos da tela de cadastro de produto
+1758593894|Inicio da estilizacao da frente de caixa: cardzinho de pedido
+1758666508|Finalizando validações na tela de cadastro de fornecedor
+1758715033|Correcao de atributos da tabela product e company e correcao de estilo na listagem de abas
+1758741419|Estilizacao da frente de caixa
+1758746343|Estilizacao da frente de caixa finalizada
+1758746761|Alinhamento das imagens na lista de produtos
+1758761912|Ajuste para voltar a dar mensagem de erro no login
+1758762648|Validacao dos campos da tela de criacao de movimentacao e tela de login
+1758763471|Corrigido os tamanhos do cadastro de empresa e do modal de alterar senha
+1758763592|Validacao do campo batch_code na tela de criacao de lote
+1758764641|Corringindo a cor do modal-title no modal de alerta
+1758764747|Correcao de calendario na criacao de lote e movimentação
+1758765333|Retirando a opção cotação de fornecedores do menu
+1758778621|Correção do cadastro de empresa e usuário
+1758782296|Padronização dos estilos - força da senha
+1758808566|Ajustes finais estilizacao frente de caixa e continuacao do modo escuro
+1758811318|Correcao de disposicao na coluna de observacao de movimentação
+1758813007|Internacionalização do acompanhamento de validade e de outros campos novos em telas já internacionalizadas

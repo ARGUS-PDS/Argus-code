@@ -1,296 +1,955 @@
 ﻿1746117504|Ana Maria|A|README.md
-
-
-
-1752457065|Brenda|style: Padroniza o layout da listagem de produtos
-M       resources/views/products/index.blade.php
-
-1752456441|AnaWk|feat: adicionada a funcionalidade de enviar um email de contato na tela de registro
-A       app/Http/Controllers/ContatoController.php
-M       resources/views/login.blade.php
-M       routes/web.php
-
-1752455780|brendagiron|feat: Padroniza layout da tela de edição de fornecedores
-M       resources/views/suppliers/edit.blade.php
-
-1752455361|brendagiron|feat: Padroniza layout de cadastro de funcionário e corrige layout/conflito em fornecedores
-M       resources/views/cadastro-funcionario.blade.php
-M       resources/views/suppliers/index.blade.php
-
-1752454251|Isabela Crestane|feat: internacionalizacao produtos e entradas/saidas
-A       resources/lang/en/products.php
-A       resources/lang/en/stock_movement.php
-A       resources/lang/pt_BR/products.php
-A       resources/lang/pt_BR/stock_movement.php
-M       resources/views/entrada-saida.blade.php
-M       resources/views/products/index.blade.php
-
-1752452965|Felipe Witkowsky|refactor: pesquisa e botoes de cancelar, atualizar e salvar funcionando
-M       app/Http/Controllers/MovementController.php
-M       app/Http/Controllers/ProductController.php
-A       public/products/68744ee7930ff.jpg
-M       resources/views/cadastro-produto.blade.php
-M       resources/views/entrada-saida.blade.php
-D       resources/views/products/edit.blade.php
-:
-M       resources/views/products/index.blade.php
-
-1752456441|AnaWk|feat: adicionada a funcionalidade de enviar um email de contato na tela de registro
-A       app/Http/Controllers/ContatoController.php
-M       resources/views/login.blade.php
-M       routes/web.php
-
-1752455780|brendagiron|feat: Padroniza layout da tela de edição de fornecedores
-M       resources/views/suppliers/edit.blade.php
-
-1752455361|brendagiron|feat: Padroniza layout de cadastro de funcionário e corrige layout/conflito em fornecedores
-M       resources/views/cadastro-funcionario.blade.php
-M       resources/views/suppliers/index.blade.php
-
-1752454251|Isabela Crestane|feat: internacionalizacao produtos e entradas/saidas
-A       resources/lang/en/products.php
-A       resources/lang/en/stock_movement.php
-A       resources/lang/pt_BR/products.php
-A       resources/lang/pt_BR/stock_movement.php
-M       resources/views/entrada-saida.blade.php
-M       resources/views/products/index.blade.php
-
-1752452965|Felipe Witkowsky|refactor: pesquisa e botoes de cancelar, atualizar e salvar funcionando
-M       app/Http/Controllers/MovementController.php
-M       app/Http/Controllers/ProductController.php
-A       public/products/68744ee7930ff.jpg
-M       resources/views/cadastro-produto.blade.php
-M       resources/views/entrada-saida.blade.php
-D       resources/views/products/edit.blade.php
-M       resources/views/products/index.blade.php
-
-1752451687|AnaWk|feat: adicionando lista de pedidos enviados ao menu
-M       resources/views/layouts/app.blade.php
-
-1752451558|Felipe Witkowsky|refactor: edicao de produtos funcionando
-M       app/Http/Controllers/ProductController.php
-A       public/products/6874410f96fcc.jpg
-A       public/products/687442f597c7c.jpg
-M       resources/views/cadastro-produto.blade.php
-
-1752448080|Felipe Witkowsky|refactor: forma de dar entrada e saida no produto
-M       app/Http/Controllers/MovementController.php
-M       public/css/entrada-saida.css
-M       resources/views/entrada-saida.blade.php
-M       resources/views/layouts/app.blade.php
-M       routes/web.php
-
-1752443441|Felipe Witkowsky|refactor: tela de listagem de produto
-1752443283|Felipe Witkowsky|refactor: tela de listagem de produto
-1752442904|Gabriellluna|feat: Listagem de movimentacoes e insercao de dados na tabela movements concluidos
-M       app/Http/Controllers/MovementController.php
-M       resources/views/entrada-saida.blade.php
-M       routes/web.php
-
-1752437895|Gabriellluna|minhas alteracoes
-1752437812|Gabriellluna|Minhas alterações antes do pull
-M       app/Http/Controllers/MovementController.php
-M       resources/views/entrada-saida.blade.php
-M       routes/web.php
-
-1752436374|brendagiron|feat: Estilização completa da página de cadastro de fornecedor
-M       resources/views/cadastro-fornecedor.blade.php
-
-1752435614|Gabriellluna|Minhas alterações depois do pull
-M       routes/web.php
-
-1752435545|Gabriellluna|Minhas alterações depois do pull
-M       routes/web.php
-
-1752435517|Gabriellluna|Minhas alterações depois do pull
-1752435450|Gabriellluna|Minhas alterações antes do pull
-M       app/Http/Controllers/MovementController.php
-A       public/products/687409747bc21.png
-M       resources/views/entrada-saida.blade.php
-M       routes/web.php
-
-1752435044|AnaWk|Merge branch 'main' of https://github.com/ARGUS-PDS/Argus-code
-1752435026|AnaWk|feat: adicionando criação da empresa e do usuário master no menu dos donos do sistema
-A       app/Http/Controllers/CompanyController.php
-A       app/Models/Company.php
-A       public/js/empresa.js
-M       resources/views/admin/admin-dashboard.blade.php
-A       resources/views/companies/create.blade.php
-A       resources/views/companies/index.blade.php
-M       routes/web.php
-
-1752434181|brendagiron|style: Ajusta fundo da tela de fornecedores e visibilidade da barra de pesquisa
-M       resources/views/suppliers/index.blade.php
-
-1752433645|Gabriellluna|refactor: correcao de cores de placeholder e manutencao da tabela movements
-M       .gitignore
-M       app/Http/Controllers/AuthController.php
-M       app/Http/Controllers/ProductController.php
-A       app/Http/Controllers/SupplierOrderController.php
-A       app/Mail/PedidoReposicaoMail.php
-A       app/Models/SupplierOrder.php
-M       composer.lock
-D       database/migrations/2025_05_31_172950_create_movements_table.php
-A       database/migrations/2025_05_31_172950_create_movements_table.php.bkp
-A       database/migrations/2025_07_12_153708_create_supplier_orders_table.php
-M       package-lock.json
-A       public/css/Login.css
-A       public/css/app.css
-A       public/css/cadastro-fornecedor.css
-A       public/css/cadastro-funcionario.css
-A       public/css/cadastro-produto.css
-A       public/css/dashboard.css
-A       public/css/entrada-saida.css
-A       public/css/etiquetas.css
-A       public/js/Login.js
-A       public/js/app.js
-A       public/js/cadastro-fornecedor.js
-A       public/js/cadastro-funcionario.js
-A       public/js/cadastro-produto.js
-A       public/js/codigo-de-barras.js
-A       public/js/dashboard.js
-A       public/js/entrada-saida.js
-M       resources/views/admin/admin-dashboard.blade.php
-M       resources/views/admin/gerar-cartao.blade.php
-M       resources/views/cadastro-fornecedor.blade.php
-M       resources/views/cadastro-funcionario.blade.php
-M       resources/views/cadastro-produto.blade.php
-M       resources/views/codigo-de-barras.blade.php
-M       resources/views/dashboard.blade.php
-A       resources/views/emails/pedido-reposicao.blade.php
-M       resources/views/entrada-saida.blade.php
-M       resources/views/etiquetas.blade.php
-M       resources/views/layouts/app.blade.php
-A       resources/views/layouts/carregamento.blade.php
-M       resources/views/login.blade.php
-A       resources/views/orders/index.blade.php
-A       resources/views/products/estoque-baixo.blade.php
-M       routes/web.php
-
-1752433450|Gabriellluna|refactor: correcao de cores de placeholder e manutencao da tabela movements
-M       app/Http/Controllers/MovementController.php
-M       resources/views/entrada-saida.blade.php
-M       resources/views/products/index.blade.php
-M       resources/views/suppliers/index.blade.php
-
-1752429690|brendagiron|feat: Estilização da tela 'Gerar Cartão de Segurança'
-M       resources/views/admin/gerar-cartao.blade.php
-
-1752429626|Felipe Witkowsky|Merge branch 'main' of https://github.com/ARGUS-PDS/Argus-code
-1752429244|Felipe Witkowsky|refactor: tabela de entrada e saida melhorada
-M       public/css/entrada-saida.css
-M       resources/views/entrada-saida.blade.php
-M       resources/views/layouts/app.blade.php
-M       routes/web.php
-
-1752429036|brendagiron|feat: Estilização completa da tela do Painel do Administrador (Admin Dashboard)
-M       resources/views/admin/admin-dashboard.blade.php
-
-1752427272|brendagiron|Estilização da página 'Pedidos Enviados' para alinhamento com o padrão visual da aplicação.
-M       resources/views/orders/index.blade.php
-M       resources/views/products/estoque-baixo.blade.php
-
-1752424015|brendagiron|refactor: Padroniza estilo visual da tela de estoque baixo
-M       resources/views/products/estoque-baixo.blade.php
-
-1752350517|AnaWk|perf: melhorando o carregamento da tela de produtos e login
-M       app/Http/Controllers/ProductController.php
-M       app/Http/Controllers/SupplierOrderController.php
-
-1752348759|GustavoEmiliano|Merge branch 'main' of https://github.com/ARGUS-PDS/Argus-code
-1752348730|GustavoEmiliano|feat: implementação de logout
-M       app/Http/Controllers/AuthController.php
-M       public/css/app.css
-M       resources/views/layouts/app.blade.php
-M       routes/web.php
-
-1752346646|AnaWk|refactor: ajustes no envio de pedidos via whatsapp
-M       app/Http/Controllers/ProductController.php
-A       app/Mail/PedidoReposicaoMail.php
-A       resources/views/emails/pedido-reposicao.blade.php
-M       resources/views/layouts/app.blade.php
-M       resources/views/products/estoque-baixo.blade.php
-
-1752343655|AnaWk|feat: adicionando tela de lista de pedidos enviados
-A       app/Http/Controllers/SupplierOrderController.php
-M       app/Models/SupplierOrder.php
-A       resources/views/orders/index.blade.php
-M       resources/views/products/estoque-baixo.blade.php
-M       routes/web.php
-
-1752341437|GustavoEmiliano|Merge branch 'main' of https://github.com/ARGUS-PDS/Argus-code
-1752341326|GustavoEmiliano|feat: modularizando o front-end com arquivos CSS/JS dedicados
-A       public/css/app.css
-A       public/css/cadastro-fornecedor.css
-A       public/css/cadastro-funcionario.css
-A       public/css/cadastro-produto.css
-A       public/css/dashboard.css
-A       public/css/entrada-saida.css
-A       public/css/etiquetas.css
-A       public/js/app.js
-A       public/js/cadastro-fornecedor.js
-A       public/js/cadastro-funcionario.js
-A       public/js/cadastro-produto.js
-A       public/js/codigo-de-barras.js
-A       public/js/dashboard.js
-A       public/js/entrada-saida.js
-M       resources/views/cadastro-fornecedor.blade.php
-M       resources/views/cadastro-funcionario.blade.php
-M       resources/views/cadastro-produto.blade.php
-M       resources/views/codigo-de-barras.blade.php
-M       resources/views/dashboard.blade.php
-M       resources/views/entrada-saida.blade.php
-M       resources/views/etiquetas.blade.php
-M       resources/views/layouts/app.blade.php
-M       resources/views/login.blade.php
-
-1752340666|AnaWk|refactor: ajuste do app.blade
-1752340482|AnaWk|feat: adicionando funcionalidade de enviar pedido ao fornecedor via email e whatsapp
-M       app/Http/Controllers/ProductController.php
-A       app/Models/SupplierOrder.php
-D       database/migrations/2025_05_31_172950_create_movements_table.php
-A       database/migrations/2025_05_31_172950_create_movements_table.php.bkp
-A       database/migrations/2025_07_12_153708_create_supplier_orders_table.php
-M       resources/views/layouts/app.blade.php
-A       resources/views/products/estoque-baixo.blade.php
-M       routes/web.php
-
-1752334661|GustavoEmiliano|feat: aplicando animação de loading na dashboard.
-M       resources/views/layouts/app.blade.php
-M       resources/views/login.blade.php
-
-1752333130|GustavoEmiliano|feat: implementação de loyaut de carregamento e aplicando no formulário de login
-M       .gitignore
-M       composer.lock
-M       public/css/Login.css
-A       resources/views/layouts/carregamento.blade.php
-M       resources/views/login.blade.php
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+1746117735|Ana Maria|A|.editorconfig
+1746117735|Ana Maria|A|.env.example
+1746117735|Ana Maria|A|.gitattributes
+1746117735|Ana Maria|A|.gitignore
+1746117735|Ana Maria|A|app/Http/Controllers/Controller.php
+1746117735|Ana Maria|A|app/Models/User.php
+1746117735|Ana Maria|A|app/Providers/AppServiceProvider.php
+1746117735|Ana Maria|A|artisan
+1746117735|Ana Maria|A|bootstrap/app.php
+1746117735|Ana Maria|A|bootstrap/cache/.gitignore
+1746117735|Ana Maria|A|bootstrap/providers.php
+1746117735|Ana Maria|A|composer.json
+1746117735|Ana Maria|A|composer.lock
+1746117735|Ana Maria|A|config/app.php
+1746117735|Ana Maria|A|config/auth.php
+1746117735|Ana Maria|A|config/cache.php
+1746117735|Ana Maria|A|config/database.php
+1746117735|Ana Maria|A|config/filesystems.php
+1746117735|Ana Maria|A|config/logging.php
+1746117735|Ana Maria|A|config/mail.php
+1746117735|Ana Maria|A|config/queue.php
+1746117735|Ana Maria|A|config/services.php
+1746117735|Ana Maria|A|config/session.php
+1746117735|Ana Maria|A|database/.gitignore
+1746117735|Ana Maria|A|database/factories/UserFactory.php
+1746117735|Ana Maria|A|database/migrations/0001_01_01_000000_create_users_table.php
+1746117735|Ana Maria|A|database/migrations/0001_01_01_000001_create_cache_table.php
+1746117735|Ana Maria|A|database/migrations/0001_01_01_000002_create_jobs_table.php
+1746117735|Ana Maria|A|database/seeders/DatabaseSeeder.php
+1746117735|Ana Maria|A|package.json
+1746117735|Ana Maria|A|phpunit.xml
+1746117735|Ana Maria|A|public/.htaccess
+1746117735|Ana Maria|A|public/favicon.ico
+1746117735|Ana Maria|A|public/index.php
+1746117735|Ana Maria|A|public/robots.txt
+1746117735|Ana Maria|A|resources/css/app.css
+1746117735|Ana Maria|A|resources/js/app.js
+1746117735|Ana Maria|A|resources/js/bootstrap.js
+1746117735|Ana Maria|A|resources/views/welcome.blade.php
+1746117735|Ana Maria|A|routes/console.php
+1746117735|Ana Maria|A|routes/web.php
+1746117735|Ana Maria|A|storage/app/.gitignore
+1746117735|Ana Maria|A|storage/app/private/.gitignore
+1746117735|Ana Maria|A|storage/app/public/.gitignore
+1746117735|Ana Maria|A|storage/framework/.gitignore
+1746117735|Ana Maria|A|storage/framework/cache/.gitignore
+1746117735|Ana Maria|A|storage/framework/cache/data/.gitignore
+1746117735|Ana Maria|A|storage/framework/sessions/.gitignore
+1746117735|Ana Maria|A|storage/framework/testing/.gitignore
+1746117735|Ana Maria|A|storage/framework/views/.gitignore
+1746117735|Ana Maria|A|storage/logs/.gitignore
+1746117735|Ana Maria|A|tests/Feature/ExampleTest.php
+1746117735|Ana Maria|A|tests/TestCase.php
+1746117735|Ana Maria|A|tests/Unit/ExampleTest.php
+1746117735|Ana Maria|A|vite.config.js
+1746120552|Ana Maria|M|routes/web.php
+1746121111|Ana Maria|A|railway.json
+1746121231|Ana Maria|M|railway.json
+1746121364|Ana Maria|M|railway.json
+1746121553|Ana Maria|M|railway.json
+1746121703|Ana Maria|M|railway.json
+1747085517|Ana Maria|A|.gource/users/user1.jpg
+1747085517|Ana Maria|A|gource.users.txt
+1747181513|Ana Maria|A|app/Http/Controllers/AuthController.php
+1747181513|Ana Maria|M|app/Models/User.php
+1747181513|Ana Maria|M|gource.users.txt
+1747181513|Ana Maria|A|resources/views/admin-dashboard.blade.php
+1747181513|Ana Maria|A|resources/views/login.blade.php
+1747181513|Ana Maria|M|routes/web.php
+1747321046|Ana Maria|M|resources/views/cadastro-produto.blade.php
+1747321046|Ana Maria|M|resources/views/codigo-de-barras.blade.php
+1747321046|Ana Maria|M|resources/views/dashboard.blade.php
+1747321046|Ana Maria|M|routes/web.php
+1747335267|Gabriel|M|resources/views/cadastro-produto.blade.php
+1747335267|Gabriel|M|resources/views/dashboard.blade.php
+1747335267|Gabriel|M|resources/views/login.blade.php
+1747335267|Gabriel|M|routes/web.php
+1747434609|Gabriel|A|app/Http/Controllers/ProductController.php
+1747434609|Gabriel|A|app/Models/Product.php
+1747434609|Gabriel|A|database/migrations/2025_05_16_135152_create_produtos_table.php
+1747434609|Gabriel|A|database/migrations/2025_05_16_155235_update_produtos_add_imagem_and_change_situacao.php
+1747434609|Gabriel|M|resources/views/cadastro-produto.blade.php
+1747434609|Gabriel|M|routes/web.php
+1747445348|Ana Maria|A|app/Http/Controllers/EtiquetaController.php
+1747445348|Ana Maria|M|composer.json
+1747445348|Ana Maria|M|composer.lock
+1747445348|Ana Maria|A|resources/views/cadastro-fornecedor.blade.php
+1747445348|Ana Maria|A|resources/views/cadastro-funcionario.blade.php
+1747445348|Ana Maria|M|resources/views/dashboard.blade.php
+1747445348|Ana Maria|A|resources/views/etiquetas.blade.php
+1747445348|Ana Maria|M|routes/web.php
+1747490534|Ana Maria|M|resources/views/cadastro-fornecedor.blade.php
+1747490534|Ana Maria|M|routes/web.php
+1747493177|Ana Maria|A|app/Http/Controllers/AdminController.php
+1747493177|Ana Maria|A|database/migrations/2025_05_17_141601_rename_cartao_seg_to_cartao_seguro_in_users_table.php
+1747493177|Ana Maria|A|database/migrations/2025_05_17_141832_rename_cartao_seguro_to_cartao_seg_in_users_table.php
+1747493177|Ana Maria|A|resources/views/admin/admin-dashboard.blade.php
+1747493177|Ana Maria|A|resources/views/admin/gerar-cartao.blade.php
+1747493177|Ana Maria|M|resources/views/login.blade.php
+1747493177|Ana Maria|M|routes/web.php
+1747525151|Ana Maria|M|resources/views/dashboard.blade.php
+1747525151|Ana Maria|M|resources/views/etiquetas.blade.php
+1747525151|Ana Maria|M|resources/views/lote/detalhamento.blade.php
+1747525151|Ana Maria|M|routes/web.php
+1747530676|Ana Maria|M|app/Http/Controllers/ProductController.php
+1747530676|Ana Maria|M|resources/views/cadastro-produto.blade.php
+1747530676|Ana Maria|M|resources/views/dashboard.blade.php
+1747530676|Ana Maria|A|resources/views/products/edit.blade.php
+1747530676|Ana Maria|A|resources/views/products/index.blade.php
+1747530676|Ana Maria|M|routes/web.php
+1747618314|Gabriel|A|app/Http/Controllers/AddressController.php
+1747618314|Gabriel|A|app/Http/Controllers/SupplierController.php
+1747618314|Gabriel|A|app/Models/Address.php
+1747618314|Gabriel|A|app/Models/Supplier.php
+1747618443|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
+1747618443|Gabriel|M|resources/views/cadastro-produto.blade.php
+1747618443|Gabriel|M|resources/views/products/index.blade.php
+1747618443|Gabriel|M|routes/web.php
+1747689504|Ana Maria|M|app/Http/Controllers/ProductController.php
+1747689504|Ana Maria|M|resources/views/cadastro-produto.blade.php
+1747689504|Ana Maria|M|resources/views/products/index.blade.php
+1747689504|Ana Maria|M|routes/web.php
+1747766072|Gabriel|M|app/Http/Controllers/AddressController.php
+1747766072|Gabriel|M|app/Http/Controllers/SupplierController.php
+1747766072|Gabriel|M|app/Models/Supplier.php
+1747766072|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
+1747766072|Gabriel|M|routes/web.php
+1747869818|Gabriel|M|app/Http/Controllers/ProductController.php
+1747869818|Gabriel|M|app/Http/Controllers/SupplierController.php
+1747869818|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
+1747874815|Gabriel|M|app/Http/Controllers/ProductController.php
+1747874815|Gabriel|M|app/Http/Controllers/SupplierController.php
+1747874815|Gabriel|M|app/Models/Product.php
+1747874815|Gabriel|M|resources/views/cadastro-produto.blade.php
+1747874815|Gabriel|M|resources/views/dashboard.blade.php
+1747874815|Gabriel|M|routes/web.php
+1747874864|Gabriel|A|public/products/682e5d65264d9.png
+1747874864|Gabriel|M|resources/views/products/edit.blade.php
+1747874864|Gabriel|M|resources/views/products/index.blade.php
+1747874864|Gabriel|A|resources/views/suppliers/edit.blade.php
+1747874864|Gabriel|A|resources/views/suppliers/index.blade.php
+1748007318|Gabriel|M|app/Http/Controllers/SupplierController.php
+1748007318|Gabriel|M|resources/views/products/index.blade.php
+1748007318|Gabriel|M|resources/views/suppliers/index.blade.php
+1748007318|Gabriel|M|routes/web.php
+1748025824|Gabriel|M|resources/views/suppliers/index.blade.php
+1748025904|Gabriel|M|app/Http/Controllers/SupplierController.php
+1748025904|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
+1748025904|Gabriel|M|resources/views/suppliers/edit.blade.php
+1748286091|Gustavo|M|resources/views/admin/admin-dashboard.blade.php
+1748286091|Gustavo|M|resources/views/admin/gerar-cartao.blade.php
+1748286091|Gustavo|M|resources/views/cadastro-fornecedor.blade.php
+1748286091|Gustavo|M|resources/views/cadastro-funcionario.blade.php
+1748286091|Gustavo|M|resources/views/cadastro-produto.blade.php
+1748286091|Gustavo|M|resources/views/codigo-de-barras.blade.php
+1748286091|Gustavo|M|resources/views/dashboard.blade.php
+1748286091|Gustavo|M|resources/views/etiquetas.blade.php
+1748286091|Gustavo|M|resources/views/login.blade.php
+1748286091|Gustavo|M|resources/views/products/edit.blade.php
+1748286091|Gustavo|M|resources/views/products/index.blade.php
+1748372841|Gabriel|M|resources/views/codigo-de-barras.blade.php
+1748372841|Gabriel|M|routes/web.php
+1748375692|Gustavo|M|resources/views/products/index.blade.php
+1748540696|Gabriel|M|app/Http/Controllers/AddressController.php
+1748540696|Gabriel|M|app/Http/Controllers/SupplierController.php
+1748540696|Gabriel|M|app/Models/Address.php
+1748540696|Gabriel|M|app/Models/Supplier.php
+1748540696|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
+1748540696|Gabriel|M|resources/views/suppliers/edit.blade.php
+1748540696|Gabriel|M|resources/views/suppliers/index.blade.php
+1748558659|Ana Maria|M|app/Http/Controllers/EtiquetaController.php
+1748558659|Ana Maria|M|render.yaml
+1748558659|Ana Maria|M|resources/views/dashboard.blade.php
+1748558659|Ana Maria|A|resources/views/inputs/input.blade.php
+1748561406|Ana Maria|M|Dockerfile
+1748561406|Ana Maria|M|render.yaml
+1748561858|Ana Maria|M|Dockerfile
+1748562012|Ana Maria|M|Dockerfile
+1748562388|Ana Maria|M|composer.json
+1748562673|Ana Maria|M|Dockerfile
+1748562673|Ana Maria|M|render.yaml
+1748563013|Felipe|A|resources/views/entrada-saida.blade.php
+1748799869|Felipe|M|package-lock.json
+1748799869|Felipe|M|resources/views/cadastro-funcionario.blade.php
+1748799869|Felipe|M|resources/views/dashboard.blade.php
+1748799869|Felipe|M|resources/views/layouts/app.blade.php
+1748809166|Felipe|M|resources/views/layouts/app.blade.php
+1748878963|Ana Maria|M|gource/captions.txt
+1748878963|Ana Maria|M|gource/imagens/Ana Maria.jpeg
+1748878963|Ana Maria|M|gource/imagens/Felipe.jpeg
+1748878963|Ana Maria|M|gource/imagens/Gabriel.jpeg
+1748878963|Ana Maria|M|gource/imagens/Gustavo.jpeg
+1748878963|Ana Maria|M|gource/log_formatado.txt
+1748878963|Ana Maria|M|gource/users.txt
+1748891489|Gabriel|M|app/Http/Controllers/SupplierController.php
+1748891489|Gabriel|M|resources/views/suppliers/edit.blade.php
+1750559048|Felipe|M|resources/views/dashboard.blade.php
+1750559048|Felipe|M|resources/views/layouts/app.blade.php
+1750559048|Felipe|A|resources/views/layouts/css-variables.blade.php
+
+-------2bim
+
+1750734228|Felipe|M|resources/views/cadastro-fornecedor.blade.php
+1750734228|Felipe|M|resources/views/cadastro-funcionario.blade.php
+1750734228|Felipe|M|resources/views/cadastro-produto.blade.php
+1750734228|Felipe|M|resources/views/codigo-de-barras.blade.php
+1750734228|Felipe|M|resources/views/dashboard.blade.php
+1750734228|Felipe|M|resources/views/entrada-saida.blade.php
+1750734228|Felipe|M|resources/views/etiquetas.blade.php
+1750734228|Felipe|M|resources/views/layouts/app.blade.php
+1750734228|Felipe|M|resources/views/layouts/css-variables.blade.php
+1750734228|Felipe|M|resources/views/login.blade.php
+1750774864|Felipe|M|resources/views/dashboard.blade.php
+1751760969|Felipe|M|resources/views/dashboard.blade.php
+1751760969|Felipe|M|resources/views/entrada-saida.blade.php
+1751760969|Felipe|M|resources/views/layouts/app.blade.php
+1751760969|Felipe|M|resources/views/layouts/css-variables.blade.php
+1751760969|Felipe|M|routes/web.php
+1751767154|Felipe|M|resources/views/dashboard.blade.php
+1751767154|Felipe|M|resources/views/layouts/css-variables.blade.php
+1751913434|Isabela|A|app/Http/Middleware/SetLocale.php
+1751913434|Isabela|M|bootstrap/app.php
+1751913434|Isabela|M|config/app.php
+1751913434|Isabela|A|public/images/brazil.png
+1751913434|Isabela|A|public/images/us.png
+1751913434|Isabela|A|public/products/683e24d4132dc.jpg
+1751913434|Isabela|A|resources/lang/en/dashboard.php
+1751913434|Isabela|A|resources/lang/en/menu.php
+1751913434|Isabela|A|resources/lang/pt_BR/dashboard.php
+1751913434|Isabela|A|resources/lang/pt_BR/menu.php
+1751913434|Isabela|M|resources/views/cadastro-funcionario.blade.php
+1751913434|Isabela|M|resources/views/dashboard.blade.php
+1751913434|Isabela|M|resources/views/layouts/app.blade.php
+1751913434|Isabela|M|routes/web.php
+1751934662|Ana Maria|A|app/Http/Controllers/MovementController.php
+1751934662|Ana Maria|A|app/Models/Movement.php
+1751934662|Ana Maria|A|database/migrations/2025_05_31_172950_create_movements_table.php
+1751934662|Ana Maria|A|gource/log.txt
+1751934662|Ana Maria|D|gource/log_formatado.txt
+1751985879|Brenda|M|resources/views/cadastro-funcionario.blade.php
+1751985879|Brenda|M|resources/views/layouts/app.blade.php
+1751985879|Brenda|M|resources/views/products/index.blade.php
+1751985879|Brenda|M|resources/views/suppliers/index.blade.php
+1751986894|Brenda|M|resources/views/lote/detalhamento.blade.php
+1751989250|Brenda|M|resources/views/etiquetas.blade.php
+1752005756|Felipe|M|resources/views/layouts/app.blade.php
+1752323957|Gustavo|M|package-lock.json
+1752323957|Gustavo|M|resources/views/login.blade.php
+1752324221|Gustavo|A|public/css/Login.css
+1752324221|Gustavo|M|resources/views/login.blade.php
+1752324538|Gustavo|A|public/js/Login.js
+1752325383|Gustavo|M|public/js/Login.js
+1752325495|Gustavo|M|public/js/Login.js
+1752333130|Gustavo|M|.gitignore
+1752333130|Gustavo|M|composer.lock
+1752333130|Gustavo|M|public/css/Login.css
+1752333130|Gustavo|A|resources/views/layouts/carregamento.blade.php
+1752333130|Gustavo|M|resources/views/login.blade.php
+1752334661|Gustavo|M|resources/views/layouts/app.blade.php
+1752334661|Gustavo|M|resources/views/login.blade.php
+1752340482|Ana Maria|M|app/Http/Controllers/ProductController.php
+1752340482|Ana Maria|A|app/Models/SupplierOrder.php
+1752340482|Ana Maria|D|database/migrations/2025_05_31_172950_create_movements_table.php
+1752340482|Ana Maria|A|database/migrations/2025_05_31_172950_create_movements_table.php.bkp
+1752340482|Ana Maria|A|database/migrations/2025_07_12_153708_create_supplier_orders_table.php
+1752340482|Ana Maria|M|resources/views/layouts/app.blade.php
+1752340482|Ana Maria|A|resources/views/products/estoque-baixo.blade.php
+1752340482|Ana Maria|M|routes/web.php
+1752341326|Gustavo|A|public/css/app.css
+1752341326|Gustavo|A|public/css/cadastro-fornecedor.css
+1752341326|Gustavo|A|public/css/cadastro-funcionario.css
+1752341326|Gustavo|A|public/css/cadastro-produto.css
+1752341326|Gustavo|A|public/css/dashboard.css
+1752341326|Gustavo|A|public/css/entrada-saida.css
+1752341326|Gustavo|A|public/css/etiquetas.css
+1752341326|Gustavo|A|public/js/app.js
+1752341326|Gustavo|A|public/js/cadastro-fornecedor.js
+1752341326|Gustavo|A|public/js/cadastro-funcionario.js
+1752341326|Gustavo|A|public/js/cadastro-produto.js
+1752341326|Gustavo|A|public/js/codigo-de-barras.js
+1752341326|Gustavo|A|public/js/dashboard.js
+1752341326|Gustavo|A|public/js/entrada-saida.js
+1752341326|Gustavo|M|resources/views/cadastro-fornecedor.blade.php
+1752341326|Gustavo|M|resources/views/cadastro-funcionario.blade.php
+1752341326|Gustavo|M|resources/views/cadastro-produto.blade.php
+1752341326|Gustavo|M|resources/views/codigo-de-barras.blade.php
+1752341326|Gustavo|M|resources/views/dashboard.blade.php
+1752341326|Gustavo|M|resources/views/entrada-saida.blade.php
+1752341326|Gustavo|M|resources/views/etiquetas.blade.php
+1752341326|Gustavo|M|resources/views/layouts/app.blade.php
+1752341326|Gustavo|M|resources/views/login.blade.php
+1752343655|Ana Maria|A|app/Http/Controllers/SupplierOrderController.php
+1752343655|Ana Maria|M|app/Models/SupplierOrder.php
+1752343655|Ana Maria|A|resources/views/orders/index.blade.php
+1752343655|Ana Maria|M|resources/views/products/estoque-baixo.blade.php
+1752343655|Ana Maria|M|routes/web.php
+1752346646|Ana Maria|M|app/Http/Controllers/ProductController.php
+1752346646|Ana Maria|A|app/Mail/PedidoReposicaoMail.php
+1752346646|Ana Maria|A|resources/views/emails/pedido-reposicao.blade.php
+1752346646|Ana Maria|M|resources/views/layouts/app.blade.php
+1752346646|Ana Maria|M|resources/views/products/estoque-baixo.blade.php
+1752348730|Gustavo|M|app/Http/Controllers/AuthController.php
+1752348730|Gustavo|M|public/css/app.css
+1752348730|Gustavo|M|resources/views/layouts/app.blade.php
+1752348730|Gustavo|M|routes/web.php
+1752350517|Ana Maria|M|app/Http/Controllers/ProductController.php
+1752350517|Ana Maria|M|app/Http/Controllers/SupplierOrderController.php
+1752424015|Brenda|M|resources/views/products/estoque-baixo.blade.php
+1752427272|Brenda|M|resources/views/orders/index.blade.php
+1752427272|Brenda|M|resources/views/products/estoque-baixo.blade.php
+1752429036|Brenda|M|resources/views/admin/admin-dashboard.blade.php
+1752429244|Felipe|M|public/css/entrada-saida.css
+1752429244|Felipe|M|resources/views/entrada-saida.blade.php
+1752429244|Felipe|M|resources/views/layouts/app.blade.php
+1752429244|Felipe|M|routes/web.php
+1752429690|Brenda|M|resources/views/admin/gerar-cartao.blade.php
+1752433450|Gabriel|M|app/Http/Controllers/MovementController.php
+1752433450|Gabriel|M|resources/views/entrada-saida.blade.php
+1752433450|Gabriel|M|resources/views/products/index.blade.php
+1752433450|Gabriel|M|resources/views/suppliers/index.blade.php
+1752433645|Gabriel|M|.gitignore
+1752433645|Gabriel|M|app/Http/Controllers/AuthController.php
+1752433645|Gabriel|M|app/Http/Controllers/ProductController.php
+1752433645|Gabriel|A|app/Http/Controllers/SupplierOrderController.php
+1752433645|Gabriel|A|app/Mail/PedidoReposicaoMail.php
+1752433645|Gabriel|A|app/Models/SupplierOrder.php
+1752433645|Gabriel|M|composer.lock
+1752433645|Gabriel|D|database/migrations/2025_05_31_172950_create_movements_table.php
+1752433645|Gabriel|A|database/migrations/2025_05_31_172950_create_movements_table.php.bkp
+1752433645|Gabriel|A|database/migrations/2025_07_12_153708_create_supplier_orders_table.php
+1752433645|Gabriel|M|package-lock.json
+1752433645|Gabriel|A|public/css/Login.css
+1752433645|Gabriel|A|public/css/app.css
+1752433645|Gabriel|A|public/css/cadastro-fornecedor.css
+1752433645|Gabriel|A|public/css/cadastro-funcionario.css
+1752433645|Gabriel|A|public/css/cadastro-produto.css
+1752433645|Gabriel|A|public/css/dashboard.css
+1752433645|Gabriel|A|public/css/entrada-saida.css
+1752433645|Gabriel|A|public/css/etiquetas.css
+1752433645|Gabriel|A|public/js/Login.js
+1752433645|Gabriel|A|public/js/app.js
+1752433645|Gabriel|A|public/js/cadastro-fornecedor.js
+1752433645|Gabriel|A|public/js/cadastro-funcionario.js
+1752433645|Gabriel|A|public/js/cadastro-produto.js
+1752433645|Gabriel|A|public/js/codigo-de-barras.js
+1752433645|Gabriel|A|public/js/dashboard.js
+1752433645|Gabriel|A|public/js/entrada-saida.js
+1752433645|Gabriel|M|resources/views/admin/admin-dashboard.blade.php
+1752433645|Gabriel|M|resources/views/admin/gerar-cartao.blade.php
+1752433645|Gabriel|M|resources/views/cadastro-fornecedor.blade.php
+1752433645|Gabriel|M|resources/views/cadastro-funcionario.blade.php
+1752433645|Gabriel|M|resources/views/cadastro-produto.blade.php
+1752433645|Gabriel|M|resources/views/codigo-de-barras.blade.php
+1752433645|Gabriel|M|resources/views/dashboard.blade.php
+1752433645|Gabriel|A|resources/views/emails/pedido-reposicao.blade.php
+1752433645|Gabriel|M|resources/views/entrada-saida.blade.php
+1752433645|Gabriel|M|resources/views/etiquetas.blade.php
+1752433645|Gabriel|M|resources/views/layouts/app.blade.php
+1752433645|Gabriel|A|resources/views/layouts/carregamento.blade.php
+1752433645|Gabriel|M|resources/views/login.blade.php
+1752433645|Gabriel|A|resources/views/orders/index.blade.php
+1752433645|Gabriel|A|resources/views/products/estoque-baixo.blade.php
+1752433645|Gabriel|A|routes/web.php
+1752434181|Brenda|M|resources/views/suppliers/index.blade.php
+1752435026|Ana Maria|A|app/Http/Controllers/CompanyController.php
+1752435026|Ana Maria|A|app/Models/Company.php
+1752435026|Ana Maria|A|public/js/empresa.js
+1752435026|Ana Maria|M|resources/views/admin/admin-dashboard.blade.php
+1752435026|Ana Maria|A|resources/views/companies/create.blade.php
+1752435026|Ana Maria|A|resources/views/companies/index.blade.php
+1752435026|Ana Maria|M|routes/web.php
+1752435450|Gabriel|M|app/Http/Controllers/MovementController.php
+1752435450|Gabriel|A|public/products/687409747bc21.png
+1752435450|Gabriel|M|resources/views/entrada-saida.blade.php
+1752435450|Gabriel|M|routes/web.php
+1752435545|Gabriel|M|routes/web.php
+1752435614|Gabriel|M|routes/web.php
+1752436374|Brenda|M|resources/views/cadastro-fornecedor.blade.php
+1752437812|Gabriel|M|app/Http/Controllers/MovementController.php
+1752437812|Gabriel|M|resources/views/entrada-saida.blade.php
+1752437812|Gabriel|M|routes/web.php
+1752442904|Gabriel|M|app/Http/Controllers/MovementController.php
+1752442904|Gabriel|M|resources/views/entrada-saida.blade.php
+1752442904|Gabriel|M|routes/web.php
+1752448080|Felipe|M|app/Http/Controllers/MovementController.php
+1752448080|Felipe|M|public/css/entrada-saida.css
+1752448080|Felipe|M|resources/views/entrada-saida.blade.php
+1752448080|Felipe|M|resources/views/layouts/app.blade.php
+1752448080|Felipe|M|routes/web.php
+1752451558|Felipe|M|app/Http/Controllers/ProductController.php
+1752451558|Felipe|A|public/products/6874410f96fcc.jpg
+1752451558|Felipe|A|public/products/687442f597c7c.jpg
+1752451558|Felipe|M|resources/views/cadastro-produto.blade.php
+1752451687|Ana Maria|M|resources/views/layouts/app.blade.php
+1752452965|Felipe|M|app/Http/Controllers/MovementController.php
+1752452965|Felipe|M|app/Http/Controllers/ProductController.php
+1752452965|Felipe|A|public/products/68744ee7930ff.jpg
+1752452965|Felipe|M|resources/views/cadastro-produto.blade.php
+1752452965|Felipe|M|resources/views/entrada-saida.blade.php
+1752452965|Felipe|D|resources/views/products/edit.blade.php
+1752452965|Felipe|M|resources/views/products/index.blade.php
+1752454251|Isabela|A|resources/lang/en/products.php
+1752454251|Isabela|A|resources/lang/en/stock_movement.php
+1752454251|Isabela|A|resources/lang/pt_BR/products.php
+1752454251|Isabela|A|resources/lang/pt_BR/stock_movement.php
+1752454251|Isabela|M|resources/views/entrada-saida.blade.php
+1752454251|Isabela|M|resources/views/products/index.blade.php
+1752455361|Brenda|M|resources/views/cadastro-funcionario.blade.php
+1752455361|Brenda|M|resources/views/suppliers/index.blade.php
+1752455780|Brenda|M|resources/views/suppliers/edit.blade.php
+1752456441|Ana Maria|A|app/Http/Controllers/ContatoController.php
+1752456441|Ana Maria|M|resources/views/login.blade.php
+1752456441|Ana Maria|M|routes/web.php
+1752452965|Felipe|M|app/Http/Controllers/MovementController.php
+1752452965|Felipe|M|app/Http/Controllers/ProductController.php
+1752452965|Felipe|A|public/products/68744ee7930ff.jpg
+1752452965|Felipe|M|resources/views/cadastro-produto.blade.php
+1752452965|Felipe|M|resources/views/entrada-saida.blade.php
+1752452965|Felipe|D|resources/views/products/edit.blade.php
+1752452965|Felipe|M|resources/views/products/index.blade.php
+1752454251|Isabela|A|resources/lang/en/products.php
+1752454251|Isabela|A|resources/lang/en/stock_movement.php
+1752454251|Isabela|A|resources/lang/pt_BR/products.php
+1752454251|Isabela|A|resources/lang/pt_BR/stock_movement.php
+1752454251|Isabela|M|resources/views/entrada-saida.blade.php
+1752454251|Isabela|M|resources/views/products/index.blade.php
+1752455361|Brenda|M|resources/views/cadastro-funcionario.blade.php
+1752455361|Brenda|M|resources/views/suppliers/index.blade.php
+1752455780|Brenda|M|resources/views/suppliers/edit.blade.php
+1752456441|Ana Maria|A|app/Http/Controllers/ContatoController.php
+1752456441|Ana Maria|M|resources/views/login.blade.php
+1752456441|Ana Maria|M|routes/web.php
+1752457065|Brenda|M|resources/views/products/index.blade.php
+1752457166|Felipe|M|app/Http/Controllers/AdminController.php
+1752457166|Felipe|M|public/css/dashboard.css
+1752457166|Felipe|M|resources/views/dashboard.blade.php
+1752457166|Felipe|M|routes/web.php
+1752458364|Brenda|M|resources/views/cadastro-produto.blade.php
+1752461291|Felipe|M|app/Http/Controllers/AdminController.php
+1752461291|Felipe|A|public/products/687463f90b433.jpg
+1752461291|Felipe|A|ublic/products/6874642ac9b03.jpg
+1752461291|Felipe|A|public/products/6874644bd3b55.jpg
+1752461291|Felipe|M|resources/views/cadastro-produto.blade.php
+1752461291|Felipe|M|resources/views/dashboard.blade.php
+1752461291|Felipe|M|resources/views/products/index.blade.php
+1752504685|Felipe|M|resources/views/dashboard.blade.php
+1752506883|Ana Maria|M|gource/captions.txt
+1752506883|Ana Maria|M|gource/log.txt
+1752506883|Ana Maria|M|resources/views/admin/admin-dashboard.blade.php
+1752506883|Ana Maria|M|routes/web.php
+1752508835|Gabriel|M|app/Http/Controllers/MovementController.php
+1752508835|Gabriel|M|public/css/entrada-saida.css
+1752508835|Gabriel|M|resources/views/entrada-saida.blade.php
+1752509876|Isabela|M|config/app.php
+1752509876|Isabela|M|resources/lang/en/dashboard.php
+1752509876|Isabela|M|resources/lang/pt_BR/dashboard.php
+1752509876|Isabela|M|resources/views/dashboard.blade.php
+1752509876|Isabela|M|resources/views/products/index.blade.php
+1752510170|Brenda|M|resources/views/etiquetas.blade.php
+1752510170|Brenda|M|resources/views/lote/detalhamento.blade.php
+1752512395|Gabriel|M|app/Models/Product.php
+1752512395|Gabriel|A|public/products/68752d5d16954.png
+1752512395|Gabriel|M|resources/views/cadastro-produto.blade.php
+1752513390|Gabriel|M|resources/views/dashboard.blade.php
+1752514460|Brenda|M|resources/views/companies/create.blade.php
+1752514460|Brenda|M|resources/views/companies/index.blade.php
+1752514603|Gabriel|A|public/products/68753eebe8740.png
+1752521946|Felipe|M|public/css/app.css
+1752521946|Felipe|M|resources/views/cadastro-fornecedor.blade.php
+1752521946|Felipe|M|resources/views/cadastro-funcionario.blade.php
+1752521946|Felipe|M|resources/views/cadastro-produto.blade.php
+1752521946|Felipe|M|resources/views/etiquetas.blade.php
+1752521946|Felipe|M|resources/views/layouts/css-variables.blade.php
+1752521946|Felipe|M|resources/views/products/index.blade.php
+1752523138|Felipe|M|resources/views/cadastro-produto.blade.php
+1752523375|Brenda|M|resources/views/dashboard.blade.php
+1752524451|Felipe|M|resources/views/cadastro-produto.blade.php
+1752524451|Felipe|M|resources/views/products/index.blade.php
+
+---------3bim
+
+1752581104|Felipe|M|/app/Http/Controllers/ProductController.php
+1752581104|Felipe|M|/composer.json
+1752581104|Felipe|M|/composer.lock
+1752581104|Felipe|D|/public/products/682e5d65264d9.png
+1752581104|Felipe|A|/public/products/68763b6054663.jpg
+1752581104|Felipe|A|/public/products/68763bcc84047.jpg
+1752581104|Felipe|A|/public/products/68763c424ea03.jpg
+1752581104|Felipe|A|/public/products/68763c6a6fe8d.jpg
+1752581104|Felipe|A|/public/products/68763eed9a127.jpg
+1752581104|Felipe|M|/resources/views/cadastro-produto.blade.php
+1752581104|Felip|M|/resources/views/products/index.blade.php
+1752581104|Felipe|M|/routes/web.php
+1752582292|Felipe|M|/app/Http/Controllers/MovementController.php
+1752582292|Felipe|M|/resources/views/entrada-saida.blade.php
+1752591251|Felipe|M|/app/Http/Controllers/ProductController.php
+1752591251|Felipe|D|/public/products/68763eed9a127.jpg
+1752591251|Felipe|M|/resources/views/cadastro-produto.blade.php
+1752591251|Felipe|M|/resources/views/products/index.blade.php
+1752591251|Felipe|M|/routes/web.php
+1752596936|Felipe|M|/app/Http/Controllers/ProductController.php
+1752596936|Felipe|M|/resources/views/entrada-saida.blade.php
+1752627971|Felipe|M|/resources/views/cadastro-fornecedor.blade.php
+1752627971|Felipe|M|/resources/views/cadastro-funcionario.blade.php
+1752627971|Felipe|M|/resources/views/cadastro-produto.blade.php
+1752627971|Felipe|M|/resources/views/codigo-de-barras.blade.php
+1752627971|Felipe|M|/resources/views/companies/create.blade.php
+1752627971|Felipe|M|/resources/views/companies/index.blade.php
+1752627971|Felipe|A|/resources/views/components/btn-cancelar.blade.php
+1752627971|Felipe|A|/resources/views/components/btn-mais.blade.php
+1752627971|Felipe|A|/resources/views/components/btn-salvar.blade.php
+1752627971|Felipe|A|/resources/views/components/btn-tres-pontos.blade.php
+1752627971|Felipe|A|/resources/views/components/btn-voltar.blade.php
+1752627971|Felipe|M|/resources/views/entrada-saida.blade.php
+1752627971|Felipe|M|/resources/views/layouts/app.blade.php
+1752627971|Felipe|M|/resources/views/lote/detalhamento.blade.php
+1752627971|Felipe|M|/resources/views/products/index.blade.php
+1752627971|Felipe|M|/resources/views/suppliers/edit.blade.php
+1752627971|Felipe|M|/resources/views/suppliers/index.blade.php
+1752627971|Felipe|M|/routes/web.php
+1752758021|Felipe|M|/resources/views/cadastro-fornecedor.blade.php
+1752758021|Felipe|M|/resources/views/cadastro-funcionario.blade.php
+1752758021|Felipe|M|/resources/views/cadastro-produto.blade.php
+1752758021|Felipe|M|/resources/views/companies/create.blade.php
+1752758021|Felipe|M|/resources/views/companies/index.blade.php
+1752758021|Felipe|A|/resources/views/components/search-bar.blade.php
+1752758021|Felipe|M|/resources/views/entrada-saida.blade.php
+1752758021|Felipe|M|/resources/views/etiquetas.blade.php
+1752758021|Felipe|M|/resources/views/layouts/carregamento.blade.php
+1752758021|Felipe|M|/resources/views/layouts/css-variables.blade.php
+1752758021|Felipe|M|/resources/views/lote/detalhamento.blade.php
+1752758021|Felipe|M|/resources/views/orders/index.blade.php
+1752758021|Felipe|M|/resources/views/products/index.blade.php
+1752758021|Felipe|M|/resources/views/suppliers/edit.blade.php
+1752758021|Felipe|M|/resources/views/suppliers/index.blade.php
+1752796850|Felipe|M|/app/Http/Controllers/AdminController.php
+1752796850|Felipe|M|/app/Http/Controllers/ProductController.php
+1752796850|Felipe|M|/app/Http/Controllers/SupplierController.php
+1752796850|Felipe|A|/resources/views/components/paginacao.blade.php
+1752796850|Felipe|M|/resources/views/dashboard.blade.php
+1752796850|Felipe|M|/resources/views/products/estoque-baixo.blade.php
+1752796850|Felipe|M|/resources/views/products/index.blade.php
+1752796850|Felipe|M|/resources/views/suppliers/index.blade.php
+1754954364|Felipe|M|/app/Http/Controllers/AdminController.php
+1754954364|Felipe|M|/app/Http/Controllers/ProductController.php
+1754954364|Felipe|M|/resources/views/components/paginacao.blade.php
+1754954364|Felipe|M|/resources/views/layouts/app.blade.php
+1755259477|Ana Maria|A|/app/Helpers/CloudinaryHelper.php
+1755259477|Ana Maria|M|/app/Http/Controllers/ProductController.php
+1755259477|Ana Maria|M|/composer.json
+1755259477|Ana Maria|M|/composer.lock
+1755259477|Ana Maria|M|/config/app.php
+1755259477|Ana Maria|A|/config/cloudinary.php
+1755259477|Ana Maria|D|/public/products/682b9ac4d8995.jpeg
+1755259477|Ana Maria|D|/public/products/68307a783420f.png
+1755259477|Ana Maria|D|/public/products/683e24d4132dc.jpg
+1755259477|Ana Maria|D|/public/products/687409747bc21.png
+1755259477|Ana Maria|D|/public/products/6874410f96fcc.jpg
+1755259477|Ana Maria|D|/public/products/687442f597c7c.jpg
+1755259477|Ana Maria|D|/public/products/68744ee7930ff.jpg
+1755259477|Ana Maria|D|/public/products/687463f90b433.jpg
+1755259477|Ana Maria|D|/public/products/6874642ac9b03.jpg
+1755259477|Ana Maria|D|/public/products/6874644bd3b55.jpg
+1755259477|Ana Maria|D|/public/products/68752d5d16954.png
+1755259477|Ana Maria|D|/public/products/68753eebe8740.png
+1755259477|Ana Maria|D|/public/products/68763b6054663.jpg
+1755259477|Ana Maria|D|/public/products/68763bcc84047.jpg
+1755259477|Ana Maria|D|/public/products/68763c424ea03.jpg
+1755259477|Ana Maria|D|/public/products/68763c6a6fe8d.jpg
+1755259477|Ana Maria|M|/resources/views/dashboard.blade.php
+1755259477|Ana Maria|M|/resources/views/products/index.blade.php
+1755272037|Ana Maria|M|/routes/web.php
+1755274864|Ana Maria|M|/app/Http/Controllers/ProductController.php
+1755274864|Ana Maria|M|/resources/views/cadastro-produto.blade.php
+1755276549|Ana Maria|M|/app/Http/Controllers/AuthController.php
+1755276549|Ana Maria|M|/resources/views/layouts/app.blade.php
+1755276549|Ana Maria|M|/routes/web.php
+1755277027|Ana Maria|M|/resources/views/layouts/app.blade.php
+1755278889|Ana Maria|M|/resources/views/dashboard.blade.php
+1755303636|Ana Maria|M|/app/Http/Controllers/ProductController.php
+1755303636|Ana Maria|M|/resources/views/products/index.blade.php
+1755303636|Ana Maria|M|/resources/views/suppliers/index.blade.php
+1755304579|Ana Maria|M|/resources/views/cadastro-produto.blade.php
+1755377186|Ana Maria|A|/app/Http/Controllers/SaleController.php
+1755377186|Ana Maria|A|/app/Models/Sale.php
+1755377186|Ana Maria|A|/app/Models/SaleItem.php
+1755377186|Ana Maria|M|/resources/views/layouts/app.blade.php
+1755377186|Ana Maria|A|/resources/views/sales/create.blade.php
+1755377186|Ana Maria|M|/routes/web.php
+1755379989|Ana Maria|M|/app/Http/Controllers/ProductController.php
+1755381321|Felipe|M|/resources/views/layouts/app.blade.php
+1755381321|Felipe|M|/resources/views/sales/create.blade.php
+1755393146|Ana Maria|M|/resources/views/dashboard.blade.php
+1755394748|Ana Maria|M|/app/Http/Controllers/ProductController.php
+1755394748|Ana Maria|M|/resources/views/products/estoque-baixo.blade.php
+1755462459|Felipe|M|/app/Http/Controllers/SaleController.php
+1755462459|Felipe|M|/public/js/dashboard.js
+1755462459|Felipe|M|/resources/views/sales/create.blade.php
+1755469994|Gabriel|A|/app/Http/Controllers/BatchController.php
+1755469994|Gabriel|A|/app/Models/Batch.php
+1755469994|Gabriel|M|/app/Models/Product.php
+1755469994|Gabriel|M|/routes/web.php
+1755476095|Gabriel|M|/app/Http/Controllers/BatchController.php
+1755476095|Gabriel|M|/resources/views/cadastro-produto.blade.php
+1755476095|Gabriel|M|/resources/views/entrada-saida.blade.php
+1755478621|Brenda|M|/resources/views/etiquetas.blade.php
+1755478977|Brenda|M|/resources/views/companies/index.blade.php
+1755480156|Gabriel|M|/app/Http/Controllers/MovementController.php
+1755480156|Gabriel|M|/resources/views/entrada-saida.blade.php
+1755482691|Felipe|M|/app/Http/Controllers/MovementController.php
+1755482691|Felipe|M|/public/css/entrada-saida.css
+1755482691|Felipe|M|/resources/views/components/paginacao.blade.php
+1755482691|Felipe|M|/resources/views/entrada-saida.blade.php
+1755482691|Felipe|M|/resources/views/sales/create.blade.php
+1755485338|Isabela|A|/public/images/logologin.png
+1755485338|Isabela|A|/resources/lang/en/labels.php
+1755485338|Isabela|A|/resources/lang/en/lots.php
+1755485338|Isabela|A|/resources/lang/en/lowstock.php
+1755485338|Isabela|A|/resources/lang/en/order.php
+1755485338|Isabela|A|/resources/lang/en/pos.php
+1755485338|Isabela|A|/resources/lang/en/suppliers.php
+1755485338|Isabela|A|/resources/lang/en/suppliersregister.php
+1755485338|Isabela|A|/resources/lang/pt_BR/labels.php
+1755485338|Isabela|A|/resources/lang/pt_BR/lots.php
+1755485338|Isabela|A|/resources/lang/pt_BR/lowstock.php
+1755485338|Isabela|A|/resources/lang/pt_BR/order.php
+1755485338|Isabela|A|/resources/lang/pt_BR/pos.php
+1755485338|Isabela|A|/resources/lang/pt_BR/suppliers.php
+1755485338|Isabela|A|/resources/lang/pt_BR/suppliersregister.php
+1755485338|Isabela|M|/resources/views/cadastro-fornecedor.blade.php
+1755485338|Isabela|M|/resources/views/etiquetas.blade.php
+1755485338|Isabela|M|/resources/views/lote/detalhamento.blade.php
+1755485338|Isabela|M|/resources/views/orders/index.blade.php
+1755485338|Isabela|M|/resources/views/products/estoque-baixo.blade.php
+1755485338|Isabela|M|/resources/views/sales/create.blade.php
+1755485338|Isabela|M|/resources/views/suppliers/index.blade.php
+1755486450|Isabela|M|/resources/views/suppliers/index.blade.php
+1755559544|Isabela|M|/resources/lang/en/menu.php
+1755559544|Isabela|M|/resources/lang/pt_BR/menu.php
+1755559544|Isabela|M|/resources/views/admin/gerar-cartao.blade.php
+1755559544|Isabela|M|/resources/views/components/btn-cancelar.blade.php
+1755559544|Isabela|M|/resources/views/layouts/app.blade.php
+1755559544|Isabela|M|/resources/views/suppliers/index.blade.php
+1755701518|Isabela|M|/resources/lang/en/stock_movement.php
+1755701518|Isabela|M|/resources/lang/pt_BR/stock_movement.php
+1755701518|Isabela|M|/resources/views/entrada-saida.blade.php
+1755705748|Gabriel|M|/resources/views/entrada-saida.blade.php
+1755713166|Gabriel|M|/app/Http/Controllers/BatchController.php
+1755713166|Gabriel|M|/app/Models/Batch.php
+1755713166|Gabriel|M|/app/Models/Movement.php
+1755713166|Gabriel|M|/app/Models/Product.php
+1755713166|Gabriel|M|/resources/views/entrada-saida.blade.php
+1755713576|Isabela|M|/resources/lang/pt_BR/stock_movement.php
+1755803934|Gabriel|M|/app/Http/Controllers/AdminController.php
+1755803934|Gabriel|M|/app/Http/Controllers/BatchController.php
+1755803934|Gabriel|M|/app/Http/Controllers/MovementController.php
+1755803934|Gabriel|M|/app/Models/Movement.php
+1755803934|Gabriel|M|/resources/views/dashboard.blade.php
+1755803934|Gabriel|M|/resources/views/entrada-saida.blade.php
+1755976553|Gustavo|A|/public/css/create-company.css
+1755976553|Gustavo|M|/public/js/empresa.js
+1755976553|Gustavo|M|/resources/views/companies/create.blade.php
+1755989113|Gustavo|D|/public/css/create-company.css
+1755989113|Gustavo|M|/public/js/empresa.js
+1755989113|Gustavo|M|/resources/views/companies/create.blade.php
+1756079150|Felipe|M|/public/css/app.css
+1756079150|Felipe|M|/resources/views/components/btn-cancelar.blade.php
+1756079150|Felipe|M|/resources/views/layouts/app.blade.php
+1756084463|Gustavo|A|/public/css/companies-create.css
+1756084463|Gustavo|M|/public/js/empresa.js
+1756084463|Gustavo|M|/resources/views/companies/create.blade.php
+1756086375|Felipe|M|/app/Http/Controllers/AdminController.php
+1756086375|Felipe|M|/public/js/dashboard.js
+1756086375|Felipe|M|/resources/views/dashboard.blade.php
+1756086375|Felipe|M|/resources/views/layouts/css-variables.blade.php
+1756086375|Felipe|M|/routes/web.php
+1756086733|Felipe|M|/public/js/dashboard.js
+1756138265|Gustavo|M|/app/Http/Controllers/CompanyController.php
+1756138265|Gustavo|M|/public/css/companies-create.css
+1756138265|Gustavo|A|/public/js/companies-create.js
+1756138265|Gustavo|D|/public/js/empresa.js
+1756138265|Gustavo|M|/resources/views/companies/create.blade.php
+1756139033|Gustavo|M|/public/js/companies-create.js
+1756144885|Gabriel|M|/app/Http/Controllers/AdminController.php
+1756144885|Gabriel|M|/resources/views/dashboard.blade.php
+1756144885|Gabriel|M|/resources/views/entrada-saida.blade.php
+1756150352|Gabriel|M|/resources/views/entrada-saida.blade.php
+1756150485|Gustavo|M|/app/Http/Controllers/AuthController.php
+1756150485|Gustavo|M|/app/Http/Controllers/ContatoController.php
+1756150485|Gustavo|M|/public/css/Login.css
+1756150485|Gustavo|M|/public/js/Login.js
+1756150485|Gustavo|M|/resources/views/login.blade.php
+1756150567|Gustavo|M|/public/css/Login.css
+1756159626|Felipe|M|/app/Http/Controllers/AdminController.php
+1756159626|Felipe|M|/public/js/dashboard.js
+1756159626|Felipe|M|/resources/views/dashboard.blade.php
+1756162320|Felipe|M|/resources/lang/en/products.php
+1756162320|Felipe|M|/resources/lang/pt_BR/products.php
+1756162320|Felipe|M|/resources/views/cadastro-produto.blade.php
+1756162320|Felipe|M|/resources/views/products/index.blade.php
+1756162320|Felipe|M|/resources/views/suppliers/index.blade.php
+1756162373|Felipe|M|/resources/views/products/index.blade.php
+1756164460|Ana Maria|A|/app/Http/Controllers/SupportController.php
+1756164460|Ana Maria|M|/public/css/Login.css
+1756164460|Ana Maria|M|/resources/views/login.blade.php
+1756164460|Ana Maria|M|/routes/web.php
+1756168946|Gabriel|M|/app/Http/Controllers/BatchController.php
+1756168946|Gabriel|M|/app/Models/Batch.php
+1756168946|Gabriel|M|/resources/views/lote/detalhamento.blade.php
+1756168946|Gabriel|M|/routes/web.php
+1756245126|Gabriel|M|/app/Http/Controllers/AdminController.php
+1756248046|Gabriel|M|/resources/views/entrada-saida.blade.php
+1756250859|Felipe|M|/resources/views/admin/gerar-cartao.blade.php
+1756250859|Felipe|M|/resources/views/cadastro-fornecedor.blade.php
+1756250859|Felipe|M|/resources/views/cadastro-produto.blade.php
+1756250859|Felipe|M|/resources/views/companies/create.blade.php
+1756250859|Felipe|M|/resources/views/components/btn-voltar.blade.php
+1756250859|Felipe|M|/resources/views/lote/detalhamento.blade.php
+1756253652|Felipe|M|/resources/views/companies/index.blade.php
+1756253652|Felipe|M|/resources/views/components/btn-voltar.blade.php
+1756257247|Felipe|M|/public/css/app.css
+1756257247|Felipe|M|/public/css/companies-create.css
+1756257247|Felipe|M|/public/css/entrada-saida.css
+1756257247|Felipe|M|/resources/views/admin/gerar-cartao.blade.php
+1756257247|Felipe|M|/resources/views/components/btn-mais.blade.php
+1756257247|Felipe|M|/resources/views/components/btn-salvar.blade.php
+1756257247|Felipe|M|/resources/views/entrada-saida.blade.php
+1756257247|Felipe|M|/resources/views/etiquetas.blade.php
+1756257247|Felipe|M|/resources/views/lote/detalhamento.blade.php
+1756257247|Felipe|M|/resources/views/orders/index.blade.php
+1756257247|Felipe|M|/resources/views/products/estoque-baixo.blade.php
+1756257247|Felipe|M|/resources/views/suppliers/index.blade.php
+1756389488|Felipe|M|/app/Http/Controllers/ProductController.php
+1756389488|Felipe|M|/resources/views/products/index.blade.php
+1756733545|Felipe|M|/public/css/app.css
+1756733545|Felipe|M|/public/js/app.js
+1756733545|Felipe|M|/resources/views/layouts/app.blade.php
+1756733545|Felipe|M|/resources/views/products/estoque-baixo.blade.php
+1756733545|Felipe|M|/resources/views/products/index.blade.php
+1756736002|Felipe|M|/app/Http/Controllers/SaleController.php
+1756736002|Felipe|M|/resources/lang/en/pos.php
+1756736002|Felipe|M|/resources/lang/pt_BR/pos.php
+1756736002|Felipe|M|/resources/views/sales/create.blade.php
+1756746068|Gustavo|M|/public/css/companies-create.css
+1756746068|Gustavo|M|/public/js/companies-create.js
+1756746068|Gustavo|M|/resources/views/companies/create.blade.php
+1756746068|Gustavo|M|/resources/views/login.blade.php
+1756758583|Gustavo|M|/app/Http/Controllers/AddressController.php
+1756758583|Gustavo|M|/app/Http/Controllers/CompanyController.php
+1756758583|Gustavo|M|/app/Models/Address.php
+1756758583|Gustavo|M|/public/css/companies-create.css
+1756758583|Gustavo|M|/public/js/companies-create.js
+1756758583|Gustavo|M|/resources/views/companies/create.blade.php
+1756758583|Gustavo|M|/resources/views/login.blade.php
+1756761725|Isabela|A|/resources/lang/en/buttons.php
+1756761725|Isabela|M|/resources/lang/en/dashboard.php
+1756761725|Isabela|M|/resources/lang/en/menu.php
+1756761725|Isabela|M|/resources/lang/en/pos.php
+1756761725|Isabela|A|/resources/lang/en/productsregister.php
+1756761725|Isabela|M|/resources/lang/en/stock_movement.php
+1756761725|Isabela|A|/resources/lang/pt_BR/buttons.php
+1756761725|Isabela|M|/resources/lang/pt_BR/dashboard.php
+1756761725|Isabela|M|/resources/lang/pt_BR/menu.php
+1756761725|Isabela|A|/resources/lang/pt_BR/productsregister.php
+1756761725|Isabela|M|/resources/lang/pt_BR/stock_movement.php
+1756761725|Isabela|M|/resources/views/components/btn-cancelar.blade.php
+1756761725|Isabela|M|/resources/views/components/btn-mais.blade.php
+1756761725|Isabela|M|/resources/views/components/btn-salvar.blade.php
+1756761725|Isabela|M|/resources/views/components/btn-voltar.blade.php
+1756761725|Isabela|M|/resources/views/components/paginacao.blade.php
+1756761725|Isabela|M|/resources/views/dashboard.blade.php
+1756761725|Isabela|M|/resources/views/entrada-saida.blade.php
+1756761725|Isabela|M|/resources/views/layouts/app.blade.php
+1756770324|Gustavo|A|/app/Http/Controllers/UserController.php
+1756770324|Gustavo|M|/public/css/companies-create.css
+1756770324|Gustavo|M|/public/js/companies-create.js
+1756770324|Gustavo|M|/resources/views/companies/create.blade.php
+1756770324|Gustavo|M|/resources/views/login.blade.php
+1756770324|Gustavo|M|/routes/web.php
+1756771703|Felipe|M|/resources/views/login.blade.php
+1756772494|Gustavo|M|/public/js/companies-create.js
+1756772494|Gustavo|M|/resources/views/companies/create.blade.php
+1756773043|Gustavo|M|/app/Http/Controllers/CompanyController.php
+1756773043|Gustavo|M|/resources/views/login.blade.php
+1756774406|Isabela|A|/resources/lang/en/product_register.php
+1756774406|Isabela|D|/resources/lang/en/productsregister.php
+1756774406|Isabela|A|/resources/lang/pt_BR/product_register.php
+1756774406|Isabela|D|/resources/lang/pt_BR/productsregister.php
+1756774406|Isabela|M|/resources/views/cadastro-produto.blade.php
+1756774406|Isabela|M|/resources/views/login.blade.php
+1756846573|Ana Maria|M|/resources/views/login.blade.php
+1756848246|Ana Maria|M|/resources/views/cadastro-produto.blade.php
+1756849574|Ana Maria|M|/app/Http/Controllers/ProductController.php
+1756849574|Ana Maria|M|/composer.json
+1756849574|Ana Maria|M|/composer.lock
+1756923021|Felipe|M|/resources/views/cadastro-produto.blade.php
+1756923021|Felipe|M|/resources/views/layouts/app.blade.php
+1756923791|Gabriel|M|/app/Http/Controllers/ProductController.php
+1756923791|Gabriel|M|/resources/views/cadastro-produto.blade.php
+1756923791|Gabriel|M|/resources/views/dashboard.blade.php
+1756925991|Gabriel|M|/app/Http/Controllers/BatchController.php
+1756925991|Gabriel|M|/resources/views/lote/detalhamento.blade.php
+1756927533|Gabriel|M|/app/Http/Controllers/BatchController.php
+1756927533|Gabriel|M|/app/Models/Batch.php
+1756927533|Gabriel|M|/routes/web.php
+1756927975|Felipe|M|/resources/views/etiquetas.blade.php
+1756927975|Felipe|M|/resources/views/suppliers/index.blade.php
+1756929029|Felipe|M|/resources/views/products/estoque-baixo.blade.php
+1756930720|Felipe|M|/resources/views/cadastro-produto.blade.php
+1757030191|Felipe|M|/app/Http/Controllers/EtiquetaController.php
+1757030191|Felipe|M|/app/Http/Controllers/ProductController.php
+1757030191|Felipe|M|/public/css/dashboard.css
+1757030191|Felipe|M|/resources/views/cadastro-produto.blade.php
+1757030191|Felipe|A|/resources/views/components/explanation.blade.php
+1757030191|Felipe|M|/resources/views/layouts/app.blade.php
+1757030191|Felipe|M|/resources/views/products/index.blade.php
+1757036479|Felipe|M|/resources/views/layouts/app.blade.php
+1757036479|Felipe|M|/resources/views/layouts/css-variables.blade.php
+1757081725|Gabriel|M|/app/Http/Controllers/BatchController.php
+1757081725|Gabriel|M|/resources/views/lote/detalhamento.blade.php
+1757081725|Gabriel|M|/routes/web.php
+1757094190|Gabriel|M|/app/Http/Controllers/BatchController.php
+1757094190|Gabriel|M|/resources/views/lote/detalhamento.blade.php
+1757113684|Gabriel|M|/app/Http/Controllers/BatchController.php
+1757113684|Gabriel|M|/resources/views/lote/detalhamento.blade.php
+1757372946|Ana Maria|M|/resources/views/sales/create.blade.php
+1757438988|Felipe|M|/app/Http/Controllers/ProductController.php
+1757438988|Felipe|M|/resources/views/cadastro-produto.blade.php
+1757857895|Ana Maria|M|/app/Http/Controllers/UserController.php
+1757857895|Ana Maria|A|/app/Mail/SenhaVencidaMail.php
+1757857895|Ana Maria|A|/resources/views/emails/senha_vencida.blade.php
+1757857895|Ana Maria|M|/resources/views/login.blade.php
+1757857895|Ana Maria|M|/routes/web.php
+1757864492|Ana Maria|M|/app/Http/Controllers/AuthController.php
+1757864492|Ana Maria|M|/app/Http/Controllers/UserController.php
+1757864492|Ana Maria|M|/app/Models/User.php
+1757864492|Ana Maria|M|/public/css/Login.css
+1757864492|Ana Maria|M|/resources/views/login.blade.php
+1757864492|Ana Maria|M|/routes/web.php
+1757986130|Gustavo|M|/app/Http/Controllers/UserController.php
+1757986130|Gustavo|M|/composer.json
+1757986130|Gustavo|M|/composer.lock
+1757986130|Gustavo|M|/public/css/Login.css
+1757986130|Gustavo|M|/public/js/Login.js
+1757986130|Gustavo|M|/resources/views/login.blade.php
+1757990252|Gustavo|M|/public/css/companies-create.css
+1757990252|Gustavo|M|/public/js/companies-create.js
+1757990252|Gustavo|M|/resources/views/companies/create.blade.php
+1757990252|Gustavo|M|/resources/views/login.blade.php
+1758419320|Isabela|M|/public/css/Login.css
+1758419320|Isabela|A|/resources/lang/en/login.php
+1758419320|Isabela|M|/resources/lang/en/menu.php
+1758419320|Isabela|M|/resources/lang/en/products.php
+1758419320|Isabela|A|/resources/lang/en/warning.php
+1758419320|Isabela|A|/resources/lang/pt_BR/login.php
+1758419320|Isabela|M|/resources/lang/pt_BR/menu.php
+1758419320|Isabela|M|/resources/lang/pt_BR/products.php
+1758419320|Isabela|A|/resources/lang/pt_BR/warning.php
+1758419320|Isabela|M|/resources/views/layouts/app.blade.php
+1758419320|Isabela|M|/resources/views/layouts/carregamento.blade.php
+1758419320|Isabela|M|/resources/views/login.blade.php
+1758419320|Isabela|M|/resources/views/products/index.blade.php
+1758422079|Gustavo|M|/public/js/companies-create.js
+1758422079|Gustavo|M|/resources/views/companies/create.blade.php
+1758423901|Gustavo|M|/public/js/companies-create.js
+1758423901|Gustavo|M|/resources/views/companies/create.blade.php
+1758425065|Gustavo|M|/public/js/companies-create.js
+1758425746|Gustavo|M|/public/js/companies-create.js
+1758438197|Gustavo|M|/app/Http/Controllers/UserController.php
+1758438197|Gustavo|M|/public/css/companies-create.css
+1758438197|Gustavo|A|/public/js/companies-create-js/api.js
+1758438197|Gustavo|A|/public/js/companies-create-js/events.js
+1758438197|Gustavo|A|/public/js/companies-create-js/globals.js
+1758438197|Gustavo|A|/public/js/companies-create-js/password.js
+1758438197|Gustavo|A|/public/js/companies-create-js/ui.js
+1758438197|Gustavo|A|/public/js/companies-create-js/utils.js
+1758438197|Gustavo|D|/public/js/companies-create.js
+1758438197|Gustavo|M|/resources/views/companies/create.blade.php
+1758438197|Gustavo|M|/routes/web.php
+1758446049|Gustavo|M|/public/js/companies-create-js/api.js
+1758446049|Gustavo|M|/public/js/companies-create-js/events.js
+1758446049|Gustavo|M|/resources/views/admin/admin-dashboard.blade.php
+1758458656|Ana Maria|M|/app/Http/Controllers/AuthController.php
+1758458656|Ana Maria|M|/resources/views/layouts/app.blade.php
+1758458656|Ana Maria|M|/routes/web.php
+1758463154|Ana Maria|M|/resources/views/cadastro-fornecedor.blade.php
+1758463154|Ana Maria|M|/resources/views/cadastro-produto.blade.php
+1758463154|Ana Maria|A|/resources/views/components/alert-modal.blade.php
+1758463154|Ana Maria|M|/resources/views/layouts/app.blade.php
+1758463154|Ana Maria|M|/resources/views/orders/index.blade.php
+1758463154|Ana Maria|M|/resources/views/suppliers/index.blade.php
+1758475180|Ana Maria|M|/app/Http/Controllers/BatchController.php
+1758475180|Ana Maria|M|/app/Http/Controllers/ProductController.php
+1758475180|Ana Maria|M|/resources/views/layouts/app.blade.php
+1758475180|Ana Maria|A|/resources/views/products/acompanhamento-validade.blade.php
+1758475180|Ana Maria|M|/routes/web.php
+1758503056|Gustavo|A|/public/js/app-js/app.js
+1758503056|Gustavo|A|/public/js/app-js/password.js
+1758503056|Gustavo|D|/public/js/app.js
+1758503056|Gustavo|M|/resources/views/layouts/app.blade.php
+1758503056|Gustavo|M|/resources/views/layouts/css-variables.blade.php
+1758571851|Gabriel|M|/app/Http/Controllers/CompanyController.php
+1758587375|Gustavo|M|/resources/views/layouts/app.blade.php
+1758592688|Ana Maria|A|/public/js/products-create-js/image.js
+1758592688|Ana Maria|A|/public/js/products-create-js/utils.js
+1758592688|Ana Maria|M|/resources/views/cadastro-produto.blade.php
+1758593894|Felipe|M|/public/css/app.css
+1758593894|Felipe|M|/resources/views/sales/create.blade.php
+1758666508|Ana Maria|A|/public/js/supplier-create-js/utils.js
+1758666508|Ana Maria|M|/resources/views/cadastro-fornecedor.blade.php
+1758715033|Gabriel|M|/app/Http/Controllers/CompanyController.php
+1758715033|Gabriel|M|/app/Http/Controllers/ProductController.php
+1758715033|Gabriel|M|/app/Models/Product.php
+1758715033|Gabriel|M|/public/css/app.css
+1758715033|Gabriel|M|/resources/views/cadastro-produto.blade.php
+1758715033|Gabriel|M|/resources/views/companies/create.blade.php
+1758715033|Gabriel|M|/resources/views/products/index.blade.php
+1758715033|Gabriel|M|/routes/web.php
+1758741419|Felipe|M|/public/js/dashboard.js
+1758741419|Felipe|M|/resources/views/sales/create.blade.php
+1758746343|Felipe|M|/resources/views/cadastro-produto.blade.php
+1758746343|Felipe|M|/resources/views/sales/create.blade.php
+1758746761|Felipe|M|/resources/views/products/index.blade.php
+1758761912|Ana Maria|M|/app/Http/Controllers/AuthController.php
+1758761912|Ana Maria|M|/resources/views/login.blade.php
+1758762648|Gabriel|M|/app/Http/Controllers/MovementController.php
+1758762648|Gabriel|M|/resources/views/entrada-saida.blade.php
+1758762648|Gabriel|M|/resources/views/login.blade.php
+1758763471|Ana Maria|M|/resources/views/companies/create.blade.php
+1758763471|Ana Maria|M|/resources/views/layouts/app.blade.php
+1758763592|Gabriel|M|/resources/views/entrada-saida.blade.php
+1758764641|Ana Maria|M|/resources/views/components/alert-modal.blade.php
+1758764747|Gabriel|M|/resources/views/entrada-saida.blade.php
+1758765333|Ana Maria|M|/resources/views/layouts/app.blade.php
+1758778621|Gustavo|M|/public/js/companies-create-js/api.js
+1758778621|Gustavo|M|/public/js/companies-create-js/events.js
+1758778621|Gustavo|M|/public/js/companies-create-js/globals.js
+1758778621|Gustavo|M|/resources/views/companies/create.blade.php
+1758782296|Gustavo|M|/public/css/companies-create.css
+1758782296|Gustavo|M|/public/js/companies-create-js/password.js
+1758782296|Gustavo|M|/resources/views/companies/create.blade.php
+1758808566|Felipe|M|/public/js/dashboard.js
+1758808566|Felipe|M|/resources/views/dashboard.blade.php
+1758808566|Felipe|M|/resources/views/layouts/app.blade.php
+1758808566|Felipe|M|/resources/views/layouts/css-variables.blade.php
+1758808566|Felipe|M|/resources/views/sales/create.blade.php
+1758811318|Gabriel|M|/resources/views/entrada-saida.blade.php
+1758813007|Isabela|M|/resources/lang/en/menu.php
+1758813007|Isabela|A|/resources/lang/en/tracking.php
+1758813007|Isabela|M|/resources/lang/pt_BR/menu.php
+1758813007|Isabela|A|/resources/lang/pt_BR/tracking.php
+1758813007|Isabela|M|/resources/views/layouts/app.blade.php
+1758813007|Isabela|M|/resources/views/products/acompanhamento-validade.blade.php
+1758813007|Isabela|M|/resources/views/sales/create.blade.php

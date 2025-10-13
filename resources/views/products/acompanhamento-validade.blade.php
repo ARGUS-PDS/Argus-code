@@ -121,6 +121,12 @@ h2 {
           <tbody>
           </tbody>
         </table>
+        <div id="loadingProdutos" class="text-center my-3" style="display:none;">
+            <div class="spinner-border text-danger" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+            <p class="mt-2" style="color: var(--color-vinho); font-weight: bold;">Carregando produtos...</p>
+        </div>
       </div>
     </div>
   </div>
@@ -145,23 +151,37 @@ $(document).ready(function() {
     const modalProdutos = new bootstrap.Modal(document.getElementById('modalProdutos'));
 
     produtoInput.dblclick(function() {
-        modalProdutos.show();
+    modalProdutos.show();
 
-        $.get("{{ route('products.lista') }}", function(data) {
-            const tbody = $("#tabelaProdutos tbody");
-            tbody.empty();
-            data.forEach(prod => {
-                const tr = $("<tr>").css("cursor","pointer")
-                                     .html(`<td>${prod.description}</td><td>${prod.code || "-"}</td>`)
-                                     .click(function() {
-                                        produtoInput.val(prod.description); 
-                                        modalProdutos.hide();
-                                        carregarLotes(prod.description);
-                                    });
-                tbody.append(tr);
-            });
+    const tbody = $("#tabelaProdutos tbody");
+    const loading = $("#loadingProdutos");
+
+    tbody.empty();
+    loading.show();
+
+    $.get("{{ route('products.lista') }}", function(data) {
+        loading.hide(); 
+        if (!data.length) {
+            tbody.html('<tr><td colspan="2" class="text-center text-muted">Nenhum produto encontrado.</td></tr>');
+            return;
+        }
+
+        data.forEach(prod => {
+            const tr = $("<tr>")
+                .css("cursor","pointer")
+                .html(`<td>${prod.description}</td><td>${prod.code || "-"}</td>`)
+                .click(function() {
+                    produtoInput.val(prod.description);
+                    modalProdutos.hide();
+                    carregarLotes(prod.description);
+                });
+            tbody.append(tr);
         });
+    }).fail(function() {
+        loading.hide();
+        tbody.html('<tr><td colspan="2" class="text-center text-danger">Erro ao carregar produtos.</td></tr>');
     });
+});
 
     function carregarLotes(produto) {
         tabelaLotes.empty();
@@ -187,6 +207,7 @@ $(document).ready(function() {
                     });
                 } else {
                     alert(res.message || "{{ __('tracking.no_batches_found') }}");
+                    produtoInput.val(''); 
                 }
             },
             error: function() {

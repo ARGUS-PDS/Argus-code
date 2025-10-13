@@ -3,3 +3,5 @@ glunamaia@gmail.com=Gabriel|gource/imagens/gabriel.jpeg
 gustavoemiliano2014@gmail.com=Gustavo|gource/imagens/gustavo.jpeg
 jotec@jotec-OptiPlex-755=Ana Maria|gource/imagens/ana.jpeg
 maria.costa1@aluno.ifsp.edu.br=Ana Maria|gource/imagens/ana.jpeg
+isabelacrestane@gmail.com=Isabela|gource/imagens/Isabela.jpg
+brendagironbarbosa2007@gmail.com=Brenda|gource/imagens/Brenda.jpg

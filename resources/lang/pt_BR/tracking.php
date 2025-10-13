@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Acompanhamento de Validade',
-    'search_placeholder' => 'Pesquise o produto...',
+    'search_placeholder' => 'Clique duas vezes para pesquisar o produto...',
     'search_button' => 'Buscar',
     'batch' => 'Lote',
     'product' => 'Produto',
