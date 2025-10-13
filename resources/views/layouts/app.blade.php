@@ -902,6 +902,20 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{{ asset('js/app-js/app.js') }}"></script>
+
+  <script>
+    window.translations = {
+        password_generated: "{{ __('password.password_generated') }}",
+        password_strength_very_weak: "{{ __('password.password_strength_very_weak') }}",
+        password_strength_weak: "{{ __('password.password_strength_weak') }}",
+        password_strength_medium: "{{ __('password.password_strength_medium') }}",
+        password_strength_strong: "{{ __('password.password_strength_strong') }}",
+        password_match: "{{ __('password.password_match') }}",
+        password_mismatch: "{{ __('password.password_mismatch') }}",
+        password_invalid: "{{ __('password.password_invalid') }}"
+    };
+</script>
+
   <script src="{{ asset('js/app-js/password.js') }}"></script>
 
   <script>
