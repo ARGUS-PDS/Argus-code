@@ -63,7 +63,7 @@
   </nav>
 
   <section class="hero" id="home">
-    <img src="{{ asset('images/landpage-hero.png') }}" alt="Estoque organizado" class="hero-bg">
+    <img src="{{ asset('images/landpage-hero-image.png') }}" alt="Estoque organizado" class="hero-bg">
     <div class="hero-content">
       <h1>{{ __('landpage.hero_title') }} <span>ARGUS</span></h1>
       <p>{{ __('landpage.hero_subtitle') }}</p>
